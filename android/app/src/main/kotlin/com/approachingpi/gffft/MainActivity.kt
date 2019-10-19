@@ -1,4 +1,4 @@
-package com.example.gffft
+package com.approachingpi.gffft
 
 import android.os.Bundle
 

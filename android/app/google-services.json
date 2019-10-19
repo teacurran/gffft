@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "248661822187",
+    "firebase_url": "https://gffft-auth.firebaseio.com",
+    "project_id": "gffft-auth",
+    "storage_bucket": "gffft-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248661822187:android:09493f0b05269192c08cae",
+        "android_client_info": {
+          "package_name": "com.approachingpi.gffft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChnlufnbxBnvX2PvEcnmS7P18f1yBL9NM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "248661822187-17bbqptm8rqd8osai57aurdocnjs7frs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.approachingpi.gffft"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
