@@ -44,7 +44,7 @@ packages:
     source: hosted
     version: "5.0.2"
   firebase_auth:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_auth
       url: "https://pub.dartlang.org"
@@ -57,7 +57,35 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.0+9"
+  firebase_database:
+    dependency: "direct main"
+    description:
+      name: firebase_database
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.7"
   flutter:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_facebook_login:
+    dependency: transitive
+    description:
+      name: flutter_facebook_login
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
+  flutter_firebase_ui:
+    dependency: "direct main"
+    description:
+      path: "packages/flutter_firebase_ui"
+      ref: HEAD
+      resolved-ref: b56ae4f3dc72fe146daef17a4e8ea63f7bbc675a
+      url: "git@github.com:adamkoch/flutter_plugins.git"
+    source: git
+    version: "0.0.14"
+  flutter_localizations:
     dependency: "direct main"
     description: flutter
     source: sdk
@@ -67,6 +95,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  google_sign_in:
+    dependency: transitive
+    description:
+      name: google_sign_in
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.7"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.8"
   matcher:
     dependency: transitive
     description:
