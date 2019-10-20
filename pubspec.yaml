@@ -40,6 +40,7 @@ dependencies:
     git:
       url: git@github.com:adamkoch/flutter_plugins.git
       path: packages/flutter_firebase_ui
+  flutter_facebook_login: ^3.0.0
 
 dev_dependencies:
   flutter_test:

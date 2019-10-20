@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_ui/flutter_firebase_ui.dart';
 import 'package:flutter_firebase_ui/l10n/localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 void main() => runApp(new MyApp());
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -59,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         providers: [
-          ProvidersTypes.google,
           ProvidersTypes.email
         ],
       );
@@ -77,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+
 class HomeScreen extends StatelessWidget {
   final FirebaseUser user;
   HomeScreen({this.user});
