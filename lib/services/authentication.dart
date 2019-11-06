@@ -13,6 +13,8 @@ abstract class BaseAuth {
   Future<void> signOut();
 
   Future<bool> isEmailVerified();
+
+  Future<void> sendPhoneVerification(String phoneNumber);
 }
 
 class Auth implements BaseAuth {
@@ -39,6 +41,25 @@ class Auth implements BaseAuth {
 
   Future<void> signOut() async {
     return _firebaseAuth.signOut();
+  }
+
+  Future<void> sendPhoneVerification(String phoneNumber) async {
+    _firebaseAuth.verifyPhoneNumber(phoneNumber: phoneNumber,
+        timeout: new Duration(seconds: 60),
+        codeSent: (String code, [int _code]) {
+          print(code);
+          print(_code);
+        },
+        verificationCompleted: (AuthCredential credentials) {
+          print(credentials);
+        },
+        verificationFailed: (AuthException exception) {
+          print(exception.message);
+        },
+        codeAutoRetrievalTimeout: (String c) {
+          print(c);
+        }
+      );
   }
 
   Future<void> sendEmailVerification() async {

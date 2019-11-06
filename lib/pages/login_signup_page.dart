@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gffft/services/authentication.dart';
 
 class LoginSignupPage extends StatefulWidget {
@@ -6,20 +7,25 @@ class LoginSignupPage extends StatefulWidget {
 
   final BaseAuth auth;
   final VoidCallback loginCallback;
-
+  
   @override
   State<StatefulWidget> createState() => new _LoginSignupPageState();
 }
 
 class _LoginSignupPageState extends State<LoginSignupPage> {
+  static const String STEP_LOGIN = 'login';
+  static const String STEP_PHONE = 'phone';
+  static const String STEP_EMAIL = 'email';
+
   final _formKey = new GlobalKey<FormState>();
 
+  String _phoneNumber;
   String _email;
   String _password;
   String _errorMessage;
 
-    bool _isLoginForm;
   bool _isLoading;
+  String _step = STEP_LOGIN;
 
   // Check if form is valid before perform login or signup
   bool validateAndSave() {
@@ -40,7 +46,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     if (validateAndSave()) {
       String userId = "";
       try {
-        if (_isLoginForm) {
+        if (_step == STEP_LOGIN) {
           userId = await widget.auth.signIn(_email, _password);
           print('Signed in: $userId');
         } else {
@@ -53,7 +59,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           _isLoading = false;
         });
 
-        if (userId.length > 0 && userId != null && _isLoginForm) {
+        if (userId.length > 0 && userId != null && _step == STEP_LOGIN) {
           widget.loginCallback();
         }
       } catch (e) {
@@ -71,19 +77,24 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   void initState() {
     _errorMessage = "";
     _isLoading = false;
-    _isLoginForm = true;
+    _step = STEP_LOGIN;
     super.initState();
   }
 
   void resetForm() {
     _formKey.currentState.reset();
     _errorMessage = "";
+    _isLoading = false;
   }
 
   void toggleFormMode() {
     resetForm();
     setState(() {
-      _isLoginForm = !_isLoginForm;
+      if (_step == STEP_LOGIN) {
+        _step = STEP_PHONE;
+      } else {
+        _step = STEP_LOGIN;
+      }
     });
   }
 
@@ -141,16 +152,24 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           key: _formKey,
           child: new ListView(
             shrinkWrap: true,
-            children: <Widget>[
-              showLogo(),
-              showEmailInput(),
-              showPasswordInput(),
-              showPrimaryButton(),
-              showSecondaryButton(),
-              showErrorMessage(),
-            ],
+            children: getFormWidgets()
           ),
         ));
+  }
+
+  List<Widget> getFormWidgets() {
+    var widgets = new List<Widget>();
+    widgets.add(showLogo());
+    if (_step == STEP_PHONE) {
+      widgets.add(showPhoneInput());
+    } else {
+      widgets.add(showEmailInput());
+      widgets.add(showPasswordInput());
+    }
+    widgets.add(showPrimaryButton());
+    widgets.add(showSecondaryButton());
+    widgets.add(showErrorMessage());
+    return widgets;
   }
 
   Widget showErrorMessage() {
@@ -180,6 +199,42 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           radius: 48.0,
           child: Image.asset('assets/flutter-icon.png'),
         ),
+      ),
+    );
+  }
+
+  Widget showPhoneInput() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 80),
+              child: TextFormField(
+                initialValue: '+01',
+                readOnly: true,
+                decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.phone,
+                    color: Colors.grey
+                  )
+                ),
+              )),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 5),
+            child: Container(),
+          ),
+          Expanded(
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  WhitelistingTextInputFormatter.digitsOnly
+                ],
+                validator: (value) => value.isEmpty ? 'Phone number can\'t be empty' : null,
+                onSaved: (value) => _phoneNumber = value.trim(),
+              ))
+        ],
       ),
     );
   }
@@ -225,7 +280,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget showSecondaryButton() {
     return new FlatButton(
         child: new Text(
-            _isLoginForm ? 'Create an account' : 'Have an account? Sign in',
+            _step == STEP_LOGIN ? 'Create an account' : 'Have an account? Sign in',
             style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
         onPressed: toggleFormMode);
   }
@@ -240,7 +295,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0)),
             color: Colors.blue,
-            child: new Text(_isLoginForm ? 'Login' : 'Create account',
+            child: new Text(_step == STEP_LOGIN ? 'Login' : 'Create account',
                 style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
           ),
