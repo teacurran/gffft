@@ -20,6 +20,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   final _formKey = new GlobalKey<FormState>();
 
   String _phoneNumber;
+  String _phoneNumberPrefix;
   String _email;
   String _password;
   String _errorMessage;
@@ -50,7 +51,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           userId = await widget.auth.signIn(_email, _password);
           print('Signed in: $userId');
         } else {
-          userId = await widget.auth.signUp(_email, _password);
+          String fullPhone = '$_phoneNumberPrefix$_phoneNumber';
+          print('starting verification for phone number: $fullPhone');
+          await widget.auth.sendPhoneVerification(fullPhone);
+
+          _step = STEP_LOGIN;
           //widget.auth.sendEmailVerification();
           //_showVerifyEmailSentDialog();
           print('Signed up user: $userId');
@@ -212,7 +217,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 80),
               child: TextFormField(
-                initialValue: '+01',
+                initialValue: '+1',
                 readOnly: true,
                 decoration: InputDecoration(
                   icon: Icon(
@@ -220,6 +225,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                     color: Colors.grey
                   )
                 ),
+                onSaved: (value) => _phoneNumberPrefix = value.trim(),
               )),
           ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 5),
