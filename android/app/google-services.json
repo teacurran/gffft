@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "248661822187-ocsfb0tn4jutid487uao3v7l5pdhli1a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.approachingpi.gffft",
+            "certificate_hash": "9a23c924836e2e8b1d4336ce4d33195a7acd7029"
+          }
+        },
+        {
           "client_id": "248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com",
           "client_type": 3
         }
