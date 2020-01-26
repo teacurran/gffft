@@ -9,8 +9,12 @@ class AuthBlocProvider extends InheritedWidget {
   bool updateShouldNotify(_) => true;
 
   static AuthBloc of(BuildContext context) {
+    // todo: should be using this new method, figure out why not. might need some other way to search for AuthBlocProvider
+    // final newValue = context.dependOnInheritedWidgetOfExactType();
+
     return (context.inheritFromWidgetOfExactType(AuthBlocProvider)
     as AuthBlocProvider)
         .bloc;
+
   }
 }

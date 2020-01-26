@@ -31,28 +31,25 @@ class AuthScreenState extends State<AuthScreen> {
     /// we find the matching dialcode for the phone's locale.
     List<CountryCode> elements = codes
         .map((s) => CountryCode(
-      name: "",
-      code: s['code'],
-      dialCode: s['dial_code'],
-      flagUri: "",
-    ))
+              name: "",
+              code: s['code'],
+              dialCode: s['dial_code'],
+              flagUri: "",
+            ))
         .toList();
-    String dialCode =
-        elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
+    String dialCode = elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
     _bloc.changeDialCode(dialCode);
   }
 
   void initDynamicLinks() async {
-    final PendingDynamicLinkData data =
-    await FirebaseDynamicLinks.instance.getInitialLink();
+    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri deepLink = data?.link;
 
     if (deepLink != null) {
       /// Change status to a loading state, so user would not get confused even for a second.
       _bloc.changeAuthStatus(AuthStatus.isLoading);
       _bloc
-          .signInWIthEmailLink(
-          await _bloc.getUserEmailFromStorage(), deepLink.toString())
+          .signInWIthEmailLink(await _bloc.getUserEmailFromStorage(), deepLink.toString())
           .whenComplete(() => _authCompleted());
     }
   }
@@ -81,7 +78,17 @@ class AuthScreenState extends State<AuthScreen> {
                     return _authForm(false);
                     break;
                   case (AuthStatus.emailLinkSent):
-                    return Center(child: Text(Constants.sentEmail));
+                    return Column(children: <Widget>[
+                      Center(child: Text(Constants.sentEmail)),
+                      GestureDetector(
+                          onTap: () => _bloc.changeAuthStatus(AuthStatus.emailAuth),
+                          child: Text(
+                            "Enter another email address",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ]);
                     break;
                   case (AuthStatus.smsSent):
                     return _smsCodeInputField();
@@ -90,7 +97,7 @@ class AuthScreenState extends State<AuthScreen> {
                     return Center(child: CircularProgressIndicator());
                     break;
                   default:
-                  // By default we will show the email auth form
+                    // By default we will show the email auth form
                     return _authForm(true);
                     break;
                 }
@@ -109,34 +116,24 @@ class AuthScreenState extends State<AuthScreen> {
         stream: isEmail ? _bloc.email : _bloc.phone,
         builder: (context, snapshot) {
           return Column(children: <Widget>[
-            isEmail
-                ? _emailInputField(snapshot.error)
-                : _phoneInputField(snapshot.error),
+            isEmail ? _emailInputField(snapshot.error) : _phoneInputField(snapshot.error),
             SizedBox(height: 32),
             RaisedButton(
-              onPressed: snapshot.hasData
-                  ? (isEmail
-                  ? _authenticateUserWithEmail
-                  : _authenticateUserWithPhone)
-                  : null,
+              onPressed: snapshot.hasData ? (isEmail ? _authenticateUserWithEmail : _authenticateUserWithPhone) : null,
               child: Text(
                 Constants.submit.toUpperCase(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
               color: Colors.blue,
             ),
             SizedBox(height: 32),
             GestureDetector(
-                onTap: () => _bloc.changeAuthStatus(
-                    isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
+                onTap: () => _bloc.changeAuthStatus(isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
                 child: Text(
-                  isEmail
-                      ? Constants.usePhone.toUpperCase()
-                      : Constants.useEmail.toUpperCase(),
+                  isEmail ? Constants.usePhone.toUpperCase() : Constants.useEmail.toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -176,8 +173,7 @@ class AuthScreenState extends State<AuthScreen> {
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: CountryCodePicker(
-                onChanged: (countryCode) =>
-                    _bloc.changeDialCode(countryCode.dialCode),
+                onChanged: (countryCode) => _bloc.changeDialCode(countryCode.dialCode),
                 initialSelection: _myLocale.countryCode,
                 favorite: [_myLocale.countryCode],
                 showCountryOnly: false,
@@ -214,21 +210,20 @@ class AuthScreenState extends State<AuthScreen> {
           margin: EdgeInsets.all(2.5), // margin between the fields
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
           submit: (String smsCode) {
-            AuthCredential credential = PhoneAuthProvider.getCredential(
-                verificationId: _bloc.getVerificationId, smsCode: smsCode);
+            AuthCredential credential =
+                PhoneAuthProvider.getCredential(verificationId: _bloc.getVerificationId, smsCode: smsCode);
             _bloc.signInWithCredential(credential).then((result) =>
-            // You could potentially find out if the user is new
-            // and if so, pass that info on, to maybe do a tutorial
-            // if (result.additionalUserInfo.isNewUser)
-            _authCompleted());
+                // You could potentially find out if the user is new
+                // and if so, pass that info on, to maybe do a tutorial
+                // if (result.additionalUserInfo.isNewUser)
+                _authCompleted());
           }),
     ]);
   }
 
   void _authenticateUserWithEmail() {
-    _bloc.sendSignInWithEmailLink().whenComplete(() => _bloc
-        .storeUserEmail()
-        .whenComplete(() => _bloc.changeAuthStatus(AuthStatus.emailLinkSent)));
+    _bloc.sendSignInWithEmailLink().whenComplete(
+        () => _bloc.storeUserEmail().whenComplete(() => _bloc.changeAuthStatus(AuthStatus.emailLinkSent)));
   }
 
   void _authenticateUserWithPhone() {
@@ -236,33 +231,25 @@ class AuthScreenState extends State<AuthScreen> {
       _bloc.changeAuthStatus(AuthStatus.phoneAuth);
       _showSnackBar(Constants.verificationFailed);
       //TODO: show error to user.
-      print(
-          'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
+      print('Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
     };
 
-    PhoneVerificationCompleted verificationCompleted =
-        (AuthCredential phoneAuthCredential) {
-      _bloc
-          .signInWithCredential(phoneAuthCredential)
-          .then((result) => _authCompleted());
+    PhoneVerificationCompleted verificationCompleted = (AuthCredential phoneAuthCredential) {
+      _bloc.signInWithCredential(phoneAuthCredential).then((result) => _authCompleted());
       print('Received phone auth credential: $phoneAuthCredential');
     };
 
-    PhoneCodeSent codeSent =
-        (String verificationId, [int forceResendingToken]) async {
+    PhoneCodeSent codeSent = (String verificationId, [int forceResendingToken]) async {
       _bloc.changeVerificationId(verificationId);
-      print(
-          'Please check your phone for the verification code. $verificationId');
+      print('Please check your phone for the verification code. $verificationId');
     };
 
-    PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
-        (String verificationId) {
+    PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout = (String verificationId) {
       print("auto retrieval timeout");
     };
 
     _bloc.changeAuthStatus(AuthStatus.smsSent);
-    _bloc.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent,
-        verificationCompleted, verificationFailed);
+    _bloc.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent, verificationCompleted, verificationFailed);
   }
 
   _showSnackBar(String error) {
@@ -271,7 +258,6 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   _authCompleted() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => AppScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AppScreen()));
   }
 }

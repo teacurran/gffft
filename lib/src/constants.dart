@@ -1,7 +1,7 @@
 class Constants {
   // Strings
   // TODO: replace url
-  static const String projectUrl = "https://gffft.page.link";
+  static const String projectUrl = "https://gffft.app/app";
   static const String errorPhone = "Phone is incorrect";
   static const String errorEmail = "Email is incorect";
   static const String enterPhone = "Please enter your phone";
@@ -9,6 +9,7 @@ class Constants {
   static const String usePhone = "Use phone instead";
   static const String useEmail = "Use email instead";
   static const String submit = "submit";
+  static const String createAccount = "Create Account";
   static const String labelPhone = "Phone";
   static const String labelEmail = "Email";
   static const String sentEmail = "Check your email for the confirmation link";
