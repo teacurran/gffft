@@ -46,11 +46,18 @@ class AuthScreenState extends State<AuthScreen> {
     final Uri deepLink = data?.link;
 
     if (deepLink != null) {
-      /// Change status to a loading state, so user would not get confused even for a second.
-      _bloc.changeAuthStatus(AuthStatus.isLoading);
-      _bloc
-          .signInWIthEmailLink(await _bloc.getUserEmailFromStorage(), deepLink.toString())
-          .whenComplete(() => _authCompleted());
+      print("deep link: $deepLink");
+      try {
+        /// Change status to a loading state, so user would not get confused even for a second.
+        _bloc.changeAuthStatus(AuthStatus.isLoading);
+        await _bloc
+            .signInWIthEmailLink(await _bloc.getUserEmailFromStorage(), deepLink.toString())
+            .catchError((e) {
+          print("dynamic link error:$e");
+        }).whenComplete(() => _authCompleted());
+      } catch (e) {
+        print("dynamic link error:: ${e}");
+      }
     }
   }
 
