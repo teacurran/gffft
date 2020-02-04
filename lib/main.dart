@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'services/authentication.dart';
-import 'pages/root_page.dart';
+import 'package:gffft/screens/auth_screen.dart';
+import 'package:gffft/src/auth_bloc_provider.dart';
 
 void main() {
-  runApp(new MyApp());
+  runApp(new GffftApp());
 }
 
-class MyApp extends StatelessWidget {
+class GffftApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        title: 'Flutter login demo',
-        debugShowCheckedModeBanner: false,
-        theme: new ThemeData(
-          primarySwatch: Colors.blue,
+    return AuthBlocProvider(
+      child: MaterialApp(
+        theme: ThemeData(
+          accentColor: Colors.teal,
+          primaryColor: Colors.blue,
         ),
-        home: new RootPage(auth: new Auth()));
+        home: Scaffold(
+          body: AuthScreen(),
+        ),
+      ),
+    );
   }
 }
