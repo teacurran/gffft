@@ -5,18 +5,20 @@ class AuthProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> sendSignInWithEmailLink(String email) async {
-    return _auth.sendSignInWithEmailLink(
-        email: email,
-        url: Constants.projectUrl,
-        androidInstallIfNotAvailable: true,
-        androidMinimumVersion: '21',
-        androidPackageName: 'com.approachingpi.gffft',
-        handleCodeInApp: true,
-        iOSBundleID: 'com.approachingpi.gffft');
+
+    return _auth.sendSignInLinkToEmail(
+        email: email, actionCodeSettings: ActionCodeSettings(
+      url: Constants.projectUrl,
+      androidInstallApp: true,
+      androidMinimumVersion: '21',
+      androidPackageName: 'com.approachingpi.gffft',
+      handleCodeInApp: true,
+      iOSBundleId: 'com.approachingpi.gffft',
+    ));
   }
 
-  Future<AuthResult> signInWithEmailLink(String email, String link) async {
-    return _auth.signInWithEmailAndLink(email: email, link: link);
+  Future<UserCredential> signInWithEmailLink(String email, String link) async {
+    return _auth.signInWithEmailLink(email: email, emailLink: link);
   }
 
   Future<void> verifyPhoneNumber(
@@ -35,11 +37,11 @@ class AuthProvider {
         verificationFailed: verificationFailed);
   }
 
-  Future<AuthResult> signInWithCredential(AuthCredential credential) async {
+  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
     return _auth.signInWithCredential(credential);
   }
 
-  Future<FirebaseUser> getCurrentUser() {
-    return _auth.currentUser();
+  User getCurrentUser() {
+    return _auth.currentUser;
   }
 }

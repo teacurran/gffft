@@ -25,26 +25,22 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
-    widget.auth.getCurrentUser().then((user) {
-      setState(() {
-        if (user != null) {
+    var user = widget.auth.getCurrentUser();
+    if (user != null) {
           _userId = user?.uid;
         }
-        authStatus =
-            user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
-      });
-    });
+    authStatus =
+        user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
   }
 
   void loginCallback() {
-    widget.auth.getCurrentUser().then((user) {
+    var user = widget.auth.getCurrentUser();
+    if (user != null) {
       setState(() {
         _userId = user.uid.toString();
+        authStatus = AuthStatus.LOGGED_IN;
       });
-    });
-    setState(() {
-      authStatus = AuthStatus.LOGGED_IN;
-    });
+    }
   }
 
   void logoutCallback() {

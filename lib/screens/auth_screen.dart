@@ -234,7 +234,7 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   void _authenticateUserWithPhone() {
-    PhoneVerificationFailed verificationFailed = (AuthException authException) {
+    PhoneVerificationFailed verificationFailed = (FirebaseAuthException authException) {
       _bloc.changeAuthStatus(AuthStatus.phoneAuth);
       _showSnackBar(Constants.verificationFailed);
       //TODO: show error to user.

@@ -43,11 +43,11 @@ class AuthBloc with AuthValidators {
         .sendSignInWithEmailLink(_email.value.replaceAll(" ", ""));
   }
 
-  Future<AuthResult> signInWIthEmailLink(email, link) {
+  Future<UserCredential> signInWIthEmailLink(email, link) {
     return _repository.signInWithEmailLink(email, link);
   }
 
-  Future<FirebaseUser> getCurrentUser() {
+  User getCurrentUser() {
     return _repository.getCurrentUser();
   }
 
@@ -63,7 +63,7 @@ class AuthBloc with AuthValidators {
     return _repository.getEmail();
   }
 
-  Future<AuthResult> signInWithCredential(AuthCredential credential) {
+  Future<UserCredential> signInWithCredential(AuthCredential credential) {
     return _repository.signInWithCredential(credential);
   }
 

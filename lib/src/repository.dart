@@ -8,13 +8,13 @@ class Repository with StorageRepository {
   Future<void> sendSignInWithEmailLink(String email) =>
       _authProvider.sendSignInWithEmailLink(email);
 
-  Future<AuthResult> signInWithEmailLink(String email, String link) =>
+  Future<UserCredential> signInWithEmailLink(String email, String link) =>
       _authProvider.signInWithEmailLink(email, link);
 
-  Future<AuthResult> signInWithCredential(AuthCredential credential) =>
+  Future<UserCredential> signInWithCredential(AuthCredential credential) =>
       _authProvider.signInWithCredential(credential);
 
-  Future<FirebaseUser> getCurrentUser() => _authProvider.getCurrentUser();
+  User getCurrentUser() => _authProvider.getCurrentUser();
 
   Future<void> verifyPhoneNumber(
       String phone,
