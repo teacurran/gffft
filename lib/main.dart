@@ -61,9 +61,9 @@ class App extends StatelessWidget {
         title: 'Provider Demo',
         initialRoute: '/',
         routes: {
-          '/': (context) => AuthScreen(),
-          '/catalog': (context) => AppScreen(),
-          '/cart': (context) => AppScreen(),
+          '/': (context) => Scaffold(body: AuthScreen()),
+          '/catalog': (context) => Scaffold(body: AuthScreen()),
+          '/cart': (context) => Scaffold(body: AuthScreen()),
         },
       ),
     );
