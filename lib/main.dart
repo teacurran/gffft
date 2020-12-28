@@ -21,34 +21,53 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       // Initialize FlutterFire:
-        future: _initialization,
-        builder: (context, snapshot) {
-          // Using MultiProvider is convenient when providing multiple objects.
-          return MultiProvider(
-            providers: [
-              // In this sample app, CatalogModel never changes, so a simple Provider
-              // is sufficient.
-              Provider(create: (context) => AuthModel()),
-              // CartModel is implemented as a ChangeNotifier, which calls for the use
-              // of ChangeNotifierProvider. Moreover, CartModel depends
-              // on CatalogModel, so a ProxyProvider is needed.
-              ChangeNotifierProxyProvider<AuthModel, CartModel>(
-                create: (context) => CartModel(),
-                update: (context, auth, cart) {
-                  return cart;
-                },
-              ),
-            ],
-            child: MaterialApp(
-              title: 'Provider Demo',
-              initialRoute: '/',
-              routes: {
-                '/': (context) => AuthScreen(),
-                '/catalog': (context) => AppScreen(),
-                '/cart': (context) => AppScreen(),
-              },
-            ),
-          );
-        });
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return loadingScreen(context);
+        }
+
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return defaultState(context);
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return loadingScreen(context);
+      },
+    );
   }
+
+  Widget loadingScreen(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        accentColor: Colors.teal,
+        primaryColor: Colors.blue,
+      ),
+      home: Scaffold(
+      ),
+    );
+  }
+
+  Widget defaultState(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthModel>(
+          create: (context) => AuthModel()
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Provider Demo',
+        initialRoute: '/',
+        routes: {
+          '/': (context) => AuthScreen(),
+          '/catalog': (context) => AppScreen(),
+          '/cart': (context) => AppScreen(),
+        },
+      ),
+    );
+  }
+
+
 }
