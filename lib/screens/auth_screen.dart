@@ -4,10 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:gffft/screens/app_screen.dart';
-import 'package:gffft/src/auth_bloc.dart';
-import 'package:gffft/src/auth_bloc_provider.dart';
+import 'package:gffft/src/auth_model.dart';
 import 'package:gffft/src/constants.dart';
 import 'package:pin_view/pin_view.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -15,13 +15,12 @@ class AuthScreen extends StatefulWidget {
 }
 
 class AuthScreenState extends State<AuthScreen> {
-  AuthBloc _bloc;
+
   Locale _myLocale;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bloc = AuthBlocProvider.of(context);
     this.initDynamicLinks();
     _myLocale = Localizations.localeOf(context);
 
@@ -38,7 +37,6 @@ class AuthScreenState extends State<AuthScreen> {
             ))
         .toList();
     String dialCode = elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
-    _bloc.changeDialCode(dialCode);
   }
 
   void initDynamicLinks() async {
@@ -47,48 +45,49 @@ class AuthScreenState extends State<AuthScreen> {
 
     if (deepLink != null) {
       print("deep link: $deepLink");
-      try {
-        /// Change status to a loading state, so user would not get confused even for a second.
-        _bloc.changeAuthStatus(AuthStatus.isLoading);
-        await _bloc
-            .signInWIthEmailLink(await _bloc.getUserEmailFromStorage(), deepLink.toString())
-            .catchError((e) {
-          print("dynamic link error:$e");
-        }).whenComplete(() => _authCompleted());
-      } catch (e) {
-        print("dynamic link error:: ${e}");
-      }
+      // try {
+      //   /// Change status to a loading state, so user would not get confused even for a second.
+      //   _bloc.changeAuthStatus(AuthStatus.isLoading);
+      //   await _bloc
+      //       .signInWIthEmailLink(await _bloc.getUserEmailFromStorage(), deepLink.toString())
+      //       .catchError((e) {
+      //     print("dynamic link error:$e");
+      //   }).whenComplete(() => _authCompleted());
+      // } catch (e) {
+      //   print("dynamic link error:: ${e}");
+      // }
     }
   }
 
   @override
   void dispose() {
-    _bloc.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    var _auth = context.watch<AuthModel>();
+
     return Container(
       padding: EdgeInsets.all(32),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           StreamBuilder(
-              stream: _bloc.authStatus,
+              stream: _auth.authStatus,
               builder: (context, snapshot) {
                 switch (snapshot.data) {
                   case (AuthStatus.emailAuth):
-                    return _authForm(true);
+                    return _authForm(_auth, true);
                     break;
                   case (AuthStatus.phoneAuth):
-                    return _authForm(false);
+                    return _authForm(_auth, false);
                     break;
                   case (AuthStatus.emailLinkSent):
                     return Column(children: <Widget>[
                       Center(child: Text(Constants.sentEmail)),
                       GestureDetector(
-                          onTap: () => _bloc.changeAuthStatus(AuthStatus.emailAuth),
+                          onTap: () => _auth.changeAuthStatus(AuthStatus.emailAuth),
                           child: Text(
                             "Enter another email address",
                             style: TextStyle(
@@ -98,14 +97,14 @@ class AuthScreenState extends State<AuthScreen> {
                     ]);
                     break;
                   case (AuthStatus.smsSent):
-                    return _smsCodeInputField();
+                    return _smsCodeInputField(_auth);
                     break;
                   case (AuthStatus.isLoading):
                     return Center(child: CircularProgressIndicator());
                     break;
                   default:
                     // By default we will show the email auth form
-                    return _authForm(true);
+                    return _authForm(_auth, true);
                     break;
                 }
               })
@@ -118,15 +117,15 @@ class AuthScreenState extends State<AuthScreen> {
   /// If its false, a form for phone auth is given.
   /// This is to make it easier for the email and phone auth forms to be more similar looking.
   /// Keeping that in mind we'll try to share all the widgets to a reasonable extent.
-  Widget _authForm(bool isEmail) {
+  Widget _authForm(AuthModel authModel, bool isEmail) {
     return StreamBuilder(
-        stream: isEmail ? _bloc.email : _bloc.phone,
+        stream: isEmail ? authModel.email : authModel.phone,
         builder: (context, snapshot) {
           return Column(children: <Widget>[
-            isEmail ? _emailInputField(snapshot.error) : _phoneInputField(snapshot.error),
+            isEmail ? _emailInputField(authModel, snapshot.error) : _phoneInputField(authModel, snapshot.error),
             SizedBox(height: 32),
             RaisedButton(
-              onPressed: snapshot.hasData ? (isEmail ? _authenticateUserWithEmail : _authenticateUserWithPhone) : null,
+              onPressed: () => _authenticateUserWithEmail(authModel),
               child: Text(
                 Constants.submit.toUpperCase(),
                 style: TextStyle(
@@ -138,7 +137,7 @@ class AuthScreenState extends State<AuthScreen> {
             ),
             SizedBox(height: 32),
             GestureDetector(
-                onTap: () => _bloc.changeAuthStatus(isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
+                onTap: () => authModel.changeAuthStatus(isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
                 child: Text(
                   isEmail ? Constants.usePhone.toUpperCase() : Constants.useEmail.toUpperCase(),
                   style: TextStyle(
@@ -149,10 +148,11 @@ class AuthScreenState extends State<AuthScreen> {
         });
   }
 
+
   /// The method takes in an [error] message from our validator.
-  Widget _emailInputField(String error) {
+  Widget _emailInputField(AuthModel authModel, String error) {
     return TextField(
-      onChanged: _bloc.changeEmail,
+      onChanged: authModel.changeEmail,
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(fontSize: 20),
       decoration: InputDecoration(
@@ -170,7 +170,7 @@ class AuthScreenState extends State<AuthScreen> {
   /// Besides the user entering their phone number, we also need to know the user's country code
   /// for that we are gonna use a library CountryCodePicker.
   /// The method takes in an [error] message from our validator.
-  Widget _phoneInputField(String error) {
+  Widget _phoneInputField(AuthModel authModel, String error) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -180,7 +180,7 @@ class AuthScreenState extends State<AuthScreen> {
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: CountryCodePicker(
-                onChanged: (countryCode) => _bloc.changeDialCode(countryCode.dialCode),
+                onChanged: (countryCode) => authModel.changeDialCode(countryCode.dialCode),
                 initialSelection: _myLocale.countryCode,
                 favorite: [_myLocale.countryCode],
                 showCountryOnly: false,
@@ -191,7 +191,7 @@ class AuthScreenState extends State<AuthScreen> {
           Expanded(
             flex: 2,
             child: TextField(
-              onChanged: _bloc.changePhone,
+              onChanged: authModel.changePhone,
               keyboardType: TextInputType.phone,
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
@@ -210,7 +210,7 @@ class AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Widget _smsCodeInputField() {
+  Widget _smsCodeInputField(AuthModel authModel) {
     return Column(children: <Widget>[
       PinView(
           count: 6, // describes the field number
@@ -218,8 +218,8 @@ class AuthScreenState extends State<AuthScreen> {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
           submit: (String smsCode) {
             AuthCredential credential =
-                PhoneAuthProvider.getCredential(verificationId: _bloc.getVerificationId, smsCode: smsCode);
-            _bloc.signInWithCredential(credential).then((result) =>
+                PhoneAuthProvider.getCredential(verificationId: authModel.getVerificationId, smsCode: smsCode);
+            authModel.signInWithCredential(credential).then((result) =>
                 // You could potentially find out if the user is new
                 // and if so, pass that info on, to maybe do a tutorial
                 // if (result.additionalUserInfo.isNewUser)
@@ -228,26 +228,26 @@ class AuthScreenState extends State<AuthScreen> {
     ]);
   }
 
-  void _authenticateUserWithEmail() {
-    _bloc.sendSignInWithEmailLink().whenComplete(
-        () => _bloc.storeUserEmail().whenComplete(() => _bloc.changeAuthStatus(AuthStatus.emailLinkSent)));
+  void _authenticateUserWithEmail(AuthModel authModel) {
+    authModel.sendSignInWithEmailLink().whenComplete(
+        () => authModel.storeUserEmail().whenComplete(() => authModel.changeAuthStatus(AuthStatus.emailLinkSent)));
   }
 
-  void _authenticateUserWithPhone() {
+  void _authenticateUserWithPhone(AuthModel authModel) {
     PhoneVerificationFailed verificationFailed = (FirebaseAuthException authException) {
-      _bloc.changeAuthStatus(AuthStatus.phoneAuth);
+      authModel.changeAuthStatus(AuthStatus.phoneAuth);
       _showSnackBar(Constants.verificationFailed);
       //TODO: show error to user.
       print('Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
     };
 
     PhoneVerificationCompleted verificationCompleted = (AuthCredential phoneAuthCredential) {
-      _bloc.signInWithCredential(phoneAuthCredential).then((result) => _authCompleted());
+      authModel.signInWithCredential(phoneAuthCredential).then((result) => _authCompleted());
       print('Received phone auth credential: $phoneAuthCredential');
     };
 
     PhoneCodeSent codeSent = (String verificationId, [int forceResendingToken]) async {
-      _bloc.changeVerificationId(verificationId);
+      authModel.changeVerificationId(verificationId);
       print('Please check your phone for the verification code. $verificationId');
     };
 
@@ -255,8 +255,8 @@ class AuthScreenState extends State<AuthScreen> {
       print("auto retrieval timeout");
     };
 
-    _bloc.changeAuthStatus(AuthStatus.smsSent);
-    _bloc.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent, verificationCompleted, verificationFailed);
+    authModel.changeAuthStatus(AuthStatus.smsSent);
+    authModel.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent, verificationCompleted, verificationFailed);
   }
 
   _showSnackBar(String error) {

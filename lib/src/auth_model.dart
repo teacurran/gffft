@@ -4,11 +4,12 @@ import 'package:gffft/src/auth_validators.dart';
 import 'package:gffft/src/constants.dart';
 import 'package:gffft/src/repository.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter/widgets.dart';
 
 // Define all possible states for the auth form.
 enum AuthStatus { emailAuth, phoneAuth, emailLinkSent, smsSent, isLoading }
 
-class AuthBloc with AuthValidators {
+class AuthModel extends ChangeNotifier with AuthValidators {
   final _repository = Repository();
   final _email = BehaviorSubject<String>();
   final _dialCode = BehaviorSubject<String>();
@@ -17,11 +18,11 @@ class AuthBloc with AuthValidators {
   final _verificationId = BehaviorSubject<String>();
 
 // Add data to stream, validate inputs
-  Observable<String> get email => _email.stream.transform(validateEmail);
-  Observable<String> get phone => _phone.stream.transform(validatePhone);
-  Observable<String> get dialCode => _dialCode.stream;
-  Observable<String> get verificationID => _verificationId.stream;
-  Observable<AuthStatus> get authStatus => _authStatus.stream;
+  ValueStream<String> get email => _email.stream.transform(validateEmail);
+  ValueStream<String> get phone => _phone.stream.transform(validatePhone);
+  ValueStream<String> get dialCode => _dialCode.stream;
+  ValueStream<String> get verificationID => _verificationId.stream;
+  ValueStream<AuthStatus> get authStatus => _authStatus.stream;
 
 // get value
   String get getEmail => _email.value;
