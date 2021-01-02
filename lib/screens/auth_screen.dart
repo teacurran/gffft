@@ -37,6 +37,9 @@ class AuthScreenState extends State<AuthScreen> {
             ))
         .toList();
     String dialCode = elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
+
+    var _auth = Provider.of<AuthModel>(context);
+    _auth.changeDialCode(dialCode);
   }
 
   void initDynamicLinks() async {
@@ -125,7 +128,11 @@ class AuthScreenState extends State<AuthScreen> {
             isEmail ? _emailInputField(authModel, snapshot.error) : _phoneInputField(authModel, snapshot.error),
             SizedBox(height: 32),
             RaisedButton(
-              onPressed: () => _authenticateUserWithEmail(authModel),
+              onPressed: () =>
+                snapshot.hasData ? (isEmail
+                    ? _authenticateUserWithEmail(authModel)
+                    : _authenticateUserWithPhone(authModel)) : null
+              ,
               child: Text(
                 Constants.submit.toUpperCase(),
                 style: TextStyle(
