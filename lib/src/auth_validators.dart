@@ -3,7 +3,7 @@ import 'package:gffft/src/constants.dart';
 
 class AuthValidators {
   final validateEmail =
-  StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
+  StreamTransformer.fromHandlers(handleData: (String email, EventSink<String> sink) {
     if (RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
       sink.add(email);
     } else {
@@ -12,7 +12,7 @@ class AuthValidators {
   });
 
   final validatePhone =
-  StreamTransformer<String, String>.fromHandlers(handleData: (phone, sink) {
+  StreamTransformer.fromHandlers(handleData: (phone, sink) {
     if (RegExp(r"^(?:[+0]+)?[0-9]{6,14}$").hasMatch(phone)) {
       sink.add(phone);
     } else {

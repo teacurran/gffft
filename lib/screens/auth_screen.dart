@@ -121,13 +121,21 @@ class AuthScreenState extends State<AuthScreen> {
   /// This is to make it easier for the email and phone auth forms to be more similar looking.
   /// Keeping that in mind we'll try to share all the widgets to a reasonable extent.
   Widget _authForm(AuthModel authModel, bool isEmail) {
+    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+      onPrimary: Colors.black87,
+      primary: Colors.blue,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+    );
+
     return StreamBuilder(
         stream: isEmail ? authModel.email : authModel.phone,
         builder: (context, snapshot) {
           return Column(children: <Widget>[
             isEmail ? _emailInputField(authModel, snapshot.error) : _phoneInputField(authModel, snapshot.error),
             SizedBox(height: 32),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () =>
                 snapshot.hasData ? (isEmail
                     ? _authenticateUserWithEmail(authModel)
@@ -139,8 +147,7 @@ class AuthScreenState extends State<AuthScreen> {
                   color: Colors.white,
                 ),
               ),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
-              color: Colors.blue,
+              style: raisedButtonStyle,
             ),
             SizedBox(height: 32),
             GestureDetector(
@@ -149,6 +156,7 @@ class AuthScreenState extends State<AuthScreen> {
                   isEmail ? Constants.usePhone.toUpperCase() : Constants.useEmail.toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    height: 20
                   ),
                 )),
           ]);
@@ -225,7 +233,7 @@ class AuthScreenState extends State<AuthScreen> {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
           submit: (String smsCode) {
             AuthCredential credential =
-                PhoneAuthProvider.getCredential(verificationId: authModel.getVerificationId, smsCode: smsCode);
+                PhoneAuthProvider.credential(verificationId: authModel.getVerificationId, smsCode: smsCode);
             authModel.signInWithCredential(credential).then((result) =>
                 // You could potentially find out if the user is new
                 // and if so, pass that info on, to maybe do a tutorial
@@ -268,7 +276,7 @@ class AuthScreenState extends State<AuthScreen> {
 
   _showSnackBar(String error) {
     final snackBar = SnackBar(content: Text(error));
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   _authCompleted() {

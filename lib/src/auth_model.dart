@@ -19,7 +19,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
 
 // Add data to stream, validate inputs
   ValueStream<String> get email => _email.stream.transform(validateEmail);
-  ValueStream<String> get phone => _phone.stream.transform(validatePhone);
+  ValueStream<String> get phone => _phone.stream; // .transform(validatePhone);
   ValueStream<String> get dialCode => _dialCode.stream;
   ValueStream<String> get verificationID => _verificationId.stream;
   ValueStream<AuthStatus> get authStatus => _authStatus.stream;
@@ -85,6 +85,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
   }
 
   dispose() async {
+    super.dispose();
     await _email.drain();
     _email.close();
     await _phone.drain();

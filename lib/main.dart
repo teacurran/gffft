@@ -1,12 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/auth_screen.dart';
 import 'package:gffft/src/auth_model.dart';
 import 'package:provider/provider.dart';
-
-import 'models/cart.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +38,7 @@ class App extends StatelessWidget {
   Widget loadingScreen(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        accentColor: Colors.teal,
+        highlightColor: Colors.teal,
         primaryColor: Colors.blue,
       ),
       home: Scaffold(
