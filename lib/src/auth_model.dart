@@ -11,15 +11,15 @@ enum AuthStatus { emailAuth, phoneAuth, emailLinkSent, smsSent, isLoading }
 
 class AuthModel extends ChangeNotifier with AuthValidators {
   final _repository = Repository();
-  final _email = BehaviorSubject<String>();
-  final _dialCode = BehaviorSubject<String>();
-  final _phone = BehaviorSubject<String>();
+  final _email = BehaviorSubject.seeded('');
+  final _dialCode = BehaviorSubject.seeded('');
+  final _phone = BehaviorSubject.seeded('');
   final _authStatus = BehaviorSubject<AuthStatus>();
   final _verificationId = BehaviorSubject<String>();
 
 // Add data to stream, validate inputs
-  ValueStream<String> get email => _email.stream.transform(validateEmail);
-  ValueStream<String> get phone => _phone.stream; // .transform(validatePhone);
+  get email => _email.transform(validateEmail);
+  ValueStream<String> get phone => _phone.stream.transform(validatePhone).shareValue();
   ValueStream<String> get dialCode => _dialCode.stream;
   ValueStream<String> get verificationID => _verificationId.stream;
   ValueStream<AuthStatus> get authStatus => _authStatus.stream;
@@ -84,6 +84,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
         verificationFailed);
   }
 
+  @override
   dispose() async {
     super.dispose();
     await _email.drain();

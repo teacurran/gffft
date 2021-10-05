@@ -20,6 +20,7 @@ abstract class BaseAuth {
 class Auth implements BaseAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  @override
   Future<String> signIn(String email, String password) async {
     UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
@@ -27,6 +28,7 @@ class Auth implements BaseAuth {
     return user.uid;
   }
 
+  @override
   Future<String> signUp(String email, String password) async {
     UserCredential result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
@@ -34,17 +36,20 @@ class Auth implements BaseAuth {
     return user.uid;
   }
 
+  @override
   User getCurrentUser() {
     return _firebaseAuth.currentUser;
   }
 
+  @override
   Future<void> signOut() async {
     return _firebaseAuth.signOut();
   }
 
+  @override
   Future<void> sendPhoneVerification(String phoneNumber) async {
     _firebaseAuth.verifyPhoneNumber(phoneNumber: phoneNumber,
-        timeout: new Duration(seconds: 60),
+        timeout: Duration(seconds: 60),
         codeSent: (String code, [int _code]) {
           print(code);
           print(_code);
@@ -61,10 +66,12 @@ class Auth implements BaseAuth {
       );
   }
 
+  @override
   Future<void> sendEmailVerification() async {
     getCurrentUser().sendEmailVerification();
   }
 
+  @override
   Future<bool> isEmailVerified() async {
     getCurrentUser().emailVerified;
   }

@@ -21,7 +21,7 @@ class AuthScreenState extends State<AuthScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    this.initDynamicLinks();
+    initDynamicLinks();
     _myLocale = Localizations.localeOf(context);
 
     /// We need to reflect the initial selection of the dialcode, in case the phone's selected locale

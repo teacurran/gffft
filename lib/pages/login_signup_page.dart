@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:gffft/services/authentication.dart';
 
 class LoginSignupPage extends StatefulWidget {
-  LoginSignupPage({this.auth, this.loginCallback});
+  const LoginSignupPage({this.auth, this.loginCallback});
 
   final BaseAuth auth;
   final VoidCallback loginCallback;
   
   @override
-  State<StatefulWidget> createState() => new _LoginSignupPageState();
+  State<StatefulWidget> createState() => _LoginSignupPageState();
 }
 
 class _LoginSignupPageState extends State<LoginSignupPage> {
@@ -17,7 +17,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   static const String STEP_PHONE = 'phone';
   static const String STEP_EMAIL = 'email';
 
-  final _formKey = new GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   String _phoneNumber;
   String _phoneNumberPrefix;
@@ -64,7 +64,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           _isLoading = false;
         });
 
-        if (userId.length > 0 && userId != null && _step == STEP_LOGIN) {
+        if (userId.isNotEmpty && userId != null && _step == STEP_LOGIN) {
           widget.loginCallback();
         }
       } catch (e) {
@@ -105,9 +105,9 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Flutter login demo'),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter login demo'),
         ),
         body: Stack(
           children: <Widget>[
@@ -121,7 +121,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
     }
-    return Container(
+    return SizedBox(
       height: 0.0,
       width: 0.0,
     );
@@ -151,11 +151,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 //  }
 
   Widget _showForm() {
-    return new Container(
+    return Container(
         padding: EdgeInsets.all(16.0),
-        child: new Form(
+        child: Form(
           key: _formKey,
-          child: new ListView(
+          child: ListView(
             shrinkWrap: true,
             children: getFormWidgets()
           ),
@@ -163,7 +163,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   }
 
   List<Widget> getFormWidgets() {
-    var widgets = new List<Widget>();
+    var widgets = <Widget>[];
     widgets.add(showLogo());
     if (_step == STEP_PHONE) {
       widgets.add(showPhoneInput());
@@ -178,8 +178,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   }
 
   Widget showErrorMessage() {
-    if (_errorMessage.length > 0 && _errorMessage != null) {
-      return new Text(
+    if (_errorMessage.isNotEmpty && _errorMessage != null) {
+      return Text(
         _errorMessage,
         style: TextStyle(
             fontSize: 13.0,
@@ -188,14 +188,14 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             fontWeight: FontWeight.w300),
       );
     } else {
-      return new Container(
+      return Container(
         height: 0.0,
       );
     }
   }
 
   Widget showLogo() {
-    return new Hero(
+    return Hero(
       tag: 'hero',
       child: Padding(
         padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
@@ -248,13 +248,13 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget showEmailInput() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
-      child: new TextFormField(
+      child: TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
-        decoration: new InputDecoration(
+        decoration: InputDecoration(
             hintText: 'Email',
-            icon: new Icon(
+            icon: Icon(
               Icons.mail,
               color: Colors.grey,
             )),
@@ -267,13 +267,13 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget showPasswordInput() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
-      child: new TextFormField(
+      child: TextFormField(
         maxLines: 1,
         obscureText: true,
         autofocus: false,
-        decoration: new InputDecoration(
+        decoration: InputDecoration(
             hintText: 'Password',
-            icon: new Icon(
+            icon: Icon(
               Icons.lock,
               color: Colors.grey,
             )),
@@ -284,25 +284,25 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   }
 
   Widget showSecondaryButton() {
-    return new FlatButton(
-        child: new Text(
+    return FlatButton(
+        child: Text(
             _step == STEP_LOGIN ? 'Create an account' : 'Have an account? Sign in',
-            style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
         onPressed: toggleFormMode);
   }
 
   Widget showPrimaryButton() {
-    return new Padding(
+    return Padding(
         padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
         child: SizedBox(
           height: 40.0,
-          child: new RaisedButton(
+          child: RaisedButton(
             elevation: 5.0,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)),
             color: Colors.blue,
-            child: new Text(_step == STEP_LOGIN ? 'Login' : 'Create account',
-                style: new TextStyle(fontSize: 20.0, color: Colors.white)),
+            child: Text(_step == STEP_LOGIN ? 'Login' : 'Create account',
+                style: TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
           ),
         ));

@@ -5,7 +5,7 @@ import 'package:gffft/models/todo.dart';
 import 'dart:async';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.auth, this.userId, this.logoutCallback})
+  const HomePage({Key key, this.auth, this.userId, this.logoutCallback})
       : super(key: key);
 
   final BaseAuth auth;
@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
   final String userId;
 
   @override
-  State<StatefulWidget> createState() => new _HomePageState();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
 
     //_checkEmailVerification();
 
-    _todoList = new List();
+    _todoList = [];
     _todoQuery = _database
         .reference()
         .child("todo")
@@ -142,8 +142,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   addNewTodo(String todoItem) {
-    if (todoItem.length > 0) {
-      Todo todo = new Todo(todoItem.toString(), widget.userId, false);
+    if (todoItem.isNotEmpty) {
+      Todo todo = Todo(todoItem.toString(), widget.userId, false);
       _database.reference().child("todo").push().set(todo.toJson());
     }
   }
@@ -171,25 +171,25 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: new Row(
+            content: Row(
               children: <Widget>[
-                new Expanded(
-                    child: new TextField(
+                Expanded(
+                    child: TextField(
                   controller: _textEditingController,
                   autofocus: true,
-                  decoration: new InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Add new todo',
                   ),
                 ))
               ],
             ),
             actions: <Widget>[
-              new FlatButton(
+              FlatButton(
                   child: const Text('Cancel'),
                   onPressed: () {
                     Navigator.pop(context);
                   }),
-              new FlatButton(
+              FlatButton(
                   child: const Text('Save'),
                   onPressed: () {
                     addNewTodo(_textEditingController.text.toString());
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget showTodoList() {
-    if (_todoList.length > 0) {
+    if (_todoList.isNotEmpty) {
       return ListView.builder(
           shrinkWrap: true,
           itemCount: _todoList.length,
@@ -247,13 +247,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Flutter login demo'),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter login demo'),
           actions: <Widget>[
-            new FlatButton(
-                child: new Text('Logout',
-                    style: new TextStyle(fontSize: 17.0, color: Colors.white)),
+            FlatButton(
+                child: Text('Logout',
+                    style: TextStyle(fontSize: 17.0, color: Colors.white)),
                 onPressed: signOut)
           ],
         ),

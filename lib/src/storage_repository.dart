@@ -3,7 +3,7 @@ import 'package:gffft/src/storage_provider.dart';
 
 class StorageRepository {
   final _store =
-  StorageProvider(flutterSecureStorage: new FlutterSecureStorage());
+  StorageProvider(flutterSecureStorage: FlutterSecureStorage());
 
   Future<void> setEmail(String email) => _store.setEmail(email);
 
