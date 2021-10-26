@@ -19,14 +19,14 @@ class AuthModel extends ChangeNotifier with AuthValidators {
 
 // Add data to stream, validate inputs
   get email => _email.transform(validateEmail);
-  ValueStream<String> get phone => _phone.stream.transform(validatePhone).shareValue();
-  ValueStream<String> get dialCode => _dialCode.stream;
-  ValueStream<String> get verificationID => _verificationId.stream;
-  ValueStream<AuthStatus> get authStatus => _authStatus.stream;
+  get phone => _phone.transform(validatePhone);
+  get dialCode => _dialCode.stream;
+  get verificationID => _verificationId.stream;
+  get authStatus => _authStatus.stream;
 
 // get value
   String get getEmail => _email.value;
-  String get getPhone => _phone.value;
+  String get getPhone => _phone.valueOrNull;
   String get getDialCode => _dialCode.value;
   String get getVerificationId => _verificationId.value;
   AuthStatus get getAuthStatus => _authStatus.value;

@@ -25,16 +25,16 @@ dependencies:
   cupertino_icons: ^1.0.3
 
   # Add the dependency for the Firebase Core Flutter SDK
-  firebase_core: ^1.7.0
+  firebase_core: ^1.8.0
 
   # Add the dependency for the FlutterFire plugin for Google Analytics
-  firebase_analytics: ^8.3.3
+  firebase_analytics: ^8.3.4
 
   # Add the dependencies for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
-  firebase_auth: ^3.1.2
-  firebase_database: ^8.0.0
-  firebase_dynamic_links: ^2.0.10
+  firebase_auth: ^3.1.4
+  firebase_database: ^8.0.1
+  firebase_dynamic_links: ^2.0.11
 
   sms_receiver: ^0.3.1+1
   rxdart: ^0.27.2

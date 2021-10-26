@@ -15,7 +15,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class AuthScreenState extends State<AuthScreen> {
-
   Locale _myLocale;
 
   @override
@@ -36,14 +35,16 @@ class AuthScreenState extends State<AuthScreen> {
               flagUri: "",
             ))
         .toList();
-    String dialCode = elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
+    String dialCode =
+        elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
 
     var _auth = Provider.of<AuthModel>(context);
     _auth.changeDialCode(dialCode);
   }
 
   void initDynamicLinks() async {
-    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.getInitialLink();
+    final PendingDynamicLinkData data =
+        await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri deepLink = data?.link;
 
     if (deepLink != null) {
@@ -72,7 +73,7 @@ class AuthScreenState extends State<AuthScreen> {
     var _auth = context.watch<AuthModel>();
 
     return Container(
-      padding: EdgeInsets.all(32),
+      padding: EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -90,7 +91,8 @@ class AuthScreenState extends State<AuthScreen> {
                     return Column(children: <Widget>[
                       Center(child: Text(Constants.sentEmail)),
                       GestureDetector(
-                          onTap: () => _auth.changeAuthStatus(AuthStatus.emailAuth),
+                          onTap: () =>
+                              _auth.changeAuthStatus(AuthStatus.emailAuth),
                           child: Text(
                             "Enter another email address",
                             style: TextStyle(
@@ -132,37 +134,44 @@ class AuthScreenState extends State<AuthScreen> {
     return StreamBuilder(
         stream: isEmail ? authModel.email : authModel.phone,
         builder: (context, snapshot) {
-          return Column(children: <Widget>[
-            isEmail ? _emailInputField(authModel, snapshot.error) : _phoneInputField(authModel, snapshot.error),
-            SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () =>
-                snapshot.hasData ? (isEmail
-                    ? _authenticateUserWithEmail(authModel)
-                    : _authenticateUserWithPhone(authModel)) : null
-              ,
-              child: Text(
-                Constants.submit.toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              style: raisedButtonStyle,
-            ),
-            SizedBox(height: 32),
-            GestureDetector(
-                onTap: () => authModel.changeAuthStatus(isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
-                child: Text(
-                  isEmail ? Constants.usePhone.toUpperCase() : Constants.useEmail.toUpperCase(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    height: 20
+          return Expanded(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                Flexible(
+                    child: isEmail
+                        ? _emailInputField(authModel, snapshot.error)
+                        : _phoneInputField(authModel, snapshot.error)),
+                ElevatedButton(
+                  onPressed: () => snapshot.hasData
+                      ? (isEmail
+                          ? _authenticateUserWithEmail(authModel)
+                          : _authenticateUserWithPhone(authModel))
+                      : null,
+                  child: Text(
+                    Constants.submit.toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
-                )),
-          ]);
+                  style: raisedButtonStyle,
+                ),
+                Spacer(),
+                Flexible(
+                    fit: FlexFit.loose,
+                    child: TextButton(
+                        onPressed: () => authModel.changeAuthStatus(isEmail
+                            ? AuthStatus.phoneAuth
+                            : AuthStatus.emailAuth),
+                        child: Text(
+                          isEmail
+                              ? Constants.usePhone.toUpperCase()
+                              : Constants.useEmail.toUpperCase(),
+                        ))),
+              ]));
         });
   }
-
 
   /// The method takes in an [error] message from our validator.
   Widget _emailInputField(AuthModel authModel, String error) {
@@ -195,7 +204,8 @@ class AuthScreenState extends State<AuthScreen> {
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: CountryCodePicker(
-                onChanged: (countryCode) => authModel.changeDialCode(countryCode.dialCode),
+                onChanged: (countryCode) =>
+                    authModel.changeDialCode(countryCode.dialCode),
                 initialSelection: _myLocale.countryCode,
                 favorite: [_myLocale.countryCode],
                 showCountryOnly: false,
@@ -232,8 +242,8 @@ class AuthScreenState extends State<AuthScreen> {
           margin: EdgeInsets.all(2.5), // margin between the fields
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
           submit: (String smsCode) {
-            AuthCredential credential =
-                PhoneAuthProvider.credential(verificationId: authModel.getVerificationId, smsCode: smsCode);
+            AuthCredential credential = PhoneAuthProvider.credential(
+                verificationId: authModel.getVerificationId, smsCode: smsCode);
             authModel.signInWithCredential(credential).then((result) =>
                 // You could potentially find out if the user is new
                 // and if so, pass that info on, to maybe do a tutorial
@@ -244,34 +254,45 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   void _authenticateUserWithEmail(AuthModel authModel) {
-    authModel.sendSignInWithEmailLink().whenComplete(
-        () => authModel.storeUserEmail().whenComplete(() => authModel.changeAuthStatus(AuthStatus.emailLinkSent)));
+    authModel.sendSignInWithEmailLink().whenComplete(() => authModel
+        .storeUserEmail()
+        .whenComplete(
+            () => authModel.changeAuthStatus(AuthStatus.emailLinkSent)));
   }
 
   void _authenticateUserWithPhone(AuthModel authModel) {
-    PhoneVerificationFailed verificationFailed = (FirebaseAuthException authException) {
+    PhoneVerificationFailed verificationFailed =
+        (FirebaseAuthException authException) {
       authModel.changeAuthStatus(AuthStatus.phoneAuth);
       _showSnackBar(Constants.verificationFailed);
       //TODO: show error to user.
-      print('Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
+      print(
+          'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
     };
 
-    PhoneVerificationCompleted verificationCompleted = (AuthCredential phoneAuthCredential) {
-      authModel.signInWithCredential(phoneAuthCredential).then((result) => _authCompleted());
+    PhoneVerificationCompleted verificationCompleted =
+        (AuthCredential phoneAuthCredential) {
+      authModel
+          .signInWithCredential(phoneAuthCredential)
+          .then((result) => _authCompleted());
       print('Received phone auth credential: $phoneAuthCredential');
     };
 
-    PhoneCodeSent codeSent = (String verificationId, [int forceResendingToken]) async {
+    PhoneCodeSent codeSent =
+        (String verificationId, [int forceResendingToken]) async {
       authModel.changeVerificationId(verificationId);
-      print('Please check your phone for the verification code. $verificationId');
+      print(
+          'Please check your phone for the verification code. $verificationId');
     };
 
-    PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout = (String verificationId) {
+    PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
+        (String verificationId) {
       print("auto retrieval timeout");
     };
 
     authModel.changeAuthStatus(AuthStatus.smsSent);
-    authModel.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent, verificationCompleted, verificationFailed);
+    authModel.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent,
+        verificationCompleted, verificationFailed);
   }
 
   _showSnackBar(String error) {
@@ -280,6 +301,7 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   _authCompleted() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AppScreen()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => AppScreen()));
   }
 }

@@ -12,7 +12,7 @@ class AuthValidators {
   });
 
   final validatePhone =
-  StreamTransformer.fromHandlers(handleData: (phone, sink) {
+  StreamTransformer.fromHandlers(handleData: (String phone, EventSink<String> sink) {
     if (RegExp(r"^(?:[+0]+)?[0-9]{6,14}$").hasMatch(phone)) {
       sink.add(phone);
     } else {
