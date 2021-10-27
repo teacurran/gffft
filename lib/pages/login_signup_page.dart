@@ -7,7 +7,7 @@ class LoginSignupPage extends StatefulWidget {
 
   final BaseAuth auth;
   final VoidCallback loginCallback;
-  
+
   @override
   State<StatefulWidget> createState() => _LoginSignupPageState();
 }
@@ -40,6 +40,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   // Perform login or signup
   void validateAndSubmit() async {
+    print('validateAndSubmit()');
     setState(() {
       _errorMessage = "";
       _isLoading = true;
@@ -121,7 +122,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
     }
-    return SizedBox(
+    return const SizedBox(
       height: 0.0,
       width: 0.0,
     );
@@ -152,13 +153,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   Widget _showForm() {
     return Container(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: ListView(
-            shrinkWrap: true,
-            children: getFormWidgets()
-          ),
+          child: ListView(shrinkWrap: true, children: getFormWidgets()),
         ));
   }
 
@@ -181,7 +179,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     if (_errorMessage.isNotEmpty && _errorMessage != null) {
       return Text(
         _errorMessage,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 13.0,
             color: Colors.red,
             height: 1.0,
@@ -198,7 +196,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     return Hero(
       tag: 'hero',
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
           radius: 48.0,
@@ -215,31 +213,28 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 80),
+              constraints: const BoxConstraints(maxWidth: 80),
               child: TextFormField(
                 initialValue: '+1',
                 readOnly: true,
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.phone,
-                    color: Colors.grey
-                  )
-                ),
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.phone, color: Colors.grey)),
                 onSaved: (value) => _phoneNumberPrefix = value.trim(),
               )),
           ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 5),
+            constraints: const BoxConstraints(maxWidth: 5),
             child: Container(),
           ),
           Expanded(
               child: TextFormField(
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  WhitelistingTextInputFormatter.digitsOnly
-                ],
-                validator: (value) => value.isEmpty ? 'Phone number can\'t be empty' : null,
-                onSaved: (value) => _phoneNumber = value.trim(),
-              ))
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            validator: (value) =>
+                value.isEmpty ? 'Phone number can\'t be empty' : null,
+            onSaved: (value) => _phoneNumber = value.trim(),
+          ))
         ],
       ),
     );
@@ -252,7 +247,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'Email',
             icon: Icon(
               Icons.mail,
@@ -271,7 +266,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         maxLines: 1,
         obscureText: true,
         autofocus: false,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'Password',
             icon: Icon(
               Icons.lock,
@@ -284,10 +279,13 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   }
 
   Widget showSecondaryButton() {
-    return FlatButton(
+    return ElevatedButton(
         child: Text(
-            _step == STEP_LOGIN ? 'Create an account' : 'Have an account? Sign in',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+            _step == STEP_LOGIN
+                ? 'Create an account'
+                : 'Have an account? Sign in',
+            style:
+                const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
         onPressed: toggleFormMode);
   }
 
@@ -296,14 +294,16 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
         child: SizedBox(
           height: 40.0,
-          child: RaisedButton(
-            elevation: 5.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            color: Colors.blue,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                shadowColor: Colors.blue,
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0))),
             child: Text(_step == STEP_LOGIN ? 'Login' : 'Create account',
-                style: TextStyle(fontSize: 20.0, color: Colors.white)),
+                style: const TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
+            autofocus: true,
           ),
         ));
   }

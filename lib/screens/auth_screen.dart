@@ -93,7 +93,7 @@ class AuthScreenState extends State<AuthScreen> {
                       GestureDetector(
                           onTap: () =>
                               _auth.changeAuthStatus(AuthStatus.emailAuth),
-                          child: Text(
+                          child: const Text(
                             "Enter another email address",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -105,7 +105,7 @@ class AuthScreenState extends State<AuthScreen> {
                     return _smsCodeInputField(_auth);
                     break;
                   case (AuthStatus.isLoading):
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                     break;
                   default:
                     // By default we will show the email auth form
@@ -151,13 +151,13 @@ class AuthScreenState extends State<AuthScreen> {
                       : null,
                   child: Text(
                     Constants.submit.toUpperCase(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
                   style: raisedButtonStyle,
                 ),
-                Spacer(),
+                const Spacer(),
                 Flexible(
                     fit: FlexFit.loose,
                     child: TextButton(
@@ -183,7 +183,7 @@ class AuthScreenState extends State<AuthScreen> {
         hintText: Constants.enterEmail,
         errorText: error,
         labelText: Constants.labelEmail,
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.blue,
           fontSize: 16,
         ),

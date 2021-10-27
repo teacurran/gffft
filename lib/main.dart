@@ -41,7 +41,7 @@ class App extends StatelessWidget {
         highlightColor: Colors.teal,
         primaryColor: Colors.blue,
       ),
-      home: Scaffold(
+      home: const Scaffold(
       ),
     );
   }
@@ -64,6 +64,5 @@ class App extends StatelessWidget {
       ),
     );
   }
-
 
 }
