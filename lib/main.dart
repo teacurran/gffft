@@ -41,6 +41,11 @@ class App extends StatelessWidget {
         highlightColor: Colors.teal,
         primaryColor: Colors.blue,
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        /* dark theme settings */
+      ),
+      themeMode: ThemeMode.dark,
       home: const Scaffold(
       ),
     );
@@ -61,6 +66,15 @@ class App extends StatelessWidget {
           '/catalog': (context) => Scaffold(body: AuthScreen()),
           '/cart': (context) => Scaffold(body: AuthScreen()),
         },
+        theme: ThemeData(
+          highlightColor: Colors.deepPurple,
+          primaryColor: Colors.blue,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          /* dark theme settings */
+        ),
+        themeMode: ThemeMode.system,
       ),
     );
   }

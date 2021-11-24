@@ -3,6 +3,7 @@ import 'package:country_code_picker/country_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/src/auth_model.dart';
 import 'package:gffft/src/constants.dart';
@@ -82,10 +83,10 @@ class AuthScreenState extends State<AuthScreen> {
               builder: (context, snapshot) {
                 switch (snapshot.data) {
                   case (AuthStatus.emailAuth):
-                    return _authForm(_auth, true);
+                    return _authForm(_auth, true, context);
                     break;
                   case (AuthStatus.phoneAuth):
-                    return _authForm(_auth, false);
+                    return _authForm(_auth, false, context);
                     break;
                   case (AuthStatus.emailLinkSent):
                     return Column(children: <Widget>[
@@ -109,7 +110,7 @@ class AuthScreenState extends State<AuthScreen> {
                     break;
                   default:
                     // By default we will show the email auth form
-                    return _authForm(_auth, true);
+                    return _authForm(_auth, true, context);
                     break;
                 }
               })
@@ -122,14 +123,16 @@ class AuthScreenState extends State<AuthScreen> {
   /// If its false, a form for phone auth is given.
   /// This is to make it easier for the email and phone auth forms to be more similar looking.
   /// Keeping that in mind we'll try to share all the widgets to a reasonable extent.
-  Widget _authForm(AuthModel authModel, bool isEmail) {
+  Widget _authForm(AuthModel authModel, bool isEmail, BuildContext context) {
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
       onPrimary: Colors.black87,
-      primary: Colors.blue,
+      primary: Theme.of(context).highlightColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
     );
+
+    const String logoAsset = 'assets/logo.svg';
 
     return StreamBuilder(
         stream: isEmail ? authModel.email : authModel.phone,
@@ -139,6 +142,7 @@ class AuthScreenState extends State<AuthScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
                 Flexible(
                     child: isEmail
                         ? _emailInputField(authModel, snapshot.error)
