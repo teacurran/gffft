@@ -9,5 +9,5 @@ class StorageRepository {
 
   Future<void> clearEmail() => _store.clearEmail();
 
-  Future<String> getEmail() => _store.getEmail();
+  Future<String?> getEmail() => _store.getEmail();
 }

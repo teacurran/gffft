@@ -12,7 +12,7 @@ enum AuthStatus {
 class RootPage extends StatefulWidget {
   const RootPage({this.auth});
 
-  final BaseAuth auth;
+  final BaseAuth? auth;
 
   @override
   State<StatefulWidget> createState() => _RootPageState();
@@ -25,9 +25,9 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
-    var user = widget.auth.getCurrentUser();
+    var user  = widget.auth!.getCurrentUser();
     if (user != null) {
-          _userId = user?.uid;
+          _userId = user.uid!;
         }
     authStatus =
         user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;

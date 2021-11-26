@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -41,12 +41,28 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   flutter_svg: ^0.23.0
 
+  mobx: ^2.0.5
+
   pin_view: ^1.0.1
   provider: ^6.0.1
   rxdart: ^0.27.2
+
+  # https://pub.dev/packages/sembast
+  sembast: ^3.1.1
+
+  # https://pub.dev/packages/path_provider
+  path_provider: ^2.0.7
+
+  shared_preferences: ^2.0.9
+
   sms_receiver: ^0.4.0
 
 dev_dependencies:
+  analyzer: ^2.7.0
+  build_runner: ^2.1.5
+
+  mobx_codegen: ^2.0.4
+
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter

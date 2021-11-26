@@ -5,28 +5,28 @@ import 'package:gffft/models/todo.dart';
 import 'dart:async';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key, this.auth, this.userId, this.logoutCallback})
+  const HomePage({Key? key, this.auth, this.userId, this.logoutCallback})
       : super(key: key);
 
-  final BaseAuth auth;
-  final VoidCallback logoutCallback;
-  final String userId;
+  final BaseAuth? auth;
+  final VoidCallback? logoutCallback;
+  final String? userId;
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Todo> _todoList;
+  late List<Todo> _todoList;
 
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final _textEditingController = TextEditingController();
-  StreamSubscription<Event> _onTodoAddedSubscription;
-  StreamSubscription<Event> _onTodoChangedSubscription;
+  late StreamSubscription<Event> _onTodoAddedSubscription;
+  late StreamSubscription<Event> _onTodoChangedSubscription;
 
-  Query _todoQuery;
+  late Query _todoQuery;
 
   //bool _isEmailVerified = false;
 

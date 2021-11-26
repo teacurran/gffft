@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 /// Used to store and retrieve the user email address and phone
 class StorageProvider {
-  StorageProvider({@required this.flutterSecureStorage})
+  StorageProvider({required this.flutterSecureStorage})
       : assert(flutterSecureStorage != null);
 
   final FlutterSecureStorage flutterSecureStorage;
@@ -19,7 +19,7 @@ class StorageProvider {
     await flutterSecureStorage.delete(key: storageUserEmailKey);
   }
 
-  Future<String> getEmail() async {
+  Future<String?> getEmail() async {
     return await flutterSecureStorage.read(key: storageUserEmailKey);
   }
 }

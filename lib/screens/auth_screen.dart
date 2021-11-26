@@ -16,7 +16,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class AuthScreenState extends State<AuthScreen> {
-  Locale _myLocale;
+  late Locale _myLocale;
 
   @override
   void didChangeDependencies() {
@@ -36,7 +36,7 @@ class AuthScreenState extends State<AuthScreen> {
               flagUri: "",
             ))
         .toList();
-    String dialCode =
+    String? dialCode =
         elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
 
     var _auth = Provider.of<AuthModel>(context);
@@ -44,9 +44,9 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   void initDynamicLinks() async {
-    final PendingDynamicLinkData data =
+    final PendingDynamicLinkData? data =
         await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri deepLink = data?.link;
+    final Uri? deepLink = data?.link;
 
     if (deepLink != null) {
       print("deep link: $deepLink");
@@ -178,14 +178,14 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   /// The method takes in an [error] message from our validator.
-  Widget _emailInputField(AuthModel authModel, String error) {
+  Widget _emailInputField(AuthModel authModel, Object? error) {
     return TextField(
       onChanged: authModel.changeEmail,
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(fontSize: 20),
       decoration: InputDecoration(
         hintText: Constants.enterEmail,
-        errorText: error,
+        errorText: error is String ? error,
         labelText: Constants.labelEmail,
         labelStyle: const TextStyle(
           color: Colors.blue,
@@ -198,7 +198,7 @@ class AuthScreenState extends State<AuthScreen> {
   /// Besides the user entering their phone number, we also need to know the user's country code
   /// for that we are gonna use a library CountryCodePicker.
   /// The method takes in an [error] message from our validator.
-  Widget _phoneInputField(AuthModel authModel, String error) {
+  Widget _phoneInputField(AuthModel authModel, Object? error) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -211,7 +211,7 @@ class AuthScreenState extends State<AuthScreen> {
                 onChanged: (countryCode) =>
                     authModel.changeDialCode(countryCode.dialCode),
                 initialSelection: _myLocale.countryCode,
-                favorite: [_myLocale.countryCode],
+                favorite: [],
                 showCountryOnly: false,
                 alignLeft: true,
               ),
@@ -225,7 +225,7 @@ class AuthScreenState extends State<AuthScreen> {
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
                 hintText: Constants.enterPhone,
-                errorText: error,
+                errorText: error is String ? error,
                 labelText: Constants.labelPhone,
                 labelStyle: TextStyle(
                   color: Colors.blue,

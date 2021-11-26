@@ -45,7 +45,7 @@ class App extends StatelessWidget {
         brightness: Brightness.dark,
         /* dark theme settings */
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       home: const Scaffold(
       ),
     );
@@ -62,7 +62,7 @@ class App extends StatelessWidget {
         title: 'Provider Demo',
         initialRoute: '/',
         routes: {
-          '/': (context) => Scaffold(body: AuthScreen()),
+          '/': (ctx) => Scaffold(body: AuthScreen()),
           '/catalog': (context) => Scaffold(body: AuthScreen()),
           '/cart': (context) => Scaffold(body: AuthScreen()),
         },

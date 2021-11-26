@@ -14,7 +14,7 @@ class Repository with StorageRepository {
   Future<UserCredential> signInWithCredential(AuthCredential credential) =>
       _authProvider.signInWithCredential(credential);
 
-  User getCurrentUser() => _authProvider.getCurrentUser();
+  User? getCurrentUser() => _authProvider.getCurrentUser();
 
   Future<void> verifyPhoneNumber(
       String phone,

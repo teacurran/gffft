@@ -26,7 +26,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
 
 // get value
   String get getEmail => _email.value;
-  String get getPhone => _phone.valueOrNull;
+  String? get getPhone => _phone.valueOrNull;
   String get getDialCode => _dialCode.value;
   String get getVerificationId => _verificationId.value;
   AuthStatus get getAuthStatus => _authStatus.value;
@@ -34,7 +34,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
 // change data
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changePhone => _phone.sink.add;
-  Function(String) get changeDialCode => _dialCode.sink.add;
+  Function(String?) get changeDialCode => _dialCode.sink.add;
   Function(String) get changeVerificationId => _verificationId.sink.add;
   Function(AuthStatus) get changeAuthStatus => _authStatus.sink.add;
 
@@ -48,7 +48,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
     return _repository.signInWithEmailLink(email, link);
   }
 
-  User getCurrentUser() {
+  User? getCurrentUser() {
     return _repository.getCurrentUser();
   }
 
@@ -60,7 +60,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
     return _repository.clearEmail();
   }
 
-  Future<String> getUserEmailFromStorage() {
+  Future<String?> getUserEmailFromStorage() {
     return _repository.getEmail();
   }
 

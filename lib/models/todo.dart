@@ -1,12 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 
 class Todo {
-  String key;
+  String? key;
   String subject;
-  bool completed;
-  String userId;
+  bool completed = false;
+  String? userId;
 
-  Todo(this.subject, this.userId, this.completed);
+  Todo(this.key, this.subject, this.userId, this.completed);
 
   Todo.fromSnapshot(DataSnapshot snapshot) :
     key = snapshot.key,

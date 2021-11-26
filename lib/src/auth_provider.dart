@@ -41,7 +41,7 @@ class AuthProvider {
     return _auth.signInWithCredential(credential);
   }
 
-  User getCurrentUser() {
+  User? getCurrentUser() {
     return _auth.currentUser;
   }
 }
