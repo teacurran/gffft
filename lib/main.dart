@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gffft/screens/auth_screen.dart';
 import 'package:gffft/src/auth_model.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,15 @@ class App extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', ''), // English, no country code
+          Locale('es', ''), // Spanish, no country code
+        ],
         title: 'Provider Demo',
         initialRoute: '/',
         routes: {

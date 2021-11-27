@@ -9,6 +9,7 @@ import 'package:gffft/src/auth_model.dart';
 import 'package:gffft/src/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+import 'package:collection/collection.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class AuthScreenState extends State<AuthScreen> {
     /// matches the phone dial code, which is the majority of the cases.
     /// We do this by loading up a list of dialcodes and their respected country code, from there
     /// we find the matching dialcode for the phone's locale.
-    List<CountryCode> elements = codes
+    List<CountryCode> countryCodes = codes
         .map((s) => CountryCode(
               name: "",
               code: s['code'],
@@ -36,8 +37,10 @@ class AuthScreenState extends State<AuthScreen> {
               flagUri: "",
             ))
         .toList();
-    String? dialCode =
-        elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
+    CountryCode? countryCode = countryCodes.firstWhereOrNull(
+            (c) => c.code!.toLowerCase() == _myLocale.countryCode!.toLowerCase()
+    );
+    String? dialCode = (countryCode != null) ? countryCode.dialCode : countryCodes.firstWhere((c) => c.code == "US").dialCode;
 
     var _auth = Provider.of<AuthModel>(context);
     if (dialCode != null) {
@@ -76,7 +79,7 @@ class AuthScreenState extends State<AuthScreen> {
     var _auth = context.watch<AuthModel>();
 
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -86,13 +89,11 @@ class AuthScreenState extends State<AuthScreen> {
                 switch (snapshot.data) {
                   case (AuthStatus.emailAuth):
                     return _authForm(_auth, true, context);
-                    break;
                   case (AuthStatus.phoneAuth):
                     return _authForm(_auth, false, context);
-                    break;
                   case (AuthStatus.emailLinkSent):
                     return Column(children: <Widget>[
-                      Center(child: Text(Constants.sentEmail)),
+                      const Center(child: Text(Constants.sentEmail)),
                       GestureDetector(
                           onTap: () =>
                               _auth.changeAuthStatus(AuthStatus.emailAuth),
@@ -103,17 +104,13 @@ class AuthScreenState extends State<AuthScreen> {
                             ),
                           )),
                     ]);
-                    break;
                   case (AuthStatus.smsSent):
                     return _smsCodeInputField(_auth);
-                    break;
                   case (AuthStatus.isLoading):
                     return const Center(child: CircularProgressIndicator());
-                    break;
                   default:
                     // By default we will show the email auth form
                     return _authForm(_auth, true, context);
-                    break;
                 }
               })
         ],
@@ -269,34 +266,29 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   void _authenticateUserWithPhone(AuthModel authModel) {
-    PhoneVerificationFailed verificationFailed =
-        (FirebaseAuthException authException) {
+    verificationFailed(FirebaseAuthException authException) {
       authModel.changeAuthStatus(AuthStatus.phoneAuth);
       _showSnackBar(Constants.verificationFailed);
       //TODO: show error to user.
-      print(
-          'Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
-    };
+      print('Phone number verification failed. Code: ${authException.code}. Message: ${authException.message}');
+    }
 
-    PhoneVerificationCompleted verificationCompleted =
-        (AuthCredential phoneAuthCredential) {
+    verificationCompleted(AuthCredential phoneAuthCredential) {
       authModel
           .signInWithCredential(phoneAuthCredential)
           .then((result) => _authCompleted());
       print('Received phone auth credential: $phoneAuthCredential');
-    };
+    }
 
-    PhoneCodeSent codeSent =
-        (String verificationId, [int? forceResendingToken]) async {
+    codeSent(String verificationId, [int? forceResendingToken]) async {
       authModel.changeVerificationId(verificationId);
       print(
           'Please check your phone for the verification code. $verificationId');
-    };
+    }
 
-    PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
-        (String verificationId) {
+    codeAutoRetrievalTimeout(String verificationId) {
       print("auto retrieval timeout");
-    };
+    }
 
     authModel.changeAuthStatus(AuthStatus.smsSent);
     authModel.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent,
