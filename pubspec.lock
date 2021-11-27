@@ -9,7 +9,7 @@ packages:
     source: hosted
     version: "30.0.0"
   analyzer:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "2.0.5"
   build_runner:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.dartlang.org"
@@ -314,6 +314,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -416,7 +421,7 @@ packages:
     source: hosted
     version: "4.0.0"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -486,7 +491,7 @@ packages:
     source: hosted
     version: "2.0.5"
   mobx_codegen:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: mobx_codegen
       url: "https://pub.dartlang.org"
@@ -590,13 +595,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.4.0"
-  pin_view:
+  pinput:
     dependency: "direct main"
     description:
-      name: pin_view
+      name: pinput
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.2.2"
   platform:
     dependency: transitive
     description:
@@ -735,20 +740,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  sms:
-    dependency: transitive
-    description:
-      name: sms
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.4"
-  sms_receiver:
-    dependency: "direct main"
-    description:
-      name: sms_receiver
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.0"
   source_gen:
     dependency: transitive
     description:

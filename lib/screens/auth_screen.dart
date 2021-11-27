@@ -7,8 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/src/auth_model.dart';
 import 'package:gffft/src/constants.dart';
-import 'package:pin_view/pin_view.dart';
 import 'package:provider/provider.dart';
+import 'package:pinput/pin_put/pin_put.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -40,7 +40,9 @@ class AuthScreenState extends State<AuthScreen> {
         elements.firstWhere((c) => c.code == _myLocale.countryCode).dialCode;
 
     var _auth = Provider.of<AuthModel>(context);
-    _auth.changeDialCode(dialCode);
+    if (dialCode != null) {
+      _auth.changeDialCode(dialCode);
+    }
   }
 
   void initDynamicLinks() async {
@@ -185,7 +187,7 @@ class AuthScreenState extends State<AuthScreen> {
       style: TextStyle(fontSize: 20),
       decoration: InputDecoration(
         hintText: Constants.enterEmail,
-        errorText: error is String ? error,
+        errorText: error is String ? error : null,
         labelText: Constants.labelEmail,
         labelStyle: const TextStyle(
           color: Colors.blue,
@@ -208,8 +210,12 @@ class AuthScreenState extends State<AuthScreen> {
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: CountryCodePicker(
-                onChanged: (countryCode) =>
-                    authModel.changeDialCode(countryCode.dialCode),
+                onChanged: (countryCode){
+                  final dialCode = countryCode.dialCode;
+                  if(dialCode != null) {
+                    authModel.changeDialCode(dialCode);
+                  }
+                },
                 initialSelection: _myLocale.countryCode,
                 favorite: [],
                 showCountryOnly: false,
@@ -225,7 +231,7 @@ class AuthScreenState extends State<AuthScreen> {
               style: TextStyle(fontSize: 20),
               decoration: InputDecoration(
                 hintText: Constants.enterPhone,
-                errorText: error is String ? error,
+                errorText: error is String ? error : null,
                 labelText: Constants.labelPhone,
                 labelStyle: TextStyle(
                   color: Colors.blue,
@@ -241,11 +247,9 @@ class AuthScreenState extends State<AuthScreen> {
 
   Widget _smsCodeInputField(AuthModel authModel) {
     return Column(children: <Widget>[
-      PinView(
-          count: 6, // describes the field number
-          margin: EdgeInsets.all(2.5), // margin between the fields
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
-          submit: (String smsCode) {
+      PinPut(
+          fieldsCount: 6,
+          onSubmit: (String smsCode) {
             AuthCredential credential = PhoneAuthProvider.credential(
                 verificationId: authModel.getVerificationId, smsCode: smsCode);
             authModel.signInWithCredential(credential).then((result) =>
@@ -283,7 +287,7 @@ class AuthScreenState extends State<AuthScreen> {
     };
 
     PhoneCodeSent codeSent =
-        (String verificationId, [int forceResendingToken]) async {
+        (String verificationId, [int? forceResendingToken]) async {
       authModel.changeVerificationId(verificationId);
       print(
           'Please check your phone for the verification code. $verificationId');

@@ -34,7 +34,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
 // change data
   Function(String) get changeEmail => _email.sink.add;
   Function(String) get changePhone => _phone.sink.add;
-  Function(String?) get changeDialCode => _dialCode.sink.add;
+  Function(String) get changeDialCode => _dialCode.sink.add;
   Function(String) get changeVerificationId => _verificationId.sink.add;
   Function(AuthStatus) get changeAuthStatus => _authStatus.sink.add;
 
