@@ -79,7 +79,7 @@ class AuthScreenState extends State<AuthScreen> {
     var _auth = context.watch<AuthModel>();
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -207,7 +207,7 @@ class AuthScreenState extends State<AuthScreen> {
             child: Padding(
               padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: CountryCodePicker(
-                onChanged: (countryCode){
+                onChanged: (countryCode) {
                   final dialCode = countryCode.dialCode;
                   if(dialCode != null) {
                     authModel.changeDialCode(dialCode);
@@ -215,9 +215,16 @@ class AuthScreenState extends State<AuthScreen> {
                 },
                 initialSelection: _myLocale.countryCode,
                 favorite: [],
+                padding: const EdgeInsets.all(0.0),
                 showCountryOnly: false,
+                showDropDownButton: false,
                 alignLeft: true,
-              ),
+                searchStyle: const TextStyle(color: Colors.black),
+                closeIcon: const Icon(Icons.close, color: Colors.black),
+                searchDecoration: const InputDecoration(prefixIcon: Icon(Icons.search, color: Colors.black)),
+                dialogTextStyle: const TextStyle(color: Colors.black),
+                dialogSize: Size(MediaQuery.of(context).size.width * 0.85, MediaQuery.of(context).size.height * 0.85),
+              )
             ),
           ),
           Expanded(
@@ -243,9 +250,24 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   Widget _smsCodeInputField(AuthModel authModel) {
+    var _pinPutDecoration = BoxDecoration(
+        border: Border.all(color: Colors.deepPurpleAccent),
+        borderRadius: BorderRadius.circular(15.0),
+    );
+
     return Column(children: <Widget>[
       PinPut(
           fieldsCount: 6,
+          submittedFieldDecoration: _pinPutDecoration.copyWith(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          selectedFieldDecoration: _pinPutDecoration,
+          followingFieldDecoration: _pinPutDecoration.copyWith(
+            borderRadius: BorderRadius.circular(5.0),
+            border: Border.all(
+              color: Colors.deepPurpleAccent.withOpacity(.5),
+            ),
+          ),
           onSubmit: (String smsCode) {
             AuthCredential credential = PhoneAuthProvider.credential(
                 verificationId: authModel.getVerificationId, smsCode: smsCode);

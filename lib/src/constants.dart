@@ -4,7 +4,7 @@ class Constants {
   static const String projectUrl = "https://gffft.app/app";
   static const String errorPhone = "Phone is incorrect";
   static const String errorEmail = "Email is incorect";
-  static const String enterPhone = "Please enter your phone";
+  static const String enterPhone = "Phone Number";
   static const String enterEmail = "Please enter your email";
   static const String usePhone = "Use phone instead";
   static const String useEmail = "Use email instead";
