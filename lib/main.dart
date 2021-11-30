@@ -1,6 +1,8 @@
+import 'package:country_code_picker/country_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/auth_screen.dart';
 import 'package:gffft/src/auth_model.dart';
 import 'package:provider/provider.dart';
@@ -53,14 +55,16 @@ class App extends StatelessWidget {
   }
 
   Widget defaultState(BuildContext context) {
+    var authModel = AuthModel();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthModel>(
-          create: (context) => AuthModel()
+          create: (context) => authModel
         ),
       ],
       child: MaterialApp(
         localizationsDelegates: const [
+          CountryLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
@@ -70,11 +74,12 @@ class App extends StatelessWidget {
           Locale('es', ''), // Spanish, no country code
         ],
         title: 'Provider Demo',
-        initialRoute: '/',
+        initialRoute: authModel.getCurrentUser() == null ? '/' : '/home',
         routes: {
-          '/': (ctx) => Scaffold(body: AuthScreen()),
-          '/catalog': (context) => Scaffold(body: AuthScreen()),
-          '/cart': (context) => Scaffold(body: AuthScreen()),
+          '/': (context) => Scaffold(body: AuthScreen()),
+          '/home': (context) => const Scaffold(body: AppScreen()),
+          '/catalog': (context) => const Scaffold(body: AppScreen()),
+          '/cart': (context) => const Scaffold(body: AppScreen()),
         },
         theme: ThemeData(
           highlightColor: Colors.deepPurple,

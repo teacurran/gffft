@@ -213,8 +213,9 @@ class AuthScreenState extends State<AuthScreen> {
                     authModel.changeDialCode(dialCode);
                   }
                 },
-                initialSelection: _myLocale.countryCode,
+                initialSelection: 'US',
                 favorite: [],
+                countryFilter: const ['US', 'CA', 'MX'],
                 padding: const EdgeInsets.all(0.0),
                 showCountryOnly: false,
                 showDropDownButton: false,
@@ -223,7 +224,7 @@ class AuthScreenState extends State<AuthScreen> {
                 closeIcon: const Icon(Icons.close, color: Colors.black),
                 searchDecoration: const InputDecoration(prefixIcon: Icon(Icons.search, color: Colors.black)),
                 dialogTextStyle: const TextStyle(color: Colors.black),
-                dialogSize: Size(MediaQuery.of(context).size.width * 0.85, MediaQuery.of(context).size.height * 0.85),
+                dialogSize: Size(MediaQuery.of(context).size.width * 0.85, 400),
               )
             ),
           ),

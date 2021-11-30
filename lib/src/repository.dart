@@ -3,7 +3,7 @@ import 'package:gffft/src/auth_provider.dart';
 import 'package:gffft/src/storage_repository.dart';
 
 class Repository with StorageRepository {
-  final _authProvider = AuthProvider();
+  final _authProvider = AuthProvider(FirebaseAuth.instance);
 
   Future<void> sendSignInWithEmailLink(String email) =>
       _authProvider.sendSignInWithEmailLink(email);

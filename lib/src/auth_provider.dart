@@ -2,7 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gffft/src/constants.dart';
 
 class AuthProvider {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
+
+  AuthProvider(this._auth);
+
+  Stream<User?> get authStateChanges => _auth.idTokenChanges();
 
   Future<void> sendSignInWithEmailLink(String email) async {
 
