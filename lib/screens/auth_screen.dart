@@ -10,6 +10,7 @@ import 'package:gffft/src/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -22,7 +23,15 @@ class AuthScreenState extends State<AuthScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    initDynamicLinks();
+
+    if ((defaultTargetPlatform == TargetPlatform.iOS) || (defaultTargetPlatform == TargetPlatform.android)) {
+      initDynamicLinks();
+    } else if ((defaultTargetPlatform == TargetPlatform.linux) || (defaultTargetPlatform == TargetPlatform.macOS) || (defaultTargetPlatform == TargetPlatform.windows)) {
+      // Some desktop specific code there
+    } else {
+      // Some web specific code there
+    }
+
     _myLocale = Localizations.localeOf(context);
 
     /// We need to reflect the initial selection of the dialcode, in case the phone's selected locale
