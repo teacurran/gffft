@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/links/**",
+        "dynamicLinks": true
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

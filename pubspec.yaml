@@ -31,9 +31,9 @@ dependencies:
 
   # Add the dependencies for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
-  firebase_auth: ^3.2.0
-  firebase_database: ^8.1.0
-  firebase_dynamic_links: ^3.0.1
+  firebase_auth: ^3.3.0
+  firebase_database: ^8.2.0
+  firebase_dynamic_links: ^3.0.2
 
   flutter:
     sdk: flutter

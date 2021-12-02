@@ -1,7 +1,7 @@
 class Constants {
   // Strings
   // TODO: replace url
-  static const String projectUrl = "https://gffft.app/app";
+  static final String projectUrl = (Uri.base != null) ? "${Uri.base.scheme}://${Uri.base.host}" : "https://gffft.app";
   static const String errorPhone = "Phone is incorrect";
   static const String errorEmail = "Email is incorect";
   static const String enterPhone = "Phone Number";

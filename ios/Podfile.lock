@@ -17,18 +17,18 @@ PODS:
     - Firebase/AnalyticsWithoutAdIdSupport (= 8.9.0)
     - firebase_core
     - Flutter
-  - firebase_auth (3.2.0):
+  - firebase_auth (3.3.0):
     - Firebase/Auth (= 8.9.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.10.0):
+  - firebase_core (1.10.1):
     - Firebase/CoreOnly (= 8.9.0)
     - Flutter
-  - firebase_database (8.1.0):
+  - firebase_database (8.2.0):
     - Firebase/Database (= 8.9.0)
     - firebase_core
     - Flutter
-  - firebase_dynamic_links (3.0.1):
+  - firebase_dynamic_links (3.0.2):
     - Firebase/DynamicLinks (= 8.9.0)
     - firebase_core
     - Flutter
@@ -162,10 +162,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Firebase: 13d8d96499e2635428d5bf0ec675df21f95d9a95
   firebase_analytics: fc22c02d8c200e3600bc15899a34ac2264ddf763
-  firebase_auth: 0d56cc4d105ff70d1547a7fcb10ee574ad05adf5
-  firebase_core: f770e033e790657b3505f04be4cb24c482912f11
-  firebase_database: 9d21bb9c9b1037eb33e7b99bc7a34927dcd8cc71
-  firebase_dynamic_links: 9bf840ceeda753adfb296c6a6f3fdd705e3b6c77
+  firebase_auth: 9b2e9b08f1d64fcf861f0409ac909a5cf9aa52dc
+  firebase_core: a54a31c48d516674649f419aea823585c4652ae0
+  firebase_database: 61be02aa72266665cc73b1f267f21d19ba9b939e
+  firebase_dynamic_links: d79118550dc36eccc182e4990ed5d4342d5ab900
   FirebaseAnalytics: 4ab446ce08a3fe52e8a4303dd997cf26276bf968
   FirebaseAuth: 2b78b2a32c07b3ecfa4970bdf1d3632b8304099b
   FirebaseCore: 599ee609343eaf4941bd188f85e3aa077ffe325b

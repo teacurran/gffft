@@ -12,7 +12,7 @@ class AuthProvider {
 
     return _auth.sendSignInLinkToEmail(
         email: email, actionCodeSettings: ActionCodeSettings(
-      url: Constants.projectUrl,
+      url: "${Constants.projectUrl}/links/",
       androidInstallApp: true,
       androidMinimumVersion: '21',
       androidPackageName: 'com.approachingpi.gffft',
