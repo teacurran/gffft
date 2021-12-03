@@ -12,12 +12,13 @@ class AuthProvider {
 
     return _auth.sendSignInLinkToEmail(
         email: email, actionCodeSettings: ActionCodeSettings(
-      url: "${Constants.projectUrl}/links/",
+      url: "${Constants.projectUrl}/links/home",
       androidInstallApp: true,
       androidMinimumVersion: '21',
       androidPackageName: 'com.approachingpi.gffft',
       handleCodeInApp: true,
       iOSBundleId: 'com.approachingpi.gffft',
+      dynamicLinkDomain: "${Constants.projectUrl}/links/"
     ));
   }
 
@@ -43,6 +44,10 @@ class AuthProvider {
 
   Future<UserCredential> signInWithCredential(AuthCredential credential) async {
     return _auth.signInWithCredential(credential);
+  }
+
+  isSignInWithEmailLink(String email) async {
+    return _auth.isSignInWithEmailLink(email);
   }
 
   User? getCurrentUser() {

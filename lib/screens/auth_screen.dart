@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_code_picker/country_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +8,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/src/auth_model.dart';
+import 'package:gffft/src/auth_provider.dart';
 import 'package:gffft/src/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:pinput/pin_put/pin_put.dart';
@@ -20,17 +23,13 @@ class AuthScreen extends StatefulWidget {
 class AuthScreenState extends State<AuthScreen> {
   late Locale _myLocale;
 
+  var _auth = Provider.of<AuthModel>(context);
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if ((defaultTargetPlatform == TargetPlatform.iOS) || (defaultTargetPlatform == TargetPlatform.android)) {
-      initDynamicLinks();
-    } else if ((defaultTargetPlatform == TargetPlatform.linux) || (defaultTargetPlatform == TargetPlatform.macOS) || (defaultTargetPlatform == TargetPlatform.windows)) {
-      // Some desktop specific code there
-    } else {
-      // Some web specific code there
-    }
+    _init();
 
     _myLocale = Localizations.localeOf(context);
 
@@ -51,16 +50,30 @@ class AuthScreenState extends State<AuthScreen> {
     );
     String? dialCode = (countryCode != null) ? countryCode.dialCode : countryCodes.firstWhere((c) => c.code == "US").dialCode;
 
-    var _auth = Provider.of<AuthModel>(context);
     if (dialCode != null) {
       _auth.changeDialCode(dialCode);
     }
   }
 
-  void initDynamicLinks() async {
-    final PendingDynamicLinkData? data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri? deepLink = data?.link;
+  void _init() async {
+    Uri? deepLink;
+    if ((defaultTargetPlatform == TargetPlatform.iOS)
+      || (defaultTargetPlatform == TargetPlatform.android)
+      || (defaultTargetPlatform == TargetPlatform.linux)
+      || (defaultTargetPlatform == TargetPlatform.macOS)
+      || (defaultTargetPlatform == TargetPlatform.windows)
+    ) {
+      final PendingDynamicLinkData? data =
+      await FirebaseDynamicLinks.instance.getInitialLink();
+      deepLink = data?.link;
+    } else {
+      String? emailLink = window.location.href;
+      if (emailLink != null && _auth.isSignInWithEmailLink(emailLink)) {
+        _auth.signInWithEmailLink(email, emailLink)
+
+      }
+    }
+
 
     if (deepLink != null) {
       print("deep link: $deepLink");

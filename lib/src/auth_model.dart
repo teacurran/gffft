@@ -44,8 +44,16 @@ class AuthModel extends ChangeNotifier with AuthValidators {
         .sendSignInWithEmailLink(_email.value.replaceAll(" ", ""));
   }
 
-  Future<UserCredential> signInWIthEmailLink(email, link) {
-    return _repository.signInWithEmailLink(email, link);
+  Future<UserCredential?> signInWithEmailLink(link) async {
+    String? email = await _repository.getEmail();
+    if (email != null) {
+      return _repository.signInWithEmailLink(email, link);
+    }
+    return null;
+  }
+
+  bool isSignInWithEmailLink(email) {
+    return _repository.isSignInWithEmailLink(email);
   }
 
   User? getCurrentUser() {
