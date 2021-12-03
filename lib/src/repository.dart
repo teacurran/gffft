@@ -14,7 +14,7 @@ class Repository with StorageRepository {
   Future<UserCredential> signInWithCredential(AuthCredential credential) =>
       _authProvider.signInWithCredential(credential);
 
-  bool isSignInWithEmailLink(String email) =>
+  Future<bool> isSignInWithEmailLink(String email) =>
       _authProvider.isSignInWithEmailLink(email);
 
   User? getCurrentUser() => _authProvider.getCurrentUser();

@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'package:window_location_href/window_location_href.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_code_picker/country_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,13 +22,11 @@ class AuthScreen extends StatefulWidget {
 class AuthScreenState extends State<AuthScreen> {
   late Locale _myLocale;
 
-  var _auth = Provider.of<AuthModel>(context);
-
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     super.didChangeDependencies();
 
-    _init();
+    var _auth = Provider.of<AuthModel>(context);
 
     _myLocale = Localizations.localeOf(context);
 
@@ -56,39 +53,21 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   void _init() async {
-    Uri? deepLink;
-    if ((defaultTargetPlatform == TargetPlatform.iOS)
-      || (defaultTargetPlatform == TargetPlatform.android)
-      || (defaultTargetPlatform == TargetPlatform.linux)
-      || (defaultTargetPlatform == TargetPlatform.macOS)
-      || (defaultTargetPlatform == TargetPlatform.windows)
-    ) {
-      final PendingDynamicLinkData? data =
-      await FirebaseDynamicLinks.instance.getInitialLink();
-      deepLink = data?.link;
-    } else {
-      String? emailLink = window.location.href;
-      if (emailLink != null && _auth.isSignInWithEmailLink(emailLink)) {
-        _auth.signInWithEmailLink(email, emailLink)
 
-      }
-    }
-
-
-    if (deepLink != null) {
-      print("deep link: $deepLink");
-      // try {
-      //   /// Change status to a loading state, so user would not get confused even for a second.
-      //   _bloc.changeAuthStatus(AuthStatus.isLoading);
-      //   await _bloc
-      //       .signInWIthEmailLink(await _bloc.getUserEmailFromStorage(), deepLink.toString())
-      //       .catchError((e) {
-      //     print("dynamic link error:$e");
-      //   }).whenComplete(() => _authCompleted());
-      // } catch (e) {
-      //   print("dynamic link error:: ${e}");
-      // }
-    }
+    // if (deepLink != null) {
+    //   print("deep link: $deepLink");
+    //   // try {
+    //   //   /// Change status to a loading state, so user would not get confused even for a second.
+    //   //   _bloc.changeAuthStatus(AuthStatus.isLoading);
+    //   //   await _bloc
+    //   //       .signInWIthEmailLink(await _bloc.getUserEmailFromStorage(), deepLink.toString())
+    //   //       .catchError((e) {
+    //   //     print("dynamic link error:$e");
+    //   //   }).whenComplete(() => _authCompleted());
+    //   // } catch (e) {
+    //   //   print("dynamic link error:: ${e}");
+    //   // }
+    // }
   }
 
   @override

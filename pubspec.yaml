@@ -60,6 +60,8 @@ dependencies:
 
   shared_preferences: ^2.0.9
 
+  window_location_href: any
+
 dev_dependencies:
   analyzer: ^2.7.0
   build_runner: ^2.1.5

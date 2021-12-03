@@ -46,7 +46,7 @@ class AuthProvider {
     return _auth.signInWithCredential(credential);
   }
 
-  isSignInWithEmailLink(String email) async {
+  Future<bool> isSignInWithEmailLink(String email) async {
     return _auth.isSignInWithEmailLink(email);
   }
 

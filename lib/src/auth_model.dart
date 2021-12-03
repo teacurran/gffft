@@ -52,7 +52,7 @@ class AuthModel extends ChangeNotifier with AuthValidators {
     return null;
   }
 
-  bool isSignInWithEmailLink(email) {
+  Future<bool> isSignInWithEmailLink(email) async {
     return _repository.isSignInWithEmailLink(email);
   }
 

@@ -12,6 +12,7 @@ class StorageProvider {
 
   // email
   Future<void> setEmail(String email) async {
+    print("setting email to:${email}");
     await flutterSecureStorage.write(key: storageUserEmailKey, value: email);
   }
 
@@ -20,6 +21,8 @@ class StorageProvider {
   }
 
   Future<String?> getEmail() async {
-    return await flutterSecureStorage.read(key: storageUserEmailKey);
+    String? email = await flutterSecureStorage.read(key: storageUserEmailKey);
+    print("get email to:${email}");
+    return email;
   }
 }

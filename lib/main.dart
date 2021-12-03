@@ -6,6 +6,8 @@ import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/auth_screen.dart';
 import 'package:gffft/src/auth_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:window_location_href/window_location_href.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,15 +15,37 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  // Create the initialization Future outside of `build`:
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  Future<void> _init(context) async {
+    // Create the initialization Future outside of `build`:
+    final Future<FirebaseApp> _firebase = Firebase.initializeApp();
+
+    // http://localhost:59282/?link=https://gffft-auth.firebaseapp.com/__/auth/action?apiKey%3DAIzaSyASr9Mp4VFSzFVAbDnuj_mAsrcX_oAI8jw%26mode%3DsignIn%26oobCode%3DPpqQPHEigxWAPHm9YL55XRySmgtfNedqRtum0YcAfJwAAAF9fvzgvA%26continueUrl%3Dhttp://localhost/links/home%26lang%3Den&apn=com.approachingpi.gffft&amv=21&ibi=com.approachingpi.gffft&ifl=https://gffft-auth.firebaseapp.com/__/auth/action?apiKey%3DAIzaSyASr9Mp4VFSzFVAbDnuj_mAsrcX_oAI8jw%26mode%3DsignIn%26oobCode%3DPpqQPHEigxWAPHm9YL55XRySmgtfNedqRtum0YcAfJwAAAF9fvzgvA%26continueUrl%3Dhttp://localhost/links/home%26lang%3Den
+    // var _auth = Provider.of<AuthModel>(context);
+    var _auth = AuthModel();
+
+    String? deepLink;
+    if (kIsWeb) {
+      deepLink = getHref();
+    } else {
+      deepLink = getHref();
+    }
+
+    //window.location.
+    if (deepLink != null) {
+      if (await _auth.isSignInWithEmailLink(deepLink)) {
+        _auth.signInWithEmailLink(deepLink);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       // Initialize FlutterFire:
-      future: _initialization,
+      future: _init(context),
       builder: (context, snapshot) {
+
         // Check for errors
         if (snapshot.hasError) {
           return loadingScreen(context);
