@@ -8,6 +8,7 @@ import 'package:gffft/src/auth_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:window_location_href/window_location_href.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -88,6 +89,7 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp(
         localizationsDelegates: const [
+          AppLocalizations.delegate,
           CountryLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -97,7 +99,7 @@ class App extends StatelessWidget {
           Locale('en', ''), // English, no country code
           Locale('es', ''), // Spanish, no country code
         ],
-        title: 'Provider Demo',
+        onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.title,
         initialRoute: authModel.getCurrentUser() == null ? '/' : '/home',
         routes: {
           '/': (context) => Scaffold(body: AuthScreen()),
