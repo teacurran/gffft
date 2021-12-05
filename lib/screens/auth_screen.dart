@@ -123,7 +123,7 @@ class AuthScreenState extends State<AuthScreen> {
   /// If its false, a form for phone auth is given.
   /// This is to make it easier for the email and phone auth forms to be more similar looking.
   /// Keeping that in mind we'll try to share all the widgets to a reasonable extent.
-  Widget _authForm(AuthModel authModel, bool isEmail, BuildContext context) {
+  Widget _authForm(AuthModel authModel, bool isEmail, BuildContext context) extends State<AuthModel> {
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
       onPrimary: Colors.black87,
       primary: Theme.of(context).highlightColor,
@@ -134,47 +134,72 @@ class AuthScreenState extends State<AuthScreen> {
 
     const String logoAsset = 'assets/logo.svg';
 
-    return StreamBuilder(
-        stream: isEmail ? authModel.email : authModel.phone,
-        builder: (context, snapshot) {
-          return Expanded(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
-                Flexible(
-                    child: isEmail
-                        ? _emailInputField(authModel, snapshot.error)
-                        : _phoneInputField(authModel, snapshot.error)),
-                ElevatedButton(
-                  onPressed: () => snapshot.hasData
-                      ? (isEmail
-                          ? _authenticateUserWithEmail(authModel)
-                          : _authenticateUserWithPhone(authModel))
-                      : null,
-                  child: Text(
-                    Constants.submit.toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+    // Create a global key that uniquely identifies the Form widget
+    // and allows validation of the form.
+    //
+    // Note: This is a GlobalKey<FormState>,
+    // not a GlobalKey<MyCustomFormState>.
+    final _formKey = GlobalKey<FormState>();
+
+
+    return Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+            Flexible(
+                child: isEmail
+                    ? _emailInputField(context, authModel)
+                    : _phoneInputField(context, authModel)
+            ),
+            ElevatedButton(
+                onPressed: isEmail ? _authenticateUserWithEmail(authModel) : _authenticateUserWithPhone(authModel),
+                child: Text(
+                  Constants.submit.toUpperCase(),
+                  style: const TextStyle(
+                    color: Colors.white,
                   ),
-                  style: raisedButtonStyle,
-                ),
-                const Spacer(),
-                Flexible(
-                    fit: FlexFit.loose,
-                    child: TextButton(
-                        onPressed: () => authModel.changeAuthStatus(isEmail
-                            ? AuthStatus.phoneAuth
-                            : AuthStatus.emailAuth),
-                        child: Text(
-                          isEmail
-                              ? Constants.usePhone.toUpperCase()
-                              : Constants.useEmail.toUpperCase(),
-                        ))),
-              ]));
-        });
+              ),
+              style: raisedButtonStyle
+            ),
+            TextFormField(
+              // The validator receives the text that the user has entered.
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  if (_formKey.currentState!.validate()) {
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                  }
+                },
+                child: const Text('Submit'),
+              ),
+            ),
+            const Spacer(),
+            const Flexible(
+              fit: FlexFit.loose,
+              child: TextButton(
+                onPressed: () => authModel.changeAuthStatus(isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
+                child: Text(isEmail ? Constants.usePhone.toUpperCase() : Constants.useEmail.toUpperCase())
+              )
+            )
+          ]
+        )
+    );
   }
 
   /// The method takes in an [error] message from our validator.
