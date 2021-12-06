@@ -123,7 +123,7 @@ class AuthScreenState extends State<AuthScreen> {
   /// If its false, a form for phone auth is given.
   /// This is to make it easier for the email and phone auth forms to be more similar looking.
   /// Keeping that in mind we'll try to share all the widgets to a reasonable extent.
-  Widget _authForm(AuthModel authModel, bool isEmail, BuildContext context) extends State<AuthModel> {
+  Widget _authForm(AuthModel authModel, bool isEmail, BuildContext context) {
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
       onPrimary: Colors.black87,
       primary: Theme.of(context).highlightColor,
@@ -203,7 +203,7 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   /// The method takes in an [error] message from our validator.
-  Widget _emailInputField(AuthModel authModel, Object? error) {
+  Widget _emailInputField(BuildContext context, AuthModel authModel) {
     return TextField(
       onChanged: authModel.changeEmail,
       keyboardType: TextInputType.emailAddress,
