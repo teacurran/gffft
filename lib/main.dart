@@ -1,22 +1,30 @@
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/auth_screen.dart';
 import 'package:gffft/src/auth_model.dart';
+import 'package:gffft/user/user_api.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:window_location_href/window_location_href.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+final getIt = GetIt.instance;
+
+void setup() {
+  getIt.registerSingleton<UserApi>(UserApi());
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  setup();
   runApp(App());
 }
 
 class App extends StatelessWidget {
-
   Future<void> _init(context) async {
     // Create the initialization Future outside of `build`:
     final Future<FirebaseApp> _firebase = Firebase.initializeApp();
@@ -46,7 +54,6 @@ class App extends StatelessWidget {
       // Initialize FlutterFire:
       future: _init(context),
       builder: (context, snapshot) {
-
         // Check for errors
         if (snapshot.hasError) {
           return loadingScreen(context);
@@ -74,8 +81,7 @@ class App extends StatelessWidget {
         /* dark theme settings */
       ),
       themeMode: ThemeMode.system,
-      home: const Scaffold(
-      ),
+      home: const Scaffold(),
     );
   }
 
@@ -83,9 +89,7 @@ class App extends StatelessWidget {
     var authModel = AuthModel();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthModel>(
-          create: (context) => authModel
-        ),
+        ChangeNotifierProvider<AuthModel>(create: (context) => authModel),
       ],
       child: MaterialApp(
         localizationsDelegates: const [
@@ -119,5 +123,4 @@ class App extends StatelessWidget {
       ),
     );
   }
-
 }
