@@ -77,3 +77,4 @@ android/.idea
 !.idea/
 /android/.idea/
 /.idea/
+.firebase

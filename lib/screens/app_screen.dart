@@ -20,8 +20,13 @@ class AppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _init(context),
-        builder: (context, snapshot) {
-          return const Center(child: Text(Constants.thankYou));
+        builder: (context, AsyncSnapshot<User> snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text("error loading user info"));
+          }
+          var data = snapshot.data;
+          String text = Constants.thankYou + ":" + (data != null ? data!.id + ":" + data!.username : "unknown user");
+          return Center(child: Text(text));
         });
   }
 }

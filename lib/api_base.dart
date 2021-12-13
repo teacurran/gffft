@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 class AppException implements Exception {
@@ -56,11 +57,28 @@ enum Status { LOADING, COMPLETED, ERROR }
 class ApiBase {
   final String _baseUrl = "https://us-central1-gffft-auth.cloudfunctions.net/api/";
 
+  final headers = Map<String, String>();
+
+  // headers: {
+  // HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
+  // }
+
   Future<dynamic> get(String url) async {
+    FirebaseAuth fbAuth = FirebaseAuth.instance;
+
     print('Api Get, url $url');
     var responseJson;
     try {
-      final response = await http.get(Uri.parse(_baseUrl + url));
+      final request = http.Request("get", (Uri.parse(_baseUrl + url)));
+      if (fbAuth.currentUser != null) {
+        final String token = await fbAuth.currentUser!.getIdToken(false);
+        request.headers.addAll({
+          "Authorization": "Bearer $token",
+        });
+      }
+
+      final streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
       responseJson = _returnResponse(response);
     } on SocketException {
       print('No net');
