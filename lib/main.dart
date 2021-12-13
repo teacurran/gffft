@@ -27,7 +27,7 @@ void main() {
 class App extends StatelessWidget {
   Future<void> _init(context) async {
     // Create the initialization Future outside of `build`:
-    final Future<FirebaseApp> _firebase = Firebase.initializeApp();
+    final FirebaseApp _firebase = await Firebase.initializeApp();
 
     // http://localhost:59282/?link=https://gffft-auth.firebaseapp.com/__/auth/action?apiKey%3DAIzaSyASr9Mp4VFSzFVAbDnuj_mAsrcX_oAI8jw%26mode%3DsignIn%26oobCode%3DPpqQPHEigxWAPHm9YL55XRySmgtfNedqRtum0YcAfJwAAAF9fvzgvA%26continueUrl%3Dhttp://localhost/links/home%26lang%3Den&apn=com.approachingpi.gffft&amv=21&ibi=com.approachingpi.gffft&ifl=https://gffft-auth.firebaseapp.com/__/auth/action?apiKey%3DAIzaSyASr9Mp4VFSzFVAbDnuj_mAsrcX_oAI8jw%26mode%3DsignIn%26oobCode%3DPpqQPHEigxWAPHm9YL55XRySmgtfNedqRtum0YcAfJwAAAF9fvzgvA%26continueUrl%3Dhttp://localhost/links/home%26lang%3Den
     // var _auth = Provider.of<AuthModel>(context);
@@ -107,9 +107,9 @@ class App extends StatelessWidget {
         initialRoute: authModel.getCurrentUser() == null ? '/' : '/home',
         routes: {
           '/': (context) => Scaffold(body: AuthScreen()),
-          '/home': (context) => const Scaffold(body: AppScreen()),
-          '/catalog': (context) => const Scaffold(body: AppScreen()),
-          '/cart': (context) => const Scaffold(body: AppScreen()),
+          '/home': (context) => Scaffold(body: AppScreen()),
+          '/catalog': (context) => Scaffold(body: AppScreen()),
+          '/cart': (context) => Scaffold(body: AppScreen()),
         },
         theme: ThemeData(
           highlightColor: Colors.deepPurple,

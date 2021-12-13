@@ -1,18 +1,14 @@
-import 'package:window_location_href/window_location_href.dart';
+import 'package:collection/collection.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_code_picker/country_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/src/auth_model.dart';
-import 'package:gffft/src/auth_provider.dart';
 import 'package:gffft/src/constants.dart';
-import 'package:provider/provider.dart';
 import 'package:pinput/pin_put/pin_put.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -42,10 +38,10 @@ class AuthScreenState extends State<AuthScreen> {
               flagUri: "",
             ))
         .toList();
-    CountryCode? countryCode = countryCodes.firstWhereOrNull(
-            (c) => c.code!.toLowerCase() == _myLocale.countryCode!.toLowerCase()
-    );
-    String? dialCode = (countryCode != null) ? countryCode.dialCode : countryCodes.firstWhere((c) => c.code == "US").dialCode;
+    CountryCode? countryCode =
+        countryCodes.firstWhereOrNull((c) => c.code!.toLowerCase() == _myLocale.countryCode!.toLowerCase());
+    String? dialCode =
+        (countryCode != null) ? countryCode.dialCode : countryCodes.firstWhere((c) => c.code == "US").dialCode;
 
     if (dialCode != null) {
       _auth.changeDialCode(dialCode);
@@ -53,7 +49,6 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   void _init() async {
-
     // if (deepLink != null) {
     //   print("deep link: $deepLink");
     //   // try {
@@ -96,8 +91,7 @@ class AuthScreenState extends State<AuthScreen> {
                     return Column(children: <Widget>[
                       const Center(child: Text(Constants.sentEmail)),
                       GestureDetector(
-                          onTap: () =>
-                              _auth.changeAuthStatus(AuthStatus.emailAuth),
+                          onTap: () => _auth.changeAuthStatus(AuthStatus.emailAuth),
                           child: const Text(
                             "Enter another email address",
                             style: TextStyle(
@@ -141,69 +135,56 @@ class AuthScreenState extends State<AuthScreen> {
     // not a GlobalKey<MyCustomFormState>.
     final _formKey = GlobalKey<FormState>();
 
-
     return Form(
         key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
-            Flexible(
-                child: isEmail
-                    ? _emailInputField(context, authModel)
-                    : _phoneInputField(context, authModel)
-            ),
-            ElevatedButton(
-                onPressed: isEmail ? _authenticateUserWithEmail(authModel) : _authenticateUserWithPhone(authModel),
-                child: Text(
-                  Constants.submit.toUpperCase(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: <Widget>[
+          SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+          Flexible(child: isEmail ? _emailInputField(authModel, context) : _phoneInputField(authModel, context)),
+          ElevatedButton(
+              onPressed: () => isEmail ? _authenticateUserWithEmail(authModel) : _authenticateUserWithPhone(authModel),
+              child: Text(
+                Constants.submit.toUpperCase(),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
-              style: raisedButtonStyle
-            ),
-            TextFormField(
-              // The validator receives the text that the user has entered.
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+              style: raisedButtonStyle),
+          TextFormField(
+            // The validator receives the text that the user has entered.
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                // Validate returns true if the form is valid, or false otherwise.
+                if (_formKey.currentState!.validate()) {
+                  // If the form is valid, display a snackbar. In the real world,
+                  // you'd often call a server or save the information in a database.
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
                 }
-                return null;
               },
+              child: const Text('Submit'),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
-                  }
-                },
-                child: const Text('Submit'),
-              ),
-            ),
-            const Spacer(),
-            const Flexible(
+          ),
+          const Spacer(),
+          Flexible(
               fit: FlexFit.loose,
               child: TextButton(
-                onPressed: () => authModel.changeAuthStatus(isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
-                child: Text(isEmail ? Constants.usePhone.toUpperCase() : Constants.useEmail.toUpperCase())
-              )
-            )
-          ]
-        )
-    );
+                  onPressed: () => authModel.changeAuthStatus(isEmail ? AuthStatus.phoneAuth : AuthStatus.emailAuth),
+                  child: Text(isEmail ? Constants.usePhone : Constants.useEmail)))
+        ]));
   }
 
   /// The method takes in an [error] message from our validator.
-  Widget _emailInputField(BuildContext context, AuthModel authModel) {
+  Widget _emailInputField(AuthModel authModel, Object? error) {
     return TextField(
       onChanged: authModel.changeEmail,
       keyboardType: TextInputType.emailAddress,
@@ -231,28 +212,27 @@ class AuthScreenState extends State<AuthScreen> {
         children: <Widget>[
           Flexible(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-              child: CountryCodePicker(
-                onChanged: (countryCode) {
-                  final dialCode = countryCode.dialCode;
-                  if(dialCode != null) {
-                    authModel.changeDialCode(dialCode);
-                  }
-                },
-                initialSelection: 'US',
-                favorite: [],
-                countryFilter: const ['US', 'CA', 'MX'],
-                padding: const EdgeInsets.all(0.0),
-                showCountryOnly: false,
-                showDropDownButton: false,
-                alignLeft: true,
-                searchStyle: const TextStyle(color: Colors.black),
-                closeIcon: const Icon(Icons.close, color: Colors.black),
-                searchDecoration: const InputDecoration(prefixIcon: Icon(Icons.search, color: Colors.black)),
-                dialogTextStyle: const TextStyle(color: Colors.black),
-                dialogSize: Size(MediaQuery.of(context).size.width * 0.85, 400),
-              )
-            ),
+                padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+                child: CountryCodePicker(
+                  onChanged: (countryCode) {
+                    final dialCode = countryCode.dialCode;
+                    if (dialCode != null) {
+                      authModel.changeDialCode(dialCode);
+                    }
+                  },
+                  initialSelection: 'US',
+                  favorite: [],
+                  countryFilter: const ['US', 'CA', 'MX'],
+                  padding: const EdgeInsets.all(0.0),
+                  showCountryOnly: false,
+                  showDropDownButton: false,
+                  alignLeft: true,
+                  searchStyle: const TextStyle(color: Colors.black),
+                  closeIcon: const Icon(Icons.close, color: Colors.black),
+                  searchDecoration: const InputDecoration(prefixIcon: Icon(Icons.search, color: Colors.black)),
+                  dialogTextStyle: const TextStyle(color: Colors.black),
+                  dialogSize: Size(MediaQuery.of(context).size.width * 0.85, 400),
+                )),
           ),
           Expanded(
             flex: 2,
@@ -278,8 +258,8 @@ class AuthScreenState extends State<AuthScreen> {
 
   Widget _smsCodeInputField(AuthModel authModel) {
     var _pinPutDecoration = BoxDecoration(
-        border: Border.all(color: Colors.deepPurpleAccent),
-        borderRadius: BorderRadius.circular(15.0),
+      border: Border.all(color: Colors.deepPurpleAccent),
+      borderRadius: BorderRadius.circular(15.0),
     );
 
     return Column(children: <Widget>[
@@ -296,8 +276,8 @@ class AuthScreenState extends State<AuthScreen> {
             ),
           ),
           onSubmit: (String smsCode) {
-            AuthCredential credential = PhoneAuthProvider.credential(
-                verificationId: authModel.getVerificationId, smsCode: smsCode);
+            AuthCredential credential =
+                PhoneAuthProvider.credential(verificationId: authModel.getVerificationId, smsCode: smsCode);
             authModel.signInWithCredential(credential).then((result) =>
                 // You could potentially find out if the user is new
                 // and if so, pass that info on, to maybe do a tutorial
@@ -308,10 +288,8 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   void _authenticateUserWithEmail(AuthModel authModel) {
-    authModel.sendSignInWithEmailLink().whenComplete(() => authModel
-        .storeUserEmail()
-        .whenComplete(
-            () => authModel.changeAuthStatus(AuthStatus.emailLinkSent)));
+    authModel.sendSignInWithEmailLink().whenComplete(
+        () => authModel.storeUserEmail().whenComplete(() => authModel.changeAuthStatus(AuthStatus.emailLinkSent)));
   }
 
   void _authenticateUserWithPhone(AuthModel authModel) {
@@ -323,16 +301,13 @@ class AuthScreenState extends State<AuthScreen> {
     }
 
     verificationCompleted(AuthCredential phoneAuthCredential) {
-      authModel
-          .signInWithCredential(phoneAuthCredential)
-          .then((result) => _authCompleted());
+      authModel.signInWithCredential(phoneAuthCredential).then((result) => _authCompleted());
       print('Received phone auth credential: $phoneAuthCredential');
     }
 
     codeSent(String verificationId, [int? forceResendingToken]) async {
       authModel.changeVerificationId(verificationId);
-      print(
-          'Please check your phone for the verification code. $verificationId');
+      print('Please check your phone for the verification code. $verificationId');
     }
 
     codeAutoRetrievalTimeout(String verificationId) {
@@ -340,8 +315,7 @@ class AuthScreenState extends State<AuthScreen> {
     }
 
     authModel.changeAuthStatus(AuthStatus.smsSent);
-    authModel.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent,
-        verificationCompleted, verificationFailed);
+    authModel.verifyPhoneNumber(codeAutoRetrievalTimeout, codeSent, verificationCompleted, verificationFailed);
   }
 
   _showSnackBar(String error) {
@@ -350,7 +324,6 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   _authCompleted() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => AppScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AppScreen()));
   }
 }
