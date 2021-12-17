@@ -6,13 +6,26 @@ import 'package:gffft/user/user_api.dart';
 
 final getIt = GetIt.instance;
 
-class AppScreen extends StatelessWidget {
-  AppScreen({Key? key}) : super(key: key);
+class AppScreen extends StatefulWidget {
+  @override
+  _AppScreenState createState() => _AppScreenState();
+}
 
+class _AppScreenState extends State<AppScreen> {
   UserApi userApi = getIt<UserApi>();
+  User? user;
 
-  Future<User> _init(context) async {
-    User user = await userApi.me();
+  void getCurrentUser() async {
+    user = await userApi.me();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  Future<User?> _init(context) async {
     return user;
   }
 
@@ -20,9 +33,9 @@ class AppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _init(context),
-        builder: (context, AsyncSnapshot<User> snapshot) {
+        builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text("error loading user info"));
+            return Center(child: Text("error loading user info."));
           }
           var data = snapshot.data;
           String text = Constants.thankYou + ":" + (data != null ? data!.id + ":" + data!.username : "unknown user");
