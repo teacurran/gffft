@@ -15,17 +15,13 @@ class _AppScreenState extends State<AppScreen> {
   UserApi userApi = getIt<UserApi>();
   User? user;
 
-  void getCurrentUser() async {
-    user = await userApi.me();
-  }
-
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
   }
 
   Future<User?> _init(context) async {
+    user ??= await userApi.me();
     return user;
   }
 
@@ -38,7 +34,7 @@ class _AppScreenState extends State<AppScreen> {
             return Center(child: Text("error loading user info."));
           }
           var data = snapshot.data;
-          String text = Constants.thankYou + ":" + (data != null ? data!.id + ":" + data!.username : "unknown user");
+          String text = Constants.thankYou + ":" + (data != null ? data.id + ":" + data.username : "unknown user");
           return Center(child: Text(text));
         });
   }
