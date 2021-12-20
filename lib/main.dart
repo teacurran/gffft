@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/app_screen.dart';
@@ -14,12 +15,22 @@ import 'package:window_location_href/window_location_href.dart';
 import 'firebase_options.dart';
 
 final getIt = GetIt.instance;
+const String logoAsset = 'assets/logo.svg';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   getIt.registerSingleton<UserApi>(UserApi());
   runApp(App());
+}
+
+HeaderBuilder headerImage(String assetName) {
+  return (context, constraints, _) {
+    return Padding(
+      padding: EdgeInsets.all(20),
+      child: Image.asset(assetName),
+    );
+  };
 }
 
 class App extends StatelessWidget {
@@ -88,20 +99,27 @@ class App extends StatelessWidget {
             return defaultState(context, user);
           } else {
             // User is not signed in - show a sign-in screen
-            return const MaterialApp(
-                localizationsDelegates: [
+            return MaterialApp(
+                localizationsDelegates: const [
                   AppLocalizations.delegate,
                   CountryLocalizations.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
-                supportedLocales: [
+                supportedLocales: const [
                   Locale('en', ''), // English, no country code
                   Locale('es', ''), // Spanish, no country code
                 ],
                 home: SignInScreen(
-                  providerConfigs: [
+                  headerBuilder: (context, constraints, _) {
+                    return Padding(
+                      padding: EdgeInsets.all(20),
+                      child: SvgPicture.asset(logoAsset,
+                          semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+                    );
+                  },
+                  providerConfigs: const [
                     EmailProviderConfiguration(),
                     PhoneProviderConfiguration(),
                     GoogleProviderConfiguration(

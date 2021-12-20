@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -28,6 +29,7 @@ class _AppScreenState extends State<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth fbAuth = FirebaseAuth.instance;
     var i10n = AppLocalizations.of(context);
     return FutureBuilder(
         future: _init(context),
@@ -35,6 +37,7 @@ class _AppScreenState extends State<AppScreen> {
           if (snapshot.hasError) {
             return Center(child: Text(i10n!.errorLoading));
           }
+
           var user = snapshot.data;
           String text;
           if (user == null) {
@@ -42,8 +45,16 @@ class _AppScreenState extends State<AppScreen> {
           } else {
             text = Constants.thankYou + ":" + user.username;
           }
-          String;
-          return Center(child: Text(text));
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(child: Text(text)),
+              TextButton(
+                  onPressed: () => {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, "/"))},
+                  child: Text("logout"))
+            ],
+          );
         });
   }
 }
