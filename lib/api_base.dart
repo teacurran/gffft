@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class AppException implements Exception {
@@ -57,16 +58,13 @@ enum Status { LOADING, COMPLETED, ERROR }
 class ApiBase {
   final String _baseUrl = "https://us-central1-gffft-auth.cloudfunctions.net/api/";
 
-  final headers = Map<String, String>();
-
-  // headers: {
-  // HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
-  // }
-
+  final headers = <String, String>{};
   Future<dynamic> get(String url) async {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
-    print('Api Get, url $url');
+    if (kDebugMode) {
+      print('Api Get, url $url');
+    }
     var responseJson;
     try {
       final request = http.Request("get", (Uri.parse(_baseUrl + url)));
@@ -81,10 +79,35 @@ class ApiBase {
       var response = await http.Response.fromStream(streamedResponse);
       responseJson = _returnResponse(response);
     } on SocketException {
-      print('No net');
       throw FetchDataException('No Internet connection');
     }
-    print('api get recieved!');
+    return responseJson;
+  }
+
+  Future<dynamic> getAuthenticated(String url) async {
+    FirebaseAuth fbAuth = FirebaseAuth.instance;
+
+    if (kDebugMode) {
+      print('Api Get, url $url');
+    }
+    var responseJson;
+    try {
+      final request = http.Request("get", (Uri.parse(_baseUrl + url)));
+      if (fbAuth.currentUser == null) {
+        throw FetchDataException('User must be authenticated');
+      } else {
+        final String token = await fbAuth.currentUser!.getIdToken(false);
+        request.headers.addAll({
+          "Authorization": "Bearer $token",
+        });
+      }
+
+      final streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+      responseJson = _returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
     return responseJson;
   }
 

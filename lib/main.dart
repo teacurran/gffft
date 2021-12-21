@@ -3,13 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/app_screen.dart';
+import 'package:gffft/style/app_colors.dart';
+import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/user/user_api.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:window_location_href/window_location_href.dart';
 
 import 'firebase_options.dart';
@@ -140,19 +144,58 @@ class App extends StatelessWidget {
                           })
                         ]),
               },
-              theme: ThemeData(
-                highlightColor: Colors.deepPurple,
-                primaryColor: Colors.blue,
-              ),
-              darkTheme: ThemeData(
-                brightness: Brightness.dark,
-                highlightColor: Colors.deepPurple,
-                primaryColor: Colors.blue,
-                backgroundColor: Colors.black12,
-                /* dark theme settings */
-              ),
+              darkTheme: _buildTheme(),
               themeMode: ThemeMode.dark);
           // show your app’s home page after login
         },
       );
+
+  ThemeData _buildTheme() {
+    final base = ThemeData.dark();
+    return ThemeData(
+      appBarTheme: const AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        backgroundColor: AppColors.primaryBackground,
+        elevation: 0,
+      ),
+      scaffoldBackgroundColor: AppColors.primaryBackground,
+      primaryColor: Colors.blue,
+      focusColor: AppColors.focusColor,
+      textTheme: _buildTextTheme(base.textTheme),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(
+          color: AppColors.gray,
+          fontWeight: FontWeight.w500,
+        ),
+        filled: true,
+        fillColor: AppColors.inputBackground,
+        focusedBorder: InputBorder.none,
+      ),
+      visualDensity: VisualDensity.standard,
+    );
+  }
+
+  TextTheme _buildTextTheme(TextTheme base) {
+    return base
+        .copyWith(
+          bodyText1: GoogleFonts.robotoCondensed(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            letterSpacing: letterSpacingOrNone(0.5),
+          ),
+          button: GoogleFonts.robotoCondensed(
+            fontWeight: FontWeight.w700,
+            letterSpacing: letterSpacingOrNone(2.8),
+          ),
+          headline5: GoogleFonts.robotoCondensed(
+            fontSize: 40,
+            fontWeight: FontWeight.w600,
+            letterSpacing: letterSpacingOrNone(1.4),
+          ),
+        )
+        .apply(
+          displayColor: Colors.white,
+          bodyColor: Colors.white,
+        );
+  }
 }

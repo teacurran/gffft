@@ -6,7 +6,7 @@ class UserApi extends ApiBase {
   save(User user) {}
 
   Future<User> me() async {
-    final response = await get("users/me");
+    final response = await getAuthenticated("users/me");
     return User.fromJson(response);
   }
 }
