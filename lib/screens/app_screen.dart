@@ -51,8 +51,8 @@ class _AppScreenState extends State<AppScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: Text(text, style: Theme.of(context).primaryTextTheme.bodyText1)),
-              SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+              Center(child: Text(text + "cc", style: Theme.of(context).primaryTextTheme.bodyText1)),
+              SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
               TextButton(
                   onPressed: () =>
                       {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, "/login"))},

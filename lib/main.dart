@@ -20,6 +20,8 @@ const String logoAsset = kIsWeb ? 'logo.svg' : 'assets/logo.svg';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+
   getIt.registerSingleton<UserApi>(UserApi());
   runApp(App());
 }
@@ -85,14 +87,14 @@ class App extends StatelessWidget {
   Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
     return Padding(
       padding: const EdgeInsets.all(1),
-      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
     );
   }
 
   Widget getSidebarBuilder(BuildContext context, BoxConstraints constraints) {
     return Padding(
       padding: const EdgeInsets.all(1),
-      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
     );
   }
 
@@ -103,46 +105,51 @@ class App extends StatelessWidget {
           var initialRoute = snapshot.hasData && user != null ? '/home' : '/login';
 
           return MaterialApp(
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              CountryLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en', ''), // English, no country code
-              Locale('es', ''), // Spanish, no country code
-            ],
-            initialRoute: initialRoute,
-            routes: {
-              '/home': (context) => AppScreen(),
-              '/login': (context) =>
-                  SignInScreen(headerBuilder: getHeaderBuilder, sideBuilder: getSidebarBuilder, providerConfigs: const [
-                    EmailProviderConfiguration(),
-                    PhoneProviderConfiguration(),
-                    GoogleProviderConfiguration(
-                      clientId: '248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com',
-                    ),
-                  ], actions: [
-                    AuthStateChangeAction<SignedIn>((context, _) {
-                      Navigator.of(context).pushReplacementNamed('/home');
-                    }),
-                    SignedOutAction((context) {
-                      Navigator.of(context).pushReplacementNamed('/login');
-                    })
-                  ]),
-            },
-            theme: ThemeData(
-              highlightColor: Colors.deepPurple,
-              primaryColor: Colors.blue,
-            ),
-            darkTheme: ThemeData(
-              brightness: Brightness.dark,
-              /* dark theme settings */
-            ),
-            themeMode: ThemeMode.system,
-          );
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                CountryLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en', ''), // English, no country code
+                Locale('es', ''), // Spanish, no country code
+              ],
+              initialRoute: initialRoute,
+              routes: {
+                '/home': (context) => AppScreen(),
+                '/login': (context) => SignInScreen(
+                        headerBuilder: getHeaderBuilder,
+                        sideBuilder: getSidebarBuilder,
+                        providerConfigs: const [
+                          EmailProviderConfiguration(),
+                          PhoneProviderConfiguration(),
+                          GoogleProviderConfiguration(
+                            clientId: '248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com',
+                          ),
+                        ],
+                        actions: [
+                          AuthStateChangeAction<SignedIn>((context, _) {
+                            Navigator.of(context).pushReplacementNamed('/home');
+                          }),
+                          SignedOutAction((context) {
+                            Navigator.of(context).pushReplacementNamed('/login');
+                          })
+                        ]),
+              },
+              theme: ThemeData(
+                highlightColor: Colors.deepPurple,
+                primaryColor: Colors.blue,
+              ),
+              darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                highlightColor: Colors.deepPurple,
+                primaryColor: Colors.blue,
+                backgroundColor: Colors.black12,
+                /* dark theme settings */
+              ),
+              themeMode: ThemeMode.dark);
           // show your app’s home page after login
         },
       );
