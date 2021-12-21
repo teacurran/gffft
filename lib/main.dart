@@ -15,12 +15,14 @@ import 'package:window_location_href/window_location_href.dart';
 import 'firebase_options.dart';
 
 final getIt = GetIt.instance;
-const String logoAsset = kIsWeb ? 'logo.svg' : 'assets/logo.svg';
+const String logoAsset = 'assets/logo.svg';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+  if (kIsWeb) {
+    await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+  }
 
   getIt.registerSingleton<UserApi>(UserApi());
   runApp(App());

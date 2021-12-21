@@ -45,13 +45,13 @@ class _AppScreenState extends State<AppScreen> {
           if (user == null) {
             text = i10n!.loading;
           } else {
-            text = Constants.thankYou + ":" + user.username;
+            text = Constants.thankYou + ": " + user.username;
           }
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: Text(text + "cc", style: Theme.of(context).primaryTextTheme.bodyText1)),
+              Center(child: Text(text, style: Theme.of(context).primaryTextTheme.bodyText1)),
               SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
               TextButton(
                   onPressed: () =>
