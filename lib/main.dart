@@ -15,22 +15,13 @@ import 'package:window_location_href/window_location_href.dart';
 import 'firebase_options.dart';
 
 final getIt = GetIt.instance;
-const String logoAsset = 'assets/logo.svg';
+const String logoAsset = kIsWeb ? 'logo.svg' : 'assets/logo.svg';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   getIt.registerSingleton<UserApi>(UserApi());
   runApp(App());
-}
-
-HeaderBuilder headerImage(String assetName) {
-  return (context, constraints, _) {
-    return Padding(
-      padding: EdgeInsets.all(20),
-      child: Image.asset(assetName),
-    );
-  };
 }
 
 class App extends StatelessWidget {
@@ -91,75 +82,68 @@ class App extends StatelessWidget {
     );
   }
 
+  Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
+    return Padding(
+      padding: const EdgeInsets.all(1),
+      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+    );
+  }
+
+  Widget getSidebarBuilder(BuildContext context, BoxConstraints constraints) {
+    return Padding(
+      padding: const EdgeInsets.all(1),
+      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
+    );
+  }
+
   Widget authenticationGate(BuildContext context) => StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           final User? user = snapshot.data;
-          if (snapshot.hasData && user != null) {
-            return defaultState(context, user);
-          } else {
-            // User is not signed in - show a sign-in screen
-            return MaterialApp(
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  CountryLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('en', ''), // English, no country code
-                  Locale('es', ''), // Spanish, no country code
-                ],
-                home: SignInScreen(
-                  headerBuilder: (context, constraints, _) {
-                    return Padding(
-                      padding: EdgeInsets.all(20),
-                      child: SvgPicture.asset(logoAsset,
-                          semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
-                    );
-                  },
-                  providerConfigs: const [
+          var initialRoute = snapshot.hasData && user != null ? '/home' : '/login';
+
+          return MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              CountryLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''), // English, no country code
+              Locale('es', ''), // Spanish, no country code
+            ],
+            initialRoute: initialRoute,
+            routes: {
+              '/home': (context) => AppScreen(),
+              '/login': (context) =>
+                  SignInScreen(headerBuilder: getHeaderBuilder, sideBuilder: getSidebarBuilder, providerConfigs: const [
                     EmailProviderConfiguration(),
                     PhoneProviderConfiguration(),
                     GoogleProviderConfiguration(
                       clientId: '248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com',
                     ),
-                  ],
-                ));
-          }
-
+                  ], actions: [
+                    AuthStateChangeAction<SignedIn>((context, _) {
+                      Navigator.of(context).pushReplacementNamed('/home');
+                    }),
+                    SignedOutAction((context) {
+                      Navigator.of(context).pushReplacementNamed('/login');
+                    })
+                  ]),
+            },
+            theme: ThemeData(
+              highlightColor: Colors.deepPurple,
+              primaryColor: Colors.blue,
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              /* dark theme settings */
+            ),
+            themeMode: ThemeMode.system,
+          );
           // show your app’s home page after login
         },
       );
-
-  Widget defaultState(BuildContext context, User user) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        CountryLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''), // English, no country code
-        Locale('es', ''), // Spanish, no country code
-      ],
-      onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.title,
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => Scaffold(body: AppScreen()),
-      },
-      theme: ThemeData(
-        highlightColor: Colors.deepPurple,
-        primaryColor: Colors.blue,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        /* dark theme settings */
-      ),
-      themeMode: ThemeMode.system,
-    );
-  }
 }

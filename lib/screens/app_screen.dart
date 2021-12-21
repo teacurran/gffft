@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/src/constants.dart';
 import 'package:gffft/user/user.dart';
 import 'package:gffft/user/user_api.dart';
 
 final getIt = GetIt.instance;
+const String logoAsset = 'assets/logo.svg';
 
 class AppScreen extends StatefulWidget {
   @override
@@ -49,9 +51,11 @@ class _AppScreenState extends State<AppScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: Text(text)),
+              Center(child: Text(text, style: Theme.of(context).primaryTextTheme.bodyText1)),
+              SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).highlightColor),
               TextButton(
-                  onPressed: () => {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, "/"))},
+                  onPressed: () =>
+                      {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, "/login"))},
                   child: Text("logout"))
             ],
           );
