@@ -1,9 +1,11 @@
 {
-    "errorLoading": "unable to load data, are you online?",
     "helloWorld": "Hello World!",
-    "loading": "Loading...",
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     },
-    "title": "gffft"
+    "errorLoading": "unable to load data, are you online?",
+    "loading": "Loading...",
+    "title": "gffft",
+    "connect": "connect",
+    "host": "host"
 }

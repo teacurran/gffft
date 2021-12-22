@@ -10,6 +10,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/app_screen.dart';
+import 'package:gffft/screens/connect_screen.dart';
+import 'package:gffft/screens/host_screen.dart';
 import 'package:gffft/style/app_colors.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/user/user_api.dart';
@@ -120,11 +122,12 @@ class App extends StatelessWidget {
               ],
               supportedLocales: const [
                 Locale('en', ''), // English, no country code
-                Locale('es', ''), // Spanish, no country code
               ],
               initialRoute: initialRoute,
               routes: {
                 '/home': (context) => AppScreen(),
+                '/connect': (context) => const ConnectScreen(),
+                '/host': (context) => const HostScreen(),
                 '/login': (context) => SignInScreen(
                         headerBuilder: getHeaderBuilder,
                         sideBuilder: getSidebarBuilder,
@@ -177,6 +180,10 @@ class App extends StatelessWidget {
 
   TextTheme _buildTextTheme(TextTheme base) {
     return base
+        .apply(
+          displayColor: Colors.white,
+          bodyColor: Colors.white,
+        )
         .copyWith(
           bodyText1: GoogleFonts.robotoCondensed(
             fontSize: 14,
@@ -187,15 +194,12 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w700,
             letterSpacing: letterSpacingOrNone(2.8),
           ),
+          headline4: GoogleFonts.robotoCondensed(color: Colors.black, backgroundColor: Colors.white),
           headline5: GoogleFonts.robotoCondensed(
             fontSize: 40,
             fontWeight: FontWeight.w600,
             letterSpacing: letterSpacingOrNone(1.4),
           ),
-        )
-        .apply(
-          displayColor: Colors.white,
-          bodyColor: Colors.white,
         );
   }
 }

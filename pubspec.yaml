@@ -116,7 +116,9 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
+    - assets/antenna-farm.jpg
     - assets/flutter-icon.png
+    - assets/hayes.jpg
     - assets/logo.svg
     - assets/piggy-bank.png
 
