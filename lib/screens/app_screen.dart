@@ -53,9 +53,12 @@ class _AppScreenState extends State<AppScreen> {
           } else {
             text = Constants.thankYou + ":" + user.username;
           }
+
+          var username = user == null ? i10n!.loading : user.username;
+
           return SafeArea(
-              child: Scaffold(
-            body: Column(
+              child: SingleChildScrollView(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -63,6 +66,35 @@ class _AppScreenState extends State<AppScreen> {
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: SvgPicture.asset(logoAsset,
                         semanticsLabel: 'Gffft Logo', color: theme.primaryColor, height: 150)),
+                Card(
+                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+                    color: theme.primaryColor,
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/me');
+                        },
+                        splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+                        // Generally, material cards do not have a highlight overlay.
+                        highlightColor: Colors.transparent,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                                height: 100,
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
+                                  child: Text(
+                                    username,
+                                    style: theme.textTheme.headline4,
+                                  ),
+                                )),
+                          ],
+                        ))),
                 Card(
                     margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
                     color: theme.primaryColor,
@@ -122,12 +154,18 @@ class _AppScreenState extends State<AppScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(bottom: 8),
                                       child: Text(
-                                        "destination.description",
+                                        "line 1 of text",
                                         style: theme.textTheme.bodyText1,
                                       ),
                                     ),
-                                    Text("destination.city"),
-                                    Text("destination.location"),
+                                    Text("line 2 of text"),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 10),
+                                      child: Text(
+                                        "line 3 of text with bottom padding",
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -174,8 +212,7 @@ class _AppScreenState extends State<AppScreen> {
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         i10n.host,
-                                        style: theme.textTheme.headline4
-                                            ?.apply(color: Colors.white, backgroundColor: Colors.black),
+                                        style: theme.textTheme.headline4,
                                       ),
                                     ),
                                   )
@@ -206,11 +243,6 @@ class _AppScreenState extends State<AppScreen> {
                             ),
                           ],
                         ))),
-                Center(child: Text(text, style: Theme.of(context).primaryTextTheme.bodyText1)),
-                TextButton(
-                    onPressed: () =>
-                        {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, "/login"))},
-                    child: Text("logout"))
               ],
             ),
           ));

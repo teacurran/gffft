@@ -12,6 +12,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/connect_screen.dart';
 import 'package:gffft/screens/host_screen.dart';
+import 'package:gffft/screens/me_screen.dart';
 import 'package:gffft/style/app_colors.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/user/user_api.dart';
@@ -146,6 +147,7 @@ class App extends StatelessWidget {
                             Navigator.of(context).pushReplacementNamed('/login');
                           })
                         ]),
+                '/me': (context) => const MeScreen(),
               },
               darkTheme: _buildTheme(),
               themeMode: ThemeMode.dark);

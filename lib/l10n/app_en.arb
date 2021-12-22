@@ -5,7 +5,9 @@
     },
     "errorLoading": "unable to load data, are you online?",
     "loading": "Loading...",
+    "logout": "Log Out",
     "title": "gffft",
     "connect": "connect",
-    "host": "host"
+    "host": "host",
+    "me": "me"
 }

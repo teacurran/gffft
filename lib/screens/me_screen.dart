@@ -1,0 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+class MeScreen extends StatelessWidget {
+  const MeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var i10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    FirebaseAuth fbAuth = FirebaseAuth.instance;
+
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(i10n!.me),
+        backgroundColor: theme.primaryColor,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        centerTitle: true,
+      ),
+      body: Center(
+          child: Column(
+        children: [
+          TextButton(
+              onPressed: () => {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, "/login"))},
+              child: Text(i10n.logout))
+        ],
+      )),
+    );
+  }
+}
