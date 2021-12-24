@@ -7,8 +7,8 @@ part of 'board.dart';
 // **************************************************************************
 
 Board _$BoardFromJson(Map<String, dynamic> json) => Board(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: json['id'] as String?,
+      name: json['name'] as String?,
       description: json['description'] as String?,
     );
 

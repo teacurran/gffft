@@ -97,6 +97,9 @@ class ApiBase {
         throw FetchDataException('User must be authenticated');
       } else {
         final String token = await fbAuth.currentUser!.getIdToken(false);
+        if (kDebugMode) {
+          print('token: $token');
+        }
         request.headers.addAll({
           "Authorization": "Bearer $token",
         });

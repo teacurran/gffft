@@ -48,10 +48,15 @@ class _AppScreenState extends State<AppScreen> {
 
           var user = snapshot.data;
           String text;
+          String? boardId;
           if (user == null) {
             text = i10n!.loading;
+            boardId = i10n.loading;
           } else {
             text = Constants.thankYou + ":" + user.username;
+            if (user.board != null) {
+              boardId = user.board!.id;
+            }
           }
 
           var username = user == null ? i10n!.loading : user.username;
@@ -235,7 +240,7 @@ class _AppScreenState extends State<AppScreen> {
                                         style: theme.textTheme.bodyText1,
                                       ),
                                     ),
-                                    Text("destination.city"),
+                                    Text("id: ${boardId}"),
                                     Text("destination.location"),
                                   ],
                                 ),

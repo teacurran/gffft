@@ -4,11 +4,11 @@ part 'board.g.dart';
 
 @JsonSerializable()
 class Board {
-  String id;
-  String name;
+  String? id;
+  String? name;
   String? description;
 
-  Board({required this.id, required this.name, this.description});
+  Board({this.id, this.name, this.description});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

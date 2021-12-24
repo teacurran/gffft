@@ -166,7 +166,10 @@ class App extends StatelessWidget {
         elevation: 0,
       ),
       scaffoldBackgroundColor: AppColors.primaryBackground,
-      primaryColor: Colors.blue,
+      backgroundColor: const Color(0xFF323436),
+      primaryColor: const Color(0xFF1C839E),
+      primaryColorDark: Colors.black,
+      primaryColorLight: const Color(0xFF9970A9),
       focusColor: AppColors.focusColor,
       textTheme: _buildTextTheme(base.textTheme),
       inputDecorationTheme: const InputDecorationTheme(
@@ -198,6 +201,7 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w700,
             letterSpacing: letterSpacingOrNone(2.8),
           ),
+          headline1: const TextStyle(color: Color(0xFF1C839E), fontSize: 40),
           headline4: GoogleFonts.robotoCondensed(color: Colors.black, backgroundColor: Colors.white),
           headline5: GoogleFonts.robotoCondensed(
             fontSize: 40,

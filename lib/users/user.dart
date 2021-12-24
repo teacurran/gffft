@@ -1,3 +1,4 @@
+import 'package:gffft/boards/board.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -6,8 +7,9 @@ part 'user.g.dart';
 class User {
   String id;
   String username;
+  Board? board;
 
-  User({required this.id, required this.username});
+  User({required this.id, required this.username, this.board});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

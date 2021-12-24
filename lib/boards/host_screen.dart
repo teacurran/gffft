@@ -12,12 +12,21 @@ class HostScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(i10n!.host),
-        backgroundColor: theme.primaryColor,
+        title: Text(
+          i10n!.host,
+          style: theme.textTheme.headline1,
+        ),
+        backgroundColor: theme.backgroundColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: theme.primaryColor),
           onPressed: () => Navigator.pop(context),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings, color: theme.primaryColorLight),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
         centerTitle: true,
       ),
       body: Center(
