@@ -9,16 +9,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/boards/host_screen.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/connect_screen.dart';
-import 'package:gffft/screens/host_screen.dart';
-import 'package:gffft/screens/me_screen.dart';
 import 'package:gffft/style/app_colors.dart';
 import 'package:gffft/style/letter_spacing.dart';
-import 'package:gffft/user/user_api.dart';
+import 'package:gffft/users/me_screen.dart';
+import 'package:gffft/users/user_api.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:window_location_href/window_location_href.dart';
 
+import 'boards/board_api.dart';
 import 'firebase_options.dart';
 
 final getIt = GetIt.instance;
@@ -32,6 +33,7 @@ Future<void> main() async {
   }
 
   getIt.registerSingleton<UserApi>(UserApi());
+  getIt.registerSingleton<BoardApi>(BoardApi());
   runApp(App());
 }
 

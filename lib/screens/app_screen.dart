@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/src/constants.dart';
-import 'package:gffft/user/user.dart';
-import 'package:gffft/user/user_api.dart';
+import 'package:gffft/users/user.dart';
+import 'package:gffft/users/user_api.dart';
 
 final getIt = GetIt.instance;
 const String logoAsset = 'assets/logo.svg';
