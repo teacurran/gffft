@@ -8,11 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/connect_screen.dart';
+import 'package:gffft/screens/home_screen.dart';
+import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/app_colors.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/users/me_screen.dart';
@@ -22,10 +21,10 @@ import 'package:window_location_href/window_location_href.dart';
 
 import 'boards/board_api.dart';
 import 'firebase_options.dart';
+import 'gfffts/gffft_edit_screen.dart';
 import 'gfffts/gffft_screen.dart';
 
 final getIt = GetIt.instance;
-const String logoAsset = 'assets/logo.svg';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -114,25 +113,11 @@ class App extends StatelessWidget {
     );
   }
 
-  Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
-    return Padding(
-      padding: const EdgeInsets.all(1),
-      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
-    );
-  }
-
-  Widget getSidebarBuilder(BuildContext context, BoxConstraints constraints) {
-    return Padding(
-      padding: const EdgeInsets.all(1),
-      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
-    );
-  }
-
   Widget authenticationGate(BuildContext context) => StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           final User? user = snapshot.data;
-          var initialRoute = snapshot.hasData && user != null ? '/home' : '/login';
+          var initialRoute = snapshot.hasData && user != null ? HomeScreen.id : LoginScreen.id;
 
           return MaterialApp(
               localizationsDelegates: const [
@@ -147,28 +132,12 @@ class App extends StatelessWidget {
               ],
               initialRoute: initialRoute,
               routes: {
-                '/home': (context) => AppScreen(),
+                HomeScreen.id: (context) => HomeScreen(),
                 '/connect': (context) => const ConnectScreen(),
-                '/host': (context) => const GffftScreen(),
-                '/login': (context) => SignInScreen(
-                        headerBuilder: getHeaderBuilder,
-                        sideBuilder: getSidebarBuilder,
-                        providerConfigs: const [
-                          EmailProviderConfiguration(),
-                          PhoneProviderConfiguration(),
-                          GoogleProviderConfiguration(
-                            clientId: '248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com',
-                          ),
-                        ],
-                        actions: [
-                          AuthStateChangeAction<SignedIn>((context, _) {
-                            Navigator.of(context).pushReplacementNamed('/home');
-                          }),
-                          SignedOutAction((context) {
-                            Navigator.of(context).pushReplacementNamed('/login');
-                          })
-                        ]),
-                '/me': (context) => const MeScreen(),
+                GffftScreen.id: (context) => GffftScreen(),
+                GffftEditScreen.id: (context) => GffftEditScreen(),
+                LoginScreen.id: (context) => LoginScreen(),
+                MeScreen.id: (context) => MeScreen(),
               },
               darkTheme: _buildTheme(),
               themeMode: ThemeMode.dark);

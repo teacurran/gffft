@@ -3,19 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/gfffts/gffft_screen.dart';
 import 'package:gffft/src/constants.dart';
+import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user.dart';
 import 'package:gffft/users/user_api.dart';
 
 final getIt = GetIt.instance;
 const String logoAsset = 'assets/logo.svg';
 
-class AppScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
+  static const String id = 'Home';
+
   @override
-  _AppScreenState createState() => _AppScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _AppScreenState extends State<AppScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   UserApi userApi = getIt<UserApi>();
   User? user;
 
@@ -80,7 +84,7 @@ class _AppScreenState extends State<AppScreen> {
                     ),
                     child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/me');
+                          Navigator.pushNamed(context, MeScreen.id);
                         },
                         splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                         // Generally, material cards do not have a highlight overlay.
@@ -186,7 +190,7 @@ class _AppScreenState extends State<AppScreen> {
                     ),
                     child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/host');
+                          Navigator.pushNamed(context, GffftScreen.id);
                         },
                         splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                         // Generally, material cards do not have a highlight overlay.

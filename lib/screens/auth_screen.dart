@@ -4,7 +4,7 @@ import 'package:country_code_picker/country_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gffft/screens/app_screen.dart';
+import 'package:gffft/screens/home_screen.dart';
 import 'package:gffft/src/auth_model.dart';
 import 'package:gffft/src/constants.dart';
 import 'package:pinput/pin_put/pin_put.dart';
@@ -324,6 +324,6 @@ class AuthScreenState extends State<AuthScreen> {
   }
 
   _authCompleted() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AppScreen()));
+    Navigator.pushNamed(context, HomeScreen.id);
   }
 }

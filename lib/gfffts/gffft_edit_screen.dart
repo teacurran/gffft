@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GffftEditScreen extends StatelessWidget {
-  const GffftEditScreen({Key? key}) : super(key: key);
+  static const String id = 'Gffft Edit';
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,13 @@ class GffftEditScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(i10n!.host),
-        backgroundColor: theme.primaryColor,
+        title: Text(
+          i10n!.host,
+          style: theme.textTheme.headline1,
+        ),
+        backgroundColor: theme.backgroundColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: theme.primaryColor),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gffft/gfffts/gffft_edit_screen.dart';
 
 class GffftScreen extends StatelessWidget {
-  const GffftScreen({Key? key}) : super(key: key);
+  static const String id = 'Gffft';
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class GffftScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.settings, color: theme.primaryColorLight),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pushNamed(context, GffftEditScreen.id),
           )
         ],
         centerTitle: true,

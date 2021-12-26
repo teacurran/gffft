@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MeScreen extends StatelessWidget {
-  const MeScreen({Key? key}) : super(key: key);
+  static const String id = 'Me';
 
   @override
   Widget build(BuildContext context) {
