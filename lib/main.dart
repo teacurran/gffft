@@ -1,15 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/boards/host_screen.dart';
 import 'package:gffft/screens/app_screen.dart';
 import 'package:gffft/screens/connect_screen.dart';
 import 'package:gffft/style/app_colors.dart';
@@ -21,15 +22,33 @@ import 'package:window_location_href/window_location_href.dart';
 
 import 'boards/board_api.dart';
 import 'firebase_options.dart';
+import 'gfffts/gffft_screen.dart';
 
 final getIt = GetIt.instance;
 const String logoAsset = 'assets/logo.svg';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(options: firebaseOptions);
+
   if (kIsWeb) {
     await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+  }
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  if (dotenv.get("EMULATE_FIRESTORE", fallback: "false") == "true") {
+    FirebaseFirestore.instance.settings = Settings(
+        host: dotenv.get('FIRESTORE_HOST', fallback: 'localhost:8080'), sslEnabled: false, persistenceEnabled: true);
+  }
+
+  if (dotenv.get("EMULATE_AUTH", fallback: "false") == "true") {
+    if (kDebugMode) {
+      print('using emulated firebase auth at: localhost, port: 9099');
+    }
+    FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   }
 
   getIt.registerSingleton<UserApi>(UserApi());
@@ -130,7 +149,7 @@ class App extends StatelessWidget {
               routes: {
                 '/home': (context) => AppScreen(),
                 '/connect': (context) => const ConnectScreen(),
-                '/host': (context) => const HostScreen(),
+                '/host': (context) => const GffftScreen(),
                 '/login': (context) => SignInScreen(
                         headerBuilder: getHeaderBuilder,
                         sideBuilder: getSidebarBuilder,

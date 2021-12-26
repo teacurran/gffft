@@ -38,6 +38,7 @@ dependencies:
 
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: ^5.0.2
@@ -121,5 +122,6 @@ flutter:
     - assets/hayes.jpg
     - assets/logo.svg
     - assets/piggy-bank.png
+    - .env
 
   generate: true

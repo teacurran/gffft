@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class AppException implements Exception {
@@ -56,49 +57,29 @@ class ApiResponse<T> {
 enum Status { LOADING, COMPLETED, ERROR }
 
 class ApiBase {
-  final String _baseUrl = "https://us-central1-gffft-auth.cloudfunctions.net/api/";
+  final String _baseUrl =
+      dotenv.get("API_BASE_URL", fallback: "https://us-central1-gffft-auth.cloudfunctions.net/api/");
 
   final headers = <String, String>{};
-  Future<dynamic> get(String url) async {
+  Future<dynamic> get(String urlPath, {bool requireAuth = false}) async {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
+    var url = Uri.parse(_baseUrl + urlPath);
     if (kDebugMode) {
       print('Api Get, url $url');
     }
     var responseJson;
     try {
-      final request = http.Request("get", (Uri.parse(_baseUrl + url)));
-      if (fbAuth.currentUser != null) {
-        final String token = await fbAuth.currentUser!.getIdToken(false);
-        request.headers.addAll({
-          "Authorization": "Bearer $token",
-        });
+      final request = http.Request("get", url);
+
+      if (requireAuth && fbAuth.currentUser == null) {
+        throw FetchDataException('User must be authenticated');
       }
 
-      final streamedResponse = await request.send();
-      var response = await http.Response.fromStream(streamedResponse);
-      responseJson = _returnResponse(response);
-    } on SocketException {
-      throw FetchDataException('No Internet connection');
-    }
-    return responseJson;
-  }
-
-  Future<dynamic> getAuthenticated(String url) async {
-    FirebaseAuth fbAuth = FirebaseAuth.instance;
-
-    if (kDebugMode) {
-      print('Api Get, url $url');
-    }
-    var responseJson;
-    try {
-      final request = http.Request("get", (Uri.parse(_baseUrl + url)));
-      if (fbAuth.currentUser == null) {
-        throw FetchDataException('User must be authenticated');
-      } else {
+      if (fbAuth.currentUser != null) {
         final String token = await fbAuth.currentUser!.getIdToken(false);
         if (kDebugMode) {
-          print('token: $token');
+          print('auth token: $token');
         }
         request.headers.addAll({
           "Authorization": "Bearer $token",
@@ -107,11 +88,32 @@ class ApiBase {
 
       final streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode >= 400 && response.statusCode < 500) {
+        await fbAuth.signOut();
+      }
       responseJson = _returnResponse(response);
-    } on SocketException {
+    } catch (e) {
+      await fbAuth.signOut();
+      if (e is SocketException) {
+        //treat SocketException
+        if (kDebugMode) {
+          print("Socket exception: ${e.toString()}");
+        }
+      } else if (e is TimeoutException) {
+        //treat TimeoutException
+        if (kDebugMode) {
+          print("Timeout exception: ${e.toString()}");
+        }
+      } else if (kDebugMode) {
+        print("Unhandled exception: ${e.toString()}");
+      }
       throw FetchDataException('No Internet connection');
     }
     return responseJson;
+  }
+
+  Future<dynamic> getAuthenticated(String urlPath) async {
+    return get(urlPath, requireAuth: true);
   }
 
   dynamic _returnResponse(http.Response response) {
