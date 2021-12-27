@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/connect_screen.dart';
 import 'package:gffft/screens/home_screen.dart';
@@ -126,6 +127,7 @@ class App extends StatelessWidget {
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
+                FormBuilderLocalizations.delegate,
               ],
               supportedLocales: const [
                 Locale('en', ''), // English, no country code
