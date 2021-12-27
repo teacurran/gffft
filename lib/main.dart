@@ -156,15 +156,20 @@ class App extends StatelessWidget {
         elevation: 0,
       ),
       scaffoldBackgroundColor: AppColors.primaryBackground,
+      buttonColor: Colors.lightBlueAccent[100], // button background color
       backgroundColor: const Color(0xFF323436),
       primaryColor: const Color(0xFF1C839E),
+      secondaryHeaderColor: const Color(0xFF1C839E),
       primaryColorDark: Colors.black,
       primaryColorLight: const Color(0xFF9970A9),
       focusColor: AppColors.focusColor,
       textTheme: _buildTextTheme(base.textTheme),
+      primaryTextTheme: TextTheme(
+        headline6: TextStyle(color: Colors.lightBlue[50]), // app header text
+      ),
       inputDecorationTheme: const InputDecorationTheme(
         labelStyle: TextStyle(
-          color: AppColors.gray,
+          color: Colors.indigo,
           fontWeight: FontWeight.w500,
         ),
         filled: true,
@@ -172,6 +177,9 @@ class App extends StatelessWidget {
         focusedBorder: InputBorder.none,
       ),
       visualDensity: VisualDensity.standard,
+      cardColor: Colors.white,
+      dialogBackgroundColor: Colors.white,
+      shadowColor: Colors.grey,
     );
   }
 
@@ -188,9 +196,7 @@ class App extends StatelessWidget {
             letterSpacing: letterSpacingOrNone(0.5),
           ),
           button: GoogleFonts.robotoCondensed(
-            fontWeight: FontWeight.w700,
-            letterSpacing: letterSpacingOrNone(2.8),
-          ),
+              fontWeight: FontWeight.w700, letterSpacing: letterSpacingOrNone(2.8), color: Colors.deepPurple[900]),
           headline1: const TextStyle(color: Color(0xFF1C839E), fontSize: 40),
           headline4: GoogleFonts.robotoCondensed(color: Colors.black, backgroundColor: Colors.white),
           headline5: GoogleFonts.robotoCondensed(
@@ -198,6 +204,8 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w600,
             letterSpacing: letterSpacingOrNone(1.4),
           ),
+          subtitle1: TextStyle(color: Colors.grey[800], backgroundColor: Colors.white), // input text
+          headline6: TextStyle(color: Colors.white),
         );
   }
 }

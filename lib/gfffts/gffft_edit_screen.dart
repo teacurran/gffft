@@ -3,13 +3,12 @@ import 'package:card_settings/widgets/card_settings_widget.dart';
 import 'package:card_settings/widgets/information_fields/card_settings_header.dart';
 import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GffftEditScreen extends StatelessWidget {
   static const String id = 'Gffft Edit';
 
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? title = "Spheria";
   String? author = "Cody Leet";
@@ -35,40 +34,35 @@ class GffftEditScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Center(
-          child: FormBuilder(
-            key: _formKey,
-            child: Form(
-              key: _formKey,
-              child: CardSettings(
-                showMaterialonIOS: true, // default is false
-                children: <CardSettingsSection>[
-                  CardSettingsSection(
-                    header: CardSettingsHeader(
-                      label: 'Favorite Book',
-                    ),
-                    children: <CardSettingsWidget>[
-                      CardSettingsText(
-                        label: 'Title',
-                        initialValue: "title",
-                        validator: (value) {
-                          if (value == null || value.isEmpty) return 'Title is required.';
-                        },
-                        onSaved: (value) => title = value,
-                      ),
-                      CardSettingsText(
-                        label: 'URL',
-                        initialValue: url,
-                        validator: (value) {
-                          if (value != null && !value.startsWith('http:')) return 'Must be a valid website.';
-                        },
-                        onSaved: (value) => url = value,
-                      ),
-                    ],
-                  )
+        child: Form(
+          key: _formKey,
+          child: CardSettings(
+            showMaterialonIOS: true, // default is false
+            children: <CardSettingsSection>[
+              CardSettingsSection(
+                header: CardSettingsHeader(
+                  label: 'Favorite Book',
+                ),
+                children: <CardSettingsWidget>[
+                  CardSettingsText(
+                    label: 'Title',
+                    initialValue: "title",
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'Title is required.';
+                    },
+                    onSaved: (value) => title = value,
+                  ),
+                  CardSettingsText(
+                    label: 'URL',
+                    initialValue: url,
+                    validator: (value) {
+                      if (value != null && !value.startsWith('http:')) return 'Must be a valid website.';
+                    },
+                    onSaved: (value) => url = value,
+                  ),
                 ],
-              ),
-            ),
+              )
+            ],
           ),
         ),
       ),

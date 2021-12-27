@@ -133,7 +133,7 @@ class AuthScreenState extends State<AuthScreen> {
     //
     // Note: This is a GlobalKey<FormState>,
     // not a GlobalKey<MyCustomFormState>.
-    final _formKey = GlobalKey<FormState>();
+    GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return Form(
         key: _formKey,
