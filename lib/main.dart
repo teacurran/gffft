@@ -106,7 +106,7 @@ class App extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
       darkTheme: ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         /* dark theme settings */
       ),
       themeMode: ThemeMode.system,
@@ -142,21 +142,22 @@ class App extends StatelessWidget {
                 MeScreen.id: (context) => MeScreen(),
               },
               darkTheme: _buildTheme(),
+              theme: _buildTheme(),
               themeMode: ThemeMode.dark);
           // show your app’s home page after login
         },
       );
 
   ThemeData _buildTheme() {
-    final base = ThemeData.dark();
-    return ThemeData(
+    final base = ThemeData.light();
+    return base.copyWith(
       appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: AppColors.primaryBackground,
         elevation: 0,
       ),
       scaffoldBackgroundColor: AppColors.primaryBackground,
-      buttonColor: Colors.lightBlueAccent[100], // button background color
+      buttonTheme: const ButtonThemeData(buttonColor: Colors.blue),
       backgroundColor: const Color(0xFF323436),
       primaryColor: const Color(0xFF1C839E),
       secondaryHeaderColor: const Color(0xFF1C839E),
@@ -168,14 +169,16 @@ class App extends StatelessWidget {
         headline6: TextStyle(color: Colors.lightBlue[50]), // app header text
       ),
       inputDecorationTheme: const InputDecorationTheme(
-        labelStyle: TextStyle(
-          color: Colors.indigo,
-          fontWeight: FontWeight.w500,
-        ),
-        filled: true,
-        fillColor: AppColors.inputBackground,
-        focusedBorder: InputBorder.none,
-      ),
+          labelStyle: TextStyle(
+            color: Colors.lightBlue,
+            fontWeight: FontWeight.w500,
+          ),
+          filled: true,
+          fillColor: AppColors.inputBackground,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+          ),
+          enabledBorder: InputBorder.none),
       visualDensity: VisualDensity.standard,
       cardColor: Colors.white,
       dialogBackgroundColor: Colors.white,
@@ -196,15 +199,15 @@ class App extends StatelessWidget {
             letterSpacing: letterSpacingOrNone(0.5),
           ),
           button: GoogleFonts.robotoCondensed(
-              fontWeight: FontWeight.w700, letterSpacing: letterSpacingOrNone(2.8), color: Colors.deepPurple[900]),
+              fontWeight: FontWeight.w700, letterSpacing: letterSpacingOrNone(2.8), color: Colors.lightBlue[200]),
           headline1: const TextStyle(color: Color(0xFF1C839E), fontSize: 40),
-          headline4: GoogleFonts.robotoCondensed(color: Colors.black, backgroundColor: Colors.white),
+          headline4: GoogleFonts.robotoCondensed(color: Colors.black),
           headline5: GoogleFonts.robotoCondensed(
             fontSize: 40,
             fontWeight: FontWeight.w600,
             letterSpacing: letterSpacingOrNone(1.4),
           ),
-          subtitle1: TextStyle(color: Colors.grey[800], backgroundColor: Colors.white), // input text
+          subtitle1: TextStyle(color: Colors.white), // input text
           headline6: TextStyle(color: Colors.white),
         );
   }

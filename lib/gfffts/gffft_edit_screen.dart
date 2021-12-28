@@ -51,6 +51,7 @@ class GffftEditScreen extends StatelessWidget {
                       if (value == null || value.isEmpty) return 'Title is required.';
                     },
                     onSaved: (value) => title = value,
+                    contentPadding: const EdgeInsets.all(8),
                   ),
                   CardSettingsText(
                     label: 'URL',
