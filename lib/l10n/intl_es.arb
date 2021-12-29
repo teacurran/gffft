@@ -1,0 +1,67 @@
+{
+  "@@locale": "es",
+  "editBoards": "Tableros",
+  "@editBoards": {
+    "description": "header for edit Boards"
+  },
+  "editBoardWhoCanPost": "¿Quién puede publicar?",
+  "@editBoardWhoCanPost": {
+    "description": "Who is allowed to post on a Gffft's board"
+  },
+  "editBoardWhoCanView": "¿Quién puede verlo?",
+  "@editBoardWhoCanView": {
+    "description": "Who can view a board"
+  },
+  "editDescription": "Descripción",
+  "@editDescription": {
+    "description": "Gffft Short Description"
+  },
+  "editDescriptionHint": "Una breve descripción de tu gffft que aparecerá en los resultados de búsqueda.",
+  "@editDescriptionHint": {
+    "description": "Hint for Gffft Short Description"
+  },
+  "editEnable": "Permitir",
+  "@editEnable": {
+    "description": "toggle settings enable label"
+  },
+  "editEnableAltHandles": "Habilitar identificadores alternativos",
+  "@editEnableAltHandles": {
+    "description": "Controls wether the Gffft allows alternate handles"
+  },
+  "editEnableAltHandlesHint": "Permite a los miembros de tu gffft elegir nombres de usuario",
+  "@editEnableAltHandlesHint": {
+    "description": "Hint for enableing alt handles on a Gffft"
+  },
+  "editEnableMembership": "Habilitar membresía",
+  "@editEnableMembership": {},
+  "editGalleries": "Galerias",
+  "@editGalleries": {
+    "description": "Header for Galleries settings"
+  },
+  "editName": "Nombre",
+  "@editName": {
+    "description": "Name of Gffft"
+  },
+  "editTags": "Etiquetas",
+  "@editTags": {
+    "description": "Tags to help people find your gffft"
+  },
+  "editTagsHint": "Las etiquetas permiten que las personas encuentren su gffft al realizar búsquedas",
+  "@editTagsHint": {},
+  "editYourGffftInfo": "Tu información de Gffft",
+  "@editYourGffftInfo": {
+    "description": "Section header on edit screen"
+  },
+  "flag": "Bandera",
+  "@flag": {},
+  "memberTypeAdmin": "Administrador",
+  "@memberTypeAdmin": {},
+  "memberTypeAnon": "Anónimo",
+  "@memberTypeAnon": {},
+  "memberTypeMember": "Miembro",
+  "@memberTypeMember": {},
+  "memberTypeSysop": "Sysop",
+  "@memberTypeSysop": {},
+  "validateFieldIsRequired": "{field} es obligatorio",
+  "@validateFieldIsRequired": {}
+}

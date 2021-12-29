@@ -34,7 +34,7 @@ class AppColors {
   static const Color gray25 = Color(0x40D8D8D8);
   static const Color white60 = Color(0x99FFFFFF);
   static const Color primaryBackground = Color(0xFF33333D);
-  static const Color inputBackground = Color(0xFF6A7186);
+  static const Color inputBackground = Color(0xFFE0E2E2);
   static const Color cardBackground = Color(0x03FEFEFE);
   static const Color buttonColor = Color(0xFF09AF79);
   static const Color focusColor = Color(0xCCFFFFFF);

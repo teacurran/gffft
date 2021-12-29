@@ -13,7 +13,6 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/connect_screen.dart';
 import 'package:gffft/screens/home_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
-import 'package:gffft/style/app_colors.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user_api.dart';
@@ -130,7 +129,9 @@ class App extends StatelessWidget {
                 FormBuilderLocalizations.delegate,
               ],
               supportedLocales: const [
-                Locale('en', ''), // English, no country code
+                Locale('en', ''), // English
+                Locale('es', ''), // Spanish
+                Locale('pt', ''), // Portugese
               ],
               initialRoute: initialRoute,
               routes: {
@@ -153,17 +154,17 @@ class App extends StatelessWidget {
     return base.copyWith(
       appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle.light,
-        backgroundColor: AppColors.primaryBackground,
+        backgroundColor: Color(0xFF33333D),
         elevation: 0,
       ),
-      scaffoldBackgroundColor: AppColors.primaryBackground,
+      scaffoldBackgroundColor: const Color(0xFF33333D),
       buttonTheme: const ButtonThemeData(buttonColor: Colors.blue),
       backgroundColor: const Color(0xFF323436),
       primaryColor: const Color(0xFF1C839E),
       secondaryHeaderColor: const Color(0xFF1C839E),
       primaryColorDark: Colors.black,
       primaryColorLight: const Color(0xFF9970A9),
-      focusColor: AppColors.focusColor,
+      focusColor: const Color(0xCCFFFFFF),
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: TextTheme(
         headline6: TextStyle(color: Colors.lightBlue[50]), // app header text
@@ -173,12 +174,25 @@ class App extends StatelessWidget {
             color: Colors.lightBlue,
             fontWeight: FontWeight.w500,
           ),
-          filled: true,
-          fillColor: AppColors.inputBackground,
-          focusedBorder: OutlineInputBorder(
+          isDense: false,
+          contentPadding: EdgeInsets.all(50),
+          filled: false,
+          border: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.blue, width: 1.0),
           ),
-          enabledBorder: InputBorder.none),
+          errorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF935D5D), width: 1.0),
+          ),
+          focusedErrorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF935D5D), width: 1.0),
+          ),
+          fillColor: Color(0xFFE0E2E2),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+          )),
       visualDensity: VisualDensity.standard,
       cardColor: Colors.white,
       dialogBackgroundColor: Colors.white,
@@ -194,9 +208,15 @@ class App extends StatelessWidget {
         )
         .copyWith(
           bodyText1: GoogleFonts.robotoCondensed(
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.w400,
             letterSpacing: letterSpacingOrNone(0.5),
+          ),
+          bodyText2: GoogleFonts.robotoCondensed(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            letterSpacing: letterSpacingOrNone(0.5),
+            color: Colors.black,
           ),
           button: GoogleFonts.robotoCondensed(
               fontWeight: FontWeight.w700, letterSpacing: letterSpacingOrNone(2.8), color: Colors.lightBlue[200]),
@@ -207,7 +227,7 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w600,
             letterSpacing: letterSpacingOrNone(1.4),
           ),
-          subtitle1: TextStyle(color: Colors.white), // input text
+          subtitle1: TextStyle(color: Colors.black), // input text
           headline6: TextStyle(color: Colors.white),
         );
   }

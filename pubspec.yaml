@@ -130,3 +130,9 @@ flutter:
     - .env
 
   generate: true
+flutter_intl:
+  enabled: true
+  localizely:
+    project_id: d8cf5dd7-7fed-4dae-b247-db322a221999
+
+

@@ -1,0 +1,86 @@
+{
+  "@@locale": "en",
+  "connect": "Connect",
+  "editBoard": "Board",
+  "@editBoard": {
+    "description": "header for edit Boards"
+  },
+  "editBoardWhoCanPost": "Who can post?",
+  "@editBoardWhoCanPost": {
+    "description": "Who is allowed to post on a Gffft's board"
+  },
+  "editBoardWhoCanView": "Who can view?",
+  "@editBoardWhoCanView": {
+    "description": "Who can view a board"
+  },
+  "editDescription": "Description",
+  "@editDescription": {
+    "description": "Gffft Short Description"
+  },
+  "editDescriptionHint": "A short description of your gffft",
+  "@editDescriptionHint": {
+    "description": "Hint for Gffft Short Description"
+  },
+  "editEnabled": "Enabled",
+  "@editEnable": {
+    "description": "toggle settings enable label"
+  },
+  "editEnableAltHandles": "Enable alternate handles?",
+  "@editEnableAltHandles": {
+    "description": "Controls wether the Gffft allows alternate handles"
+  },
+  "editEnableAltHandlesHint": "Allows members of your gffft to choose usernames",
+  "@editEnableAltHandlesHint": {
+    "description": "Hint for enableing alt handles on a Gffft"
+  },
+  "editEnableMembership": "Enable membership",
+  "@editEnableMembership": {},
+  "editGallery": "Gallery",
+  "@editGallery": {
+    "description": "Header for Gallery settings"
+  },
+  "editMembership": "Membership",
+  "editAllowMembers": "Allow Members?",
+  "editRequireApproval": "Require Approval?",
+  "editName": "Name",
+  "@editName": {
+    "description": "Name of Gffft"
+  },
+  "editPages": "Pages",
+  "editTags": "Tags",
+  "@editTags": {
+    "description": "Tags to help people find your gffft"
+  },
+  "editTagsHint": "Tags allow people to find your gffft when searching",
+  "@editTagsHint": {},
+  "editYourGffftInfo": "Your Gffft Info",
+  "@editYourGffftInfo": {
+    "description": "Section header on edit screen"
+  },
+  "errorLoading": "Error Loading",
+  "flag": "Flag",
+  "@flag": {},
+  "host": "Host",
+  "loading": "Loading",
+  "logout": "Logout",
+  "me": "me",
+  "memberTypeAdmin": "Administrators",
+  "@memberTypeAdmin": {},
+  "memberTypeAnon": "Anonymous",
+  "@memberTypeAnon": {},
+  "memberTypeMember": "Members",
+  "@memberTypeMember": {},
+  "memberTypeSysop": "Sysop (you)",
+  "@memberTypeSysop": {},
+  "validateFieldIsRequired": "{field} is required",
+  "@validateFieldIsRequired": {
+          "placeholders": {
+              "field": {
+                  "type": "String",
+                  "example": "Title"
+              }
+          }
+      },
+  "yes": "Yes",
+  "no": "No"
+}
