@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can view?"),
         "editRequireApproval":
             MessageLookupByLibrary.simpleMessage("Require Approval?"),
+        "editRequireApprovalHint": MessageLookupByLibrary.simpleMessage(
+            "People will have to apply for access to your gffft."),
         "editTags": MessageLookupByLibrary.simpleMessage("Tags"),
         "editTagsHint": MessageLookupByLibrary.simpleMessage(
             "Tags allow people to find your gffft when searching"),

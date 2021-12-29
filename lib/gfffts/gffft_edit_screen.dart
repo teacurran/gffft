@@ -133,6 +133,7 @@ class GffftEditScreen extends StatelessWidget {
                       trueLabel: i10n.yes,
                       falseLabel: i10n.no,
                     ),
+                    CardSettingsInstructions(text: i10n.editRequireApprovalHint),
                     CardSettingsSwitch(
                       label: i10n.editEnableAltHandles,
                       initialValue: editEnableAltHandles,

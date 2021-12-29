@@ -260,6 +260,16 @@ class S {
     );
   }
 
+  /// `People will have to apply for access to your gffft.`
+  String get editRequireApprovalHint {
+    return Intl.message(
+      'People will have to apply for access to your gffft.',
+      name: 'editRequireApprovalHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tags`
   String get editTags {
     return Intl.message(
@@ -401,7 +411,7 @@ class S {
   }
 
   /// `{field} is required`
-  String validateFieldIsRequired(Object field) {
+  String validateFieldIsRequired(String field) {
     return Intl.message(
       '$field is required',
       name: 'validateFieldIsRequired',

@@ -65,6 +65,7 @@
   "editPagesWhoCanView": "Who can view?",
   "@editPagesWhoCanView": {},
   "editRequireApproval": "Require Approval?",
+  "editRequireApprovalHint": "People will have to apply for access to your gffft.",
   "@editRequireApproval": {},
   "editTags": "Tags",
   "@editTags": {
@@ -88,18 +89,25 @@
   "@logout": {},
   "me": "me",
   "@me": {},
-  "memberTypeAdmin": "Administrator",
+  "memberTypeAdmin": "Administrators",
   "@memberTypeAdmin": {},
   "memberTypeAnon": "Anonymous",
   "@memberTypeAnon": {},
-  "memberTypeMember": "Member",
+  "memberTypeMember": "Members",
   "@memberTypeMember": {},
-  "memberTypeSysop": "Sysop",
+  "memberTypeSysop": "Sysop (you)",
   "@memberTypeSysop": {},
   "no": "No",
   "@no": {},
   "validateFieldIsRequired": "{field} is required",
-  "@validateFieldIsRequired": {},
+  "@validateFieldIsRequired": {
+    "placeholders": {
+      "field": {
+        "type": "String",
+        "example": "Title"
+      }
+    }
+  },
   "yes": "Yes",
   "@yes": {}
-}
+}a
