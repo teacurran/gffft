@@ -121,12 +121,18 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+  fonts:
+    - family: DoubleFeature
+      fonts:
+        - asset: assets/fonts/DoubleFeature20.ttf
+
   assets:
     - assets/antenna-farm.jpg
     - assets/flutter-icon.png
     - assets/hayes.jpg
     - assets/logo.svg
     - assets/piggy-bank.png
+    - assets/fonts/DoubleFeature20.ttf
     - .env
 
   generate: true

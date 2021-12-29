@@ -20,40 +20,43 @@ class GffftEditScreen extends StatelessWidget {
   bool editEnableAltHandles = false;
 
   bool editBoardEnabled = false;
-  PickerModel editBoardWhoCanView = const PickerModel('', code: 'sysop');
-  PickerModel editBoardWhoCanPost = const PickerModel('', code: 'sysop');
+  PickerModel? editBoardWhoCanView;
+  PickerModel? editBoardWhoCanPost;
 
   bool editGalleryEnabled = false;
-  PickerModel editGalleryWhoCanView = const PickerModel('', code: 'sysop');
-  PickerModel editGalleryWhoCanPost = const PickerModel('', code: 'sysop');
+  PickerModel? editGalleryWhoCanView;
+  PickerModel? editGalleryWhoCanPost;
 
   bool editPagesEnabled = false;
-  PickerModel editPagesWhoCanView = const PickerModel('', code: 'sysop');
-  PickerModel editPagesWhoCanPost = const PickerModel('', code: 'sysop');
+  PickerModel? editPagesWhoCanView;
+  PickerModel? editPagesWhoCanPost;
 
   List<String> allTags = <String>['farming', 'politics', 'culture', 'life'];
 
-  List<PickerModel> _getMemberTypes(AppLocalizations i10n) {
+  List<PickerModel> _getMemberTypes(AppLocalizations? i10n) {
     return <PickerModel>[
-      PickerModel(i10n.memberTypeSysop, code: 'sysop'),
-      PickerModel(i10n.memberTypeAdmin, code: 'admin'),
-      PickerModel(i10n.memberTypeMember, code: 'member'),
-      PickerModel(i10n.memberTypeAnon, code: 'anon')
+      PickerModel(i10n?.memberTypeSysop ?? 'Sysop', code: 'sysop'),
+      PickerModel(i10n?.memberTypeAdmin ?? 'Administrators', code: 'admin'),
+      PickerModel(i10n?.memberTypeMember ?? 'Members', code: 'member'),
+      PickerModel(i10n?.memberTypeAnon ?? 'Anonymous', code: 'anon')
     ];
   }
 
-  List<PickerModel> _getSafeMemberTypes(AppLocalizations i10n) {
+  List<PickerModel> _getSafeMemberTypes(AppLocalizations? i10n) {
     return <PickerModel>[
-      PickerModel(i10n.memberTypeSysop, code: 'sysop'),
-      PickerModel(i10n.memberTypeAdmin, code: 'admin'),
-      PickerModel(i10n.memberTypeMember, code: 'member')
+      PickerModel(i10n?.memberTypeSysop ?? 'Sysop', code: 'sysop'),
+      PickerModel(i10n?.memberTypeAdmin ?? 'Administrators', code: 'admin'),
+      PickerModel(i10n?.memberTypeMember ?? 'Members', code: 'member')
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    var i10n = AppLocalizations.of(context);
+    AppLocalizations? i10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+
+    List<PickerModel> memberTypes = _getMemberTypes(i10n);
+    List<PickerModel> safeMemberTypes = _getMemberTypes(i10n);
 
     return Scaffold(
       appBar: AppBar(
@@ -155,12 +158,12 @@ class GffftEditScreen extends StatelessWidget {
                     ),
                     CardSettingsListPicker<PickerModel>(
                         label: i10n.editBoardWhoCanView,
-                        initialItem: editBoardWhoCanView,
-                        items: _getMemberTypes(i10n)),
+                        initialItem: editBoardWhoCanView ?? memberTypes[0],
+                        items: memberTypes),
                     CardSettingsListPicker<PickerModel>(
                         label: i10n.editBoardWhoCanPost,
-                        initialItem: editBoardWhoCanPost,
-                        items: _getSafeMemberTypes(i10n))
+                        initialItem: editBoardWhoCanPost ?? safeMemberTypes[0],
+                        items: safeMemberTypes)
                   ]),
               CardSettingsSection(
                   header: CardSettingsHeader(
@@ -176,14 +179,16 @@ class GffftEditScreen extends StatelessWidget {
                     ),
                     CardSettingsListPicker<PickerModel>(
                       label: i10n.editBoardWhoCanView,
-                      initialItem: editGalleryWhoCanView,
-                      items: _getMemberTypes(i10n),
-                      onSaved: (value) => editGalleryWhoCanView = value ?? PickerModel(''),
+                      initialItem: editGalleryWhoCanView ?? memberTypes[1],
+                      items: memberTypes,
+                      onSaved: (value) => editGalleryWhoCanView = value,
                     ),
-                    CardSettingsListPicker(
-                        label: i10n.editBoardWhoCanPost,
-                        initialItem: editGalleryWhoCanPost,
-                        items: _getSafeMemberTypes(i10n))
+                    CardSettingsListPicker<PickerModel>(
+                      label: i10n.editBoardWhoCanPost,
+                      initialItem: editGalleryWhoCanPost ?? safeMemberTypes[0],
+                      items: safeMemberTypes,
+                      onSaved: (value) => editGalleryWhoCanPost = value,
+                    )
                   ])
             ],
           ),

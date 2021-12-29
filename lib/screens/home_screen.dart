@@ -221,7 +221,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         i10n.host,
-                                        style: theme.textTheme.headline4,
+                                        style: const TextStyle(
+                                            fontFamily: 'DoubleFeature', color: Colors.yellow, fontSize: 60),
                                       ),
                                     ),
                                   )
