@@ -29,7 +29,7 @@ class GffftEditScreen extends StatelessWidget {
 
   bool editPagesEnabled = false;
   PickerModel? editPagesWhoCanView;
-  PickerModel? editPagesWhoCanPost;
+  PickerModel? editPagesWhoCanEdit;
 
   List<String> allTags = <String>['farming', 'politics', 'culture', 'life'];
 
@@ -142,6 +142,28 @@ class GffftEditScreen extends StatelessWidget {
                       falseLabel: i10n.no,
                     ),
                     CardSettingsInstructions(text: i10n.editEnableAltHandlesHint)
+                  ]),
+              CardSettingsSection(
+                  header: CardSettingsHeader(
+                    label: i10n.editPages,
+                  ),
+                  children: <CardSettingsWidget>[
+                    CardSettingsSwitch(
+                      label: i10n.editEnabled,
+                      initialValue: editPagesEnabled,
+                      onChanged: (value) => editPagesEnabled = value,
+                      onSaved: (value) => editPagesEnabled = value ?? false,
+                      trueLabel: i10n.yes,
+                      falseLabel: i10n.no,
+                    ),
+                    CardSettingsListPicker<PickerModel>(
+                        label: i10n.editPagesWhoCanView,
+                        initialItem: editPagesWhoCanView ?? memberTypes[0],
+                        items: memberTypes),
+                    CardSettingsListPicker<PickerModel>(
+                        label: i10n.editPagesWhoCanEdit,
+                        initialItem: editPagesWhoCanEdit ?? safeMemberTypes[0],
+                        items: safeMemberTypes)
                   ]),
               CardSettingsSection(
                   header: CardSettingsHeader(

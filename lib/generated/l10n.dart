@@ -60,11 +60,31 @@ class S {
     );
   }
 
+  /// `Allow Members?`
+  String get editAllowMembers {
+    return Intl.message(
+      'Allow Members?',
+      name: 'editAllowMembers',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Board`
   String get editBoard {
     return Intl.message(
       'Board',
       name: 'editBoard',
+      desc: 'header for edit Boards',
+      args: [],
+    );
+  }
+
+  /// `Boards`
+  String get editBoards {
+    return Intl.message(
+      'Boards',
+      name: 'editBoards',
       desc: 'header for edit Boards',
       args: [],
     );
@@ -100,30 +120,30 @@ class S {
     );
   }
 
-  /// `A short description of your gffft`
+  /// `A short description of your gffft that will show up in search results`
   String get editDescriptionHint {
     return Intl.message(
-      'A short description of your gffft',
+      'A short description of your gffft that will show up in search results',
       name: 'editDescriptionHint',
       desc: 'Hint for Gffft Short Description',
       args: [],
     );
   }
 
-  /// `Enabled`
-  String get editEnabled {
+  /// `Enable`
+  String get editEnable {
     return Intl.message(
-      'Enabled',
-      name: 'editEnabled',
-      desc: '',
+      'Enable',
+      name: 'editEnable',
+      desc: 'toggle settings enable label',
       args: [],
     );
   }
 
-  /// `Enable alternate handles?`
+  /// `Enable alternate handles`
   String get editEnableAltHandles {
     return Intl.message(
-      'Enable alternate handles?',
+      'Enable alternate handles',
       name: 'editEnableAltHandles',
       desc: 'Controls wether the Gffft allows alternate handles',
       args: [],
@@ -140,12 +160,32 @@ class S {
     );
   }
 
+  /// `Enabled`
+  String get editEnabled {
+    return Intl.message(
+      'Enabled',
+      name: 'editEnabled',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enable membership`
   String get editEnableMembership {
     return Intl.message(
       'Enable membership',
       name: 'editEnableMembership',
       desc: '',
+      args: [],
+    );
+  }
+
+  /// `Galleries`
+  String get editGalleries {
+    return Intl.message(
+      'Galleries',
+      name: 'editGalleries',
+      desc: 'Header for Galleries settings',
       args: [],
     );
   }
@@ -170,26 +210,6 @@ class S {
     );
   }
 
-  /// `Allow Members?`
-  String get editAllowMembers {
-    return Intl.message(
-      'Allow Members?',
-      name: 'editAllowMembers',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Require Approval?`
-  String get editRequireApproval {
-    return Intl.message(
-      'Require Approval?',
-      name: 'editRequireApproval',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Name`
   String get editName {
     return Intl.message(
@@ -205,6 +225,36 @@ class S {
     return Intl.message(
       'Pages',
       name: 'editPages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who can edit?`
+  String get editPagesWhoCanEdit {
+    return Intl.message(
+      'Who can edit?',
+      name: 'editPagesWhoCanEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who can view?`
+  String get editPagesWhoCanView {
+    return Intl.message(
+      'Who can view?',
+      name: 'editPagesWhoCanView',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Require Approval?`
+  String get editRequireApproval {
+    return Intl.message(
+      'Require Approval?',
+      name: 'editRequireApproval',
       desc: '',
       args: [],
     );
@@ -300,10 +350,10 @@ class S {
     );
   }
 
-  /// `Administrators`
+  /// `Administrator`
   String get memberTypeAdmin {
     return Intl.message(
-      'Administrators',
+      'Administrator',
       name: 'memberTypeAdmin',
       desc: '',
       args: [],
@@ -320,28 +370,38 @@ class S {
     );
   }
 
-  /// `Members`
+  /// `Member`
   String get memberTypeMember {
     return Intl.message(
-      'Members',
+      'Member',
       name: 'memberTypeMember',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sysop (you)`
+  /// `Sysop`
   String get memberTypeSysop {
     return Intl.message(
-      'Sysop (you)',
+      'Sysop',
       name: 'memberTypeSysop',
       desc: '',
       args: [],
     );
   }
 
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{field} is required`
-  String validateFieldIsRequired(String field) {
+  String validateFieldIsRequired(Object field) {
     return Intl.message(
       '$field is required',
       name: 'validateFieldIsRequired',
@@ -355,16 +415,6 @@ class S {
     return Intl.message(
       'Yes',
       name: 'yes',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No`
-  String get no {
-    return Intl.message(
-      'No',
-      name: 'no',
       desc: '',
       args: [],
     );

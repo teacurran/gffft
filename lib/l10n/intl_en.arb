@@ -1,8 +1,15 @@
 {
   "@@locale": "en",
   "connect": "Connect",
+  "@connect": {},
+  "editAllowMembers": "Allow Members?",
+  "@editAllowMembers": {},
   "editBoard": "Board",
   "@editBoard": {
+    "description": "header for edit Boards"
+  },
+  "editBoards": "Boards",
+  "@editBoards": {
     "description": "header for edit Boards"
   },
   "editBoardWhoCanPost": "Who can post?",
@@ -17,15 +24,15 @@
   "@editDescription": {
     "description": "Gffft Short Description"
   },
-  "editDescriptionHint": "A short description of your gffft",
+  "editDescriptionHint": "A short description of your gffft that will show up in search results",
   "@editDescriptionHint": {
     "description": "Hint for Gffft Short Description"
   },
-  "editEnabled": "Enabled",
+  "editEnable": "Enable",
   "@editEnable": {
     "description": "toggle settings enable label"
   },
-  "editEnableAltHandles": "Enable alternate handles?",
+  "editEnableAltHandles": "Enable alternate handles",
   "@editEnableAltHandles": {
     "description": "Controls wether the Gffft allows alternate handles"
   },
@@ -33,20 +40,32 @@
   "@editEnableAltHandlesHint": {
     "description": "Hint for enableing alt handles on a Gffft"
   },
+  "editEnabled": "Enabled",
+  "@editEnabled": {},
   "editEnableMembership": "Enable membership",
   "@editEnableMembership": {},
+  "editGalleries": "Galleries",
+  "@editGalleries": {
+    "description": "Header for Galleries settings"
+  },
   "editGallery": "Gallery",
   "@editGallery": {
     "description": "Header for Gallery settings"
   },
   "editMembership": "Membership",
-  "editAllowMembers": "Allow Members?",
-  "editRequireApproval": "Require Approval?",
+  "@editMembership": {},
   "editName": "Name",
   "@editName": {
     "description": "Name of Gffft"
   },
   "editPages": "Pages",
+  "@editPages": {},
+  "editPagesWhoCanEdit": "Who can edit?",
+  "@editPagesWhoCanEdit": {},
+  "editPagesWhoCanView": "Who can view?",
+  "@editPagesWhoCanView": {},
+  "editRequireApproval": "Require Approval?",
+  "@editRequireApproval": {},
   "editTags": "Tags",
   "@editTags": {
     "description": "Tags to help people find your gffft"
@@ -58,29 +77,29 @@
     "description": "Section header on edit screen"
   },
   "errorLoading": "Error Loading",
+  "@errorLoading": {},
   "flag": "Flag",
   "@flag": {},
   "host": "Host",
+  "@host": {},
   "loading": "Loading",
+  "@loading": {},
   "logout": "Logout",
+  "@logout": {},
   "me": "me",
-  "memberTypeAdmin": "Administrators",
+  "@me": {},
+  "memberTypeAdmin": "Administrator",
   "@memberTypeAdmin": {},
   "memberTypeAnon": "Anonymous",
   "@memberTypeAnon": {},
-  "memberTypeMember": "Members",
+  "memberTypeMember": "Member",
   "@memberTypeMember": {},
-  "memberTypeSysop": "Sysop (you)",
+  "memberTypeSysop": "Sysop",
   "@memberTypeSysop": {},
+  "no": "No",
+  "@no": {},
   "validateFieldIsRequired": "{field} is required",
-  "@validateFieldIsRequired": {
-          "placeholders": {
-              "field": {
-                  "type": "String",
-                  "example": "Title"
-              }
-          }
-      },
+  "@validateFieldIsRequired": {},
   "yes": "Yes",
-  "no": "No"
+  "@yes": {}
 }

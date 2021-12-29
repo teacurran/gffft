@@ -24,31 +24,55 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "connect": MessageLookupByLibrary.simpleMessage("Conectar"),
+        "editAllowMembers":
+            MessageLookupByLibrary.simpleMessage("¿Permitir miembros?"),
+        "editBoard": MessageLookupByLibrary.simpleMessage("Junta"),
         "editBoardWhoCanPost":
             MessageLookupByLibrary.simpleMessage("¿Quién puede publicar?"),
         "editBoardWhoCanView":
             MessageLookupByLibrary.simpleMessage("¿Quién puede verlo?"),
+        "editBoards": MessageLookupByLibrary.simpleMessage("Tableros"),
         "editDescription": MessageLookupByLibrary.simpleMessage("Descripción"),
         "editDescriptionHint": MessageLookupByLibrary.simpleMessage(
             "Una breve descripción de tu gffft que aparecerá en los resultados de búsqueda."),
+        "editEnable": MessageLookupByLibrary.simpleMessage("Permitir"),
         "editEnableAltHandles": MessageLookupByLibrary.simpleMessage(
             "Habilitar identificadores alternativos"),
         "editEnableAltHandlesHint": MessageLookupByLibrary.simpleMessage(
             "Permite a los miembros de tu gffft elegir nombres de usuario"),
         "editEnableMembership":
             MessageLookupByLibrary.simpleMessage("Habilitar membresía"),
+        "editEnabled": MessageLookupByLibrary.simpleMessage("Activado"),
+        "editGalleries": MessageLookupByLibrary.simpleMessage("Galerias"),
+        "editGallery": MessageLookupByLibrary.simpleMessage("Galería"),
+        "editMembership": MessageLookupByLibrary.simpleMessage("Afiliación"),
         "editName": MessageLookupByLibrary.simpleMessage("Nombre"),
+        "editPages": MessageLookupByLibrary.simpleMessage("Paginas"),
+        "editPagesWhoCanEdit":
+            MessageLookupByLibrary.simpleMessage("¿Quién puede editar?"),
+        "editPagesWhoCanView":
+            MessageLookupByLibrary.simpleMessage("¿Quién puede verlo?"),
+        "editRequireApproval":
+            MessageLookupByLibrary.simpleMessage("¿Requiere aprobación?"),
         "editTags": MessageLookupByLibrary.simpleMessage("Etiquetas"),
         "editTagsHint": MessageLookupByLibrary.simpleMessage(
             "Las etiquetas permiten que las personas encuentren su gffft al realizar búsquedas"),
         "editYourGffftInfo":
             MessageLookupByLibrary.simpleMessage("Tu información de Gffft"),
+        "errorLoading": MessageLookupByLibrary.simpleMessage("Error al cargar"),
         "flag": MessageLookupByLibrary.simpleMessage("Bandera"),
+        "host": MessageLookupByLibrary.simpleMessage("Anfitrión"),
+        "loading": MessageLookupByLibrary.simpleMessage("Cargando"),
+        "logout": MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
+        "me": MessageLookupByLibrary.simpleMessage("yo"),
         "memberTypeAdmin":
             MessageLookupByLibrary.simpleMessage("Administrador"),
         "memberTypeAnon": MessageLookupByLibrary.simpleMessage("Anónimo"),
         "memberTypeMember": MessageLookupByLibrary.simpleMessage("Miembro"),
         "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop"),
-        "validateFieldIsRequired": m0
+        "no": MessageLookupByLibrary.simpleMessage("No"),
+        "validateFieldIsRequired": m0,
+        "yes": MessageLookupByLibrary.simpleMessage("sí")
       };
 }

@@ -1,5 +1,13 @@
 {
   "@@locale": "pt",
+  "connect": "Conectar",
+  "@connect": {},
+  "editAllowMembers": "Permitir membros?",
+  "@editAllowMembers": {},
+  "editBoard": "Borda",
+  "@editBoard": {
+    "description": "header for edit Boards"
+  },
   "editBoards": "Pranchas",
   "@editBoards": {
     "description": "header for edit Boards"
@@ -32,16 +40,32 @@
   "@editEnableAltHandlesHint": {
     "description": "Hint for enableing alt handles on a Gffft"
   },
+  "editEnabled": "Habilitado",
+  "@editEnabled": {},
   "editEnableMembership": "Habilitar adesão",
   "@editEnableMembership": {},
   "editGalleries": "Galerias",
   "@editGalleries": {
     "description": "Header for Galleries settings"
   },
+  "editGallery": "Galeria",
+  "@editGallery": {
+    "description": "Header for Gallery settings"
+  },
+  "editMembership": "Filiação",
+  "@editMembership": {},
   "editName": "Nome",
   "@editName": {
     "description": "Name of Gffft"
   },
+  "editPages": "Páginas",
+  "@editPages": {},
+  "editPagesWhoCanEdit": "Quem pode editar?",
+  "@editPagesWhoCanEdit": {},
+  "editPagesWhoCanView": "Quem pode ver?",
+  "@editPagesWhoCanView": {},
+  "editRequireApproval": "Requer aprovação?",
+  "@editRequireApproval": {},
   "editTags": "Tag",
   "@editTags": {
     "description": "Tags to help people find your gffft"
@@ -52,8 +76,18 @@
   "@editYourGffftInfo": {
     "description": "Section header on edit screen"
   },
+  "errorLoading": "Erro a carregar",
+  "@errorLoading": {},
   "flag": "Bandeira",
   "@flag": {},
+  "host": "Hospedeiro",
+  "@host": {},
+  "loading": "Carregando",
+  "@loading": {},
+  "logout": "Sair",
+  "@logout": {},
+  "me": "Eu",
+  "@me": {},
   "memberTypeAdmin": "Administrador",
   "@memberTypeAdmin": {},
   "memberTypeAnon": "Anônimo",
@@ -62,6 +96,10 @@
   "@memberTypeMember": {},
   "memberTypeSysop": "Sysop",
   "@memberTypeSysop": {},
+  "no": "Não",
+  "@no": {},
   "validateFieldIsRequired": "{field} é obrigatório",
-  "@validateFieldIsRequired": {}
+  "@validateFieldIsRequired": {},
+  "yes": "sim",
+  "@yes": {}
 }

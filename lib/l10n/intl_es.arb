@@ -1,5 +1,13 @@
 {
   "@@locale": "es",
+  "connect": "Conectar",
+  "@connect": {},
+  "editAllowMembers": "¿Permitir miembros?",
+  "@editAllowMembers": {},
+  "editBoard": "Junta",
+  "@editBoard": {
+    "description": "header for edit Boards"
+  },
   "editBoards": "Tableros",
   "@editBoards": {
     "description": "header for edit Boards"
@@ -32,16 +40,32 @@
   "@editEnableAltHandlesHint": {
     "description": "Hint for enableing alt handles on a Gffft"
   },
+  "editEnabled": "Activado",
+  "@editEnabled": {},
   "editEnableMembership": "Habilitar membresía",
   "@editEnableMembership": {},
   "editGalleries": "Galerias",
   "@editGalleries": {
     "description": "Header for Galleries settings"
   },
+  "editGallery": "Galería",
+  "@editGallery": {
+    "description": "Header for Gallery settings"
+  },
+  "editMembership": "Afiliación",
+  "@editMembership": {},
   "editName": "Nombre",
   "@editName": {
     "description": "Name of Gffft"
   },
+  "editPages": "Paginas",
+  "@editPages": {},
+  "editPagesWhoCanEdit": "¿Quién puede editar?",
+  "@editPagesWhoCanEdit": {},
+  "editPagesWhoCanView": "¿Quién puede verlo?",
+  "@editPagesWhoCanView": {},
+  "editRequireApproval": "¿Requiere aprobación?",
+  "@editRequireApproval": {},
   "editTags": "Etiquetas",
   "@editTags": {
     "description": "Tags to help people find your gffft"
@@ -52,8 +76,18 @@
   "@editYourGffftInfo": {
     "description": "Section header on edit screen"
   },
+  "errorLoading": "Error al cargar",
+  "@errorLoading": {},
   "flag": "Bandera",
   "@flag": {},
+  "host": "Anfitrión",
+  "@host": {},
+  "loading": "Cargando",
+  "@loading": {},
+  "logout": "Cerrar sesión",
+  "@logout": {},
+  "me": "yo",
+  "@me": {},
   "memberTypeAdmin": "Administrador",
   "@memberTypeAdmin": {},
   "memberTypeAnon": "Anónimo",
@@ -62,6 +96,10 @@
   "@memberTypeMember": {},
   "memberTypeSysop": "Sysop",
   "@memberTypeSysop": {},
+  "no": "No",
+  "@no": {},
   "validateFieldIsRequired": "{field} es obligatorio",
-  "@validateFieldIsRequired": {}
+  "@validateFieldIsRequired": {},
+  "yes": "sí",
+  "@yes": {}
 }

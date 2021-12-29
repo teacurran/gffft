@@ -32,20 +32,27 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can post?"),
         "editBoardWhoCanView":
             MessageLookupByLibrary.simpleMessage("Who can view?"),
+        "editBoards": MessageLookupByLibrary.simpleMessage("Boards"),
         "editDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "editDescriptionHint": MessageLookupByLibrary.simpleMessage(
-            "A short description of your gffft"),
+            "A short description of your gffft that will show up in search results"),
+        "editEnable": MessageLookupByLibrary.simpleMessage("Enable"),
         "editEnableAltHandles":
-            MessageLookupByLibrary.simpleMessage("Enable alternate handles?"),
+            MessageLookupByLibrary.simpleMessage("Enable alternate handles"),
         "editEnableAltHandlesHint": MessageLookupByLibrary.simpleMessage(
             "Allows members of your gffft to choose usernames"),
         "editEnableMembership":
             MessageLookupByLibrary.simpleMessage("Enable membership"),
         "editEnabled": MessageLookupByLibrary.simpleMessage("Enabled"),
+        "editGalleries": MessageLookupByLibrary.simpleMessage("Galleries"),
         "editGallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "editMembership": MessageLookupByLibrary.simpleMessage("Membership"),
         "editName": MessageLookupByLibrary.simpleMessage("Name"),
         "editPages": MessageLookupByLibrary.simpleMessage("Pages"),
+        "editPagesWhoCanEdit":
+            MessageLookupByLibrary.simpleMessage("Who can edit?"),
+        "editPagesWhoCanView":
+            MessageLookupByLibrary.simpleMessage("Who can view?"),
         "editRequireApproval":
             MessageLookupByLibrary.simpleMessage("Require Approval?"),
         "editTags": MessageLookupByLibrary.simpleMessage("Tags"),
@@ -60,10 +67,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "me": MessageLookupByLibrary.simpleMessage("me"),
         "memberTypeAdmin":
-            MessageLookupByLibrary.simpleMessage("Administrators"),
+            MessageLookupByLibrary.simpleMessage("Administrator"),
         "memberTypeAnon": MessageLookupByLibrary.simpleMessage("Anonymous"),
-        "memberTypeMember": MessageLookupByLibrary.simpleMessage("Members"),
-        "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop (you)"),
+        "memberTypeMember": MessageLookupByLibrary.simpleMessage("Member"),
+        "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "validateFieldIsRequired": m0,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
