@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `Actions`
+  String get editActions {
+    return Intl.message(
+      'Actions',
+      name: 'editActions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Allow Members?`
   String get editAllowMembers {
     return Intl.message(
@@ -120,12 +130,32 @@ class S {
     );
   }
 
-  /// `A short description of your gffft that will show up in search results`
+  /// `A short description of this gffft`
   String get editDescriptionHint {
     return Intl.message(
-      'A short description of your gffft that will show up in search results',
+      'A short description of this gffft',
       name: 'editDescriptionHint',
       desc: 'Hint for Gffft Short Description',
+      args: [],
+    );
+  }
+
+  /// `Introduction`
+  String get editIntro {
+    return Intl.message(
+      'Introduction',
+      name: 'editIntro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Longer introduction to this gffft`
+  String get editIntroHint {
+    return Intl.message(
+      'Longer introduction to this gffft',
+      name: 'editIntroHint',
+      desc: '',
       args: [],
     );
   }
@@ -270,6 +300,16 @@ class S {
     );
   }
 
+  /// `Save`
+  String get editSave {
+    return Intl.message(
+      'Save',
+      name: 'editSave',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tags`
   String get editTags {
     return Intl.message(
@@ -360,10 +400,10 @@ class S {
     );
   }
 
-  /// `Administrator`
+  /// `Administrators`
   String get memberTypeAdmin {
     return Intl.message(
-      'Administrator',
+      'Administrators',
       name: 'memberTypeAdmin',
       desc: '',
       args: [],
@@ -380,20 +420,20 @@ class S {
     );
   }
 
-  /// `Member`
+  /// `Members`
   String get memberTypeMember {
     return Intl.message(
-      'Member',
+      'Members',
       name: 'memberTypeMember',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sysop`
+  /// `Sysop (you)`
   String get memberTypeSysop {
     return Intl.message(
-      'Sysop',
+      'Sysop (you)',
       name: 'memberTypeSysop',
       desc: '',
       args: [],

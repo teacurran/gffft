@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gffft/screens/login_screen.dart';
 
 class MeScreen extends StatelessWidget {
   static const String id = 'Me';
@@ -26,7 +27,8 @@ class MeScreen extends StatelessWidget {
           child: Column(
         children: [
           TextButton(
-              onPressed: () => {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, "/login"))},
+              onPressed: () =>
+                  {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, LoginScreen.id))},
               child: Text(i10n.logout))
         ],
       )),

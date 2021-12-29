@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
         Navigator.of(context).pushReplacementNamed(HomeScreen.id);
       }),
       SignedOutAction((context) {
-        Navigator.of(context).pushReplacementNamed('/login');
+        Navigator.of(context).pushReplacementNamed(LoginScreen.id);
       })
     ]);
   }

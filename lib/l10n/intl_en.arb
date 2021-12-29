@@ -2,6 +2,7 @@
   "@@locale": "en",
   "connect": "Connect",
   "@connect": {},
+  "editActions": "Actions",
   "editAllowMembers": "Allow Members?",
   "@editAllowMembers": {},
   "editBoard": "Board",
@@ -24,10 +25,12 @@
   "@editDescription": {
     "description": "Gffft Short Description"
   },
-  "editDescriptionHint": "A short description of your gffft that will show up in search results",
+  "editDescriptionHint": "A short description of this gffft",
   "@editDescriptionHint": {
     "description": "Hint for Gffft Short Description"
   },
+  "editIntro": "Introduction",
+  "editIntroHint": "Longer introduction to this gffft",
   "editEnable": "Enable",
   "@editEnable": {
     "description": "toggle settings enable label"
@@ -67,6 +70,7 @@
   "editRequireApproval": "Require Approval?",
   "editRequireApprovalHint": "People will have to apply for access to your gffft.",
   "@editRequireApproval": {},
+  "editSave": "Save",
   "editTags": "Tags",
   "@editTags": {
     "description": "Tags to help people find your gffft"
@@ -89,6 +93,7 @@
   "@logout": {},
   "me": "me",
   "@me": {},
+
   "memberTypeAdmin": "Administrators",
   "@memberTypeAdmin": {},
   "memberTypeAnon": "Anonymous",
@@ -110,4 +115,4 @@
   },
   "yes": "Yes",
   "@yes": {}
-}a
+}

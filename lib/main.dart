@@ -142,23 +142,48 @@ class App extends StatelessWidget {
                 LoginScreen.id: (context) => LoginScreen(),
                 MeScreen.id: (context) => MeScreen(),
               },
-              darkTheme: _buildTheme(),
-              theme: _buildTheme(),
+              darkTheme: _buildTheme(context),
+              theme: _buildTheme(context),
               themeMode: ThemeMode.dark);
           // show your app’s home page after login
         },
       );
 
-  ThemeData _buildTheme() {
-    final base = ThemeData.light();
+  ThemeData _buildTheme(context) {
+    final base = ThemeData.dark();
     return base.copyWith(
       appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         backgroundColor: Color(0xFF33333D),
         elevation: 0,
       ),
+      errorColor: const Color(0xFFFF206B),
       scaffoldBackgroundColor: const Color(0xFF33333D),
       buttonTheme: const ButtonThemeData(buttonColor: Colors.blue),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+        minimumSize: Size(88, 36),
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(2)),
+        ),
+      ).copyWith(
+        side: MaterialStateProperty.resolveWith<BorderSide?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return const BorderSide(
+                color: Colors.yellow,
+                width: 1,
+              );
+            } else {
+              return const BorderSide(
+                color: Color(0xFF1C839E),
+                width: 1,
+              );
+            }
+          },
+        ),
+      )),
       backgroundColor: const Color(0xFF323436),
       primaryColor: const Color(0xFF1C839E),
       secondaryHeaderColor: const Color(0xFF1C839E),
@@ -175,7 +200,7 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
           isDense: false,
-          contentPadding: EdgeInsets.all(50),
+          contentPadding: EdgeInsets.all(5),
           filled: false,
           border: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.blue, width: 1.0),
@@ -194,7 +219,7 @@ class App extends StatelessWidget {
             borderSide: BorderSide(color: Colors.blue, width: 1.0),
           )),
       visualDensity: VisualDensity.standard,
-      cardColor: Colors.white,
+      cardColor: Colors.black12,
       dialogBackgroundColor: Colors.white,
       shadowColor: Colors.grey,
     );
@@ -216,18 +241,21 @@ class App extends StatelessWidget {
             fontSize: 12,
             fontWeight: FontWeight.w400,
             letterSpacing: letterSpacingOrNone(0.5),
-            color: Colors.black,
+            color: Colors.lightGreen,
           ),
           button: GoogleFonts.robotoCondensed(
-              fontWeight: FontWeight.w700, letterSpacing: letterSpacingOrNone(2.8), color: Colors.lightBlue[200]),
+            fontWeight: FontWeight.w700,
+            letterSpacing: letterSpacingOrNone(2.8),
+            color: Colors.lightBlue[200],
+          ),
           headline1: const TextStyle(color: Color(0xFF1C839E), fontSize: 40),
-          headline4: GoogleFonts.robotoCondensed(color: Colors.black),
+          headline4: GoogleFonts.robotoCondensed(color: Colors.lightGreenAccent),
           headline5: GoogleFonts.robotoCondensed(
             fontSize: 40,
             fontWeight: FontWeight.w600,
             letterSpacing: letterSpacingOrNone(1.4),
           ),
-          subtitle1: TextStyle(color: Colors.black), // input text
+          subtitle1: TextStyle(color: Colors.lightGreenAccent), // input text
           headline6: TextStyle(color: Colors.white),
         );
   }

@@ -13,7 +13,9 @@ class GffftEditScreen extends StatelessWidget {
 
   String? gffftName;
   String? editDescription;
+  String? editIntro;
   List<String>? editTags = <String>[];
+  bool editGffftEnabled = false;
 
   bool editAllowMembers = false;
   bool editRequireApproval = false;
@@ -35,7 +37,7 @@ class GffftEditScreen extends StatelessWidget {
 
   List<PickerModel> _getMemberTypes(AppLocalizations? i10n) {
     return <PickerModel>[
-      PickerModel(i10n?.memberTypeSysop ?? 'Sysop', code: 'sysop'),
+      PickerModel(i10n?.memberTypeSysop ?? 'SysopS', code: 'sysop'),
       PickerModel(i10n?.memberTypeAdmin ?? 'Administrators', code: 'admin'),
       PickerModel(i10n?.memberTypeMember ?? 'Members', code: 'member'),
       PickerModel(i10n?.memberTypeAnon ?? 'Anonymous', code: 'anon')
@@ -44,7 +46,7 @@ class GffftEditScreen extends StatelessWidget {
 
   List<PickerModel> _getSafeMemberTypes(AppLocalizations? i10n) {
     return <PickerModel>[
-      PickerModel(i10n?.memberTypeSysop ?? 'Sysop', code: 'sysop'),
+      PickerModel(i10n?.memberTypeSysop ?? 'SysopX', code: 'sysop'),
       PickerModel(i10n?.memberTypeAdmin ?? 'Administrators', code: 'admin'),
       PickerModel(i10n?.memberTypeMember ?? 'Members', code: 'member')
     ];
@@ -109,7 +111,14 @@ class GffftEditScreen extends StatelessWidget {
                     initialItems: editTags,
                     items: allTags,
                     onSaved: (value) => editTags = value,
-                  )
+                  ),
+                  CardSettingsParagraph(
+                    label: i10n.editIntro,
+                    initialValue: editIntro,
+                    onSaved: (value) => editIntro = value,
+                    contentOnNewLine: true,
+                    hintText: i10n.editIntroHint,
+                  ),
                 ],
               ),
               CardSettingsSection(
@@ -212,6 +221,24 @@ class GffftEditScreen extends StatelessWidget {
                       items: safeMemberTypes,
                       onSaved: (value) => editGalleryWhoCanPost = value,
                     )
+                  ]),
+              CardSettingsSection(
+                  header: CardSettingsHeader(
+                    label: i10n.editActions,
+                  ),
+                  children: <CardSettingsWidget>[
+                    CardSettingsSwitch(
+                      label: i10n.editEnabled,
+                      initialValue: editGffftEnabled,
+                      onSaved: (value) => editGffftEnabled = value ?? false,
+                      trueLabel: i10n.yes,
+                      falseLabel: i10n.no,
+                    ),
+                    CardSettingsButton(
+                        backgroundColor: theme.backgroundColor,
+                        label: i10n.editSave,
+                        showMaterialonIOS: true,
+                        onPressed: () => {}),
                   ])
             ],
           ),

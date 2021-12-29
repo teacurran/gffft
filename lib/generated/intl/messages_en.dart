@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "editActions": MessageLookupByLibrary.simpleMessage("Actions"),
         "editAllowMembers":
             MessageLookupByLibrary.simpleMessage("Allow Members?"),
         "editBoard": MessageLookupByLibrary.simpleMessage("Board"),
@@ -35,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editBoards": MessageLookupByLibrary.simpleMessage("Boards"),
         "editDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "editDescriptionHint": MessageLookupByLibrary.simpleMessage(
-            "A short description of your gffft that will show up in search results"),
+            "A short description of this gffft"),
         "editEnable": MessageLookupByLibrary.simpleMessage("Enable"),
         "editEnableAltHandles":
             MessageLookupByLibrary.simpleMessage("Enable alternate handles"),
@@ -46,6 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "editEnabled": MessageLookupByLibrary.simpleMessage("Enabled"),
         "editGalleries": MessageLookupByLibrary.simpleMessage("Galleries"),
         "editGallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+        "editIntro": MessageLookupByLibrary.simpleMessage("Introduction"),
+        "editIntroHint": MessageLookupByLibrary.simpleMessage(
+            "Longer introduction to this gffft"),
         "editMembership": MessageLookupByLibrary.simpleMessage("Membership"),
         "editName": MessageLookupByLibrary.simpleMessage("Name"),
         "editPages": MessageLookupByLibrary.simpleMessage("Pages"),
@@ -57,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Require Approval?"),
         "editRequireApprovalHint": MessageLookupByLibrary.simpleMessage(
             "People will have to apply for access to your gffft."),
+        "editSave": MessageLookupByLibrary.simpleMessage("Save"),
         "editTags": MessageLookupByLibrary.simpleMessage("Tags"),
         "editTagsHint": MessageLookupByLibrary.simpleMessage(
             "Tags allow people to find your gffft when searching"),
@@ -69,10 +74,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "me": MessageLookupByLibrary.simpleMessage("me"),
         "memberTypeAdmin":
-            MessageLookupByLibrary.simpleMessage("Administrator"),
+            MessageLookupByLibrary.simpleMessage("Administrators"),
         "memberTypeAnon": MessageLookupByLibrary.simpleMessage("Anonymous"),
-        "memberTypeMember": MessageLookupByLibrary.simpleMessage("Member"),
-        "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop"),
+        "memberTypeMember": MessageLookupByLibrary.simpleMessage("Members"),
+        "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop (you)"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "validateFieldIsRequired": m0,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
