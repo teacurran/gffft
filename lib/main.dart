@@ -21,6 +21,7 @@ import 'package:window_location_href/window_location_href.dart';
 
 import 'boards/board_api.dart';
 import 'firebase_options.dart';
+import 'gfffts/gffft_api.dart';
 import 'gfffts/gffft_edit_screen.dart';
 import 'gfffts/gffft_screen.dart';
 
@@ -50,8 +51,9 @@ Future<void> main() async {
     FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   }
 
-  getIt.registerSingleton<UserApi>(UserApi());
   getIt.registerSingleton<BoardApi>(BoardApi());
+  getIt.registerSingleton<GffftApi>(GffftApi());
+  getIt.registerSingleton<UserApi>(UserApi());
   runApp(App());
 }
 
@@ -149,6 +151,56 @@ class App extends StatelessWidget {
         },
       );
 
+  OutlinedButtonThemeData _getOutlineButtonThemeData(context) {
+    return OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+      minimumSize: Size(88, 36),
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+      ),
+    ).copyWith(side: MaterialStateProperty.resolveWith<BorderSide?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.pressed)) {
+          return const BorderSide(
+            color: Colors.yellow,
+            width: 1,
+          );
+        } else {
+          return const BorderSide(
+            color: Color(0xFF1C839E),
+            width: 1,
+          );
+        }
+      },
+    )));
+  }
+
+  TextButtonThemeData _getTextButtonThemeData(context) {
+    return TextButtonThemeData(
+        style: OutlinedButton.styleFrom(
+      minimumSize: Size(88, 36),
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+      ),
+    ).copyWith(side: MaterialStateProperty.resolveWith<BorderSide?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.pressed)) {
+          return const BorderSide(
+            color: Colors.yellow,
+            width: 1,
+          );
+        } else {
+          return const BorderSide(
+            color: Color(0xFF1C839E),
+            width: 1,
+          );
+        }
+      },
+    )));
+  }
+
   ThemeData _buildTheme(context) {
     final base = ThemeData.dark();
     return base.copyWith(
@@ -160,30 +212,8 @@ class App extends StatelessWidget {
       errorColor: const Color(0xFFFF206B),
       scaffoldBackgroundColor: const Color(0xFF33333D),
       buttonTheme: const ButtonThemeData(buttonColor: Colors.blue),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-        minimumSize: Size(88, 36),
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(2)),
-        ),
-      ).copyWith(
-        side: MaterialStateProperty.resolveWith<BorderSide?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed)) {
-              return const BorderSide(
-                color: Colors.yellow,
-                width: 1,
-              );
-            } else {
-              return const BorderSide(
-                color: Color(0xFF1C839E),
-                width: 1,
-              );
-            }
-          },
-        ),
-      )),
+      outlinedButtonTheme: _getOutlineButtonThemeData(context),
+      textButtonTheme: _getTextButtonThemeData(context),
       backgroundColor: const Color(0xFF323436),
       primaryColor: const Color(0xFF1C839E),
       secondaryHeaderColor: const Color(0xFF1C839E),

@@ -57,6 +57,7 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.4.0
   mobx: ^2.0.5
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
 
   # https://pub.dev/packages/path_provider
   path_provider: ^2.0.7

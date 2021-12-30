@@ -60,17 +60,29 @@ class ApiBase {
   final String _baseUrl =
       dotenv.get("API_BASE_URL", fallback: "https://us-central1-gffft-auth.cloudfunctions.net/api/");
 
-  final headers = <String, String>{};
   Future<dynamic> get(String urlPath, {bool requireAuth = false}) async {
+    return callApi(urlPath);
+  }
+
+  Future<dynamic> post(String urlPath, String jsonPayload) async {
+    return callApi(urlPath, method: "post", payload: jsonPayload, payloadContentType: "application/json");
+  }
+
+  Future<dynamic> put(String urlPath, String jsonPayload) async {
+    return callApi(urlPath, method: "put", payload: jsonPayload, payloadContentType: "application/json");
+  }
+
+  Future<dynamic> callApi(String urlPath,
+      {String method = "get", bool requireAuth = false, String? payload, String? payloadContentType}) async {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
     var url = Uri.parse(_baseUrl + urlPath);
     if (kDebugMode) {
-      print('Api Get, url $url');
+      print('Api $method, url $url');
     }
-    var responseJson;
+    dynamic responseJson;
     try {
-      final request = http.Request("get", url);
+      final request = http.Request(method, url);
 
       if (requireAuth && fbAuth.currentUser == null) {
         throw FetchDataException('User must be authenticated');
@@ -86,14 +98,24 @@ class ApiBase {
         });
       }
 
+      if (payload != null) {
+        if (kDebugMode) {
+          print("Sending payload: $payload");
+        }
+        request.body = payload;
+      }
+
+      if (payloadContentType != null) {
+        request.headers.addAll({'Content-Type': payloadContentType});
+      }
+
       final streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
-      if (response.statusCode >= 400 && response.statusCode < 500) {
+      if (response.statusCode == 403) {
         await fbAuth.signOut();
       }
       responseJson = _returnResponse(response);
     } catch (e) {
-      await fbAuth.signOut();
       if (e is SocketException) {
         //treat SocketException
         if (kDebugMode) {
@@ -107,13 +129,13 @@ class ApiBase {
       } else if (kDebugMode) {
         print("Unhandled exception: ${e.toString()}");
       }
-      throw FetchDataException('No Internet connection');
+      throw FetchDataException('Unable to fetch data');
     }
     return responseJson;
   }
 
   Future<dynamic> getAuthenticated(String urlPath) async {
-    return get(urlPath, requireAuth: true);
+    return callApi(urlPath, requireAuth: true);
   }
 
   dynamic _returnResponse(http.Response response) {
@@ -122,6 +144,8 @@ class ApiBase {
         var responseJson = json.decode(response.body.toString());
         print(responseJson);
         return responseJson;
+      case 204:
+        return null;
       case 400:
         throw BadRequestException(response.body.toString());
       case 401:

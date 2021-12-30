@@ -7,8 +7,44 @@ class Gffft {
   String? id;
   String? name;
   String? description;
+  String? tags;
+  String? intro;
+  bool enabled;
+  bool allowMembers;
+  bool requireApproval;
+  bool enableAltHandles;
 
-  Gffft({this.id, this.name, this.description});
+  bool boardEnabled;
+  String? boardWhoCanView;
+  String? boardWhoCanPost;
+
+  bool galleryEnabled;
+  String? galleryWhoCanView;
+  String? galleryWhoCanPost;
+
+  bool pagesEnabled;
+  String? pagesWhoCanView;
+  String? pagesWhoCanEdit;
+
+  Gffft(
+      {this.id,
+      this.name,
+      this.description,
+      this.tags,
+      this.intro,
+      this.enabled = false,
+      this.allowMembers = false,
+      this.requireApproval = false,
+      this.enableAltHandles = false,
+      this.boardEnabled = false,
+      this.boardWhoCanView,
+      this.boardWhoCanPost,
+      this.galleryEnabled = false,
+      this.galleryWhoCanView,
+      this.galleryWhoCanPost,
+      this.pagesEnabled = false,
+      this.pagesWhoCanView,
+      this.pagesWhoCanEdit});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
@@ -27,6 +63,6 @@ class Gffft {
 
   /// `toJson` is the convention for a class to declare support for serialization
   /// to JSON. The implementation simply calls the private, generated
-  /// helper method `_$UserToJson`.
+  /// helper method `_$GffftToJson`.
   Map<String, dynamic> toJson() => _$GffftToJson(this);
 }
