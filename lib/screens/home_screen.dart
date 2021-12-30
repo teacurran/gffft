@@ -21,16 +21,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserApi userApi = getIt<UserApi>();
-  User? user;
+  late Future<User?> user;
 
   @override
   void initState() {
     super.initState();
-  }
 
-  Future<User?> _init(context) async {
-    user ??= await userApi.me();
-    return user;
+    user = userApi.me();
   }
 
   @override
@@ -44,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final descriptionStyle = theme.textTheme.subtitle1;
 
     return FutureBuilder(
-        future: _init(context),
+        future: user,
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text(i10n!.errorLoading));
