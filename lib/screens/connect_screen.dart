@@ -6,13 +6,13 @@ class ConnectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var i10n = AppLocalizations.of(context);
+    var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(i10n!.connect),
+        title: Text(l10n!.connect),
         backgroundColor: theme.primaryColor,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -21,7 +21,7 @@ class ConnectScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Text(i10n.connect),
+        child: Text(l10n.connect),
       ),
     );
   }

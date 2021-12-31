@@ -44,16 +44,16 @@ class _GffftEditScreen extends State<GffftEditScreen> {
   bool editEnableAltHandles = false;
 
   bool editBoardEnabled = false;
-  StringPickerModel? editBoardWhoCanView;
-  StringPickerModel? editBoardWhoCanPost;
+  String? editBoardWhoCanView;
+  String? editBoardWhoCanPost;
 
   bool editGalleryEnabled = false;
-  StringPickerModel? editGalleryWhoCanView;
-  StringPickerModel? editGalleryWhoCanPost;
+  String? editGalleryWhoCanView;
+  String? editGalleryWhoCanPost;
 
   bool editPagesEnabled = false;
-  StringPickerModel? editPagesWhoCanView;
-  StringPickerModel? editPagesWhoCanEdit;
+  String? editPagesWhoCanView;
+  String? editPagesWhoCanEdit;
 
   @override
   void initState() {
@@ -71,6 +71,23 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                 editName = gffft.name;
                 editDescription = gffft.description;
                 editIntro = gffft.intro;
+                editEnableAltHandles = gffft.enableAltHandles;
+                editAllowMembers = gffft.allowMembers;
+                editRequireApproval = gffft.requireApproval;
+                editEnabled = gffft.enabled;
+
+                editBoardEnabled = gffft.boardEnabled;
+                editBoardWhoCanPost = gffft.boardWhoCanPost;
+                editBoardWhoCanView = gffft.boardWhoCanView;
+
+                editGalleryEnabled = gffft.galleryEnabled;
+                editGalleryWhoCanPost = gffft.galleryWhoCanPost;
+                editGalleryWhoCanView = gffft.galleryWhoCanView;
+
+                editPagesEnabled = gffft.pagesEnabled;
+                editPagesWhoCanEdit = gffft.pagesWhoCanEdit;
+                editPagesWhoCanView = gffft.pagesWhoCanView;
+
                 initialLoad = false;
                 isLoading = false;
               })
@@ -84,21 +101,37 @@ class _GffftEditScreen extends State<GffftEditScreen> {
 
   List<String> allTags = <String>['farming', 'politics', 'culture', 'life'];
 
-  List<StringPickerModel> _getMemberTypes(AppLocalizations? i10n) {
-    return <StringPickerModel>[
-      StringPickerModel(i10n?.memberTypeSysop ?? 'SysopS', 'sysop'),
-      StringPickerModel(i10n?.memberTypeAdmin ?? 'Administrators', 'admin'),
-      StringPickerModel(i10n?.memberTypeMember ?? 'Members', 'member'),
-      StringPickerModel(i10n?.memberTypeAnon ?? 'Anonymous', 'anon')
-    ];
+  Map<String, List<StringPickerModel>> cachedMemberTypes = {};
+
+  List<StringPickerModel> _getMemberTypes(AppLocalizations? l10n) {
+    String locale = l10n?.localeName ?? 'default';
+    if (!cachedMemberTypes.containsKey(locale)) {
+      cachedMemberTypes[locale] = <StringPickerModel>[
+        StringPickerModel(l10n?.memberTypeSysop ?? 'Sysop', 'sysop'),
+        StringPickerModel(l10n?.memberTypeAdmin ?? 'Administrators', 'admin'),
+        StringPickerModel(l10n?.memberTypeMember ?? 'Members', 'member'),
+        StringPickerModel(l10n?.memberTypeAnon ?? 'Anonymous', 'anon')
+      ];
+    }
+    List<StringPickerModel> defaultList = <StringPickerModel>[];
+    return cachedMemberTypes[locale] ?? defaultList;
   }
 
-  List<StringPickerModel> _getSafeMemberTypes(AppLocalizations? i10n) {
-    return <StringPickerModel>[
-      StringPickerModel(i10n?.memberTypeSysop ?? 'SysopX', 'sysop'),
-      StringPickerModel(i10n?.memberTypeAdmin ?? 'Administrators', 'admin'),
-      StringPickerModel(i10n?.memberTypeMember ?? 'Members', 'member')
-    ];
+  List<StringPickerModel> _getSafeMemberTypes(AppLocalizations? l10n) {
+    String locale = "safe-${l10n?.localeName}";
+    if (!cachedMemberTypes.containsKey(locale)) {
+      cachedMemberTypes[locale] = <StringPickerModel>[
+        StringPickerModel(l10n?.memberTypeSysop ?? 'Sysop', 'sysop'),
+        StringPickerModel(l10n?.memberTypeAdmin ?? 'Administrators', 'admin'),
+        StringPickerModel(l10n?.memberTypeMember ?? 'Members', 'member'),
+      ];
+    }
+    List<StringPickerModel> defaultList = <StringPickerModel>[];
+    return cachedMemberTypes[locale] ?? defaultList;
+  }
+
+  StringPickerModel? _selectOrFirst(List<StringPickerModel> list, String? code) {
+    return list.firstWhere((element) => element.code == code, orElse: () => list.first);
   }
 
   Future savePressed() async {
@@ -111,21 +144,23 @@ class _GffftEditScreen extends State<GffftEditScreen> {
 
       Gffft gffft = Gffft(
           name: editName,
+          requireApproval: editRequireApproval,
+          intro: editIntro,
           allowMembers: editAllowMembers,
-          boardEnabled: editBoardEnabled,
-          boardWhoCanPost: editBoardWhoCanPost?.code,
-          boardWhoCanView: editBoardWhoCanView?.code,
           description: editDescription,
           enabled: editEnabled,
           enableAltHandles: editEnableAltHandles,
+          boardEnabled: editBoardEnabled,
+          boardWhoCanPost: editBoardWhoCanPost,
+          boardWhoCanView: editBoardWhoCanView,
           galleryEnabled: editGalleryEnabled,
-          galleryWhoCanPost: editGalleryWhoCanPost?.code,
-          galleryWhoCanView: editBoardWhoCanView?.code,
-          intro: editIntro,
+          galleryWhoCanPost: editGalleryWhoCanPost,
+          galleryWhoCanView: editGalleryWhoCanView,
           pagesEnabled: editPagesEnabled,
-          pagesWhoCanEdit: editPagesWhoCanEdit?.code,
-          pagesWhoCanView: editPagesWhoCanView?.code,
-          requireApproval: editRequireApproval);
+          pagesWhoCanEdit: editPagesWhoCanEdit,
+          pagesWhoCanView: editPagesWhoCanView,
+          tags: editTags);
+
       gffftApi.save(gffft).then((value) => Navigator.pop(context)).onError((error, stackTrace) => {
             setState(() {
               print(error);
@@ -139,17 +174,17 @@ class _GffftEditScreen extends State<GffftEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations? i10n = AppLocalizations.of(context);
+    AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    List<StringPickerModel> memberTypes = _getMemberTypes(i10n);
-    List<StringPickerModel> safeMemberTypes = _getSafeMemberTypes(i10n);
+    List<StringPickerModel> memberTypes = _getMemberTypes(l10n);
+    List<StringPickerModel> safeMemberTypes = _getSafeMemberTypes(l10n);
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          "${i10n!.host} - ${editName}",
+          l10n!.host,
           style: theme.textTheme.headline1,
         ),
         backgroundColor: theme.backgroundColor,
@@ -171,14 +206,14 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                     children: <CardSettingsSection>[
                       CardSettingsSection(
                         header: CardSettingsHeader(
-                          label: i10n.editYourGffftInfo,
+                          label: l10n.editYourGffftInfo,
                         ),
                         children: <CardSettingsWidget>[
                           CardSettingsText(
-                            label: i10n.editName,
+                            label: l10n.editName,
                             initialValue: editName,
                             validator: (value) {
-                              if (value == null || value.isEmpty) return i10n.validateFieldIsRequired(i10n.editName);
+                              if (value == null || value.isEmpty) return l10n.validateFieldIsRequired(l10n.editName);
                             },
                             onChanged: (value) => setState(() {
                               editName = value;
@@ -189,179 +224,179 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                             showCounter: true,
                           ),
                           CardSettingsText(
-                            label: i10n.editDescription,
+                            label: l10n.editDescription,
                             initialValue: editDescription,
                             validator: (value) {
                               if (value == null || value.isEmpty)
-                                return i10n.validateFieldIsRequired(i10n.editDescription);
+                                return l10n.validateFieldIsRequired(l10n.editDescription);
                             },
                             onChanged: (value) => setState(() {
                               editDescription = value;
                             }),
                             contentPadding: const EdgeInsets.all(8),
                             contentOnNewLine: true,
-                            hintText: i10n.editDescriptionHint,
+                            hintText: l10n.editDescriptionHint,
                             maxLength: 256,
                             showCounter: true,
                           ),
                           CardSettingsCheckboxPicker<String>(
-                            label: i10n.editTags,
+                            label: l10n.editTags,
                             initialItems: editTags,
                             items: allTags,
                             onChanged: (value) => editTags = value,
                           ),
                           CardSettingsParagraph(
-                            label: i10n.editIntro,
+                            label: l10n.editIntro,
                             initialValue: editIntro,
                             onChanged: (value) => editIntro = value,
                             contentOnNewLine: true,
-                            hintText: i10n.editIntroHint,
+                            hintText: l10n.editIntroHint,
+                            maxLength: 1024,
                           ),
                         ],
                       ),
                       CardSettingsSection(
                           header: CardSettingsHeader(
-                            label: i10n.editMembership,
+                            label: l10n.editMembership,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
-                              label: i10n.editAllowMembers,
+                              label: l10n.editAllowMembers,
                               initialValue: editAllowMembers,
                               onChanged: (value) => setState(() {
                                 editAllowMembers = value;
                               }),
-                              trueLabel: i10n.yes,
-                              falseLabel: i10n.no,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                             ),
                             CardSettingsSwitch(
-                              label: i10n.editRequireApproval,
+                              label: l10n.editRequireApproval,
                               initialValue: editRequireApproval,
                               onChanged: (value) => setState(() {
                                 editRequireApproval = value;
                               }),
-                              trueLabel: i10n.yes,
-                              falseLabel: i10n.no,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                             ),
-                            CardSettingsInstructions(text: i10n.editRequireApprovalHint),
+                            CardSettingsInstructions(text: l10n.editRequireApprovalHint),
                             CardSettingsSwitch(
-                              label: i10n.editEnableAltHandles,
+                              label: l10n.editEnableAltHandles,
                               initialValue: editEnableAltHandles,
                               onChanged: (value) => setState(() {
                                 editEnableAltHandles = value;
                               }),
-                              trueLabel: i10n.yes,
-                              falseLabel: i10n.no,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                             ),
-                            CardSettingsInstructions(text: i10n.editEnableAltHandlesHint)
+                            CardSettingsInstructions(text: l10n.editEnableAltHandlesHint)
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(
-                            label: i10n.editPages,
+                            label: l10n.editPages,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
-                              label: i10n.editEnabled,
+                              label: l10n.editEnabled,
                               initialValue: editPagesEnabled,
                               onChanged: (value) => setState(() {
                                 editPagesEnabled = value;
                               }),
-                              trueLabel: i10n.yes,
-                              falseLabel: i10n.no,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                             ),
                             CardSettingsListPicker<StringPickerModel>(
-                                label: i10n.editPagesWhoCanView,
-                                initialItem: editPagesWhoCanView ?? memberTypes[0],
+                                label: l10n.editPagesWhoCanView,
+                                initialItem: _selectOrFirst(memberTypes, editPagesWhoCanView),
                                 onChanged: (value) => setState(() {
-                                      editPagesWhoCanView = value;
+                                      editPagesWhoCanView = value.code;
                                     }),
                                 items: memberTypes),
                             CardSettingsListPicker<StringPickerModel>(
-                                label: i10n.editPagesWhoCanEdit,
-                                initialItem: editPagesWhoCanEdit ?? safeMemberTypes[0],
+                                label: l10n.editPagesWhoCanEdit,
+                                initialItem: _selectOrFirst(safeMemberTypes, editPagesWhoCanEdit),
                                 onChanged: (value) => setState(() {
-                                      editPagesWhoCanEdit = value;
+                                      editPagesWhoCanEdit = value.code;
                                     }),
                                 items: safeMemberTypes)
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(
-                            label: i10n.editBoard,
+                            label: l10n.editBoard,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
-                              label: i10n.editEnabled,
+                              label: l10n.editEnabled,
                               initialValue: editBoardEnabled,
                               onChanged: (value) => setState(() {
                                 editBoardEnabled = value;
                               }),
-                              trueLabel: i10n.yes,
-                              falseLabel: i10n.no,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                             ),
                             CardSettingsListPicker<StringPickerModel>(
-                                label: i10n.editBoardWhoCanView,
-                                initialItem: editBoardWhoCanView ?? memberTypes[0],
+                                label: l10n.editBoardWhoCanView,
+                                initialItem: _selectOrFirst(memberTypes, editBoardWhoCanView),
                                 onChanged: (value) => setState(() {
-                                      editBoardWhoCanView = value;
+                                      editBoardWhoCanView = value.code;
                                     }),
                                 items: memberTypes),
                             CardSettingsListPicker<StringPickerModel>(
-                                label: i10n.editBoardWhoCanPost,
-                                initialItem: editBoardWhoCanPost ?? safeMemberTypes[0],
+                                label: l10n.editBoardWhoCanPost,
+                                initialItem: _selectOrFirst(safeMemberTypes, editBoardWhoCanPost),
                                 onChanged: (value) => setState(() {
-                                      editBoardWhoCanPost = value;
+                                      editBoardWhoCanPost = value.code;
                                     }),
                                 items: safeMemberTypes)
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(
-                            label: i10n.editGallery,
+                            label: l10n.editGallery,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
-                              label: i10n.editEnabled,
+                              label: l10n.editEnabled,
                               initialValue: editGalleryEnabled,
-                              trueLabel: i10n.yes,
-                              falseLabel: i10n.no,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                               onChanged: (value) => setState(() {
                                 editGalleryEnabled = value;
                               }),
                             ),
                             CardSettingsListPicker<StringPickerModel>(
-                              label: i10n.editBoardWhoCanView,
-                              initialItem: editGalleryWhoCanView ?? memberTypes[1],
+                              label: l10n.editBoardWhoCanView,
+                              initialItem: _selectOrFirst(memberTypes, editGalleryWhoCanView),
                               items: memberTypes,
                               onChanged: (value) => setState(() {
-                                editGalleryWhoCanView = value;
+                                editGalleryWhoCanView = value.code;
                               }),
                             ),
                             CardSettingsListPicker<StringPickerModel>(
-                              label: i10n.editBoardWhoCanPost,
-                              initialItem: editGalleryWhoCanPost ?? safeMemberTypes[0],
+                              label: l10n.editBoardWhoCanPost,
+                              initialItem: _selectOrFirst(safeMemberTypes, editGalleryWhoCanPost),
                               items: safeMemberTypes,
-                              onSaved: (value) => editGalleryWhoCanPost = value,
                               onChanged: (value) => setState(() {
-                                editGalleryWhoCanPost = value;
+                                editGalleryWhoCanPost = value.code;
                               }),
                             )
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(
-                            label: i10n.editActions,
+                            label: l10n.editActions,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
-                              label: i10n.editEnabled,
+                              label: l10n.editEnabled,
                               initialValue: editEnabled,
                               onSaved: (value) => editEnabled = value ?? false,
-                              trueLabel: i10n.yes,
-                              falseLabel: i10n.no,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                               onChanged: (value) => setState(() {
                                 editEnabled = value;
                               }),
                             ),
                             CardSettingsButton(
                                 backgroundColor: theme.backgroundColor,
-                                label: i10n.editSave,
+                                label: l10n.editSave,
                                 showMaterialonIOS: true,
                                 onPressed: savePressed),
                           ])

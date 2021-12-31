@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
-    var i10n = AppLocalizations.of(context);
+    var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     final titleStyle = theme.textTheme.headline5 ?? const TextStyle();
@@ -44,15 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
         future: user,
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text(i10n!.errorLoading));
+            return Center(child: Text(l10n!.errorLoading));
           }
 
           var user = snapshot.data;
           String text;
           String? boardId;
           if (user == null) {
-            text = i10n!.loading;
-            boardId = i10n.loading;
+            text = l10n!.loading;
+            boardId = l10n.loading;
           } else {
             text = Constants.thankYou + ":" + user.username;
             if (user.board != null) {
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           }
 
-          var username = user == null ? i10n!.loading : user.username;
+          var username = user == null ? l10n!.loading : user.username;
 
           return SafeArea(
               child: SingleChildScrollView(
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fit: BoxFit.scaleDown,
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        i10n!.connect,
+                                        l10n!.connect,
                                         style: theme.textTheme.headline4,
                                       ),
                                     ),
@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fit: BoxFit.scaleDown,
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        i10n.host,
+                                        l10n.host,
                                         style: const TextStyle(
                                             fontFamily: 'DoubleFeature', color: Colors.yellow, fontSize: 60),
                                       ),

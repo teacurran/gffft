@@ -10,7 +10,7 @@ Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       id: json['id'] as String?,
       name: json['name'] as String?,
       description: json['description'] as String?,
-      tags: json['tags'] as String?,
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       intro: json['intro'] as String?,
       enabled: json['enabled'] as bool? ?? false,
       allowMembers: json['allowMembers'] as bool? ?? false,

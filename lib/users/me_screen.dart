@@ -8,14 +8,14 @@ class MeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var i10n = AppLocalizations.of(context);
+    var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(i10n!.me),
+        title: Text(l10n!.me),
         backgroundColor: theme.primaryColor,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -29,7 +29,7 @@ class MeScreen extends StatelessWidget {
           TextButton(
               onPressed: () =>
                   {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, LoginScreen.id))},
-              child: Text(i10n.logout))
+              child: Text(l10n.logout))
         ],
       )),
     );

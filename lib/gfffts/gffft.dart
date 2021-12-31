@@ -7,7 +7,7 @@ class Gffft {
   String? id;
   String? name;
   String? description;
-  String? tags;
+  List<String>? tags;
   String? intro;
   bool enabled;
   bool allowMembers;

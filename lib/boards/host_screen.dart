@@ -6,14 +6,14 @@ class HostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var i10n = AppLocalizations.of(context);
+    var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          i10n!.host,
+          l10n!.host,
           style: theme.textTheme.headline1,
         ),
         backgroundColor: theme.backgroundColor,
@@ -30,7 +30,7 @@ class HostScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Text(i10n.host),
+        child: Text(l10n.host),
       ),
     );
   }
