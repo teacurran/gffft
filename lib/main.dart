@@ -10,7 +10,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/screens/connect_screen.dart';
 import 'package:gffft/screens/home_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
@@ -23,6 +22,7 @@ import 'boards/board_api.dart';
 import 'firebase_options.dart';
 import 'gfffts/gffft_api.dart';
 import 'gfffts/gffft_edit_screen.dart';
+import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_screen.dart';
 
 final getIt = GetIt.instance;
@@ -138,9 +138,9 @@ class App extends StatelessWidget {
               initialRoute: initialRoute,
               routes: {
                 HomeScreen.id: (context) => HomeScreen(),
-                '/connect': (context) => const ConnectScreen(),
+                GffftListScreen.id: (context) => const GffftListScreen(),
                 GffftScreen.id: (context) => GffftScreen(),
-                GffftEditScreen.id: (context) => GffftEditScreen(),
+                GffftEditScreen.id: (context) => const GffftEditScreen(),
                 LoginScreen.id: (context) => LoginScreen(),
                 MeScreen.id: (context) => MeScreen(),
               },

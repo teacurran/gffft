@@ -127,8 +127,10 @@ class ApiBase {
           print("Timeout exception: ${e.toString()}");
         }
       } else if (kDebugMode) {
-        print("Unhandled exception: ${e.toString()}");
+        print("Unhandled exception. signing user out.: ${e.toString()}");
+        await fbAuth.signOut();
       }
+
       throw FetchDataException('Unable to fetch data');
     }
     return responseJson;

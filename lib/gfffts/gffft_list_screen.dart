@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class ConnectScreen extends StatelessWidget {
-  const ConnectScreen({Key? key}) : super(key: key);
+class GffftListScreen extends StatefulWidget {
+  const GffftListScreen({Key? key}) : super(key: key);
 
+  static const String id = 'Gffft List';
+
+  @override
+  _GffftListScreen createState() => _GffftListScreen();
+}
+
+class _GffftListScreen extends State<GffftListScreen> {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
@@ -20,8 +28,8 @@ class ConnectScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(l10n.connect),
+      body: const Center(
+        child: Text("l10n.connect"),
       ),
     );
   }
