@@ -370,6 +370,16 @@ class S {
     );
   }
 
+  /// `name or #tag`
+  String get gffftListSearchHint {
+    return Intl.message(
+      'name or #tag',
+      name: 'gffftListSearchHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Host`
   String get host {
     return Intl.message(

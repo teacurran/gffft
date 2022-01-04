@@ -87,6 +87,7 @@
   "@errorLoading": {},
   "flag": "Flag",
   "@flag": {},
+  "gffftListSearchHint": "name or #tag",
   "host": "Host",
   "@host": {},
   "loading": "Loading",

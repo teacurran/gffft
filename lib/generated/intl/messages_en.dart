@@ -70,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Your Gffft Info"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Error Loading"),
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
+        "gffftListSearchHint":
+            MessageLookupByLibrary.simpleMessage("name or #tag"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),

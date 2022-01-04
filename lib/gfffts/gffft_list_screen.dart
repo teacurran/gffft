@@ -17,6 +17,9 @@ class GffftListScreen extends StatefulWidget {
 }
 
 class _GffftListScreenState extends State<GffftListScreen> {
+  @override
+  GffftListScreen get widget => super.widget as GffftListScreen;
+
   GffftApi gffftApi = getIt<GffftApi>();
 
   static const _pageSize = 20;
@@ -98,15 +101,14 @@ class _GffftListScreenState extends State<GffftListScreen> {
       ),
       body: CustomScrollView(
         slivers: <Widget>[
-          SearchInputSliver(
-            onChanged: (searchTerm) => _updateSearchTerm(searchTerm),
-          ),
+          SearchInputSliver(onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n.gffftListSearchHint),
           PagedSliverList<String?, GffftMinimal>(
             pagingController: _pagingController,
             builderDelegate: PagedChildBuilderDelegate<GffftMinimal>(
               animateTransitions: true,
               itemBuilder: (context, item, index) => ListTile(
                 title: Text(item.name ?? "unknown"),
+                subtitle: Text(item.description ?? "unknown"),
                 trailing: const Icon(Icons.chevron_right, color: Colors.grey),
               ),
             ),

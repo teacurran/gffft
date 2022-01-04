@@ -6,9 +6,11 @@ import 'package:rxdart/rxdart.dart';
 class SearchInputSliver extends StatefulWidget {
   const SearchInputSliver({
     Key? key,
+    required this.label,
     this.onChanged,
     this.debounceTime,
   }) : super(key: key);
+  final String label;
   final ValueChanged<String>? onChanged;
   final Duration? debounceTime;
 
@@ -17,6 +19,9 @@ class SearchInputSliver extends StatefulWidget {
 }
 
 class _SearchInputSliverState extends State<SearchInputSliver> {
+  @override
+  SearchInputSliver get widget => super.widget;
+
   final StreamController<String> _textChangeStreamController = StreamController();
   late StreamSubscription _textChangesSubscription;
 
@@ -42,12 +47,14 @@ class _SearchInputSliverState extends State<SearchInputSliver> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: TextField(
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              labelText: 'Character Name',
-            ),
-            onChanged: _textChangeStreamController.add,
-          ),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                labelText: widget.label,
+              ),
+              onChanged: (String value) {
+                widget.onChanged!(value);
+                _textChangeStreamController.add(value);
+              }),
         ),
       );
 

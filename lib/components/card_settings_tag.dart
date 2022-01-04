@@ -7,7 +7,6 @@ import 'package:flutter_tags_x/flutter_tags_x.dart';
 
 import 'non_decorated_card_settings_field.dart';
 
-/// This is a field that allows a boolean to be set via a switch widget.
 class CardSettingsTag extends FormField<List<String>> implements ICommonFieldProperties {
   CardSettingsTag({
     Key? key,
