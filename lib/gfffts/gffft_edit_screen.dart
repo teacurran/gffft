@@ -1,8 +1,4 @@
 import 'package:card_settings/card_settings.dart';
-import 'package:card_settings/widgets/card_settings_panel.dart';
-import 'package:card_settings/widgets/card_settings_widget.dart';
-import 'package:card_settings/widgets/information_fields/card_settings_header.dart';
-import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';

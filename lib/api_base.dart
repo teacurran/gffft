@@ -73,12 +73,22 @@ class ApiBase {
   }
 
   Future<dynamic> callApi(String urlPath,
-      {String method = "get", bool requireAuth = false, String? payload, String? payloadContentType}) async {
+      {String method = "get",
+      bool requireAuth = false,
+      String? payload,
+      String? payloadContentType,
+      Map<String, String>? queryParams}) async {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
     var url = Uri.parse(_baseUrl + urlPath);
     if (kDebugMode) {
       print('Api $method, url $url');
+    }
+    if (queryParams != null) {
+      String queryString = Uri(queryParameters: queryParams).query;
+      var requestUrl = url.toString() + '?' + queryString;
+
+      url = Uri.parse(requestUrl);
     }
     dynamic responseJson;
     try {
@@ -136,8 +146,8 @@ class ApiBase {
     return responseJson;
   }
 
-  Future<dynamic> getAuthenticated(String urlPath) async {
-    return callApi(urlPath, requireAuth: true);
+  Future<dynamic> getAuthenticated(String urlPath, {Map<String, String>? queryParams}) async {
+    return callApi(urlPath, requireAuth: true, queryParams: queryParams);
   }
 
   dynamic _returnResponse(http.Response response) {

@@ -150,6 +150,7 @@ class _CardSettingsTagState extends FormFieldState<List<String>> {
       constraintSuggestion: false,
       hintText: widget.hintText,
       onSubmitted: (String str) {
+        str = str.toLowerCase();
         if (str.contains(" ")) {
           var splitStr = str.split(" ");
           splitStr.forEach((word) {
