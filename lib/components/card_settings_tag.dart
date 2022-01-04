@@ -90,9 +90,19 @@ class _CardSettingsTagState extends FormFieldState<List<String>> {
   @override
   CardSettingsTag get widget => super.widget as CardSettingsTag;
 
+  bool initialized = false;
   List<String> items = <String>[];
 
   Widget _build(BuildContext context) {
+    if (!initialized) {
+      setState(() {
+        if (widget.initialValue != null) {
+          items = widget.initialValue!;
+        }
+        initialized = true;
+      });
+    }
+
     if (showCupertino(context, widget.showMaterialonIOS)) return _cupertinoSettingsTag();
     return _materialSettingsTag();
   }

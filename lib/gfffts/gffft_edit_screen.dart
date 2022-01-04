@@ -72,6 +72,7 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                 editAllowMembers = gffft.allowMembers;
                 editRequireApproval = gffft.requireApproval;
                 editEnabled = gffft.enabled;
+                editTags = gffft.tags;
 
                 editBoardEnabled = gffft.boardEnabled;
                 editBoardWhoCanPost = gffft.boardWhoCanPost;
