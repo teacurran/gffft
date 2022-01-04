@@ -77,6 +77,8 @@
   },
   "editTagsHint": "Tags allow people to find your gffft when searching",
   "@editTagsHint": {},
+  "editTagsInputHint": "Add a tag",
+  "@editTagsInputHint": {},
   "editYourGffftInfo": "Your Gffft Info",
   "@editYourGffftInfo": {
     "description": "Section header on edit screen"

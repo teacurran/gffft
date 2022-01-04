@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editTags": MessageLookupByLibrary.simpleMessage("Tags"),
         "editTagsHint": MessageLookupByLibrary.simpleMessage(
             "Tags allow people to find your gffft when searching"),
+        "editTagsInputHint": MessageLookupByLibrary.simpleMessage("Add a tag"),
         "editYourGffftInfo":
             MessageLookupByLibrary.simpleMessage("Your Gffft Info"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Error Loading"),

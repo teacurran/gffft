@@ -330,6 +330,16 @@ class S {
     );
   }
 
+  /// `Add a tag`
+  String get editTagsInputHint {
+    return Intl.message(
+      'Add a tag',
+      name: 'editTagsInputHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your Gffft Info`
   String get editYourGffftInfo {
     return Intl.message(

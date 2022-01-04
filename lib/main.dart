@@ -243,10 +243,10 @@ class App extends StatelessWidget {
           ),
           fillColor: Color(0xFFE0E2E2),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue, width: 1.0),
+            borderSide: BorderSide(color: Colors.purple, width: 1.0),
           )),
       visualDensity: VisualDensity.standard,
       cardColor: Colors.black12,

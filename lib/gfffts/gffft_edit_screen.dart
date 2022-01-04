@@ -6,6 +6,7 @@ import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/components/card_settings_tag.dart';
 import 'package:gffft/ui/string_picker_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -98,8 +99,6 @@ class _GffftEditScreen extends State<GffftEditScreen> {
               })
             });
   }
-
-  List<String> allTags = <String>['farming', 'politics', 'culture', 'life'];
 
   Map<String, List<StringPickerModel>> cachedMemberTypes = {};
 
@@ -239,16 +238,20 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                             maxLength: 256,
                             showCounter: true,
                           ),
-                          CardSettingsCheckboxPicker<String>(
-                            label: l10n.editTags,
+                          CardSettingsTag(
                             initialItems: editTags,
-                            items: allTags,
-                            onChanged: (value) => editTags = value,
+                            label: l10n.editTags,
+                            hintText: l10n.editTagsInputHint,
+                            onChanged: (value) => setState(() {
+                              editTags = value;
+                            }),
                           ),
                           CardSettingsParagraph(
                             label: l10n.editIntro,
                             initialValue: editIntro,
-                            onChanged: (value) => editIntro = value,
+                            onChanged: (value) => setState(() {
+                              editIntro = value;
+                            }),
                             contentOnNewLine: true,
                             hintText: l10n.editIntroHint,
                             maxLength: 1024,
