@@ -81,14 +81,14 @@ class ApiBase {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
     var url = Uri.parse(_baseUrl + urlPath);
-    if (kDebugMode) {
-      print('Api $method, url $url');
-    }
     if (queryParams != null) {
       String queryString = Uri(queryParameters: queryParams).query;
       var requestUrl = url.toString() + '?' + queryString;
 
       url = Uri.parse(requestUrl);
+    }
+    if (kDebugMode) {
+      print('Api $method, url $url');
     }
     dynamic responseJson;
     try {

@@ -18,7 +18,7 @@ class GffftApi extends ApiBase {
     if (max != null) {
       params['max'] = max.toString();
     }
-    if (q != null) {
+    if (q != null && q.isNotEmpty) {
       params['q'] = q;
     }
     final response = await getAuthenticated("gfffts", queryParams: params);
