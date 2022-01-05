@@ -7,8 +7,8 @@ part of 'gffft_minimal.dart';
 // **************************************************************************
 
 GffftMinimal _$GffftMinimalFromJson(Map<String, dynamic> json) => GffftMinimal(
-      id: json['id'] as String?,
-      name: json['name'] as String?,
+      id: json['id'] as String,
+      name: json['name'] as String,
       description: json['description'] as String?,
       enabled: json['enabled'] as bool? ?? false,
       allowMembers: json['allowMembers'] as bool? ?? false,
@@ -18,8 +18,7 @@ GffftMinimal _$GffftMinimalFromJson(Map<String, dynamic> json) => GffftMinimal(
       pagesEnabled: json['pagesEnabled'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$GffftMinimalToJson(GffftMinimal instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$GffftMinimalToJson(GffftMinimal instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,

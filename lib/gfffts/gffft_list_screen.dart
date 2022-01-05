@@ -5,7 +5,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../main.dart';
 import 'gffft_api.dart';
-import 'gffft_minimal.dart';
+import 'gffft_home_screen.dart';
+import 'models/gffft_minimal.dart';
 
 class GffftListScreen extends StatefulWidget {
   const GffftListScreen({Key? key}) : super(key: key);
@@ -107,10 +108,17 @@ class _GffftListScreenState extends State<GffftListScreen> {
             builderDelegate: PagedChildBuilderDelegate<GffftMinimal>(
               animateTransitions: true,
               itemBuilder: (context, item, index) => ListTile(
-                title: Text(item.name ?? "unknown"),
-                subtitle: Text(item.description ?? "unknown"),
-                trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-              ),
+                  title: Text(item.name),
+                  subtitle: Text(item.description ?? "unknown"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GffftHomeScreen(gffft: item),
+                      ),
+                    );
+                  },
+                  trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
             ),
           ),
         ],

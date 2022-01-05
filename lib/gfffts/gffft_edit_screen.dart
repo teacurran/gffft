@@ -6,8 +6,8 @@ import 'package:gffft/components/card_settings_tag.dart';
 import 'package:gffft/ui/string_picker_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import 'gffft.dart';
 import 'gffft_api.dart';
+import 'models/gffft.dart';
 
 final getIt = GetIt.instance;
 

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:gffft/gfffts/gffft.dart';
+import 'package:gffft/gfffts/models/gffft.dart';
 
 import '../api_base.dart';
-import 'gffft_result.dart';
+import 'models/gffft_result.dart';
 
 class GffftApi extends ApiBase {
   Future<void> save(Gffft gffft) async {

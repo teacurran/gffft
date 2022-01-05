@@ -4,8 +4,8 @@ part 'gffft_minimal.g.dart';
 
 @JsonSerializable()
 class GffftMinimal {
-  String? id;
-  String? name;
+  String id;
+  String name;
   String? description;
   bool enabled;
   bool allowMembers;
@@ -15,8 +15,8 @@ class GffftMinimal {
   bool pagesEnabled;
 
   GffftMinimal({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
     this.description,
     this.enabled = false,
     this.allowMembers = false,
