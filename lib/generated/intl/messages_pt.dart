@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "connect": MessageLookupByLibrary.simpleMessage("Conectar"),
+        "editActions": MessageLookupByLibrary.simpleMessage("Ações"),
         "editAllowMembers":
             MessageLookupByLibrary.simpleMessage("Permitir membros?"),
         "editBoard": MessageLookupByLibrary.simpleMessage("Borda"),
@@ -46,6 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "editEnabled": MessageLookupByLibrary.simpleMessage("Habilitado"),
         "editGalleries": MessageLookupByLibrary.simpleMessage("Galerias"),
         "editGallery": MessageLookupByLibrary.simpleMessage("Galeria"),
+        "editIntro": MessageLookupByLibrary.simpleMessage("Introdução"),
+        "editIntroHint": MessageLookupByLibrary.simpleMessage(
+            "Introdução mais longa a este gffft"),
         "editMembership": MessageLookupByLibrary.simpleMessage("Filiação"),
         "editName": MessageLookupByLibrary.simpleMessage("Nome"),
         "editPages": MessageLookupByLibrary.simpleMessage("Páginas"),
@@ -55,13 +59,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Quem pode ver?"),
         "editRequireApproval":
             MessageLookupByLibrary.simpleMessage("Requer aprovação?"),
+        "editRequireApprovalHint": MessageLookupByLibrary.simpleMessage(
+            "As pessoas terão que solicitar acesso ao seu gffft."),
+        "editSave": MessageLookupByLibrary.simpleMessage("Salve "),
         "editTags": MessageLookupByLibrary.simpleMessage("Tag"),
         "editTagsHint": MessageLookupByLibrary.simpleMessage(
             "As tags permitem que as pessoas encontrem seu gffft ao pesquisar"),
+        "editTagsInputHint":
+            MessageLookupByLibrary.simpleMessage("Adicionar uma #tag"),
         "editYourGffftInfo":
             MessageLookupByLibrary.simpleMessage("Suas informações Gffft"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Erro a carregar"),
         "flag": MessageLookupByLibrary.simpleMessage("Bandeira"),
+        "gffftListSearchHint":
+            MessageLookupByLibrary.simpleMessage("nome ou #tag"),
         "host": MessageLookupByLibrary.simpleMessage("Hospedeiro"),
         "loading": MessageLookupByLibrary.simpleMessage("Carregando"),
         "logout": MessageLookupByLibrary.simpleMessage("Sair"),

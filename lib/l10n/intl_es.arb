@@ -2,6 +2,8 @@
   "@@locale": "es",
   "connect": "Conectar",
   "@connect": {},
+  "editActions": "Comportamiento",
+  "@editActions": {},
   "editAllowMembers": "¿Permitir miembros?",
   "@editAllowMembers": {},
   "editBoard": "Junta",
@@ -52,6 +54,10 @@
   "@editGallery": {
     "description": "Header for Gallery settings"
   },
+  "editIntro": "Introducción",
+  "@editIntro": {},
+  "editIntroHint": "Introducción más larga a este gffft",
+  "@editIntroHint": {},
   "editMembership": "Afiliación",
   "@editMembership": {},
   "editName": "Nombre",
@@ -66,12 +72,18 @@
   "@editPagesWhoCanView": {},
   "editRequireApproval": "¿Requiere aprobación?",
   "@editRequireApproval": {},
+  "editRequireApprovalHint": "Las personas deberán solicitar el acceso a su gffft.",
+  "@editRequireApprovalHint": {},
+  "editSave": "Ahorrar",
+  "@editSave": {},
   "editTags": "Etiquetas",
   "@editTags": {
     "description": "Tags to help people find your gffft"
   },
   "editTagsHint": "Las etiquetas permiten que las personas encuentren su gffft al realizar búsquedas",
   "@editTagsHint": {},
+  "editTagsInputHint": "Añadir una #etiqueta",
+  "@editTagsInputHint": {},
   "editYourGffftInfo": "Tu información de Gffft",
   "@editYourGffftInfo": {
     "description": "Section header on edit screen"
@@ -80,6 +92,8 @@
   "@errorLoading": {},
   "flag": "Bandera",
   "@flag": {},
+  "gffftListSearchHint": "nombre o #tag",
+  "@gffftListSearchHint": {},
   "host": "Anfitrión",
   "@host": {},
   "loading": "Cargando",
@@ -99,7 +113,11 @@
   "no": "No",
   "@no": {},
   "validateFieldIsRequired": "{field} es obligatorio",
-  "@validateFieldIsRequired": {},
+  "@validateFieldIsRequired": {
+    "placeholders": {
+      "field": {}
+    }
+  },
   "yes": "sí",
   "@yes": {}
 }

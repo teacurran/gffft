@@ -3,6 +3,7 @@
   "connect": "Connect",
   "@connect": {},
   "editActions": "Actions",
+  "@editActions": {},
   "editAllowMembers": "Allow Members?",
   "@editAllowMembers": {},
   "editBoard": "Board",
@@ -25,12 +26,10 @@
   "@editDescription": {
     "description": "Gffft Short Description"
   },
-  "editDescriptionHint": "A short description of this gffft",
+  "editDescriptionHint": "A short description of your gffft that will show up in search results",
   "@editDescriptionHint": {
     "description": "Hint for Gffft Short Description"
   },
-  "editIntro": "Introduction",
-  "editIntroHint": "Longer introduction to this gffft",
   "editEnable": "Enable",
   "@editEnable": {
     "description": "toggle settings enable label"
@@ -55,6 +54,10 @@
   "@editGallery": {
     "description": "Header for Gallery settings"
   },
+  "editIntro": "Introduction",
+  "@editIntro": {},
+  "editIntroHint": "Longer introduction to this gffft",
+  "@editIntroHint": {},
   "editMembership": "Membership",
   "@editMembership": {},
   "editName": "Name",
@@ -68,16 +71,18 @@
   "editPagesWhoCanView": "Who can view?",
   "@editPagesWhoCanView": {},
   "editRequireApproval": "Require Approval?",
-  "editRequireApprovalHint": "People will have to apply for access to your gffft.",
   "@editRequireApproval": {},
+  "editRequireApprovalHint": "People will have to apply for access to your gffft.",
+  "@editRequireApprovalHint": {},
   "editSave": "Save",
+  "@editSave": {},
   "editTags": "Tags",
   "@editTags": {
     "description": "Tags to help people find your gffft"
   },
   "editTagsHint": "Tags allow people to find your gffft when searching",
   "@editTagsHint": {},
-  "editTagsInputHint": "Add a tag",
+  "editTagsInputHint": "Add a #tag",
   "@editTagsInputHint": {},
   "editYourGffftInfo": "Your Gffft Info",
   "@editYourGffftInfo": {
@@ -88,6 +93,7 @@
   "flag": "Flag",
   "@flag": {},
   "gffftListSearchHint": "name or #tag",
+  "@gffftListSearchHint": {},
   "host": "Host",
   "@host": {},
   "loading": "Loading",
@@ -96,24 +102,20 @@
   "@logout": {},
   "me": "me",
   "@me": {},
-
-  "memberTypeAdmin": "Administrators",
+  "memberTypeAdmin": "Administrator",
   "@memberTypeAdmin": {},
   "memberTypeAnon": "Anonymous",
   "@memberTypeAnon": {},
-  "memberTypeMember": "Members",
+  "memberTypeMember": "Member",
   "@memberTypeMember": {},
-  "memberTypeSysop": "Sysop (you)",
+  "memberTypeSysop": "Sysop",
   "@memberTypeSysop": {},
   "no": "No",
   "@no": {},
   "validateFieldIsRequired": "{field} is required",
   "@validateFieldIsRequired": {
     "placeholders": {
-      "field": {
-        "type": "String",
-        "example": "Title"
-      }
+      "field": {}
     }
   },
   "yes": "Yes",

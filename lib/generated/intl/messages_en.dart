@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editBoards": MessageLookupByLibrary.simpleMessage("Boards"),
         "editDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "editDescriptionHint": MessageLookupByLibrary.simpleMessage(
-            "A short description of this gffft"),
+            "A short description of your gffft that will show up in search results"),
         "editEnable": MessageLookupByLibrary.simpleMessage("Enable"),
         "editEnableAltHandles":
             MessageLookupByLibrary.simpleMessage("Enable alternate handles"),
@@ -65,7 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editTags": MessageLookupByLibrary.simpleMessage("Tags"),
         "editTagsHint": MessageLookupByLibrary.simpleMessage(
             "Tags allow people to find your gffft when searching"),
-        "editTagsInputHint": MessageLookupByLibrary.simpleMessage("Add a tag"),
+        "editTagsInputHint": MessageLookupByLibrary.simpleMessage("Add a #tag"),
         "editYourGffftInfo":
             MessageLookupByLibrary.simpleMessage("Your Gffft Info"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Error Loading"),
@@ -77,10 +77,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "me": MessageLookupByLibrary.simpleMessage("me"),
         "memberTypeAdmin":
-            MessageLookupByLibrary.simpleMessage("Administrators"),
+            MessageLookupByLibrary.simpleMessage("Administrator"),
         "memberTypeAnon": MessageLookupByLibrary.simpleMessage("Anonymous"),
-        "memberTypeMember": MessageLookupByLibrary.simpleMessage("Members"),
-        "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop (you)"),
+        "memberTypeMember": MessageLookupByLibrary.simpleMessage("Member"),
+        "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "validateFieldIsRequired": m0,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

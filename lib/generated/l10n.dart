@@ -130,32 +130,12 @@ class S {
     );
   }
 
-  /// `A short description of this gffft`
+  /// `A short description of your gffft that will show up in search results`
   String get editDescriptionHint {
     return Intl.message(
-      'A short description of this gffft',
+      'A short description of your gffft that will show up in search results',
       name: 'editDescriptionHint',
       desc: 'Hint for Gffft Short Description',
-      args: [],
-    );
-  }
-
-  /// `Introduction`
-  String get editIntro {
-    return Intl.message(
-      'Introduction',
-      name: 'editIntro',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Longer introduction to this gffft`
-  String get editIntroHint {
-    return Intl.message(
-      'Longer introduction to this gffft',
-      name: 'editIntroHint',
-      desc: '',
       args: [],
     );
   }
@@ -226,6 +206,26 @@ class S {
       'Gallery',
       name: 'editGallery',
       desc: 'Header for Gallery settings',
+      args: [],
+    );
+  }
+
+  /// `Introduction`
+  String get editIntro {
+    return Intl.message(
+      'Introduction',
+      name: 'editIntro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Longer introduction to this gffft`
+  String get editIntroHint {
+    return Intl.message(
+      'Longer introduction to this gffft',
+      name: 'editIntroHint',
+      desc: '',
       args: [],
     );
   }
@@ -330,10 +330,10 @@ class S {
     );
   }
 
-  /// `Add a tag`
+  /// `Add a #tag`
   String get editTagsInputHint {
     return Intl.message(
-      'Add a tag',
+      'Add a #tag',
       name: 'editTagsInputHint',
       desc: '',
       args: [],
@@ -420,10 +420,10 @@ class S {
     );
   }
 
-  /// `Administrators`
+  /// `Administrator`
   String get memberTypeAdmin {
     return Intl.message(
-      'Administrators',
+      'Administrator',
       name: 'memberTypeAdmin',
       desc: '',
       args: [],
@@ -440,20 +440,20 @@ class S {
     );
   }
 
-  /// `Members`
+  /// `Member`
   String get memberTypeMember {
     return Intl.message(
-      'Members',
+      'Member',
       name: 'memberTypeMember',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sysop (you)`
+  /// `Sysop`
   String get memberTypeSysop {
     return Intl.message(
-      'Sysop (you)',
+      'Sysop',
       name: 'memberTypeSysop',
       desc: '',
       args: [],
@@ -471,7 +471,7 @@ class S {
   }
 
   /// `{field} is required`
-  String validateFieldIsRequired(String field) {
+  String validateFieldIsRequired(Object field) {
     return Intl.message(
       '$field is required',
       name: 'validateFieldIsRequired',
