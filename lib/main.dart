@@ -216,7 +216,7 @@ class App extends StatelessWidget {
       textButtonTheme: _getTextButtonThemeData(context),
       backgroundColor: const Color(0xFF323436),
       primaryColor: const Color(0xFF1C839E),
-      secondaryHeaderColor: const Color(0xFF1C839E),
+      secondaryHeaderColor: Colors.white,
       primaryColorDark: Colors.black,
       primaryColorLight: const Color(0xFF9970A9),
       focusColor: const Color(0xCCFFFFFF),

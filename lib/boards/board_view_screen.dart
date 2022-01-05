@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/gfffts/models/gffft_minimal.dart';
 
+import 'create_post_screen.dart';
+
 class BoardViewScreen extends StatefulWidget {
   const BoardViewScreen({Key? key, required this.gffft}) : super(key: key);
 
@@ -17,21 +19,30 @@ class _BoardViewScreen extends State<BoardViewScreen> {
     AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
+    Future _handlePost(String subject, String body) async {}
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.gffft.name),
-          backgroundColor: theme.backgroundColor,
+          backgroundColor: theme.primaryColor,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: theme.primaryColor),
+            icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
             onPressed: () => Navigator.pop(context),
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.add, color: theme.focusColor),
-          tooltip: l10n!.boardViewActionTooltip,
-          backgroundColor: theme.primaryColor,
-        ),
+            child: Icon(Icons.add, color: theme.focusColor),
+            tooltip: l10n!.boardViewActionTooltip,
+            backgroundColor: theme.primaryColor,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreatePostScreen(
+                      onSaved: _handlePost,
+                    ),
+                  ));
+            }),
         body: Padding(padding: const EdgeInsets.all(16.0), child: CustomScrollView()));
   }
 }

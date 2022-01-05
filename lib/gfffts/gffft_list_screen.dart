@@ -92,7 +92,7 @@ class _GffftListScreenState extends State<GffftListScreen> {
         title: Text(l10n!.connect),
         backgroundColor: theme.primaryColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,

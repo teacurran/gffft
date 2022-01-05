@@ -19,9 +19,9 @@ class GffftHomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(gffft.name),
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: theme.primaryColor,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: theme.primaryColor),
+          icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
           onPressed: () => Navigator.pop(context),
         ),
       ),
