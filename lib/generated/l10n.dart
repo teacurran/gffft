@@ -370,6 +370,56 @@ class S {
     );
   }
 
+  /// `blog`
+  String get gffftHomeBlog {
+    return Intl.message(
+      'blog',
+      name: 'gffftHomeBlog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `board`
+  String get gffftHomeBoard {
+    return Intl.message(
+      'board',
+      name: 'gffftHomeBoard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `media`
+  String get gffftHomeMedia {
+    return Intl.message(
+      'media',
+      name: 'gffftHomeMedia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `pages`
+  String get gffftHomePages {
+    return Intl.message(
+      'pages',
+      name: 'gffftHomePages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `calendar`
+  String get gffftHomeCalendar {
+    return Intl.message(
+      'calendar',
+      name: 'gffftHomeCalendar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `name or #tag`
   String get gffftListSearchHint {
     return Intl.message(

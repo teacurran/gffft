@@ -70,6 +70,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Your Gffft Info"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Error Loading"),
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
+        "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),
+        "gffftHomeBoard": MessageLookupByLibrary.simpleMessage("board"),
+        "gffftHomeCalendar": MessageLookupByLibrary.simpleMessage("calendar"),
+        "gffftHomeMedia": MessageLookupByLibrary.simpleMessage("media"),
+        "gffftHomePages": MessageLookupByLibrary.simpleMessage("pages"),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or #tag"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),
