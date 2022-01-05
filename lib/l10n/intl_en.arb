@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "boardViewActionTooltip": "add a post",
   "connect": "Connect",
   "@connect": {},
   "editActions": "Actions",

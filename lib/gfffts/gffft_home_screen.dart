@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gffft/boards/board_view_screen.dart';
 
 import 'models/gffft_minimal.dart';
 
@@ -52,7 +53,14 @@ class GffftHomeScreen extends StatelessWidget {
                   Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     IconButton(
                       icon: const FaIcon(FontAwesomeIcons.penNib),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BoardViewScreen(gffft: gffft),
+                          ),
+                        );
+                      },
                     ),
                     Text(
                       l10n!.gffftHomeBlog,
@@ -61,8 +69,15 @@ class GffftHomeScreen extends StatelessWidget {
                   ]),
                   Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     IconButton(
-                      icon: FaIcon(FontAwesomeIcons.commentAlt),
-                      onPressed: () {},
+                      icon: const FaIcon(FontAwesomeIcons.commentAlt),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BoardViewScreen(gffft: gffft),
+                          ),
+                        );
+                      },
                     ),
                     Text(
                       l10n.gffftHomeBoard,
@@ -71,7 +86,7 @@ class GffftHomeScreen extends StatelessWidget {
                   ]),
                   Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     IconButton(
-                      icon: FaIcon(FontAwesomeIcons.photoVideo),
+                      icon: const FaIcon(FontAwesomeIcons.photoVideo),
                       onPressed: () {},
                     ),
                     Text(
@@ -81,7 +96,7 @@ class GffftHomeScreen extends StatelessWidget {
                   ]),
                   Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     IconButton(
-                      icon: FaIcon(FontAwesomeIcons.fileAlt),
+                      icon: const FaIcon(FontAwesomeIcons.fileAlt),
                       onPressed: () {},
                     ),
                     Text(

@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `add a post`
+  String get boardViewActionTooltip {
+    return Intl.message(
+      'add a post',
+      name: 'boardViewActionTooltip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Connect`
   String get connect {
     return Intl.message(

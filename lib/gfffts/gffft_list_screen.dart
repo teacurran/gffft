@@ -18,9 +18,6 @@ class GffftListScreen extends StatefulWidget {
 }
 
 class _GffftListScreenState extends State<GffftListScreen> {
-  @override
-  GffftListScreen get widget => super.widget as GffftListScreen;
-
   GffftApi gffftApi = getIt<GffftApi>();
 
   static const _pageSize = 20;

@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "boardViewActionTooltip":
+            MessageLookupByLibrary.simpleMessage("add a post"),
         "connect": MessageLookupByLibrary.simpleMessage("Connect"),
         "editActions": MessageLookupByLibrary.simpleMessage("Actions"),
         "editAllowMembers":
