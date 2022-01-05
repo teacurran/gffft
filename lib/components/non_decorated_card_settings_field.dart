@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 const unimplemented = "implement in the wrapper widget";
 
 class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFieldProperties {
-  NonDecoratedCardSettingsField({
-    this.label: 'Label',
+  const NonDecoratedCardSettingsField({
+    this.label = 'Label',
     required this.content,
     this.icon,
     this.pickerIcon,
@@ -17,7 +17,7 @@ class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFi
     this.contentOnNewLine = false,
     this.unitLabel,
     this.errorText,
-    this.visible: true,
+    this.visible = true,
     required this.labelAlign,
     required this.requiredIndicator,
     this.enabled = true,
@@ -199,7 +199,7 @@ class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFi
   }
 
   TextStyle _buildLabelStyle(BuildContext context) {
-    TextStyle labelStyle = TextStyle(
+    TextStyle labelStyle = const TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 16.0,
     );
@@ -216,8 +216,8 @@ class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFi
     return (icon == null)
         ? Container()
         : Container(
-            margin: EdgeInsets.all(0.0),
-            padding: EdgeInsets.only(right: 4.0),
+            margin: const EdgeInsets.all(0.0),
+            padding: const EdgeInsets.only(right: 4.0),
             child: Icon(
               icon?.icon,
               color: (icon?.color != null)
@@ -238,7 +238,7 @@ class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFi
                 ? Icon(pickerIcon, size: 20)
                 : Text(
                     unitLabel ?? '',
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: const TextStyle(fontStyle: FontStyle.italic),
                   ),
           )
         : Container();

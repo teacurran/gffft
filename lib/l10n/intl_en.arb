@@ -1,6 +1,10 @@
 {
   "@@locale": "en",
   "boardViewActionTooltip": "add a post",
+  "boardCreatePostTitle": "create a post",
+  "boardCreatePostBody": "body",
+  "boardCreatePostSubject": "subject",
+  "boardCreatePostPost": "post!",
   "connect": "Connect",
   "@connect": {},
   "editActions": "Actions",

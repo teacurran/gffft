@@ -60,6 +60,46 @@ class S {
     );
   }
 
+  /// `create a post`
+  String get boardCreatePostTitle {
+    return Intl.message(
+      'create a post',
+      name: 'boardCreatePostTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `body`
+  String get boardCreatePostBody {
+    return Intl.message(
+      'body',
+      name: 'boardCreatePostBody',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `subject`
+  String get boardCreatePostSubject {
+    return Intl.message(
+      'subject',
+      name: 'boardCreatePostSubject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `post!`
+  String get boardCreatePostPost {
+    return Intl.message(
+      'post!',
+      name: 'boardCreatePostPost',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Connect`
   String get connect {
     return Intl.message(

@@ -10,11 +10,11 @@ import 'non_decorated_card_settings_field.dart';
 class CardSettingsTag extends FormField<List<String>> implements ICommonFieldProperties {
   CardSettingsTag({
     Key? key,
-    AutovalidateMode autovalidateMode: AutovalidateMode.onUserInteraction,
+    AutovalidateMode autoValidateModel = AutovalidateMode.onUserInteraction,
     FormFieldSetter<List<String>>? onSaved,
     FormFieldValidator<List<String>>? validator,
     List<String>? initialItems,
-    this.enabled = true,
+    this.widgetEnabled = true,
     this.visible = true,
     this.label = "Label",
     this.labelWidth,
@@ -32,7 +32,7 @@ class CardSettingsTag extends FormField<List<String>> implements ICommonFieldPro
             onSaved: onSaved,
             validator: validator,
             // autovalidate: autovalidate,
-            autovalidateMode: autovalidateMode,
+            autovalidateMode: autoValidateModel,
             builder: (FormFieldState<List<String>> field) => (field as _CardSettingsTagState)._build(field.context));
 
   /// The text to identify the field to the user
@@ -40,8 +40,7 @@ class CardSettingsTag extends FormField<List<String>> implements ICommonFieldPro
   final String label;
 
   /// If false the field is grayed out and unresponsive
-  @override
-  final bool enabled;
+  final bool widgetEnabled;
 
   /// The alignment of the label paret of the field. Default is left.
   @override
@@ -102,16 +101,16 @@ class _CardSettingsTagState extends FormFieldState<List<String>> {
       });
     }
 
-    if (showCupertino(context, widget.showMaterialonIOS)) return _cupertinoSettingsTag();
-    return _materialSettingsTag();
+    if (showCupertino(context, widget.showMaterialonIOS)) return _cupertinoSettingsTag(context);
+    return _materialSettingsTag(context);
   }
 
-  Widget _materialSettingsTag() {
+  Widget _materialSettingsTag(BuildContext context) {
     return NonDecoratedCardSettingsField(
       label: widget.label,
       labelAlign: widget.labelAlign,
       labelWidth: widget.labelWidth,
-      enabled: widget.enabled,
+      enabled: widget.widgetEnabled,
       visible: widget.visible,
       icon: widget.icon,
       requiredIndicator: widget.requiredIndicator,
@@ -119,7 +118,7 @@ class _CardSettingsTagState extends FormFieldState<List<String>> {
       fieldPadding: widget.fieldPadding,
       contentOnNewLine: true,
       content: Tags(
-        textField: _textField,
+        textField: _textField(context),
         itemCount: items.length,
         itemBuilder: (index) {
           final item = items[index];
@@ -147,12 +146,14 @@ class _CardSettingsTagState extends FormFieldState<List<String>> {
     );
   }
 
-  Widget _cupertinoSettingsTag() {
-    return _materialSettingsTag();
+  Widget _cupertinoSettingsTag(BuildContext context) {
+    return _materialSettingsTag(context);
   }
 
-  TagsTextField get _textField {
+  TagsTextField _textField(BuildContext context) {
+    final theme = Theme.of(context);
     return TagsTextField(
+      inputDecoration: const InputDecoration().applyDefaults(theme.inputDecorationTheme),
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       enabled: true,
@@ -162,11 +163,11 @@ class _CardSettingsTagState extends FormFieldState<List<String>> {
         str = str.toLowerCase();
         if (str.contains(" ")) {
           var splitStr = str.split(" ");
-          splitStr.forEach((word) {
+          for (var word in splitStr) {
             setState(() {
               items.add(word);
             });
-          });
+          }
         } else {
           setState(() {
             items.add(str);

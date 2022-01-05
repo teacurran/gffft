@@ -25,7 +25,13 @@ class GffftScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.settings, color: theme.primaryColorLight),
-            onPressed: () => Navigator.pushNamed(context, GffftEditScreen.id),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GffftEditScreen(),
+                  ));
+            },
           )
         ],
         centerTitle: true,

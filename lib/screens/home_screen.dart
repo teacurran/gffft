@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/gffft_list_screen.dart';
 import 'package:gffft/gfffts/gffft_screen.dart';
-import 'package:gffft/src/constants.dart';
 import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user.dart';
 import 'package:gffft/users/user_api.dart';
@@ -60,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             text = l10n!.loading;
             boardId = l10n.loading;
           } else {
-            text = Constants.thankYou + ":" + user.username;
+            text = "Thank You: ${user.username}";
             if (user.board != null) {
               boardId = user.board!.id;
             }

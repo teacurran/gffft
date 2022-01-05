@@ -1,10 +1,8 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:meta/meta.dart';
 
 /// Used to store and retrieve the user email address and phone
 class StorageProvider {
-  StorageProvider({required this.flutterSecureStorage})
-      : assert(flutterSecureStorage != null);
+  StorageProvider({required this.flutterSecureStorage}) : assert(flutterSecureStorage != null);
 
   final FlutterSecureStorage flutterSecureStorage;
 
@@ -22,7 +20,7 @@ class StorageProvider {
 
   Future<String?> getEmail() async {
     String? email = await flutterSecureStorage.read(key: storageUserEmailKey);
-    print("get email to:${email}");
+    print("get email to:$email");
     return email;
   }
 }

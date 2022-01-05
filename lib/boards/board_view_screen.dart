@@ -19,7 +19,9 @@ class _BoardViewScreen extends State<BoardViewScreen> {
     AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    Future _handlePost(String subject, String body) async {}
+    Future _handlePost(String subject, String body) async {
+      print("handlePost: $subject, $body");
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -39,10 +41,11 @@ class _BoardViewScreen extends State<BoardViewScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CreatePostScreen(
+                      gffft: widget.gffft,
                       onSaved: _handlePost,
                     ),
                   ));
             }),
-        body: Padding(padding: const EdgeInsets.all(16.0), child: CustomScrollView()));
+        body: const Padding(padding: EdgeInsets.all(16.0), child: CustomScrollView()));
   }
 }

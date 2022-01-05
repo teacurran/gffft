@@ -17,10 +17,10 @@ class GffftEditScreen extends StatefulWidget {
   static const String id = 'Gffft Edit';
 
   @override
-  _GffftEditScreen createState() => _GffftEditScreen();
+  _GffftEditScreenState createState() => _GffftEditScreenState();
 }
 
-class _GffftEditScreen extends State<GffftEditScreen> {
+class _GffftEditScreenState extends State<GffftEditScreen> {
   GffftApi gffftApi = getIt<GffftApi>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -203,6 +203,7 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                       CardSettingsSection(
                         header: CardSettingsHeader(
                           label: l10n.editYourGffftInfo,
+                          color: theme.primaryColor,
                         ),
                         children: <CardSettingsWidget>[
                           CardSettingsText(
@@ -223,8 +224,9 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                             label: l10n.editDescription,
                             initialValue: editDescription,
                             validator: (value) {
-                              if (value == null || value.isEmpty)
+                              if (value == null || value.isEmpty) {
                                 return l10n.validateFieldIsRequired(l10n.editDescription);
+                              }
                             },
                             onChanged: (value) => setState(() {
                               editDescription = value;
@@ -258,6 +260,7 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                       CardSettingsSection(
                           header: CardSettingsHeader(
                             label: l10n.editMembership,
+                            color: theme.primaryColor,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
@@ -293,6 +296,7 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                       CardSettingsSection(
                           header: CardSettingsHeader(
                             label: l10n.editPages,
+                            color: theme.primaryColor,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
@@ -322,6 +326,7 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                       CardSettingsSection(
                           header: CardSettingsHeader(
                             label: l10n.editBoard,
+                            color: theme.primaryColor,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
@@ -351,6 +356,7 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                       CardSettingsSection(
                           header: CardSettingsHeader(
                             label: l10n.editGallery,
+                            color: theme.primaryColor,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
@@ -382,8 +388,9 @@ class _GffftEditScreen extends State<GffftEditScreen> {
                       CardSettingsSection(
                           header: CardSettingsHeader(
                             label: l10n.editActions,
+                            color: theme.primaryColor,
                           ),
-                          children: <CardSettingsWidget>[
+                          children: [
                             CardSettingsSwitch(
                               label: l10n.editEnabled,
                               initialValue: editEnabled,

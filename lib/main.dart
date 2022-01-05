@@ -21,7 +21,6 @@ import 'package:window_location_href/window_location_href.dart';
 import 'boards/board_api.dart';
 import 'firebase_options.dart';
 import 'gfffts/gffft_api.dart';
-import 'gfffts/gffft_edit_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_screen.dart';
 
@@ -140,7 +139,6 @@ class App extends StatelessWidget {
                 HomeScreen.id: (context) => HomeScreen(),
                 GffftListScreen.id: (context) => const GffftListScreen(),
                 GffftScreen.id: (context) => GffftScreen(),
-                GffftEditScreen.id: (context) => const GffftEditScreen(),
                 LoginScreen.id: (context) => LoginScreen(),
                 MeScreen.id: (context) => MeScreen(),
               },
@@ -243,7 +241,7 @@ class App extends StatelessWidget {
           ),
           fillColor: Color(0xFFE0E2E2),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 1.0),
+            borderSide: BorderSide(color: Colors.purpleAccent, width: 1.0),
           ),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.purple, width: 1.0),

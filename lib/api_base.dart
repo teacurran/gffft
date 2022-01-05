@@ -42,11 +42,11 @@ class ApiResponse<T> {
 
   String? message;
 
-  ApiResponse.loading(this.message) : status = Status.LOADING;
+  ApiResponse.loading(this.message) : status = Status.loadingStatus;
 
-  ApiResponse.completed(this.data) : status = Status.COMPLETED;
+  ApiResponse.completed(this.data) : status = Status.completedStatus;
 
-  ApiResponse.error(this.message) : status = Status.ERROR;
+  ApiResponse.error(this.message) : status = Status.errorStatus;
 
   @override
   String toString() {
@@ -54,7 +54,7 @@ class ApiResponse<T> {
   }
 }
 
-enum Status { LOADING, COMPLETED, ERROR }
+enum Status { loadingStatus, completedStatus, errorStatus }
 
 class ApiBase {
   final String _baseUrl =
