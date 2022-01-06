@@ -4,7 +4,8 @@ part 'gffft_minimal.g.dart';
 
 @JsonSerializable()
 class GffftMinimal {
-  String id;
+  String uid;
+  String gid;
   String name;
   String? description;
   bool enabled;
@@ -13,18 +14,20 @@ class GffftMinimal {
   bool boardEnabled;
   bool galleryEnabled;
   bool pagesEnabled;
+  String? bid;
 
-  GffftMinimal({
-    required this.id,
-    required this.name,
-    this.description,
-    this.enabled = false,
-    this.allowMembers = false,
-    this.requireApproval = false,
-    this.boardEnabled = false,
-    this.galleryEnabled = false,
-    this.pagesEnabled = false,
-  });
+  GffftMinimal(
+      {required this.uid,
+      required this.gid,
+      required this.name,
+      this.description,
+      this.enabled = false,
+      this.allowMembers = false,
+      this.requireApproval = false,
+      this.boardEnabled = false,
+      this.galleryEnabled = false,
+      this.pagesEnabled = false,
+      this.bid});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

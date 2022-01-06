@@ -63,7 +63,7 @@ class _GffftListScreenState extends State<GffftListScreen> {
       if (isLastPage) {
         _pagingController.appendLastPage(newItems.items);
       } else {
-        _pagingController.appendPage(newItems.items, newItems.items.last.id);
+        _pagingController.appendPage(newItems.items, newItems.items.last.gid);
       }
     } catch (error) {
       _pagingController.error = error;
