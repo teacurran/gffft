@@ -3,7 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/components/search_input_sliver.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../main.dart';
 import 'gffft_api.dart';
 import 'gffft_home_screen.dart';
 import 'models/gffft_minimal.dart';

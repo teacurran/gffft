@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -39,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth fbAuth = FirebaseAuth.instance;
     var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 

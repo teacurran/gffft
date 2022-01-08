@@ -90,6 +90,13 @@ class ApiBase {
     if (kDebugMode) {
       print('Api $method, url $url');
     }
+
+    url = Uri.parse(Uri.encodeFull(url.toString()));
+
+    if (kDebugMode) {
+      print('Api $method, url $url');
+    }
+
     dynamic responseJson;
     try {
       final request = http.Request(method, url);
