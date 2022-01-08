@@ -46,7 +46,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         onPressed: () {},
       ),
       Text(
-        l10n!.gffftHomeBlog,
+        l10n.gffftHomeBlog,
         style: theme.textTheme.headline6?.copyWith(color: theme.primaryColor),
       )
     ]));
@@ -105,34 +105,31 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   }
 
   Widget getGffftScreen(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
-    return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: CustomScrollView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          slivers: [
-            SliverToBoxAdapter(
-                child: Card(
-                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                    color: theme.primaryColor,
-                    clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                      child: Text(
-                        gffft.name ?? "",
-                        style: theme.textTheme.headline4,
-                      ),
-                    ))),
-            SliverToBoxAdapter(
-                child: Wrap(
-              spacing: 10,
-              children: getActions(l10n, theme),
-            )),
-          ],
-        ));
+    var children = <Widget>[
+      Card(
+          margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+          color: theme.primaryColor,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
+            child: SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                  child: Text(
+                    gffft.name ?? "",
+                    style: theme.textTheme.headline4,
+                  ),
+                )),
+          ))
+    ];
+    children.addAll(getActions(l10n, theme));
+
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: children);
   }
 
   @override
@@ -143,7 +140,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     return FutureBuilder(
         future: gffft,
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
-          var children = <Widget>[];
+          Widget screenBody = Column();
           var title = "connecting";
 
           if (snapshot.hasError) {
@@ -155,32 +152,30 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           if (gffft != null) {
             title = gffft.name ?? "unknown name";
 
-            children.add(getGffftScreen(l10n!, theme, gffft));
+            screenBody = getGffftScreen(l10n!, theme, gffft);
           }
 
           return SafeArea(
-            child: RefreshIndicator(
-              onRefresh: _loadData,
-              child: Scaffold(
-                appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  title: Text(
-                    title,
-                    style: theme.textTheme.headline1,
-                  ),
-                  backgroundColor: theme.backgroundColor,
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  centerTitle: true,
+            child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: Text(
+                  title,
+                  style: theme.textTheme.headline1,
                 ),
-                body: SingleChildScrollView(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: children)),
+                backgroundColor: theme.backgroundColor,
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back, color: theme.primaryColor),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                centerTitle: true,
               ),
+              body: RefreshIndicator(
+                  onRefresh: _loadData,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    child: screenBody,
+                  )),
             ),
           );
         });

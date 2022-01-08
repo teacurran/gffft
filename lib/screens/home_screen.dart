@@ -41,9 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    final titleStyle = theme.textTheme.headline5 ?? const TextStyle();
     final textStyle = theme.textTheme.bodyText1 ?? const TextStyle();
-    final descriptionStyle = theme.textTheme.subtitle1;
 
     return FutureBuilder(
         future: user,
