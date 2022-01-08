@@ -29,9 +29,11 @@ class LoginScreen extends StatelessWidget {
     return SignInScreen(headerBuilder: getHeaderBuilder, sideBuilder: getSidebarBuilder, providerConfigs: const [
       EmailProviderConfiguration(),
       PhoneProviderConfiguration(),
+      /*
       GoogleProviderConfiguration(
         clientId: '248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com',
       ),
+       */
     ], actions: [
       AuthStateChangeAction<SignedIn>((context, _) {
         Navigator.of(context).pushReplacementNamed(HomeScreen.id);

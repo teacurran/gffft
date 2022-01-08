@@ -9,6 +9,8 @@ import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user.dart';
 import 'package:gffft/users/user_api.dart';
 
+import 'login_screen.dart';
+
 final getIt = GetIt.instance;
 const String logoAsset = 'assets/logo.svg';
 
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         future: user,
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text(l10n!.errorLoading));
+            Navigator.pushReplacementNamed(context, LoginScreen.id);
           }
 
           var user = snapshot.data;
