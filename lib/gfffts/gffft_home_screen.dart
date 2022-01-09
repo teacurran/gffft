@@ -37,70 +37,68 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     });
   }
 
-  List<Widget> getActions(AppLocalizations l10n, ThemeData theme) {
+  List<Widget> getActions(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
     var actions = <Widget>[];
 
-    actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      IconButton(
-        icon: const FaIcon(FontAwesomeIcons.penNib),
-        onPressed: () {},
-      ),
-      Text(
-        l10n.gffftHomeBlog,
-        style: theme.textTheme.headline6?.copyWith(color: theme.primaryColor),
-      )
-    ]));
+    if (gffft.features == null) {
+      return actions;
+    }
 
-    actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      IconButton(
-        icon: const FaIcon(FontAwesomeIcons.commentAlt),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BoardViewScreen(gffft: widget.gffft, bid: "0"),
-            ),
-          );
-        },
-      ),
-      Text(
-        l10n.gffftHomeBlog,
-        style: theme.textTheme.headline6?.copyWith(color: theme.primaryColor),
-      )
-    ]));
+    gffft.features?.forEach((featureRef) {
+      if (featureRef.type == "board") {
+        actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          IconButton(
+            icon: const FaIcon(FontAwesomeIcons.commentAlt),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BoardViewScreen(gffft: widget.gffft, bid: "0"),
+                ),
+              );
+            },
+          ),
+          Text(
+            l10n.gffftHomeBoard,
+            style: theme.textTheme.headline6?.copyWith(color: theme.primaryColor),
+          )
+        ]));
+      } else if (featureRef.type == "calendar") {
+        actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.calendarAlt),
+            onPressed: () {},
+          ),
+          Text(
+            l10n.gffftHomeCalendar,
+            style: theme.textTheme.headline6,
+          )
+        ]));
+      } else if (featureRef.type == "gallery") {
+        actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          IconButton(
+            icon: const FaIcon(FontAwesomeIcons.photoVideo),
+            onPressed: () {},
+          ),
+          Text(
+            l10n.gffftHomeMedia,
+            style: theme.textTheme.headline6,
+          )
+        ]));
+      } else if (featureRef.type == "notebook") {
+        actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          IconButton(
+            icon: const FaIcon(FontAwesomeIcons.penNib),
+            onPressed: () {},
+          ),
+          Text(
+            l10n.gffftHomeBlog,
+            style: theme.textTheme.headline6?.copyWith(color: theme.primaryColor),
+          )
+        ]));
+      }
+    });
 
-    actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      IconButton(
-        icon: const FaIcon(FontAwesomeIcons.photoVideo),
-        onPressed: () {},
-      ),
-      Text(
-        l10n.gffftHomeMedia,
-        style: theme.textTheme.headline6,
-      )
-    ]));
-
-    actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      IconButton(
-        icon: const FaIcon(FontAwesomeIcons.fileAlt),
-        onPressed: () {},
-      ),
-      Text(
-        l10n.editNotebook,
-        style: theme.textTheme.headline6,
-      )
-    ]));
-
-    actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      IconButton(
-        icon: FaIcon(FontAwesomeIcons.calendarAlt),
-        onPressed: () {},
-      ),
-      Text(
-        l10n.gffftHomeCalendar,
-        style: theme.textTheme.headline6,
-      )
-    ]));
     return actions;
   }
 
@@ -126,7 +124,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                 )),
           ))
     ];
-    children.addAll(getActions(l10n, theme));
+    children.addAll(getActions(l10n, theme, gffft));
 
     return Column(
         mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: children);

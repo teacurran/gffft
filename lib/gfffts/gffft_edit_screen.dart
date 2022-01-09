@@ -7,7 +7,7 @@ import 'package:gffft/ui/string_picker_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'gffft_api.dart';
-import 'models/gffft.dart';
+import 'models/gffft_save.dart';
 
 final getIt = GetIt.instance;
 
@@ -29,7 +29,8 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
   bool isLoading = false;
   String? errorLoading;
 
-  String? gffftId;
+  String? uid;
+  String? gid;
   String? editName;
   String? editDescription;
   String? editIntro;
@@ -57,7 +58,8 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
         .then((gffft) => {
               setState(() {
                 print("got gffft ${gffft.toJson()}");
-                gffftId = gffft.id;
+                uid = gffft.uid;
+                gid = gffft.gid;
                 editName = gffft.name;
                 editDescription = gffft.description;
                 editIntro = gffft.intro;
@@ -124,7 +126,7 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
         isLoading = true;
       });
 
-      Gffft gffft = Gffft(
+      GffftSave gffft = GffftSave(
           name: editName,
           requireApproval: editRequireApproval,
           intro: editIntro,

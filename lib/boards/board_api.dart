@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:gffft/boards/board.dart';
+import 'package:gffft/boards/models/board.dart';
 
 import '../api_base.dart';
 import 'models/post.dart';

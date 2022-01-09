@@ -1,13 +1,9 @@
-import 'package:gffft/boards/models/board.dart';
-import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'gffft.g.dart';
+part 'gffft_save.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Gffft {
-  String uid;
-  String gid;
+class GffftSave {
   String? name;
   String? description;
   List<String>? tags;
@@ -22,13 +18,8 @@ class Gffft {
   bool galleryEnabled;
   bool notebookEnabled;
 
-  List<GffftFeatureRef>? features;
-  List<Board>? boards;
-
-  Gffft(
-      {required this.uid,
-      required this.gid,
-      this.name,
+  GffftSave(
+      {this.name,
       this.description,
       this.tags,
       this.intro,
@@ -39,9 +30,7 @@ class Gffft {
       this.boardEnabled = false,
       this.galleryEnabled = false,
       this.notebookEnabled = false,
-      this.calendarEnabled = false,
-      this.features,
-      this.boards});
+      this.calendarEnabled = false});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
@@ -56,10 +45,10 @@ class Gffft {
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
   /// The constructor is named after the source class, in this case, User.
-  factory Gffft.fromJson(Map<String, dynamic> json) => _$GffftFromJson(json);
+  factory GffftSave.fromJson(Map<String, dynamic> json) => _$GffftSaveFromJson(json);
 
   /// `toJson` is the convention for a class to declare support for serialization
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$GffftToJson`.
-  Map<String, dynamic> toJson() => _$GffftToJson(this);
+  Map<String, dynamic> toJson() => _$GffftSaveToJson(this);
 }

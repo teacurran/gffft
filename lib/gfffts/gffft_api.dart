@@ -4,9 +4,10 @@ import 'package:gffft/gfffts/models/gffft.dart';
 
 import '../api_base.dart';
 import 'models/gffft_result.dart';
+import 'models/gffft_save.dart';
 
 class GffftApi extends ApiBase {
-  Future<void> save(Gffft gffft) async {
+  Future<void> save(GffftSave gffft) async {
     return put("gfffts", jsonEncode(gffft));
   }
 
