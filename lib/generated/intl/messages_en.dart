@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editBoardWhoCanView":
             MessageLookupByLibrary.simpleMessage("Who can view?"),
         "editBoards": MessageLookupByLibrary.simpleMessage("Boards"),
+        "editCalendar": MessageLookupByLibrary.simpleMessage("Calendar"),
         "editDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "editDescriptionHint": MessageLookupByLibrary.simpleMessage(
             "A short description of your gffft that will show up in search results"),
@@ -60,11 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Longer introduction to this gffft"),
         "editMembership": MessageLookupByLibrary.simpleMessage("Membership"),
         "editName": MessageLookupByLibrary.simpleMessage("Name"),
-        "editPages": MessageLookupByLibrary.simpleMessage("Pages"),
-        "editPagesWhoCanEdit":
-            MessageLookupByLibrary.simpleMessage("Who can edit?"),
-        "editPagesWhoCanView":
-            MessageLookupByLibrary.simpleMessage("Who can view?"),
+        "editNotebook": MessageLookupByLibrary.simpleMessage("Notebook"),
         "editRequireApproval":
             MessageLookupByLibrary.simpleMessage("Require Approval?"),
         "editRequireApprovalHint": MessageLookupByLibrary.simpleMessage(

@@ -41,16 +41,9 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
   bool editEnableAltHandles = false;
 
   bool editBoardEnabled = false;
-  String? editBoardWhoCanView;
-  String? editBoardWhoCanPost;
-
+  bool editCalendarEnabled = false;
   bool editGalleryEnabled = false;
-  String? editGalleryWhoCanView;
-  String? editGalleryWhoCanPost;
-
-  bool editPagesEnabled = false;
-  String? editPagesWhoCanView;
-  String? editPagesWhoCanEdit;
+  bool editNotebookEnabled = false;
 
   @override
   void initState() {
@@ -75,16 +68,9 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
                 editTags = gffft.tags;
 
                 editBoardEnabled = gffft.boardEnabled;
-                editBoardWhoCanPost = gffft.boardWhoCanPost;
-                editBoardWhoCanView = gffft.boardWhoCanView;
-
+                editCalendarEnabled = gffft.calendarEnabled;
                 editGalleryEnabled = gffft.galleryEnabled;
-                editGalleryWhoCanPost = gffft.galleryWhoCanPost;
-                editGalleryWhoCanView = gffft.galleryWhoCanView;
-
-                editPagesEnabled = gffft.pagesEnabled;
-                editPagesWhoCanEdit = gffft.pagesWhoCanEdit;
-                editPagesWhoCanView = gffft.pagesWhoCanView;
+                editNotebookEnabled = gffft.notebookEnabled;
 
                 initialLoad = false;
                 isLoading = false;
@@ -147,14 +133,9 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
           enabled: editEnabled,
           enableAltHandles: editEnableAltHandles,
           boardEnabled: editBoardEnabled,
-          boardWhoCanPost: editBoardWhoCanPost,
-          boardWhoCanView: editBoardWhoCanView,
+          calendarEnabled: editCalendarEnabled,
           galleryEnabled: editGalleryEnabled,
-          galleryWhoCanPost: editGalleryWhoCanPost,
-          galleryWhoCanView: editGalleryWhoCanView,
-          pagesEnabled: editPagesEnabled,
-          pagesWhoCanEdit: editPagesWhoCanEdit,
-          pagesWhoCanView: editPagesWhoCanView,
+          notebookEnabled: editNotebookEnabled,
           tags: editTags);
 
       gffftApi.save(gffft).then((value) => Navigator.pop(context)).onError((error, stackTrace) => {
@@ -295,33 +276,19 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(
-                            label: l10n.editPages,
+                            label: l10n.editNotebook,
                             color: theme.primaryColor,
                           ),
                           children: <CardSettingsWidget>[
                             CardSettingsSwitch(
                               label: l10n.editEnabled,
-                              initialValue: editPagesEnabled,
+                              initialValue: editNotebookEnabled,
                               onChanged: (value) => setState(() {
-                                editPagesEnabled = value;
+                                editNotebookEnabled = value;
                               }),
                               trueLabel: l10n.yes,
                               falseLabel: l10n.no,
                             ),
-                            CardSettingsListPicker<StringPickerModel>(
-                                label: l10n.editPagesWhoCanView,
-                                initialItem: _selectOrFirst(memberTypes, editPagesWhoCanView),
-                                onChanged: (value) => setState(() {
-                                      editPagesWhoCanView = value.code;
-                                    }),
-                                items: memberTypes),
-                            CardSettingsListPicker<StringPickerModel>(
-                                label: l10n.editPagesWhoCanEdit,
-                                initialItem: _selectOrFirst(safeMemberTypes, editPagesWhoCanEdit),
-                                onChanged: (value) => setState(() {
-                                      editPagesWhoCanEdit = value.code;
-                                    }),
-                                items: safeMemberTypes)
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(
@@ -338,20 +305,6 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
                               trueLabel: l10n.yes,
                               falseLabel: l10n.no,
                             ),
-                            CardSettingsListPicker<StringPickerModel>(
-                                label: l10n.editBoardWhoCanView,
-                                initialItem: _selectOrFirst(memberTypes, editBoardWhoCanView),
-                                onChanged: (value) => setState(() {
-                                      editBoardWhoCanView = value.code;
-                                    }),
-                                items: memberTypes),
-                            CardSettingsListPicker<StringPickerModel>(
-                                label: l10n.editBoardWhoCanPost,
-                                initialItem: _selectOrFirst(safeMemberTypes, editBoardWhoCanPost),
-                                onChanged: (value) => setState(() {
-                                      editBoardWhoCanPost = value.code;
-                                    }),
-                                items: safeMemberTypes)
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(
@@ -368,22 +321,22 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
                                 editGalleryEnabled = value;
                               }),
                             ),
-                            CardSettingsListPicker<StringPickerModel>(
-                              label: l10n.editBoardWhoCanView,
-                              initialItem: _selectOrFirst(memberTypes, editGalleryWhoCanView),
-                              items: memberTypes,
+                          ]),
+                      CardSettingsSection(
+                          header: CardSettingsHeader(
+                            label: l10n.editCalendar,
+                            color: theme.primaryColor,
+                          ),
+                          children: <CardSettingsWidget>[
+                            CardSettingsSwitch(
+                              label: l10n.editEnabled,
+                              initialValue: editCalendarEnabled,
+                              trueLabel: l10n.yes,
+                              falseLabel: l10n.no,
                               onChanged: (value) => setState(() {
-                                editGalleryWhoCanView = value.code;
+                                editCalendarEnabled = value;
                               }),
                             ),
-                            CardSettingsListPicker<StringPickerModel>(
-                              label: l10n.editBoardWhoCanPost,
-                              initialItem: _selectOrFirst(safeMemberTypes, editGalleryWhoCanPost),
-                              items: safeMemberTypes,
-                              onChanged: (value) => setState(() {
-                                editGalleryWhoCanPost = value.code;
-                              }),
-                            )
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(

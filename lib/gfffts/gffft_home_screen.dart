@@ -86,7 +86,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         onPressed: () {},
       ),
       Text(
-        l10n.editPages,
+        l10n.editNotebook,
         style: theme.textTheme.headline6,
       )
     ]));

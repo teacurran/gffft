@@ -17,14 +17,9 @@ Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       requireApproval: json['requireApproval'] as bool? ?? false,
       enableAltHandles: json['enableAltHandles'] as bool? ?? false,
       boardEnabled: json['boardEnabled'] as bool? ?? false,
-      boardWhoCanView: json['boardWhoCanView'] as String?,
-      boardWhoCanPost: json['boardWhoCanPost'] as String?,
       galleryEnabled: json['galleryEnabled'] as bool? ?? false,
-      galleryWhoCanView: json['galleryWhoCanView'] as String?,
-      galleryWhoCanPost: json['galleryWhoCanPost'] as String?,
-      pagesEnabled: json['pagesEnabled'] as bool? ?? false,
-      pagesWhoCanView: json['pagesWhoCanView'] as String?,
-      pagesWhoCanEdit: json['pagesWhoCanEdit'] as String?,
+      notebookEnabled: json['notebookEnabled'] as bool? ?? false,
+      calendarEnabled: json['calendarEnabled'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
@@ -38,12 +33,7 @@ Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
       'requireApproval': instance.requireApproval,
       'enableAltHandles': instance.enableAltHandles,
       'boardEnabled': instance.boardEnabled,
-      'boardWhoCanView': instance.boardWhoCanView,
-      'boardWhoCanPost': instance.boardWhoCanPost,
+      'calendarEnabled': instance.calendarEnabled,
       'galleryEnabled': instance.galleryEnabled,
-      'galleryWhoCanView': instance.galleryWhoCanView,
-      'galleryWhoCanPost': instance.galleryWhoCanPost,
-      'pagesEnabled': instance.pagesEnabled,
-      'pagesWhoCanView': instance.pagesWhoCanView,
-      'pagesWhoCanEdit': instance.pagesWhoCanEdit,
+      'notebookEnabled': instance.notebookEnabled,
     };

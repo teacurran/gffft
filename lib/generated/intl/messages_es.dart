@@ -52,11 +52,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Introducción más larga a este gffft"),
         "editMembership": MessageLookupByLibrary.simpleMessage("Afiliación"),
         "editName": MessageLookupByLibrary.simpleMessage("Nombre"),
-        "editPages": MessageLookupByLibrary.simpleMessage("Paginas"),
-        "editPagesWhoCanEdit":
-            MessageLookupByLibrary.simpleMessage("¿Quién puede editar?"),
-        "editPagesWhoCanView":
-            MessageLookupByLibrary.simpleMessage("¿Quién puede verlo?"),
         "editRequireApproval":
             MessageLookupByLibrary.simpleMessage("¿Requiere aprobación?"),
         "editRequireApprovalHint": MessageLookupByLibrary.simpleMessage(

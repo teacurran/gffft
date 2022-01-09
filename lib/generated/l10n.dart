@@ -300,31 +300,21 @@ class S {
     );
   }
 
-  /// `Pages`
-  String get editPages {
+  /// `Calendar`
+  String get editCalendar {
     return Intl.message(
-      'Pages',
-      name: 'editPages',
+      'Calendar',
+      name: 'editCalendar',
       desc: '',
       args: [],
     );
   }
 
-  /// `Who can edit?`
-  String get editPagesWhoCanEdit {
+  /// `Notebook`
+  String get editNotebook {
     return Intl.message(
-      'Who can edit?',
-      name: 'editPagesWhoCanEdit',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Who can view?`
-  String get editPagesWhoCanView {
-    return Intl.message(
-      'Who can view?',
-      name: 'editPagesWhoCanView',
+      'Notebook',
+      name: 'editNotebook',
       desc: '',
       args: [],
     );

@@ -69,12 +69,9 @@
   "@editName": {
     "description": "Name of Gffft"
   },
-  "editPages": "Pages",
-  "@editPages": {},
-  "editPagesWhoCanEdit": "Who can edit?",
-  "@editPagesWhoCanEdit": {},
-  "editPagesWhoCanView": "Who can view?",
-  "@editPagesWhoCanView": {},
+  "editCalendar": "Calendar",
+  "editNotebook": "Notebook",
+  "@editNotebook": {},
   "editRequireApproval": "Require Approval?",
   "@editRequireApproval": {},
   "editRequireApprovalHint": "People will have to apply for access to your gffft.",
