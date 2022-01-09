@@ -45,7 +45,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     }
 
     gffft.features?.forEach((featureRef) {
-      if (featureRef.type == "board") {
+      if (featureRef.type == "board" && featureRef.id != null) {
         actions.add(Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           IconButton(
             icon: const FaIcon(FontAwesomeIcons.commentAlt),
@@ -53,7 +53,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoardViewScreen(gffft: widget.gffft, bid: "0"),
+                  builder: (context) => BoardViewScreen(gffft: widget.gffft, bid: featureRef.id!),
                 ),
               );
             },
