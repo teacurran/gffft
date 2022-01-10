@@ -13,7 +13,8 @@ class BoardApi extends ApiBase {
     return Board.fromJson(response);
   }
 
-  Future<void> createPost(Post post) async {
-    return put("gfffts", jsonEncode(post));
+  Future<void> createPost(Post p) async {
+    print("creating post: " + jsonEncode(p));
+    return post("boards/createPost", jsonEncode(p));
   }
 }

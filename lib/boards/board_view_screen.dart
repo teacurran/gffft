@@ -101,8 +101,11 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.gffft.name),
-          backgroundColor: theme.primaryColor,
+          title: Text(
+            widget.gffft.name,
+            style: theme.textTheme.headline1,
+          ),
+          backgroundColor: theme.backgroundColor,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
             onPressed: () => Navigator.pop(context),
@@ -122,6 +125,16 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                     ),
                   ));
             }),
-        body: const Padding(padding: EdgeInsets.all(16.0), child: CustomScrollView()));
+        body: CustomScrollView(slivers: <Widget>[
+          PagedSliverList<String?, Thread>(
+            pagingController: _pagingController,
+            builderDelegate: PagedChildBuilderDelegate<Thread>(
+                animateTransitions: true,
+                itemBuilder: (context, item, index) => ListTile(
+                      title: Text("Poster Name"),
+                      subtitle: Text(item.subject),
+                    )),
+          )
+        ]));
   }
 }

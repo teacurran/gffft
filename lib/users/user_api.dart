@@ -19,7 +19,7 @@ class UserApi extends ApiBase {
   }
 
   Future<ThreadResult> getBoardThreads(String uid, String gid, String bid, String? offset, int? pageSize) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}");
+    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}/threads");
     return ThreadResult.fromJson(response);
   }
 }
