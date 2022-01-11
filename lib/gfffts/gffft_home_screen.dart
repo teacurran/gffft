@@ -202,7 +202,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
                             IconButton(
-                              icon: const FaIcon(FontAwesomeIcons.penNib),
+                              icon: const FaIcon(FontAwesomeIcons.fileAlt),
                               color: const Color(0xFFFABB59),
                               onPressed: () {},
                             ),

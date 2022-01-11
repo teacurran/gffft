@@ -13,7 +13,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
     return Padding(
-      padding: const EdgeInsets.all(1),
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
     );
   }
