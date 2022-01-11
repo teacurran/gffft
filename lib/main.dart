@@ -74,12 +74,12 @@ class NavigationObserver extends VxObserver {
 
   @override
   void didPush(Route route, Route? previousRoute) {
-    print('Pushed a route');
+    print("pushed ${route} - $previousRoute");
   }
 
   @override
   void didPop(Route route, Route? previousRoute) {
-    print('Popped a route');
+    print("popped ${route} - $previousRoute");
   }
 }
 
@@ -107,7 +107,7 @@ class _AppState extends State<App> {
         },
         HomeScreen.webPath: (uri, params) {
           if (FirebaseAuth.instance.currentUser != null) {
-            print("here1");
+            print("here11");
             return MaterialPage(child: HomeScreen());
           }
           print("here2");
@@ -184,40 +184,53 @@ class _AppState extends State<App> {
     );
   }
 
-  Widget authenticationGate(BuildContext context) => StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.userChanges(),
-        builder: (context, snapshot) {
-          // if (user == null) {
-          //   VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
-          // }
+  Widget authenticationGate(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (context, snapshot) {
+        final User? user = snapshot.data;
 
-          // final User? user = snapshot.data;
-          // var initialRoute = snapshot.hasData && user != null ? HomeScreen.webPath : LoginScreen.webPath;
+        if (user == null) {
+          // id like to remove thi eentire StreamBuilder, but for some reason
+          // when I do the page doesn't render at all
 
-          return MaterialApp.router(
-            title: 'VxNavigator',
-            routerDelegate: navigator,
-            routeInformationParser: VxInformationParser(),
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              CountryLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              FormBuilderLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en', ''), // English
-              Locale('es', ''), // Spanish
-              Locale('pt', ''), // Portugese
-            ],
-            darkTheme: _buildTheme(context),
-            theme: _buildTheme(context),
-            themeMode: ThemeMode.dark,
-          );
-          // show your app’s home page after login
-        },
-      );
+          // navigation can't happen here because the router isn't set up yet.
+          // instead this auth check is taking place in home_screen.dart
+
+          //navigator.push(Uri(path: LoginScreen.webPath));
+          // VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
+        } else {
+          print("user is not null");
+        }
+
+        // final User? user = snapshot.data;
+        // var initialRoute = snapshot.hasData && user != null ? HomeScreen.webPath : LoginScreen.webPath;
+
+        return MaterialApp.router(
+          title: 'gffft',
+          routerDelegate: navigator,
+          routeInformationParser: VxInformationParser(),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            CountryLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            FormBuilderLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''), // English
+            Locale('es', ''), // Spanish
+            Locale('pt', ''), // Portugese
+          ],
+          darkTheme: _buildTheme(context),
+          theme: _buildTheme(context),
+          themeMode: ThemeMode.dark,
+        );
+        // show your app’s home page after login
+      },
+    );
+  }
 
   OutlinedButtonThemeData _getOutlineButtonThemeData(context) {
     return OutlinedButtonThemeData(

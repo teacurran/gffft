@@ -87,9 +87,6 @@ class ApiBase {
 
       url = Uri.parse(requestUrl);
     }
-    if (kDebugMode) {
-      print('Api $method, url $url');
-    }
 
     url = Uri.parse(Uri.encodeFull(url.toString()));
 
