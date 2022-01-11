@@ -16,11 +16,13 @@ import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:google_fonts/google_fonts.dart';
+import "package:velocity_x/velocity_x.dart";
 import 'package:window_location_href/window_location_href.dart';
 
 import 'boards/board_api.dart';
 import 'firebase_options.dart';
 import 'gfffts/gffft_api.dart';
+import 'gfffts/gffft_home_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_screen.dart';
 
@@ -28,6 +30,7 @@ final getIt = GetIt.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Vx.setPathUrlStrategy();
   await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -56,7 +59,39 @@ Future<void> main() async {
   runApp(App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final navigator = VxNavigator(
+      notFoundPage: (uri, params) => MaterialPage(
+            key: ValueKey('not-found-page'),
+            child: Builder(
+              builder: (context) => Scaffold(
+                body: Center(
+                  child: Text('Page ${uri.path} not found'),
+                ),
+              ),
+            ),
+          ),
+      routes: {
+        "/": (uri, params) => MaterialPage(child: HomeScreen()),
+        HomeScreen.webPath: (uri, params) {
+          if (FirebaseAuth.instance.currentUser != null) {
+            return MaterialPage(child: HomeScreen());
+          }
+          return MaterialPage(child: LoginScreen());
+        },
+        GffftListScreen.id: (uri, params) => const MaterialPage(child: GffftListScreen()),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+$"): (uri, param) =>
+            MaterialPage(child: GffftHomeScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
+        GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
+        LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),
+        MeScreen.id: (uri, params) => MaterialPage(child: MeScreen()),
+      });
+
   Future<void> _init(context) async {
     // http://localhost:59282/?link=https://gffft-auth.firebaseapp.com/__/auth/action?apiKey%3DAIzaSyASr9Mp4VFSzFVAbDnuj_mAsrcX_oAI8jw%26mode%3DsignIn%26oobCode%3DPpqQPHEigxWAPHm9YL55XRySmgtfNedqRtum0YcAfJwAAAF9fvzgvA%26continueUrl%3Dhttp://localhost/links/home%26lang%3Den&apn=com.approachingpi.gffft&amv=21&ibi=com.approachingpi.gffft&ifl=https://gffft-auth.firebaseapp.com/__/auth/action?apiKey%3DAIzaSyASr9Mp4VFSzFVAbDnuj_mAsrcX_oAI8jw%26mode%3DsignIn%26oobCode%3DPpqQPHEigxWAPHm9YL55XRySmgtfNedqRtum0YcAfJwAAAF9fvzgvA%26continueUrl%3Dhttp://localhost/links/home%26lang%3Den
     // var _auth = Provider.of<AuthModel>(context);
@@ -118,33 +153,29 @@ class App extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           final User? user = snapshot.data;
-          var initialRoute = snapshot.hasData && user != null ? HomeScreen.id : LoginScreen.id;
+          var initialRoute = snapshot.hasData && user != null ? HomeScreen.webPath : LoginScreen.webPath;
 
-          return MaterialApp(
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                CountryLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-                FormBuilderLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale('en', ''), // English
-                Locale('es', ''), // Spanish
-                Locale('pt', ''), // Portugese
-              ],
-              initialRoute: initialRoute,
-              routes: {
-                HomeScreen.id: (context) => HomeScreen(),
-                GffftListScreen.id: (context) => const GffftListScreen(),
-                GffftScreen.id: (context) => GffftScreen(),
-                LoginScreen.id: (context) => LoginScreen(),
-                MeScreen.id: (context) => MeScreen(),
-              },
-              darkTheme: _buildTheme(context),
-              theme: _buildTheme(context),
-              themeMode: ThemeMode.dark);
+          return MaterialApp.router(
+            title: 'VxNavigator',
+            routerDelegate: navigator,
+            routeInformationParser: VxInformationParser(),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              CountryLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              FormBuilderLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''), // English
+              Locale('es', ''), // Spanish
+              Locale('pt', ''), // Portugese
+            ],
+            darkTheme: _buildTheme(context),
+            theme: _buildTheme(context),
+            themeMode: ThemeMode.dark,
+          );
           // show your app’s home page after login
         },
       );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/components/search_input_sliver.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'gffft_api.dart';
 import 'gffft_home_screen.dart';
@@ -10,7 +11,7 @@ import 'models/gffft_minimal.dart';
 class GffftListScreen extends StatefulWidget {
   const GffftListScreen({Key? key}) : super(key: key);
 
-  static const String id = 'Gffft List';
+  static const String id = '/gfffts';
 
   @override
   _GffftListScreenState createState() => _GffftListScreenState();
@@ -107,12 +108,7 @@ class _GffftListScreenState extends State<GffftListScreen> {
                   title: Text(item.name),
                   subtitle: Text(item.description ?? "unknown"),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => GffftHomeScreen(gffft: item),
-                      ),
-                    );
+                    VxNavigator.of(context).push(Uri(pathSegments: ["users", item.uid, "gfffts", item.gid]));
                   },
                   trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
             ),

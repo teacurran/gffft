@@ -12,9 +12,10 @@ import 'models/gffft_minimal.dart';
 final getIt = GetIt.instance;
 
 class GffftHomeScreen extends StatefulWidget {
-  const GffftHomeScreen({Key? key, required this.gffft}) : super(key: key);
+  const GffftHomeScreen({Key? key, required this.uid, required this.gid}) : super(key: key);
 
-  final GffftMinimal gffft;
+  final String uid;
+  final String gid;
 
   @override
   _GffftHomeScreenState createState() => _GffftHomeScreenState();
@@ -33,7 +34,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
 
   Future<void> _loadData() async {
     setState(() {
-      gffft = userApi.getGffft(widget.gffft.uid, widget.gffft.gid);
+      gffft = userApi.getGffft(widget.uid, widget.gid);
     });
   }
 
@@ -53,7 +54,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoardViewScreen(gffft: widget.gffft, bid: featureRef.id!),
+                  builder: (context) => BoardViewScreen(uid: widget.uid, gid: widget.gid, bid: featureRef.id!),
                 ),
               );
             },
@@ -105,6 +106,37 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   Widget getGffftScreen(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
     var children = <Widget>[
       Card(
+        color: theme.primaryColor,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Padding(
+            padding: const EdgeInsets.all(0),
+            child: SizedBox(
+              width: double.infinity,
+              child: Text(
+                gffft.name ?? "",
+                style: theme.textTheme.headline4,
+              ),
+            )),
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(4, 4, 4, 12),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: SelectableText(gffft.name ?? "", style: Theme.of(context).textTheme.subtitle1),
+        ),
+      ),
+      SizedBox(
+        height: 95,
+        child: Card(
+          // This ensures that the Card's children are clipped correctly.
+          clipBehavior: Clip.antiAlias,
+          child: Container(child: SelectableText("im here")),
+        ),
+      ),
+      Card(
           margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
           color: theme.primaryColor,
           clipBehavior: Clip.antiAlias,
@@ -139,17 +171,15 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         future: gffft,
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
           Widget screenBody = Column();
-          var title = "connecting";
 
+          var title = "connecting";
           if (snapshot.hasError) {
             title = "error";
           }
 
           var gffft = snapshot.data;
-
           if (gffft != null) {
             title = gffft.name ?? "unknown name";
-
             screenBody = getGffftScreen(l10n!, theme, gffft);
           }
 

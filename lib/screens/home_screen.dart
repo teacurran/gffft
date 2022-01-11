@@ -7,14 +7,13 @@ import 'package:gffft/gfffts/gffft_screen.dart';
 import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user.dart';
 import 'package:gffft/users/user_api.dart';
-
-import 'login_screen.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 final getIt = GetIt.instance;
 const String logoAsset = 'assets/logo.svg';
 
 class HomeScreen extends StatefulWidget {
-  static const String id = 'Home';
+  static const String webPath = '/home';
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -47,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         future: user,
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
-            Navigator.pushReplacementNamed(context, LoginScreen.id);
+            // VxNavigator.of(context).push(Uri(path: LoginScreen.id));
           }
 
           var user = snapshot.data;
@@ -115,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, GffftListScreen.id);
+                                  VxNavigator.of(context).push(Uri(path: GffftListScreen.id));
                                 },
                                 splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                 // Generally, material cards do not have a highlight overlay.
@@ -192,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, GffftScreen.id);
+                                  VxNavigator.of(context).push(Uri(path: GffftScreen.webPath));
                                 },
                                 splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                 // Generally, material cards do not have a highlight overlay.

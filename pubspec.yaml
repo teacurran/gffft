@@ -73,6 +73,9 @@ dependencies:
   # https://pub.dev/packages/sembast
   sembast: ^3.1.1
   shared_preferences: ^2.0.9
+
+  velocity_x: ^3.3.0
+
   window_location_href: ^1.0.0
 
 dev_dependencies:

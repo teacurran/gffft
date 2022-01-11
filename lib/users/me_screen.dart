@@ -28,7 +28,7 @@ class MeScreen extends StatelessWidget {
         children: [
           TextButton(
               onPressed: () =>
-                  {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, LoginScreen.id))},
+                  {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, LoginScreen.webPath))},
               child: Text(l10n.logout))
         ],
       )),

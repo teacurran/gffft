@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/gfffts/gffft_edit_screen.dart';
 
 class GffftScreen extends StatelessWidget {
-  static const String id = 'Gffft';
+  static const String webPath = '/me';
 
   @override
   Widget build(BuildContext context) {

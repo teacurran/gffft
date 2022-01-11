@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const String id = 'Login';
+  static const String webPath = '/login';
 
   String logoAsset = 'assets/logo.svg';
 
@@ -36,10 +37,10 @@ class LoginScreen extends StatelessWidget {
        */
     ], actions: [
       AuthStateChangeAction<SignedIn>((context, _) {
-        Navigator.of(context).pushReplacementNamed(HomeScreen.id);
+        VxNavigator.of(context).push(Uri(path: HomeScreen.webPath));
       }),
       SignedOutAction((context) {
-        Navigator.of(context).pushReplacementNamed(LoginScreen.id);
+        VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
       })
     ]);
   }

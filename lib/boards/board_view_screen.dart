@@ -13,9 +13,10 @@ import 'models/thread.dart';
 final getIt = GetIt.instance;
 
 class BoardViewScreen extends StatefulWidget {
-  const BoardViewScreen({Key? key, required this.gffft, required this.bid}) : super(key: key);
+  const BoardViewScreen({Key? key, required this.uid, required this.gid, required this.bid}) : super(key: key);
 
-  final GffftMinimal gffft;
+  final String uid;
+  final String gid;
   final String bid;
 
   @override
@@ -57,8 +58,8 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
   Future<void> _fetchPage(pageKey) async {
     try {
       final newItems = await userApi.getBoardThreads(
-        widget.gffft.uid,
-        widget.gffft.gid,
+        widget.uid,
+        widget.gid,
         widget.bid,
         pageKey,
         _pageSize,
@@ -94,7 +95,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
         isLoading = true;
       });
 
-      Post post = Post(widget.gffft.uid, widget.gffft.gid, widget.bid, body, subject: subject);
+      Post post = Post(widget.uid, widget.gid, widget.bid, body, subject: subject);
       await boardApi.createPost(post);
       print("post sent!");
     }
@@ -102,7 +103,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.gffft.name,
+            widget.gid,
             style: theme.textTheme.headline1,
           ),
           backgroundColor: theme.backgroundColor,
@@ -120,7 +121,9 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CreatePostScreen(
-                      gffft: widget.gffft,
+                      uid: widget.uid,
+                      gid: widget.gid,
+                      bid: widget.bid,
                       onSaved: _handlePost,
                     ),
                   ));

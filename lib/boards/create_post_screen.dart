@@ -8,11 +8,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/gfffts/models/gffft_minimal.dart';
 
 class CreatePostScreen extends StatefulWidget {
+  const CreatePostScreen({Key? key, required this.uid, required this.gid, required this.bid, required this.onSaved})
+      : super(key: key);
+
   final void Function(String subject, String body) onSaved;
-
-  const CreatePostScreen({Key? key, required this.gffft, required this.onSaved}) : super(key: key);
-
-  final GffftMinimal gffft;
+  final String uid;
+  final String gid;
+  final String bid;
 
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
@@ -36,7 +38,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(widget.gffft.name, style: theme.textTheme.headline1),
+          title: Text(widget.gid, style: theme.textTheme.headline1),
           backgroundColor: theme.backgroundColor,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: theme.primaryColor),
