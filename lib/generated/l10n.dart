@@ -560,6 +560,26 @@ class S {
     );
   }
 
+  /// `show less`
+  String get showLess {
+    return Intl.message(
+      'show less',
+      name: 'showLess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `show more`
+  String get showMore {
+    return Intl.message(
+      'show more',
+      name: 'showMore',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{field} is required`
   String validateFieldIsRequired(Object field) {
     return Intl.message(

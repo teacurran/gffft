@@ -10,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/boards/board_view_screen.dart';
 import 'package:gffft/screens/home_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
@@ -87,6 +88,12 @@ class _AppState extends State<App> {
         GffftListScreen.id: (uri, params) => const MaterialPage(child: GffftListScreen()),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+$"): (uri, param) =>
             MaterialPage(child: GffftHomeScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
+                child: BoardViewScreen(
+              uid: uri.pathSegments[1],
+              gid: uri.pathSegments[3],
+              bid: uri.pathSegments[5],
+            )),
         GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
         LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),
         MeScreen.id: (uri, params) => MaterialPage(child: MeScreen()),
@@ -243,7 +250,7 @@ class _AppState extends State<App> {
       buttonTheme: const ButtonThemeData(buttonColor: Colors.blue),
       outlinedButtonTheme: _getOutlineButtonThemeData(context),
       textButtonTheme: _getTextButtonThemeData(context),
-      backgroundColor: const Color(0xFF323436),
+      backgroundColor: const Color(0xFF33333D),
       primaryColor: const Color(0xFF1C839E),
       secondaryHeaderColor: Colors.white,
       primaryColorDark: Colors.black,
@@ -291,25 +298,26 @@ class _AppState extends State<App> {
           bodyColor: Colors.white,
         )
         .copyWith(
-          bodyText1: GoogleFonts.robotoCondensed(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
+          bodyText1: GoogleFonts.sourceSansPro(
+            fontSize: 14,
+            height: 1.4,
+            fontWeight: FontWeight.normal,
             letterSpacing: letterSpacingOrNone(0.5),
           ),
-          bodyText2: GoogleFonts.robotoCondensed(
+          bodyText2: GoogleFonts.sourceSansPro(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             letterSpacing: letterSpacingOrNone(0.5),
             color: Colors.lightGreen,
           ),
-          button: GoogleFonts.robotoCondensed(
+          button: GoogleFonts.sourceSansPro(
             fontWeight: FontWeight.w700,
             letterSpacing: letterSpacingOrNone(2.8),
             color: Colors.lightBlue[200],
           ),
-          headline1: const TextStyle(color: Color(0xFF1C839E), fontSize: 40),
-          headline4: GoogleFonts.robotoCondensed(color: Colors.lightGreenAccent),
-          headline5: GoogleFonts.robotoCondensed(
+          headline1: GoogleFonts.sourceSansPro(color: Color(0xFF1C839E), fontSize: 40, fontWeight: FontWeight.w100),
+          headline4: GoogleFonts.sourceSansPro(color: Colors.lightGreenAccent),
+          headline5: GoogleFonts.sourceSansPro(
             fontSize: 40,
             fontWeight: FontWeight.w600,
             letterSpacing: letterSpacingOrNone(1.4),

@@ -119,6 +119,8 @@
   "@memberTypeSysop": {},
   "no": "No",
   "@no": {},
+  "showLess": "show less",
+  "showMore": "show more",
   "validateFieldIsRequired": "{field} is required",
   "@validateFieldIsRequired": {
     "placeholders": {

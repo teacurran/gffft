@@ -92,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "memberTypeMember": MessageLookupByLibrary.simpleMessage("Member"),
         "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "showLess": MessageLookupByLibrary.simpleMessage("show less"),
+        "showMore": MessageLookupByLibrary.simpleMessage("show more"),
         "validateFieldIsRequired": m0,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };

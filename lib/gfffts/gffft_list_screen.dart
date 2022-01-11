@@ -89,11 +89,13 @@ class _GffftListScreenState extends State<GffftListScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(l10n!.connect),
-        backgroundColor: theme.primaryColor,
+        title: Text(
+          l10n!.connect,
+          style: theme.textTheme.headline1,
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
-          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back, color: theme.primaryColor),
+          onPressed: () => VxNavigator.of(context).pop(),
         ),
         centerTitle: true,
       ),
