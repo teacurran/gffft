@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/gffft_list_screen.dart';
 import 'package:gffft/gfffts/gffft_screen.dart';
-import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -96,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       )),
                                   child: InkWell(
                                       onTap: () {
-                                        Navigator.pushNamed(context, MeScreen.id);
+                                        VxNavigator.of(context).push(Uri(pathSegments: ["users", "me"]));
                                       },
                                       splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                       highlightColor: Colors.transparent,

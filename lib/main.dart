@@ -124,7 +124,7 @@ class _AppState extends State<App> {
             )),
         GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
         LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),
-        MeScreen.id: (uri, params) => MaterialPage(child: MeScreen()),
+        MeScreen.webPath: (uri, params) => MaterialPage(child: MeScreen()),
       });
 
   Future<void> _init(context) async {

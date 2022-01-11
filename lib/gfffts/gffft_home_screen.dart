@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/boards/board_view_screen.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -74,15 +73,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                             IconButton(
                               icon: const FaIcon(FontAwesomeIcons.commentAlt),
                               color: const Color(0xFF9970A9),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        BoardViewScreen(uid: widget.uid, gid: widget.gid, bid: featureRef.id!),
-                                  ),
-                                );
-                              },
+                              onPressed: () {},
                             ),
                             Text(
                               l10n.gffftHomeBoard,

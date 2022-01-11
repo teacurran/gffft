@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/screens/login_screen.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class MeScreen extends StatelessWidget {
-  static const String id = 'Me';
+  static const String webPath = 'users/me';
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,8 @@ class MeScreen extends StatelessWidget {
           child: Column(
         children: [
           TextButton(
-              onPressed: () =>
-                  {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, LoginScreen.webPath))},
+              onPressed: () => {VxNavigator.of(context).replace(Uri(path: LoginScreen.webPath))},
+              // {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, LoginScreen.webPath))},
               child: Text(l10n.logout))
         ],
       )),
