@@ -46,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         future: user,
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
-            // VxNavigator.of(context).push(Uri(path: LoginScreen.id));
+            // Navigator.pushReplacementNamed(context, LoginScreen.webPath);
+            // VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
           }
 
           var user = snapshot.data;
@@ -65,198 +66,126 @@ class _HomeScreenState extends State<HomeScreen> {
           var username = user == null ? l10n!.loading : user.username;
 
           return SafeArea(
-              child: RefreshIndicator(
-                  onRefresh: _loadData,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: SvgPicture.asset(logoAsset,
-                                semanticsLabel: 'Gffft Logo', color: theme.primaryColor, height: 150)),
-                        Card(
-                            margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                            color: theme.primaryColor,
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(context, MeScreen.id);
-                                },
-                                splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                                // Generally, material cards do not have a highlight overlay.
-                                highlightColor: Colors.transparent,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                        height: 100,
-                                        width: double.infinity,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                                          child: Text(
-                                            username,
-                                            style: theme.textTheme.headline4,
-                                          ),
-                                        )),
-                                  ],
-                                ))),
-                        Card(
-                            margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                            color: theme.primaryColor,
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  VxNavigator.of(context).push(Uri(path: GffftListScreen.id));
-                                },
-                                splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                                // Generally, material cards do not have a highlight overlay.
-                                highlightColor: Colors.transparent,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                        height: 150,
-                                        child: Stack(children: [
-                                          Positioned.fill(
-                                            // In order to have the ink splash appear above the image, you
-                                            // must use Ink.image. This allows the image to be painted as
-                                            // part of the Material and display ink effects above it. Using
-                                            // a standard Image will obscure the ink splash.
-                                            child: Ink.image(
-                                              image: const AssetImage('assets/antenna-farm.jpg'),
-                                              fit: BoxFit.cover,
-                                              child: Container(),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 16,
-                                            left: 16,
-                                            right: 16,
-                                            child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              alignment: Alignment.centerLeft,
+              child: Scaffold(
+                  body: RefreshIndicator(
+                      onRefresh: _loadData,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: SvgPicture.asset(logoAsset,
+                                    semanticsLabel: 'Gffft Logo', color: theme.primaryColor, height: 150)),
+                            Card(
+                                margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+                                color: theme.backgroundColor,
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: const BorderSide(
+                                      color: Color(0xFF9970A9),
+                                      width: 1.0,
+                                    )),
+                                child: InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, MeScreen.id);
+                                    },
+                                    splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+                                    highlightColor: Colors.transparent,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            height: 100,
+                                            width: double.infinity,
+                                            child: Padding(
+                                              padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
+                                              child: Text(
+                                                username,
+                                                style: theme.textTheme.headline4,
+                                              ),
+                                            )),
+                                      ],
+                                    ))),
+                            Card(
+                                margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+                                color: theme.backgroundColor,
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: const BorderSide(
+                                      color: Color(0xFFB56277),
+                                      width: 1.0,
+                                    )),
+                                child: InkWell(
+                                    onTap: () {
+                                      VxNavigator.of(context).push(Uri(path: GffftListScreen.id));
+                                    },
+                                    splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+                                    // Generally, material cards do not have a highlight overlay.
+                                    highlightColor: Colors.transparent,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 100,
+                                          width: double.infinity,
+                                          child: Padding(
+                                              padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
                                               child: Text(
                                                 l10n!.connect,
                                                 style: theme.textTheme.headline4,
-                                              ),
-                                            ),
-                                          )
-                                        ])),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                                      child: DefaultTextStyle(
-                                        style: textStyle,
-                                        softWrap: false,
-                                        overflow: TextOverflow.ellipsis,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // This array contains the three line description on each card
-                                            // demo.
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 8),
-                                              child: Text(
-                                                "line 1 of text",
-                                                style: theme.textTheme.bodyText1,
-                                              ),
-                                            ),
-                                            Text("line 2 of text"),
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 10),
-                                              child: Text(
-                                                "line 3 of text with bottom padding",
-                                                style: theme.textTheme.bodyText1,
-                                              ),
-                                            ),
-                                          ],
+                                              )),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ))),
-                        Card(
-                            margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                            color: theme.primaryColor,
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  VxNavigator.of(context).push(Uri(path: GffftScreen.webPath));
-                                },
-                                splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                                // Generally, material cards do not have a highlight overlay.
-                                highlightColor: Colors.transparent,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                        height: 150,
-                                        child: Stack(children: [
-                                          Positioned.fill(
-                                            // In order to have the ink splash appear above the image, you
-                                            // must use Ink.image. This allows the image to be painted as
-                                            // part of the Material and display ink effects above it. Using
-                                            // a standard Image will obscure the ink splash.
-                                            child: Ink.image(
-                                              image: const AssetImage('assets/hayes.jpg'),
-                                              fit: BoxFit.cover,
-                                              child: Container(),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 16,
-                                            left: 16,
-                                            right: 16,
-                                            child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                l10n.host,
-                                                style: const TextStyle(
-                                                    fontFamily: 'DoubleFeature', color: Colors.yellow, fontSize: 60),
-                                              ),
-                                            ),
-                                          )
-                                        ])),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                                      child: DefaultTextStyle(
-                                        style: textStyle,
-                                        softWrap: false,
-                                        overflow: TextOverflow.ellipsis,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            // This array contains the three line description on each card
-                                            // demo.
-                                            Padding(
-                                              padding: const EdgeInsets.only(bottom: 8),
-                                              child: Text(
-                                                "destination.description",
-                                                style: theme.textTheme.bodyText1,
-                                              ),
-                                            ),
-                                            Text("id: ${boardId}"),
-                                            Text("destination.location"),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ))),
-                      ],
-                    ),
-                  )));
+                                      ],
+                                    ))),
+                            Card(
+                                margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+                                color: theme.backgroundColor,
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: const BorderSide(
+                                      color: Color(0xFF00829C),
+                                      width: 1.0,
+                                    )),
+                                child: InkWell(
+                                    onTap: () {
+                                      VxNavigator.of(context).push(Uri(path: GffftScreen.webPath));
+                                    },
+                                    splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+                                    // Generally, material cards do not have a highlight overlay.
+                                    highlightColor: Colors.transparent,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            height: 100,
+                                            child: Stack(children: [
+                                              Positioned(
+                                                top: 16,
+                                                left: 16,
+                                                right: 16,
+                                                child: FittedBox(
+                                                  fit: BoxFit.scaleDown,
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                    l10n.host,
+                                                    style: const TextStyle(
+                                                        fontFamily: 'DoubleFeature',
+                                                        color: Colors.yellow,
+                                                        fontSize: 60),
+                                                  ),
+                                                ),
+                                              )
+                                            ])),
+                                      ],
+                                    ))),
+                          ],
+                        ),
+                      ))));
         });
   }
 }

@@ -65,8 +65,27 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
+// First way to monitor changes in the routing stack:
+class NavigationObserver extends VxObserver {
+  @override
+  void didChangeRoute(Uri route, Page page, String pushOrPop) {
+    print("${route.path} - $pushOrPop");
+  }
+
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    print('Pushed a route');
+  }
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    print('Popped a route');
+  }
+}
+
 class _AppState extends State<App> {
   final navigator = VxNavigator(
+      observers: [NavigationObserver()],
       notFoundPage: (uri, params) => MaterialPage(
             key: ValueKey('not-found-page'),
             child: Builder(
@@ -78,11 +97,20 @@ class _AppState extends State<App> {
             ),
           ),
       routes: {
-        "/": (uri, params) => MaterialPage(child: HomeScreen()),
-        HomeScreen.webPath: (uri, params) {
+        "/": (uri, params) {
           if (FirebaseAuth.instance.currentUser != null) {
+            print("here1");
             return MaterialPage(child: HomeScreen());
           }
+          print("here2");
+          return MaterialPage(child: LoginScreen());
+        },
+        HomeScreen.webPath: (uri, params) {
+          if (FirebaseAuth.instance.currentUser != null) {
+            print("here1");
+            return MaterialPage(child: HomeScreen());
+          }
+          print("here2");
           return MaterialPage(child: LoginScreen());
         },
         GffftListScreen.id: (uri, params) => const MaterialPage(child: GffftListScreen()),
@@ -157,10 +185,14 @@ class _AppState extends State<App> {
   }
 
   Widget authenticationGate(BuildContext context) => StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
+        stream: FirebaseAuth.instance.userChanges(),
         builder: (context, snapshot) {
-          final User? user = snapshot.data;
-          var initialRoute = snapshot.hasData && user != null ? HomeScreen.webPath : LoginScreen.webPath;
+          // if (user == null) {
+          //   VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
+          // }
+
+          // final User? user = snapshot.data;
+          // var initialRoute = snapshot.hasData && user != null ? HomeScreen.webPath : LoginScreen.webPath;
 
           return MaterialApp.router(
             title: 'VxNavigator',
