@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
     }
 
     throw UnsupportedError(
@@ -59,13 +56,25 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCgC6VlzqlijqkaHMRp7owdfvJ3avt6fQo',
-    appId: '1:248661822187:ios:c68315e820f7cc2fc08cae',
+    appId: '1:248661822187:ios:3f208fa31828ccfac08cae',
     messagingSenderId: '248661822187',
     projectId: 'gffft-auth',
     databaseURL: 'https://gffft-auth.firebaseio.com',
     storageBucket: 'gffft-auth.appspot.com',
     androidClientId: '248661822187-ocsfb0tn4jutid487uao3v7l5pdhli1a.apps.googleusercontent.com',
-    iosClientId: '248661822187-eqfhrm54ahv35u89ed6aj420ptu08pmf.apps.googleusercontent.com',
-    iosBundleId: 'gffft.app',
+    iosClientId: '248661822187-17bbqptm8rqd8osai57aurdocnjs7frs.apps.googleusercontent.com',
+    iosBundleId: 'com.approachingpi.gffft',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCgC6VlzqlijqkaHMRp7owdfvJ3avt6fQo',
+    appId: '1:248661822187:ios:3f208fa31828ccfac08cae',
+    messagingSenderId: '248661822187',
+    projectId: 'gffft-auth',
+    databaseURL: 'https://gffft-auth.firebaseio.com',
+    storageBucket: 'gffft-auth.appspot.com',
+    androidClientId: '248661822187-ocsfb0tn4jutid487uao3v7l5pdhli1a.apps.googleusercontent.com',
+    iosClientId: '248661822187-17bbqptm8rqd8osai57aurdocnjs7frs.apps.googleusercontent.com',
+    iosBundleId: 'com.approachingpi.gffft',
   );
 }
