@@ -2,6 +2,8 @@ import 'package:gffft/boards/models/board.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'gffft_membership.dart';
+
 part 'gffft.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -24,6 +26,7 @@ class Gffft {
 
   List<GffftFeatureRef>? features;
   List<Board>? boards;
+  GffftMembership? membership;
 
   Gffft(
       {required this.uid,

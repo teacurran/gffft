@@ -420,6 +420,36 @@ class S {
     );
   }
 
+  /// `membership`
+  String get gffftHomeMembership {
+    return Intl.message(
+      'membership',
+      name: 'gffftHomeMembership',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you are not a member`
+  String get gffftHomeNotMember {
+    return Intl.message(
+      'you are not a member',
+      name: 'gffftHomeNotMember',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `join`
+  String get gffftHomeJoin {
+    return Intl.message(
+      'join',
+      name: 'gffftHomeJoin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `board`
   String get gffftHomeBoard {
     return Intl.message(

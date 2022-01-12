@@ -154,6 +154,10 @@ class ApiBase {
     return callApi(urlPath, requireAuth: true, queryParams: queryParams);
   }
 
+  Future<dynamic> postAuthenticated(String urlPath, {Map<String, String>? queryParams}) async {
+    return callApi(urlPath, requireAuth: true, queryParams: queryParams);
+  }
+
   dynamic _returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:

@@ -27,7 +27,9 @@ Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       boards: (json['boards'] as List<dynamic>?)
           ?.map((e) => Board.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..membership = json['membership'] == null
+        ? null
+        : GffftMembership.fromJson(json['membership'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
       'uid': instance.uid,
@@ -46,4 +48,5 @@ Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
       'notebookEnabled': instance.notebookEnabled,
       'features': instance.features?.map((e) => e.toJson()).toList(),
       'boards': instance.boards?.map((e) => e.toJson()).toList(),
+      'membership': instance.membership?.toJson(),
     };

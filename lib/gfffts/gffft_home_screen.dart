@@ -41,6 +41,52 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   List<Widget> getActions(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
     var actions = <Widget>[];
 
+    String membershipStatus = l10n.gffftHomeNotMember;
+    if (gffft.membership != null) {
+      membershipStatus = "${gffft.membership?.type} since ${gffft.membership?.createdAt}";
+    }
+    actions.add(Card(
+        margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+        clipBehavior: Clip.antiAlias,
+        color: theme.backgroundColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: const BorderSide(
+              color: Color(0xFFFFDC56),
+              width: 1.0,
+            )),
+        child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
+            child: SizedBox(
+                width: double.infinity,
+                child: Row(children: [
+                  Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    SelectableText(
+                      l10n.gffftHomeMembership,
+                      style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFFDC56)),
+                      textAlign: TextAlign.left,
+                    ),
+                    SelectableText(
+                      membershipStatus,
+                      style: theme.textTheme.subtitle2?.copyWith(color: const Color(0xFFFFDC56)),
+                      textAlign: TextAlign.left,
+                    )
+                  ]),
+                  VerticalDivider(),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        TextButton(
+                          style:
+                              ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+                          onPressed: () {},
+                          child: Text(l10n.gffftHomeJoin),
+                        )
+                      ])
+                ])))));
+
     if (gffft.features == null) {
       return actions;
     }

@@ -78,7 +78,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),
         "gffftHomeBoard": MessageLookupByLibrary.simpleMessage("board"),
         "gffftHomeCalendar": MessageLookupByLibrary.simpleMessage("calendar"),
+        "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
         "gffftHomeMedia": MessageLookupByLibrary.simpleMessage("media"),
+        "gffftHomeMembership":
+            MessageLookupByLibrary.simpleMessage("membership"),
+        "gffftHomeNotMember":
+            MessageLookupByLibrary.simpleMessage("you are not a member"),
         "gffftHomePages": MessageLookupByLibrary.simpleMessage("pages"),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or #tag"),
