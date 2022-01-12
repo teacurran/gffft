@@ -10,7 +10,6 @@ GffftMembershipPost _$GffftMembershipPostFromJson(Map<String, dynamic> json) =>
     GffftMembershipPost(
       uid: json['uid'] as String,
       gid: json['gid'] as String,
-      mid: json['mid'] as String,
     );
 
 Map<String, dynamic> _$GffftMembershipPostToJson(
@@ -18,5 +17,4 @@ Map<String, dynamic> _$GffftMembershipPostToJson(
     <String, dynamic>{
       'uid': instance.uid,
       'gid': instance.gid,
-      'mid': instance.mid,
     };

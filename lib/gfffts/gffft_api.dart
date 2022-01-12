@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gffft/boards/models/thread_result.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 
 import '../api_base.dart';
@@ -34,12 +35,13 @@ class GffftApi extends ApiBase {
     return Gffft.fromJson(response);
   }
 
-  Future<GffftMembership> joinGffft(String uid, String gid, String mid) async {
-    var membershipPost = GffftMembershipPost(uid: uid, gid: gid, mid: mid);
+  Future<GffftMembership> joinGffft(String uid, String gid) async {
+    var membershipPost = GffftMembershipPost(uid: uid, gid: gid);
 
     print("member joining: " + jsonEncode(membershipPost));
 
-    final response = await put("users/${uid}/gfffts/${gid}/members/${mid}", jsonEncode(membershipPost));
+    final response = await post("users/${uid}/gfffts/${gid}/members", jsonEncode(membershipPost));
+    print(response);
     return GffftMembership.fromJson(response);
   }
 

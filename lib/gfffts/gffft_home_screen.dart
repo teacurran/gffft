@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'gffft_api.dart';
 import 'models/gffft.dart';
 
 final getIt = GetIt.instance;
@@ -23,6 +24,7 @@ class GffftHomeScreen extends StatefulWidget {
 
 class _GffftHomeScreenState extends State<GffftHomeScreen> {
   UserApi userApi = getIt<UserApi>();
+  GffftApi gffftApi = getIt<GffftApi>();
 
   Future<Gffft>? gffft;
 
@@ -81,7 +83,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                         TextButton(
                           style:
                               ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-                          onPressed: () {},
+                          onPressed: () async {
+                            await gffftApi.joinGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+                          },
                           child: Text(l10n.gffftHomeJoin),
                         )
                       ])
@@ -248,10 +252,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
                             IconButton(
-                              icon: const FaIcon(FontAwesomeIcons.fileAlt),
-                              color: const Color(0xFFFABB59),
-                              onPressed: () {},
-                            ),
+                                icon: const FaIcon(FontAwesomeIcons.fileAlt),
+                                color: const Color(0xFFFABB59),
+                                onPressed: () async {}),
                             Text(
                               l10n.gffftHomePages,
                               style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
