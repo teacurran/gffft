@@ -1,3 +1,4 @@
+import 'package:gffft/gfffts/models/gffft_minimal.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'bookmark.g.dart';
@@ -7,6 +8,7 @@ class Bookmark {
   String gid;
   String name;
   DateTime createdAt;
+  GffftMinimal? gffft;
 
   Bookmark({required this.gid, required this.name, required this.createdAt});
 

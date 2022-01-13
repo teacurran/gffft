@@ -34,7 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("create a post"),
         "boardViewActionTooltip":
             MessageLookupByLibrary.simpleMessage("add a post"),
-        "connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "bookmarks": MessageLookupByLibrary.simpleMessage("bookmarks"),
+        "connect": MessageLookupByLibrary.simpleMessage("connect"),
         "editActions": MessageLookupByLibrary.simpleMessage("Actions"),
         "editAllowMembers":
             MessageLookupByLibrary.simpleMessage("Allow Members?"),
@@ -104,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "memberTypeMember": MessageLookupByLibrary.simpleMessage("Member"),
         "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "showLess": MessageLookupByLibrary.simpleMessage("show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("show more"),
         "validateFieldIsRequired": m1,

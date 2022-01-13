@@ -14,6 +14,7 @@ import 'package:gffft/boards/board_view_screen.dart';
 import 'package:gffft/screens/home_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
+import 'package:gffft/users/bookmark_screen.dart';
 import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -99,21 +100,23 @@ class _AppState extends State<App> {
       routes: {
         "/": (uri, params) {
           if (FirebaseAuth.instance.currentUser != null) {
-            print("here1");
             return MaterialPage(child: HomeScreen());
           }
-          print("here2");
+          return MaterialPage(child: LoginScreen());
+        },
+        BookmarkScreen.webPath: (uri, params) {
+          if (FirebaseAuth.instance.currentUser != null) {
+            return const MaterialPage(child: BookmarkScreen());
+          }
           return MaterialPage(child: LoginScreen());
         },
         HomeScreen.webPath: (uri, params) {
           if (FirebaseAuth.instance.currentUser != null) {
-            print("here11");
             return MaterialPage(child: HomeScreen());
           }
-          print("here2");
           return MaterialPage(child: LoginScreen());
         },
-        GffftListScreen.id: (uri, params) => const MaterialPage(child: GffftListScreen()),
+        GffftListScreen.webPath: (uri, params) => const MaterialPage(child: GffftListScreen()),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+$"): (uri, param) =>
             MaterialPage(child: GffftHomeScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(

@@ -100,10 +100,20 @@ class S {
     );
   }
 
-  /// `Connect`
+  /// `bookmarks`
+  String get bookmarks {
+    return Intl.message(
+      'bookmarks',
+      name: 'bookmarks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `connect`
   String get connect {
     return Intl.message(
-      'Connect',
+      'connect',
       name: 'connect',
       desc: '',
       args: [],
@@ -625,6 +635,16 @@ class S {
     return Intl.message(
       'No',
       name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
       desc: '',
       args: [],
     );

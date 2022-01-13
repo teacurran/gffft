@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:gffft/boards/models/thread_result.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/gfffts/models/gffft_membership_post.dart';
-import 'package:gffft/users/user.dart';
+import 'package:gffft/users/models/user.dart';
 
 import '../api_base.dart';
+import 'models/bookmark_result.dart';
 
 class UserApi extends ApiBase {
   save(User user) {}
@@ -24,6 +25,11 @@ class UserApi extends ApiBase {
   Future<ThreadResult> getBoardThreads(String uid, String gid, String bid, String? offset, int? pageSize) async {
     final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}/threads");
     return ThreadResult.fromJson(response);
+  }
+
+  Future<BookmarkResult> getBookmarks(String? offset, int? max, String? searchTerm) async {
+    final response = await getAuthenticated("users/me/bookmarks");
+    return BookmarkResult.fromJson(response);
   }
 
   Future<void> bookmarkGffft(String uid, String gid) async {

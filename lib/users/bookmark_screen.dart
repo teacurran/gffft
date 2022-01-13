@@ -2,30 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/components/search_input_sliver.dart';
+import 'package:gffft/gfffts/gffft_api.dart';
+import 'package:gffft/gfffts/gffft_list_screen.dart';
+import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'gffft_api.dart';
-import 'models/gffft_minimal.dart';
+import 'models/bookmark.dart';
 
 final getIt = GetIt.instance;
 
-class GffftListScreen extends StatefulWidget {
-  const GffftListScreen({Key? key}) : super(key: key);
+class BookmarkScreen extends StatefulWidget {
+  const BookmarkScreen({Key? key}) : super(key: key);
 
-  static const String webPath = '/gfffts';
+  static const String webPath = '/bookmarks';
 
   @override
-  _GffftListScreenState createState() => _GffftListScreenState();
+  State<BookmarkScreen> createState() => _BookmarkScreenState();
 }
 
-class _GffftListScreenState extends State<GffftListScreen> {
+class _BookmarkScreenState extends State<BookmarkScreen> {
   GffftApi gffftApi = getIt<GffftApi>();
+  UserApi userApi = getIt<UserApi>();
 
-  static const _pageSize = 20;
+  static const _pageSize = 200;
   String? _searchTerm;
 
-  final PagingController<String?, GffftMinimal> _pagingController = PagingController(firstPageKey: null);
+  final PagingController<String?, Bookmark> _pagingController = PagingController(firstPageKey: null);
 
   @override
   void initState() {
@@ -54,7 +57,7 @@ class _GffftListScreenState extends State<GffftListScreen> {
 
   Future<void> _fetchPage(pageKey) async {
     try {
-      final newItems = await gffftApi.getGfffts(
+      final newItems = await userApi.getBookmarks(
         pageKey,
         _pageSize,
         _searchTerm,
@@ -91,7 +94,7 @@ class _GffftListScreenState extends State<GffftListScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          l10n!.connect,
+          l10n!.bookmarks,
           style: theme.textTheme.headline1,
         ),
         leading: IconButton(
@@ -102,16 +105,31 @@ class _GffftListScreenState extends State<GffftListScreen> {
       ),
       body: CustomScrollView(
         slivers: <Widget>[
-          SearchInputSliver(onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n.gffftListSearchHint),
-          PagedSliverList<String?, GffftMinimal>(
+          SliverToBoxAdapter(
+            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                  child: TextButton(
+                    style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+                    onPressed: () {
+                      VxNavigator.of(context).push(Uri(path: GffftListScreen.webPath));
+                    },
+                    child: Text(l10n.search),
+                  ))
+            ]),
+          ),
+          PagedSliverList<String?, Bookmark>(
             pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate<GffftMinimal>(
+            builderDelegate: PagedChildBuilderDelegate<Bookmark>(
               animateTransitions: true,
               itemBuilder: (context, item, index) => ListTile(
                   title: Text(item.name),
-                  subtitle: Text(item.description ?? "unknown"),
+                  subtitle: Text(item.name),
                   onTap: () {
-                    VxNavigator.of(context).push(Uri(pathSegments: ["users", item.uid, "gfffts", item.gid]));
+                    if (item.gffft != null) {
+                      VxNavigator.of(context)
+                          .push(Uri(pathSegments: ["users", item.gffft!.uid, "gfffts", item.gffft!.gid]));
+                    }
                   },
                   trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
             ),
