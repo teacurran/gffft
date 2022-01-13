@@ -72,6 +72,10 @@ class ApiBase {
     return callApi(urlPath, method: "put", payload: jsonPayload, payloadContentType: "application/json");
   }
 
+  Future<dynamic> delete(String urlPath, String jsonPayload) async {
+    return callApi(urlPath, method: "delete", payload: jsonPayload, payloadContentType: "application/json");
+  }
+
   Future<dynamic> callApi(String urlPath,
       {String method = "get",
       bool requireAuth = false,
@@ -142,7 +146,7 @@ class ApiBase {
         }
       } else if (kDebugMode) {
         print("Unhandled exception. signing user out.: ${e.toString()}");
-        await fbAuth.signOut();
+        //await fbAuth.signOut();
       }
 
       throw FetchDataException('Unable to fetch data');

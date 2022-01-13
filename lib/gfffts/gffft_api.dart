@@ -4,7 +4,6 @@ import 'package:gffft/boards/models/thread_result.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 
 import '../api_base.dart';
-import 'models/gffft_membership.dart';
 import 'models/gffft_membership_post.dart';
 import 'models/gffft_result.dart';
 import 'models/gffft_save.dart';
@@ -35,14 +34,14 @@ class GffftApi extends ApiBase {
     return Gffft.fromJson(response);
   }
 
-  Future<GffftMembership> joinGffft(String uid, String gid) async {
+  Future<void> joinGffft(String uid, String gid) async {
     var membershipPost = GffftMembershipPost(uid: uid, gid: gid);
+    await post("users/me/gfffts/membership", jsonEncode(membershipPost));
+  }
 
-    print("member joining: " + jsonEncode(membershipPost));
-
-    final response = await post("users/${uid}/gfffts/${gid}/members", jsonEncode(membershipPost));
-    print(response);
-    return GffftMembership.fromJson(response);
+  Future<void> quitGffft(String uid, String gid) async {
+    var membershipPost = GffftMembershipPost(uid: uid, gid: gid);
+    await delete("users/me/gfffts/membership", jsonEncode(membershipPost));
   }
 
   Future<ThreadResult> getBoardThreads(String uid, String gid, String bid, String? offset, int? pageSize) async {

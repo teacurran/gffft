@@ -96,8 +96,21 @@
   "@flag": {},
   "gffftHomeBlog": "blog",
   "gffftHomeMembership": "membership",
-  "gffftHomeNotMember": "you are not a member",
+  "gffftHomeMemberSince": "since {date}",
+  "@gffftHomeMemberSince": {
+    "description": "'since 2021-01-12' formatted in users date format",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2021-01-12"
+      }
+    }
+  },
+  "gffftHomeNotMember": "not a member",
   "gffftHomeJoin": "join",
+  "gffftHomeQuit": "quit",
+  "gffftHomeBookmark": "bookmark",
+  "gffftHomeUnBookmark": "un-bookmark",
   "gffftHomeBoard": "board",
   "gffftHomeMedia": "media",
   "gffftHomePages": "pages",

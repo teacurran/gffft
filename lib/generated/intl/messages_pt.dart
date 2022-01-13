@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'pt';
 
-  static String m0(field) => "${field} é obrigatório";
+  static String m1(field) => "${field} é obrigatório";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -78,7 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "memberTypeMember": MessageLookupByLibrary.simpleMessage("Membro"),
         "memberTypeSysop": MessageLookupByLibrary.simpleMessage("Sysop"),
         "no": MessageLookupByLibrary.simpleMessage("Não"),
-        "validateFieldIsRequired": m0,
+        "validateFieldIsRequired": m1,
         "yes": MessageLookupByLibrary.simpleMessage("sim")
       };
 }

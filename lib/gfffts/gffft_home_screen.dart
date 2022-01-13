@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/common/dates.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -44,9 +45,52 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     var actions = <Widget>[];
 
     String membershipStatus = l10n.gffftHomeNotMember;
+    String memberSince = "";
     if (gffft.membership != null) {
-      membershipStatus = "${gffft.membership?.type} since ${gffft.membership?.createdAt}";
+      membershipStatus = "${gffft.membership?.type}";
+      memberSince = l10n.gffftHomeMemberSince(DATE_FORMAT_EU.format(gffft.membership!.createdAt));
     }
+
+    var memberActions = <Widget>[];
+
+    if (gffft.membership?.type != "owner") {
+      if (gffft.membership == null) {
+        memberActions.add(TextButton(
+          style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+          onPressed: () async {
+            await gffftApi.joinGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+          },
+          child: Text(l10n.gffftHomeJoin),
+        ));
+      } else {
+        memberActions.add(TextButton(
+          style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+          onPressed: () async {
+            await gffftApi.quitGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+          },
+          child: Text(l10n.gffftHomeQuit),
+        ));
+      }
+    }
+
+    if (gffft.bookmark == null) {
+      memberActions.add(TextButton(
+        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+        onPressed: () async {
+          await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+        },
+        child: Text(l10n.gffftHomeBookmark),
+      ));
+    } else {
+      memberActions.add(TextButton(
+        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+        onPressed: () async {
+          await userApi.unBookmarkGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+        },
+        child: Text(l10n.gffftHomeUnBookmark),
+      ));
+    }
+
     actions.add(Card(
         margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
         clipBehavior: Clip.antiAlias,
@@ -72,6 +116,11 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                       membershipStatus,
                       style: theme.textTheme.subtitle2?.copyWith(color: const Color(0xFFFFDC56)),
                       textAlign: TextAlign.left,
+                    ),
+                    SelectableText(
+                      memberSince,
+                      style: theme.textTheme.subtitle2?.copyWith(color: const Color(0xFFFFDC56)),
+                      textAlign: TextAlign.left,
                     )
                   ]),
                   VerticalDivider(),
@@ -79,16 +128,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        TextButton(
-                          style:
-                              ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-                          onPressed: () async {
-                            await gffftApi.joinGffft(widget.uid, widget.gid).then((value) => {_loadData()});
-                          },
-                          child: Text(l10n.gffftHomeJoin),
-                        )
-                      ])
+                      children: memberActions)
                 ])))));
 
     if (gffft.features == null) {

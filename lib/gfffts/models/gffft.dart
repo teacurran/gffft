@@ -1,5 +1,6 @@
 import 'package:gffft/boards/models/board.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
+import 'package:gffft/users/models/bookmark.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'gffft_membership.dart';
@@ -27,6 +28,7 @@ class Gffft {
   List<GffftFeatureRef>? features;
   List<Board>? boards;
   GffftMembership? membership;
+  Bookmark? bookmark;
 
   Gffft(
       {required this.uid,
@@ -44,7 +46,9 @@ class Gffft {
       this.notebookEnabled = false,
       this.calendarEnabled = false,
       this.features,
-      this.boards});
+      this.boards,
+      this.membership,
+      this.bookmark});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

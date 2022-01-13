@@ -430,10 +430,20 @@ class S {
     );
   }
 
-  /// `you are not a member`
+  /// `since {date}`
+  String gffftHomeMemberSince(String date) {
+    return Intl.message(
+      'since $date',
+      name: 'gffftHomeMemberSince',
+      desc: '\'since 2021-01-12\' formatted in users date format',
+      args: [date],
+    );
+  }
+
+  /// `not a member`
   String get gffftHomeNotMember {
     return Intl.message(
-      'you are not a member',
+      'not a member',
       name: 'gffftHomeNotMember',
       desc: '',
       args: [],
@@ -445,6 +455,36 @@ class S {
     return Intl.message(
       'join',
       name: 'gffftHomeJoin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `quit`
+  String get gffftHomeQuit {
+    return Intl.message(
+      'quit',
+      name: 'gffftHomeQuit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `bookmark`
+  String get gffftHomeBookmark {
+    return Intl.message(
+      'bookmark',
+      name: 'gffftHomeBookmark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `un-bookmark`
+  String get gffftHomeUnBookmark {
+    return Intl.message(
+      'un-bookmark',
+      name: 'gffftHomeUnBookmark',
       desc: '',
       args: [],
     );

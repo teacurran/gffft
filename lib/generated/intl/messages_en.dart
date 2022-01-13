@@ -20,7 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(field) => "${field} is required";
+  static String m0(date) => "since ${date}";
+
+  static String m1(field) => "${field} is required";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -77,14 +79,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
         "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),
         "gffftHomeBoard": MessageLookupByLibrary.simpleMessage("board"),
+        "gffftHomeBookmark": MessageLookupByLibrary.simpleMessage("bookmark"),
         "gffftHomeCalendar": MessageLookupByLibrary.simpleMessage("calendar"),
         "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
         "gffftHomeMedia": MessageLookupByLibrary.simpleMessage("media"),
+        "gffftHomeMemberSince": m0,
         "gffftHomeMembership":
             MessageLookupByLibrary.simpleMessage("membership"),
         "gffftHomeNotMember":
-            MessageLookupByLibrary.simpleMessage("you are not a member"),
+            MessageLookupByLibrary.simpleMessage("not a member"),
         "gffftHomePages": MessageLookupByLibrary.simpleMessage("pages"),
+        "gffftHomeQuit": MessageLookupByLibrary.simpleMessage("quit"),
+        "gffftHomeUnBookmark":
+            MessageLookupByLibrary.simpleMessage("un-bookmark"),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or #tag"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),
@@ -99,7 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "showLess": MessageLookupByLibrary.simpleMessage("show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("show more"),
-        "validateFieldIsRequired": m0,
+        "validateFieldIsRequired": m1,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }
