@@ -23,6 +23,7 @@ import "package:velocity_x/velocity_x.dart";
 import 'package:window_location_href/window_location_href.dart';
 
 import 'boards/board_api.dart';
+import 'boards/create_post_screen.dart';
 import 'firebase_options.dart';
 import 'gfffts/gffft_api.dart';
 import 'gfffts/gffft_home_screen.dart';
@@ -122,6 +123,12 @@ class _AppState extends State<App> {
             MaterialPage(child: GffftHomeScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
                 child: BoardViewScreen(
+              uid: uri.pathSegments[1],
+              gid: uri.pathSegments[3],
+              bid: uri.pathSegments[5],
+            )),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+/post$"): (uri, param) => MaterialPage(
+                child: CreatePostScreen(
               uid: uri.pathSegments[1],
               gid: uri.pathSegments[3],
               bid: uri.pathSegments[5],

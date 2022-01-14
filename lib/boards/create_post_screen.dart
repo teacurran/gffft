@@ -5,13 +5,17 @@ import 'package:card_settings/widgets/text_fields/card_settings_paragraph.dart';
 import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:gffft/gfffts/models/gffft_minimal.dart';
+import 'package:get_it/get_it.dart';
+import 'package:velocity_x/velocity_x.dart';
+
+import 'board_api.dart';
+import 'models/post.dart';
+
+final getIt = GetIt.instance;
 
 class CreatePostScreen extends StatefulWidget {
-  const CreatePostScreen({Key? key, required this.uid, required this.gid, required this.bid, required this.onSaved})
-      : super(key: key);
+  const CreatePostScreen({Key? key, required this.uid, required this.gid, required this.bid}) : super(key: key);
 
-  final void Function(String subject, String body) onSaved;
   final String uid;
   final String gid;
   final String bid;
@@ -27,7 +31,19 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future savePressed() async {
-    widget.onSaved(_subject.text, _body.text);
+    BoardApi boardApi = getIt<BoardApi>();
+    final subject = _subject.text;
+    final body = _body.text;
+    print("handlePost: $subject, $body");
+
+    Post post = Post(widget.uid, widget.gid, widget.bid, body, subject: subject);
+    await boardApi.createPost(post);
+    print("post sent!");
+
+    //VxNavigator.of(context).pop();
+
+    VxNavigator.of(context)
+        .returnAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid]));
   }
 
   @override
