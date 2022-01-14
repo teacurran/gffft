@@ -1,3 +1,8 @@
+import 'package:card_settings/widgets/action_fields/card_settings_button.dart';
+import 'package:card_settings/widgets/card_settings_panel.dart';
+import 'package:card_settings/widgets/information_fields/card_settings_header.dart';
+import 'package:card_settings/widgets/text_fields/card_settings_paragraph.dart';
+import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -5,7 +10,6 @@ import 'package:gffft/boards/board_api.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import 'create_post_screen.dart';
 import 'models/post.dart';
 import 'models/thread.dart';
 
@@ -28,6 +32,9 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
   final PagingController<String?, Thread> _pagingController = PagingController(firstPageKey: null);
 
   var isLoading = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _subject = TextEditingController();
+  final _body = TextEditingController();
 
   @override
   void initState() {
@@ -78,6 +85,8 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
   @override
   void dispose() {
     _pagingController.dispose();
+    _subject.dispose();
+    _body.dispose();
     super.dispose();
   }
 
@@ -86,8 +95,10 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
     AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    Future _handlePost(String subject, String body) async {
+    Future _handlePost() async {
       BoardApi boardApi = getIt<BoardApi>();
+      final subject = _subject.text;
+      final body = _body.text;
       print("handlePost: $subject, $body");
 
       setState(() {
@@ -116,16 +127,49 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
             tooltip: l10n!.boardViewActionTooltip,
             backgroundColor: theme.primaryColor,
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreatePostScreen(
-                      uid: widget.uid,
-                      gid: widget.gid,
-                      bid: widget.bid,
-                      onSaved: _handlePost,
-                    ),
-                  ));
+              showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return Container(
+                      height: 500,
+                      color: Colors.amber,
+                      child: Form(
+                          key: _formKey,
+                          child: CardSettings(showMaterialonIOS: true, children: [
+                            CardSettingsSection(
+                                header: CardSettingsHeader(
+                                  label: l10n!.boardCreatePostTitle,
+                                  color: theme.primaryColor,
+                                ),
+                                children: [
+                                  CardSettingsText(
+                                    label: l10n.boardCreatePostSubject,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty)
+                                        return l10n.validateFieldIsRequired(l10n.editName);
+                                    },
+                                    contentPadding: const EdgeInsets.all(8),
+                                    contentOnNewLine: true,
+                                    maxLength: 128,
+                                    showCounter: true,
+                                    controller: _subject,
+                                  ),
+                                  CardSettingsParagraph(
+                                    label: l10n.boardCreatePostBody,
+                                    contentOnNewLine: true,
+                                    maxLength: 1024,
+                                    controller: _body,
+                                  ),
+                                  CardSettingsButton(
+                                      backgroundColor: theme.backgroundColor,
+                                      label: l10n.boardCreatePostPost,
+                                      showMaterialonIOS: true,
+                                      onPressed: _handlePost),
+                                ]),
+                          ])),
+                    );
+                  });
             }),
         body: CustomScrollView(slivers: <Widget>[
           PagedSliverList<String?, Thread>(
