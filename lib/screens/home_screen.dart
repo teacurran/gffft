@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/gfffts/gffft_list_screen.dart';
 import 'package:gffft/gfffts/gffft_screen.dart';
 import 'package:gffft/users/bookmark_screen.dart';
 import 'package:gffft/users/models/user.dart';
@@ -91,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: theme.backgroundColor,
                                   clipBehavior: Clip.antiAlias,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(15.0),
                                       side: const BorderSide(
                                         color: Color(0xFF9970A9),
                                         width: 1.0,
@@ -102,21 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       },
                                       splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                       highlightColor: Colors.transparent,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                              height: 100,
+                                      child: Padding(
+                                          padding: EdgeInsets.all(20),
+                                          child: SizedBox(
                                               width: double.infinity,
-                                              child: Padding(
-                                                padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                                                child: Text(
-                                                  username,
-                                                  style: theme.textTheme.headline4,
-                                                ),
-                                              )),
-                                        ],
-                                      ))),
+                                              child: Container(
+                                                  child: Text(
+                                                username,
+                                                style: theme.textTheme.headline4,
+                                              )))))),
                               Card(
                                   margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
                                   color: theme.backgroundColor,
