@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/boards/thread_title.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -10,18 +9,20 @@ import 'models/thread.dart';
 
 final getIt = GetIt.instance;
 
-class BoardViewScreen extends StatefulWidget {
-  const BoardViewScreen({Key? key, required this.uid, required this.gid, required this.bid}) : super(key: key);
+class ThreadViewScreen extends StatefulWidget {
+  const ThreadViewScreen({Key? key, required this.uid, required this.gid, required this.bid, required this.tid})
+      : super(key: key);
 
   final String uid;
   final String gid;
   final String bid;
+  final String tid;
 
   @override
-  _BoardViewScreenState createState() => _BoardViewScreenState();
+  _ThreadViewScreenState createState() => _ThreadViewScreenState();
 }
 
-class _BoardViewScreenState extends State<BoardViewScreen> {
+class _ThreadViewScreenState extends State<ThreadViewScreen> {
   UserApi userApi = getIt<UserApi>();
   static const _pageSize = 200;
   final PagingController<String?, Thread> _pagingController = PagingController(firstPageKey: null);
@@ -114,14 +115,60 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                   .then((value) {
                 _pagingController.refresh();
               });
+
+              // showModalBottomSheet<void>(
+              //     context: context,
+              //     builder: (BuildContext context) {
+              //       return Container(
+              //         height: 500,
+              //         color: Colors.amber,
+              //         child: Form(
+              //             key: _formKey,
+              //             child: CardSettings(showMaterialonIOS: true, children: [
+              //               CardSettingsSection(
+              //                   header: CardSettingsHeader(
+              //                     label: l10n.boardCreatePostTitle,
+              //                     color: theme.primaryColor,
+              //                   ),
+              //                   children: [
+              //                     CardSettingsText(
+              //                       label: l10n.boardCreatePostSubject,
+              //                       validator: (value) {
+              //                         if (value == null || value.isEmpty)
+              //                           return l10n.validateFieldIsRequired(l10n.editName);
+              //                       },
+              //                       contentPadding: const EdgeInsets.all(8),
+              //                       contentOnNewLine: true,
+              //                       maxLength: 128,
+              //                       showCounter: true,
+              //                       controller: _subject,
+              //                     ),
+              //                     CardSettingsParagraph(
+              //                       label: l10n.boardCreatePostBody,
+              //                       contentOnNewLine: true,
+              //                       maxLength: 1024,
+              //                       controller: _body,
+              //                     ),
+              //                     CardSettingsButton(
+              //                         backgroundColor: theme.backgroundColor,
+              //                         label: l10n.boardCreatePostPost,
+              //                         showMaterialonIOS: true,
+              //                         onPressed: _handlePost),
+              //                   ]),
+              //             ])),
+              //       );
+              //     });
             }),
         body: CustomScrollView(slivers: <Widget>[
           PagedSliverList<String?, Thread>(
-              pagingController: _pagingController,
-              builderDelegate: PagedChildBuilderDelegate<Thread>(
+            pagingController: _pagingController,
+            builderDelegate: PagedChildBuilderDelegate<Thread>(
                 animateTransitions: true,
-                itemBuilder: (context, item, index) => ThreadTitle(thread: item),
-              ))
+                itemBuilder: (context, item, index) => ListTile(
+                      title: Text("Poster Name"),
+                      subtitle: Text(item.subject),
+                    )),
+          )
         ]));
   }
 }
