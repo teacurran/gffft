@@ -1,16 +1,28 @@
+import 'package:gffft/boards/models/participant.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'thread.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Thread {
   String id;
   String subject;
   DateTime createdAt;
   DateTime updatedAt;
+  Participant firstPost;
+  Participant? latestPost;
+  int postCount;
   String? topReaction;
 
-  Thread({required this.id, required this.subject, required this.createdAt, required this.updatedAt, this.topReaction});
+  Thread(
+      {required this.id,
+      required this.subject,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.firstPost,
+      required this.latestPost,
+      this.postCount = 0,
+      this.topReaction});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

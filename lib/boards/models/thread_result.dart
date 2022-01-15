@@ -1,3 +1,4 @@
+import 'package:gffft/boards/models/participant.dart';
 import 'package:gffft/boards/models/thread.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,8 +10,8 @@ class ThreadResult {
   List<Thread> items;
 
   ThreadResult({
-    this.count = 0,
-    this.items = const <Thread>[],
+    required this.count,
+    required this.items,
   });
 
   // factory User.fromJson(Map<String, dynamic> json) {

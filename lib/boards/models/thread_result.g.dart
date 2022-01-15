@@ -7,11 +7,10 @@ part of 'thread_result.dart';
 // **************************************************************************
 
 ThreadResult _$ThreadResultFromJson(Map<String, dynamic> json) => ThreadResult(
-      count: json['count'] as int? ?? 0,
-      items: (json['items'] as List<dynamic>?)
-              ?.map((e) => Thread.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <Thread>[],
+      count: json['count'] as int,
+      items: (json['items'] as List<dynamic>)
+          .map((e) => Thread.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ThreadResultToJson(ThreadResult instance) =>

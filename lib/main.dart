@@ -379,7 +379,7 @@ class _AppState extends State<App> {
             letterSpacing: letterSpacingOrNone(1.4),
           ),
           subtitle1: TextStyle(color: Colors.lightGreenAccent), // input text
-          headline6: TextStyle(color: Colors.white),
+          headline6: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
         );
   }
 }
