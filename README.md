@@ -1,9 +1,12 @@
 # gffft
 
-```
-flutter pub run build_runner build
+steps to get started:
 
-```
+1. install flutter Sdk: https://docs.flutter.dev/get-started/install/macos
+2. flutter run -d macos
+
+
+## other stuff
 
 ## Json Serialization
 * model classes are annotated with @JsonSerializable and toJson()/fromJson() stubbed out
