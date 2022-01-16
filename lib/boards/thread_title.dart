@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'models/thread.dart';
 
 class ThreadTitle extends StatelessWidget {
-  const ThreadTitle({Key? key, required this.thread}) : super(key: key);
+  const ThreadTitle({Key? key, required this.uid, required this.gid, required this.bid, required this.thread})
+      : super(key: key);
 
+  final String uid;
+  final String gid;
+  final String bid;
   final Thread thread;
 
   @override
@@ -66,35 +71,42 @@ class ThreadTitle extends StatelessWidget {
             ),
           ],
         ),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          child: Column(
-            children: [
-              Row(
+        child: InkWell(
+            onTap: () {
+              VxNavigator.of(context)
+                  .push(Uri(pathSegments: ["users", uid, "gfffts", gid, "boards", bid, "threads", thread.id]));
+            },
+            splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+            highlightColor: Colors.transparent,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: Column(
                 children: [
-                  Text(
-                    thread.firstPost.handle,
-                    style: theme.textTheme.bodyText1,
+                  Row(
+                    children: [
+                      Text(
+                        thread.firstPost.handle,
+                        style: theme.textTheme.bodyText1,
+                      ),
+                      Expanded(
+                          child: Text(
+                        thread.postCount.toString(),
+                        style: theme.textTheme.bodyText1,
+                        textAlign: TextAlign.right,
+                      ))
+                    ],
                   ),
-                  Expanded(
-                      child: Text(
-                    thread.postCount.toString(),
-                    style: theme.textTheme.bodyText1,
-                    textAlign: TextAlign.right,
-                  ))
+                  Row(children: [
+                    Expanded(
+                        child: Text(
+                      thread.subject,
+                      style: theme.textTheme.headline6,
+                      softWrap: true,
+                      textAlign: TextAlign.left,
+                    ))
+                  ])
                 ],
               ),
-              Row(children: [
-                Expanded(
-                    child: Text(
-                  thread.subject,
-                  style: theme.textTheme.headline6,
-                  softWrap: true,
-                  textAlign: TextAlign.left,
-                ))
-              ])
-            ],
-          ),
-        ));
+            )));
   }
 }

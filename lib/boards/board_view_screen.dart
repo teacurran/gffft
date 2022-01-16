@@ -145,7 +145,9 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                         pagingController: _pagingController,
                         builderDelegate: PagedChildBuilderDelegate<Thread>(
                           animateTransitions: true,
-                          itemBuilder: (context, item, index) => ThreadTitle(thread: item),
+                          itemBuilder: (context, item, index) {
+                            return ThreadTitle(uid: widget.uid, gid: widget.gid, bid: widget.bid, thread: item);
+                          },
                         ))
                   ])));
         });

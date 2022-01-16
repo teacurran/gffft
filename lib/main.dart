@@ -12,6 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/board_view_screen.dart';
+import 'package:gffft/boards/thread_view_screen.dart';
 import 'package:gffft/screens/home_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
@@ -24,6 +25,7 @@ import 'package:window_location_href/window_location_href.dart';
 
 import 'boards/board_api.dart';
 import 'boards/create_post_screen.dart';
+import 'boards/create_reply_screen.dart';
 import 'firebase_options.dart';
 import 'gfffts/gffft_api.dart';
 import 'gfffts/gffft_home_screen.dart';
@@ -133,6 +135,22 @@ class _AppState extends State<App> {
               gid: uri.pathSegments[3],
               bid: uri.pathSegments[5],
             )),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+/threads/[a-zA-Z0-9]+$"):
+            (uri, param) => MaterialPage(
+                    child: ThreadViewScreen(
+                  uid: uri.pathSegments[1],
+                  gid: uri.pathSegments[3],
+                  bid: uri.pathSegments[5],
+                  tid: uri.pathSegments[6],
+                )),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+/threads/[a-zA-Z0-9]+/reply$"):
+            (uri, param) => MaterialPage(
+                    child: CreateReplyScreen(
+                  uid: uri.pathSegments[1],
+                  gid: uri.pathSegments[3],
+                  bid: uri.pathSegments[5],
+                  tid: uri.pathSegments[6],
+                )),
         GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
         LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),
         MeScreen.webPath: (uri, params) => MaterialPage(child: MeScreen()),

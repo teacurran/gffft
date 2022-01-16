@@ -57,8 +57,7 @@ class ApiResponse<T> {
 enum Status { loadingStatus, completedStatus, errorStatus }
 
 class ApiBase {
-  final String _baseUrl =
-      dotenv.get("API_BASE_URL", fallback: "https://us-central1-gffft-auth.cloudfunctions.net/api/");
+  final String _baseUrl = dotenv.get("API_BASE_URL", fallback: "https://gffft-auth.appspot.com/api/");
 
   Future<dynamic> get(String urlPath, {bool requireAuth = false}) async {
     return callApi(urlPath);
