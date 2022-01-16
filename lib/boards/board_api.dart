@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:gffft/boards/models/board.dart';
 
 import '../api_base.dart';
-import 'models/post.dart';
+import 'models/post_submit.dart';
 
 class BoardApi extends ApiBase {
   save(Board board) {}
@@ -13,7 +13,7 @@ class BoardApi extends ApiBase {
     return Board.fromJson(response);
   }
 
-  Future<void> createPost(Post p) async {
+  Future<void> createPost(PostSubmit p) async {
     print("creating post: " + jsonEncode(p));
     return post("boards/createPost", jsonEncode(p));
   }

@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'post.dart';
+part of 'post_submit.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Post _$PostFromJson(Map<String, dynamic> json) => Post(
+PostSubmit _$PostSubmitFromJson(Map<String, dynamic> json) => PostSubmit(
       json['uid'] as String,
       json['gid'] as String,
       json['bid'] as String,
@@ -15,7 +15,8 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       subject: json['subject'] as String?,
     );
 
-Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
+Map<String, dynamic> _$PostSubmitToJson(PostSubmit instance) =>
+    <String, dynamic>{
       'uid': instance.uid,
       'gid': instance.gid,
       'bid': instance.bid,

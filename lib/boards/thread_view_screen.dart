@@ -115,49 +115,6 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
                   .then((value) {
                 _pagingController.refresh();
               });
-
-              // showModalBottomSheet<void>(
-              //     context: context,
-              //     builder: (BuildContext context) {
-              //       return Container(
-              //         height: 500,
-              //         color: Colors.amber,
-              //         child: Form(
-              //             key: _formKey,
-              //             child: CardSettings(showMaterialonIOS: true, children: [
-              //               CardSettingsSection(
-              //                   header: CardSettingsHeader(
-              //                     label: l10n.boardCreatePostTitle,
-              //                     color: theme.primaryColor,
-              //                   ),
-              //                   children: [
-              //                     CardSettingsText(
-              //                       label: l10n.boardCreatePostSubject,
-              //                       validator: (value) {
-              //                         if (value == null || value.isEmpty)
-              //                           return l10n.validateFieldIsRequired(l10n.editName);
-              //                       },
-              //                       contentPadding: const EdgeInsets.all(8),
-              //                       contentOnNewLine: true,
-              //                       maxLength: 128,
-              //                       showCounter: true,
-              //                       controller: _subject,
-              //                     ),
-              //                     CardSettingsParagraph(
-              //                       label: l10n.boardCreatePostBody,
-              //                       contentOnNewLine: true,
-              //                       maxLength: 1024,
-              //                       controller: _body,
-              //                     ),
-              //                     CardSettingsButton(
-              //                         backgroundColor: theme.backgroundColor,
-              //                         label: l10n.boardCreatePostPost,
-              //                         showMaterialonIOS: true,
-              //                         onPressed: _handlePost),
-              //                   ]),
-              //             ])),
-              //       );
-              //     });
             }),
         body: CustomScrollView(slivers: <Widget>[
           PagedSliverList<String?, Thread>(

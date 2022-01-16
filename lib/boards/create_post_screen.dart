@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'board_api.dart';
-import 'models/post.dart';
+import 'models/post_submit.dart';
 
 final getIt = GetIt.instance;
 
@@ -36,7 +36,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     final body = _body.text;
     print("handlePost: $subject, $body");
 
-    Post post = Post(widget.uid, widget.gid, widget.bid, body, subject: subject);
+    PostSubmit post = PostSubmit(widget.uid, widget.gid, widget.bid, body, subject: subject);
     await boardApi.createPost(post);
     print("post sent!");
 
