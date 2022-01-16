@@ -6,6 +6,7 @@
   "boardCreatePostSubject": "subject",
   "boardCreatePostPost": "post!",
   "bookmarks": "bookmarks",
+  "changeUsername": "Change Username",
   "connect": "connect",
   "@connect": {},
   "editActions": "Actions",

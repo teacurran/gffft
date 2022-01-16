@@ -42,8 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
     var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    final textStyle = theme.textTheme.bodyText1 ?? const TextStyle();
-
     return StreamBuilder<fbAuth.User?>(
       stream: fbAuth.FirebaseAuth.instance.userChanges(),
       builder: (context, snapshot) => FutureBuilder(

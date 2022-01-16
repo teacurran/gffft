@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "boardViewActionTooltip":
             MessageLookupByLibrary.simpleMessage("add a post"),
         "bookmarks": MessageLookupByLibrary.simpleMessage("bookmarks"),
+        "changeUsername":
+            MessageLookupByLibrary.simpleMessage("Change Username"),
         "connect": MessageLookupByLibrary.simpleMessage("connect"),
         "editActions": MessageLookupByLibrary.simpleMessage("Actions"),
         "editAllowMembers":

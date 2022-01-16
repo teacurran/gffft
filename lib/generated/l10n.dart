@@ -110,6 +110,16 @@ class S {
     );
   }
 
+  /// `Change Username`
+  String get changeUsername {
+    return Intl.message(
+      'Change Username',
+      name: 'changeUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `connect`
   String get connect {
     return Intl.message(

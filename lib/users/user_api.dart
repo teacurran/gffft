@@ -18,6 +18,12 @@ class UserApi extends ApiBase {
     return User.fromJson(response);
   }
 
+  Future<User> changeUsername() async {
+    final response = await postAuthenticated("users/me/change-username");
+
+    return User.fromJson(response);
+  }
+
   Future<Gffft> getGffft(String uid, String gid) async {
     final response = await getAuthenticated("users/${uid}/gfffts/${gid}");
     return Gffft.fromJson(response);
