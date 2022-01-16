@@ -26,11 +26,6 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
   UserApi userApi = getIt<UserApi>();
   static const _pageSize = 200;
   final PagingController<String?, Thread> _pagingController = PagingController(firstPageKey: null);
-
-  var isLoading = false;
-
-  final _subject = TextEditingController();
-  final _body = TextEditingController();
   Future<Gffft>? gffft;
 
   @override
@@ -90,8 +85,6 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
   @override
   void dispose() {
     _pagingController.dispose();
-    _subject.dispose();
-    _body.dispose();
 
     super.dispose();
   }

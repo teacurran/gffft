@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:velocity_x/velocity_x.dart';
 
-import 'models/thread.dart';
+import 'models/post.dart';
 
 class PostListItem extends StatelessWidget {
-  const PostListItem({Key? key, required this.uid, required this.gid, required this.bid, required this.thread})
+  const PostListItem(
+      {Key? key, required this.uid, required this.gid, required this.bid, required this.tid, required this.post})
       : super(key: key);
 
   final String uid;
   final String gid;
   final String bid;
-  final Thread thread;
+  final String tid;
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
@@ -71,42 +72,35 @@ class PostListItem extends StatelessWidget {
             ),
           ],
         ),
-        child: InkWell(
-            onTap: () {
-              VxNavigator.of(context)
-                  .push(Uri(pathSegments: ["users", uid, "gfffts", gid, "boards", bid, "threads", thread.id]));
-            },
-            splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-            highlightColor: Colors.transparent,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Column(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        thread.firstPost.handle,
-                        style: theme.textTheme.bodyText1,
-                      ),
-                      Expanded(
-                          child: Text(
-                        thread.postCount.toString(),
-                        style: theme.textTheme.bodyText1,
-                        textAlign: TextAlign.right,
-                      ))
-                    ],
+                  Text(
+                    post.author.handle,
+                    style: theme.textTheme.bodyText1,
                   ),
-                  Row(children: [
-                    Expanded(
-                        child: Text(
-                      thread.subject,
-                      style: theme.textTheme.headline6,
-                      softWrap: true,
-                      textAlign: TextAlign.left,
-                    ))
-                  ])
+                  Expanded(
+                      child: Text(
+                    post.createdAt.toString(),
+                    style: theme.textTheme.bodyText1,
+                    textAlign: TextAlign.right,
+                  ))
                 ],
               ),
-            )));
+              Row(children: [
+                Expanded(
+                    child: Text(
+                  post.body,
+                  style: theme.textTheme.headline6,
+                  softWrap: true,
+                  textAlign: TextAlign.left,
+                ))
+              ])
+            ],
+          ),
+        ));
   }
 }

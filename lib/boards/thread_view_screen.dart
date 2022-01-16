@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/boards/post_list_item.dart';
+import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'models/thread.dart';
+import 'models/post.dart';
 
 final getIt = GetIt.instance;
 
@@ -25,12 +27,8 @@ class ThreadViewScreen extends StatefulWidget {
 class _ThreadViewScreenState extends State<ThreadViewScreen> {
   UserApi userApi = getIt<UserApi>();
   static const _pageSize = 200;
-  final PagingController<String?, Thread> _pagingController = PagingController(firstPageKey: null);
-
-  var isLoading = false;
-
-  final _subject = TextEditingController();
-  final _body = TextEditingController();
+  final PagingController<String?, Post> _pagingController = PagingController(firstPageKey: null);
+  Future<Gffft>? gffft;
 
   @override
   void initState() {
@@ -54,15 +52,24 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
       }
     });
 
+    _loadGffft();
+
     super.initState();
+  }
+
+  Future<void> _loadGffft() async {
+    setState(() {
+      gffft = userApi.getGffft(widget.uid, widget.gid);
+    });
   }
 
   Future<void> _fetchPage(pageKey) async {
     try {
-      final newItems = await userApi.getBoardThreads(
+      final newItems = await userApi.getThread(
         widget.uid,
         widget.gid,
         widget.bid,
+        widget.tid,
         pageKey,
         _pageSize,
       );
@@ -81,8 +88,6 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
   @override
   void dispose() {
     _pagingController.dispose();
-    _subject.dispose();
-    _body.dispose();
 
     super.dispose();
   }
@@ -92,40 +97,57 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
     AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.gid,
-            style: theme.textTheme.headline1,
-          ),
-          backgroundColor: theme.backgroundColor,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
-            onPressed: () => VxNavigator.of(context).pop(),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add, color: theme.focusColor),
-            tooltip: l10n!.boardViewActionTooltip,
-            backgroundColor: theme.primaryColor,
-            onPressed: () {
-              VxNavigator.of(context)
-                  .waitAndPush(
-                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid, "post"]))
-                  .then((value) {
-                _pagingController.refresh();
-              });
-            }),
-        body: CustomScrollView(slivers: <Widget>[
-          PagedSliverList<String?, Thread>(
-            pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate<Thread>(
-                animateTransitions: true,
-                itemBuilder: (context, item, index) => ListTile(
-                      title: Text("Poster Name"),
-                      subtitle: Text(item.subject),
-                    )),
-          )
-        ]));
+    return FutureBuilder(
+        future: gffft,
+        builder: (context, AsyncSnapshot<Gffft?> snapshot) {
+          var title = "connecting";
+          if (snapshot.hasError) {
+            title = "error";
+          }
+
+          var gffft = snapshot.data;
+          if (gffft != null) {
+            title = gffft.name ?? "";
+          }
+
+          return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  title,
+                  style: theme.textTheme.headline1,
+                ),
+                backgroundColor: theme.backgroundColor,
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
+                  onPressed: () => VxNavigator.of(context).pop(),
+                ),
+              ),
+              floatingActionButton: FloatingActionButton(
+                  child: Icon(Icons.add, color: theme.focusColor),
+                  tooltip: l10n!.boardViewActionTooltip,
+                  backgroundColor: theme.primaryColor,
+                  onPressed: () {
+                    VxNavigator.of(context)
+                        .waitAndPush(Uri(
+                            pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid, "post"]))
+                        .then((value) {
+                      _pagingController.refresh();
+                    });
+                  }),
+              body: CustomScrollView(slivers: <Widget>[
+                PagedSliverList<String?, Post>(
+                  pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<Post>(
+                      animateTransitions: true,
+                      itemBuilder: (context, item, index) => PostListItem(
+                            uid: widget.uid,
+                            gid: widget.gid,
+                            bid: widget.bid,
+                            tid: widget.tid,
+                            post: item,
+                          )),
+                )
+              ]));
+        });
   }
 }

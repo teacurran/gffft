@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gffft/boards/models/thread_post_result.dart';
 import 'package:gffft/boards/models/thread_result.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/gfffts/models/gffft_membership_post.dart';
@@ -25,6 +26,12 @@ class UserApi extends ApiBase {
   Future<ThreadResult> getBoardThreads(String uid, String gid, String bid, String? offset, int? pageSize) async {
     final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}/threads");
     return ThreadResult.fromJson(response);
+  }
+
+  Future<ThreadPostResult> getThread(
+      String uid, String gid, String bid, String tid, String? offset, int? pageSize) async {
+    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}/threads/${tid}");
+    return ThreadPostResult.fromJson(response);
   }
 
   Future<BookmarkResult> getBookmarks(String? offset, int? max, String? searchTerm) async {

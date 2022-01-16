@@ -141,7 +141,7 @@ class _AppState extends State<App> {
                   uid: uri.pathSegments[1],
                   gid: uri.pathSegments[3],
                   bid: uri.pathSegments[5],
-                  tid: uri.pathSegments[6],
+                  tid: uri.pathSegments[7],
                 )),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+/threads/[a-zA-Z0-9]+/reply$"):
             (uri, param) => MaterialPage(
@@ -149,7 +149,7 @@ class _AppState extends State<App> {
                   uid: uri.pathSegments[1],
                   gid: uri.pathSegments[3],
                   bid: uri.pathSegments[5],
-                  tid: uri.pathSegments[6],
+                  tid: uri.pathSegments[7],
                 )),
         GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
         LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),
