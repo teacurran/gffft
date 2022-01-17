@@ -80,6 +80,16 @@ class S {
     );
   }
 
+  /// `reply`
+  String get boardReplyToThread {
+    return Intl.message(
+      'reply',
+      name: 'boardReplyToThread',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `subject`
   String get boardCreatePostSubject {
     return Intl.message(

@@ -2,7 +2,6 @@ import 'package:card_settings/widgets/action_fields/card_settings_button.dart';
 import 'package:card_settings/widgets/card_settings_panel.dart';
 import 'package:card_settings/widgets/information_fields/card_settings_header.dart';
 import 'package:card_settings/widgets/text_fields/card_settings_paragraph.dart';
-import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -27,20 +26,16 @@ class CreateReplyScreen extends StatefulWidget {
 }
 
 class _CreateReplyScreenState extends State<CreateReplyScreen> {
-  final _subject = TextEditingController();
   final _body = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future savePressed() async {
     BoardApi boardApi = getIt<BoardApi>();
-    final subject = _subject.text;
     final body = _body.text;
-    print("handlePost: $subject, $body");
 
-    PostSubmit post = PostSubmit(widget.uid, widget.gid, widget.bid, body, subject: subject);
+    PostSubmit post = PostSubmit(widget.uid, widget.gid, widget.bid, body, tid: widget.tid);
     await boardApi.createPost(post);
-    print("post sent!");
 
     //VxNavigator.of(context).pop();
 
@@ -69,21 +64,10 @@ class _CreateReplyScreenState extends State<CreateReplyScreen> {
             child: CardSettings(showMaterialonIOS: true, children: [
               CardSettingsSection(
                   header: CardSettingsHeader(
-                    label: l10n!.boardCreatePostTitle,
+                    label: l10n!.boardReplyToThread,
                     color: theme.primaryColor,
                   ),
                   children: [
-                    CardSettingsText(
-                      label: l10n.boardCreatePostSubject,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) return l10n.validateFieldIsRequired(l10n.editName);
-                      },
-                      contentPadding: const EdgeInsets.all(8),
-                      contentOnNewLine: true,
-                      maxLength: 128,
-                      showCounter: true,
-                      controller: _subject,
-                    ),
                     CardSettingsParagraph(
                       label: l10n.boardCreatePostBody,
                       contentOnNewLine: true,
@@ -101,7 +85,6 @@ class _CreateReplyScreenState extends State<CreateReplyScreen> {
 
   @override
   void dispose() {
-    _subject.dispose();
     _body.dispose();
     super.dispose();
   }

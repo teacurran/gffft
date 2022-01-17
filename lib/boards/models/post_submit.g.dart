@@ -11,7 +11,7 @@ PostSubmit _$PostSubmitFromJson(Map<String, dynamic> json) => PostSubmit(
       json['gid'] as String,
       json['bid'] as String,
       json['body'] as String,
-      pid: json['pid'] as String?,
+      tid: json['tid'] as String?,
       subject: json['subject'] as String?,
     );
 
@@ -21,6 +21,6 @@ Map<String, dynamic> _$PostSubmitToJson(PostSubmit instance) =>
       'gid': instance.gid,
       'bid': instance.bid,
       'body': instance.body,
-      'pid': instance.pid,
+      'tid': instance.tid,
       'subject': instance.subject,
     };
