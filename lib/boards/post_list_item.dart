@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:gffft/common/dates.dart';
 
 import 'models/post.dart';
 
@@ -84,7 +85,7 @@ class PostListItem extends StatelessWidget {
                   ),
                   Expanded(
                       child: Text(
-                    post.createdAt.toString(),
+                    formatDateTime(post.createdAt),
                     style: theme.textTheme.bodyText1,
                     textAlign: TextAlign.right,
                   ))
