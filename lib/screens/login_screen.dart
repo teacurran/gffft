@@ -27,21 +27,26 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SignInScreen(headerBuilder: getHeaderBuilder, sideBuilder: getSidebarBuilder, providerConfigs: const [
-      EmailProviderConfiguration(),
-      PhoneProviderConfiguration(),
-      /*
+    return SignInScreen(
+        headerBuilder: getHeaderBuilder,
+        headerMaxExtent: 150,
+        sideBuilder: getSidebarBuilder,
+        providerConfigs: const [
+          EmailProviderConfiguration(),
+          PhoneProviderConfiguration(),
+          /*
       GoogleProviderConfiguration(
         clientId: '248661822187-jvr2o1rcpqum58u5rcbqgrha1b5segl3.apps.googleusercontent.com',
       ),
        */
-    ], actions: [
-      AuthStateChangeAction<SignedIn>((context, _) {
-        VxNavigator.of(context).push(Uri(path: HomeScreen.webPath));
-      }),
-      SignedOutAction((context) {
-        VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
-      })
-    ]);
+        ],
+        actions: [
+          AuthStateChangeAction<SignedIn>((context, _) {
+            VxNavigator.of(context).push(Uri(path: HomeScreen.webPath));
+          }),
+          SignedOutAction((context) {
+            VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
+          })
+        ]);
   }
 }

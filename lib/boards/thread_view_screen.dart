@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/boards/models/thread_post_result.dart';
 import 'package:gffft/boards/post_list_item.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/users/user_api.dart';
@@ -29,6 +30,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
   static const _pageSize = 200;
   final PagingController<String?, Post> _pagingController = PagingController(firstPageKey: null);
   Future<Gffft>? gffft;
+  ThreadPostResult? thread;
 
   @override
   void initState() {
@@ -65,7 +67,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
 
   Future<void> _fetchPage(pageKey) async {
     try {
-      final newItems = await userApi.getThread(
+      final thread = await userApi.getThread(
         widget.uid,
         widget.gid,
         widget.bid,
@@ -74,11 +76,16 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
         _pageSize,
       );
 
-      final isLastPage = newItems.count < _pageSize;
+      setState(() {
+        this.thread = thread;
+      });
+
+      print("got threads!${thread.posts.length}");
+      final isLastPage = thread.posts.length < _pageSize;
       if (isLastPage) {
-        _pagingController.appendLastPage(newItems.items);
+        _pagingController.appendLastPage(thread.posts);
       } else {
-        _pagingController.appendPage(newItems.items, newItems.items.last.id);
+        _pagingController.appendPage(thread.posts, thread.posts.last.id);
       }
     } catch (error) {
       _pagingController.error = error;
@@ -110,6 +117,13 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
             title = gffft.name ?? "";
           }
 
+          var threadTitle = "";
+          if (thread != null) {
+            threadTitle = thread!.subject;
+          }
+
+          // thread?.subject != null ? Text(thread!.subject) : Container()
+
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -135,6 +149,14 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
                     });
                   }),
               body: CustomScrollView(slivers: <Widget>[
+                SliverToBoxAdapter(
+                    child: Padding(
+                  padding: EdgeInsets.fromLTRB(16, 5, 16, 0),
+                  child: Text(
+                    threadTitle,
+                    style: theme.textTheme.headline6?.copyWith(fontSize: 30),
+                  ),
+                )),
                 PagedSliverList<String?, Post>(
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Post>(

@@ -73,7 +73,7 @@ class PostListItem extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
           child: Column(
             children: [
               Row(
