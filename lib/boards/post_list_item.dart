@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gffft/common/dates.dart';
 
 import 'models/post.dart';
@@ -17,16 +19,44 @@ class PostListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+
     return Card(
         child: Padding(
             padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
             child: Column(children: [
               Row(
                 children: [
-                  Text(
-                    post.author.handle,
-                    style: theme.textTheme.bodyText1,
+                  Slidable(
+                    startActionPane: ActionPane(
+                      motion: ScrollMotion(),
+                      children: [
+                        Text(l10n!.boardThreadAuthorVisit),
+                      ],
+                    ),
+                    child: Text(
+                      post.author.handle,
+                      style: theme.textTheme.bodyText1,
+                    ),
+                    endActionPane: ActionPane(
+                      motion: ScrollMotion(),
+                      children: [
+                        Expanded(
+                            child: Container(
+                                color: Colors.white,
+                                child: Padding(
+                                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                    child: Text(
+                                      l10n.boardThreadAuthorReport,
+                                      style: theme.textTheme.bodyText1?.copyWith(
+                                          color: theme.errorColor,
+                                          fontWeight: FontWeight.bold,
+                                          backgroundColor: Colors.white),
+                                      textAlign: TextAlign.right,
+                                    )))),
+                      ],
+                    ),
                   ),
                   Expanded(
                       child: Text(

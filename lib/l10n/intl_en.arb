@@ -5,6 +5,8 @@
   "boardCreatePostBody": "body",
   "boardReplyToThread": "reply",
   "boardCreatePostSubject": "subject",
+  "boardThreadAuthorVisit": "profile",
+  "boardThreadAuthorReport": "report",
   "boardCreatePostPost": "post!",
   "bookmarks": "bookmarks",
   "changeUsername": "Change Username",

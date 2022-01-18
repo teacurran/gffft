@@ -100,6 +100,26 @@ class S {
     );
   }
 
+  /// `profile`
+  String get boardThreadAuthorVisit {
+    return Intl.message(
+      'profile',
+      name: 'boardThreadAuthorVisit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `report`
+  String get boardThreadAuthorReport {
+    return Intl.message(
+      'report',
+      name: 'boardThreadAuthorReport',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `post!`
   String get boardCreatePostPost {
     return Intl.message(

@@ -33,6 +33,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "boardCreatePostTitle":
             MessageLookupByLibrary.simpleMessage("create a post"),
         "boardReplyToThread": MessageLookupByLibrary.simpleMessage("reply"),
+        "boardThreadAuthorReport":
+            MessageLookupByLibrary.simpleMessage("report"),
+        "boardThreadAuthorVisit":
+            MessageLookupByLibrary.simpleMessage("profile"),
         "boardViewActionTooltip":
             MessageLookupByLibrary.simpleMessage("add a post"),
         "bookmarks": MessageLookupByLibrary.simpleMessage("bookmarks"),
