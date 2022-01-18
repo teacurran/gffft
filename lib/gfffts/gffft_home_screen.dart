@@ -151,49 +151,51 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           }
         }
 
-        actions.add(Card(
-            margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-            clipBehavior: Clip.antiAlias,
-            color: theme.backgroundColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: const BorderSide(
-                  color: Color(0xFF9970A9),
-                  width: 1.0,
-                )),
-            child: InkWell(
-                onTap: () {
-                  VxNavigator.of(context)
-                      .push(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!]));
-                },
-                splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                highlightColor: Colors.transparent,
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: Row(children: [
-                          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                            IconButton(
-                              icon: const FaIcon(FontAwesomeIcons.commentAlt),
-                              color: const Color(0xFF9970A9),
-                              onPressed: () {},
-                            ),
-                            Text(
-                              l10n.gffftHomeBoard,
-                              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
-                            )
-                          ]),
-                          VerticalDivider(),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Row(children: [SelectableText("threads:"), SelectableText(board.threads.toString())]),
-                                Row(children: [SelectableText("posts:"), SelectableText(board.posts.toString())]),
-                              ])
-                        ]))))));
+        if (board != null) {
+          actions.add(Card(
+              margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+              clipBehavior: Clip.antiAlias,
+              color: theme.backgroundColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: const BorderSide(
+                    color: Color(0xFF9970A9),
+                    width: 1.0,
+                  )),
+              child: InkWell(
+                  onTap: () {
+                    VxNavigator.of(context)
+                        .push(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!]));
+                  },
+                  splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+                  highlightColor: Colors.transparent,
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
+                      child: SizedBox(
+                          width: double.infinity,
+                          child: Row(children: [
+                            Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                              IconButton(
+                                icon: const FaIcon(FontAwesomeIcons.commentAlt),
+                                color: const Color(0xFF9970A9),
+                                onPressed: () {},
+                              ),
+                              Text(
+                                l10n.gffftHomeBoard,
+                                style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
+                              )
+                            ]),
+                            VerticalDivider(),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Row(children: [SelectableText("threads:"), SelectableText(board.threads.toString())]),
+                                  Row(children: [SelectableText("posts:"), SelectableText(board.posts.toString())]),
+                                ])
+                          ]))))));
+        }
       } else if (featureRef.type == "calendar") {
         actions.add(Card(
             margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
