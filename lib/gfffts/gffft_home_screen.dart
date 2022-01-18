@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/boards/models/board.dart';
 import 'package:gffft/common/dates.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -137,12 +138,15 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
 
     gffft.features?.forEach((featureRef) {
       if (featureRef.type == "board" && featureRef.id != null) {
-        var board;
-
+        int threadCount;
+        int postCount;
+        Board? board;
         if (gffft.boards != null) {
           for (var b in gffft.boards!) {
             if (b.id == featureRef.id) {
               board = b;
+              threadCount = b.threads;
+              postCount = b.posts;
             }
           }
         }
@@ -186,8 +190,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Row(children: [SelectableText("threads:"), SelectableText(board.threads)]),
-                                Row(children: [SelectableText("posts:"), SelectableText(board.posts)]),
+                                Row(children: [SelectableText("threads:"), SelectableText(board.threads.toString())]),
+                                Row(children: [SelectableText("posts:"), SelectableText(board.posts.toString())]),
                               ])
                         ]))))));
       } else if (featureRef.type == "calendar") {
