@@ -7,8 +7,10 @@ class Board {
   String? id;
   String? name;
   String? description;
+  int threads;
+  int posts;
 
-  Board({this.id, this.name, this.description});
+  Board({required this.id, required this.name, this.description, required this.threads, required this.posts});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

@@ -137,6 +137,16 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
 
     gffft.features?.forEach((featureRef) {
       if (featureRef.type == "board" && featureRef.id != null) {
+        var board;
+
+        if (gffft.boards != null) {
+          for (var b in gffft.boards!) {
+            if (b.id == featureRef.id) {
+              board = b;
+            }
+          }
+        }
+
         actions.add(Card(
             margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
             clipBehavior: Clip.antiAlias,
@@ -176,8 +186,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Row(children: [SelectableText("threads:"), SelectableText("4923")]),
-                                Row(children: [SelectableText("posts:"), SelectableText("983917")]),
+                                Row(children: [SelectableText("threads:"), SelectableText(board.threads)]),
+                                Row(children: [SelectableText("posts:"), SelectableText(board.posts)]),
                               ])
                         ]))))));
       } else if (featureRef.type == "calendar") {
