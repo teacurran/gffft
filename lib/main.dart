@@ -373,11 +373,11 @@ class _AppState extends State<App> {
         )
         .copyWith(
           bodyText1: GoogleFonts.sourceSansPro(
-            fontSize: 14,
-            height: 1.4,
-            fontWeight: FontWeight.normal,
-            letterSpacing: letterSpacingOrNone(0.5),
-          ),
+              fontSize: 14,
+              height: 1.4,
+              fontWeight: FontWeight.normal,
+              letterSpacing: letterSpacingOrNone(0.5),
+              color: Colors.white),
           bodyText2: GoogleFonts.sourceSansPro(
             fontSize: 12,
             fontWeight: FontWeight.w400,
