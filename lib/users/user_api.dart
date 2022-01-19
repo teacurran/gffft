@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:gffft/boards/models/thread_post_result.dart';
 import 'package:gffft/boards/models/thread_result.dart';
+import 'package:gffft/galleries/models/gallery.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/gfffts/models/gffft_membership_post.dart';
 import 'package:gffft/users/models/user.dart';
@@ -55,5 +56,10 @@ class UserApi extends ApiBase {
     var membershipPost = GffftMembershipPost(uid: uid, gid: gid);
     print("removing bookmark: " + jsonEncode(membershipPost));
     return delete("users/me/bookmarks", jsonEncode(membershipPost));
+  }
+
+  Future<Gallery> getGallery(String uid, String gid, String mid, String? offset, int? pageSize) async {
+    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/galleries/${mid}");
+    return Gallery.fromJson(response);
   }
 }

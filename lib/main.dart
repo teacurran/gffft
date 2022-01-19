@@ -27,6 +27,7 @@ import 'boards/board_api.dart';
 import 'boards/create_post_screen.dart';
 import 'boards/create_reply_screen.dart';
 import 'firebase_options.dart';
+import 'galleries/gallery_view_screen.dart';
 import 'gfffts/gffft_api.dart';
 import 'gfffts/gffft_home_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
@@ -151,6 +152,19 @@ class _AppState extends State<App> {
                   bid: uri.pathSegments[5],
                   tid: uri.pathSegments[7],
                 )),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/galleries/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
+                child: GalleryViewScreen(
+              uid: uri.pathSegments[1],
+              gid: uri.pathSegments[3],
+              mid: uri.pathSegments[5],
+            )),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/galleries/[a-zA-Z0-9]+/post$"): (uri, param) =>
+            MaterialPage(
+                child: GalleryViewScreen(
+              uid: uri.pathSegments[1],
+              gid: uri.pathSegments[3],
+              mid: uri.pathSegments[5],
+            )),
         GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
         LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),
         MeScreen.webPath: (uri, params) => MaterialPage(child: MeScreen()),

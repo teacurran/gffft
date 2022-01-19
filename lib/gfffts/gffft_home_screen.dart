@@ -250,8 +250,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                 )),
             child: InkWell(
                 onTap: () {
-                  VxNavigator.of(context)
-                      .push(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!]));
+                  VxNavigator.of(context).push(
+                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", featureRef.id!]));
                 },
                 splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                 highlightColor: Colors.transparent,
