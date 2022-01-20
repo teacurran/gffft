@@ -15,8 +15,8 @@ class GffftApi extends ApiBase {
   }
 
   Future<void> savePartial(GffftPatchSave gffft) async {
-    print("sending patch for gffft: ${jsonEncode(gffft)}");
-    return put("gfffts", jsonEncode(gffft));
+    print("sending patch for gffft: ${gffft.toJson()}");
+    return patch("gfffts", jsonEncode(gffft.toJson()));
   }
 
   Future<GffftResult> getGfffts(String? offset, int? max, String? q) async {

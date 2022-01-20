@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'gffft_patch_save.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
 class GffftPatchSave {
   String uid;
   String gid;

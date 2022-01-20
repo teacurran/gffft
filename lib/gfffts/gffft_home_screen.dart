@@ -38,10 +38,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    _loadGffft();
   }
 
-  Future<void> _loadData() async {
+  Future<void> _loadGffft() async {
     return setState(() {
       gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
         _titleController = TextEditingController(text: gffft.name);
@@ -88,7 +88,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         memberActions.add(TextButton(
           style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
           onPressed: () async {
-            await gffftApi.joinGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+            await gffftApi.joinGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
           },
           child: Text(l10n.gffftHomeJoin),
         ));
@@ -96,7 +96,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         memberActions.add(TextButton(
           style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
           onPressed: () async {
-            await gffftApi.quitGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+            await gffftApi.quitGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
           },
           child: Text(l10n.gffftHomeQuit),
         ));
@@ -107,7 +107,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       memberActions.add(TextButton(
         style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
         onPressed: () async {
-          await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+          await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
         },
         child: Text(l10n.gffftHomeBookmark),
       ));
@@ -115,7 +115,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       memberActions.add(TextButton(
         style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
         onPressed: () async {
-          await userApi.unBookmarkGffft(widget.uid, widget.gid).then((value) => {_loadData()});
+          await userApi.unBookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
         },
         child: Text(l10n.gffftHomeUnBookmark),
       ));
@@ -369,7 +369,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         style: theme.textTheme.headline1,
         controller: _titleController,
         textInputAction: TextInputAction.go,
-        onChanged: (value) {
+        onSubmitted: (value) {
           GffftPatchSave gffft = GffftPatchSave(
             uid: widget.uid,
             gid: widget.gid,
@@ -380,6 +380,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
               .savePartial(gffft)
               .then((value) => {
                     setState(() {
+                      _loadGffft();
                       _toggleEditingTitle();
                     })
                   })
@@ -461,7 +462,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                 centerTitle: true,
               ),
               body: RefreshIndicator(
-                  onRefresh: _loadData,
+                  onRefresh: _loadGffft,
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                     child: screenBody,
