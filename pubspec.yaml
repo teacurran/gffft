@@ -142,9 +142,7 @@ flutter:
     - assets/antenna-farm.jpg
     - assets/gffft-icon.png
     - assets/hayes.jpg
-    - assets/logo.png
     - assets/logo.svg
-    - assets/piggy-bank.png
     - assets/fonts/DoubleFeature20.ttf
     - .env
 

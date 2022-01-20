@@ -79,8 +79,9 @@ class ThreadTitle extends StatelessWidget {
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: Card(
+                child: Padding(
+              padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
               child: Column(
                 children: [
                   Row(
@@ -114,6 +115,6 @@ class ThreadTitle extends StatelessWidget {
                   ])
                 ],
               ),
-            )));
+            ))));
   }
 }

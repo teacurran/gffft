@@ -11,7 +11,7 @@ String formatDateTime(DateTime value) {
 
   final dateNow = DateTime.now();
 
-  if (dateNow.difference(value).inDays == 0) {
+  if (dateNow.difference(value).inDays <= 0) {
     return shortFormat.format(value.toLocal());
   } else if (dateNow.difference(value).inDays > 365) {
     return longFormat.format(value.toLocal());
