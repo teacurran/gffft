@@ -333,7 +333,7 @@ class _AppState extends State<App> {
         backgroundColor: Color(0xFF33333D),
         elevation: 0,
       ),
-      errorColor: const Color(0xFF7D0000),
+      errorColor: const Color(0xFFB87171),
       scaffoldBackgroundColor: const Color(0xFF33333D),
       buttonTheme: const ButtonThemeData(buttonColor: Colors.blue),
       outlinedButtonTheme: _getOutlineButtonThemeData(context),

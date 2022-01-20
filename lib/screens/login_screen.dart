@@ -9,12 +9,12 @@ import 'home_screen.dart';
 class LoginScreen extends StatelessWidget {
   static const String webPath = '/login';
 
-  String logoAsset = 'assets/logo.png';
+  String logoAsset = 'assets/logo.svg';
 
   Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-      child: Image(image: AssetImage(logoAsset), semanticLabel: 'Gffft Logo'),
+      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
     );
   }
 
