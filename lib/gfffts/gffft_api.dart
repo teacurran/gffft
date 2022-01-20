@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:gffft/boards/models/thread_result.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
+import 'package:gffft/gfffts/models/gffft_patch_save.dart';
 
 import '../api_base.dart';
 import 'models/gffft_membership_post.dart';
@@ -10,6 +11,11 @@ import 'models/gffft_save.dart';
 
 class GffftApi extends ApiBase {
   Future<void> save(GffftSave gffft) async {
+    return put("gfffts", jsonEncode(gffft));
+  }
+
+  Future<void> savePartial(GffftPatchSave gffft) async {
+    print("sending patch for gffft: ${jsonEncode(gffft)}");
     return put("gfffts", jsonEncode(gffft));
   }
 

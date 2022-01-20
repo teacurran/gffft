@@ -67,6 +67,10 @@ class ApiBase {
     return callApi(urlPath, method: "post", payload: jsonPayload, payloadContentType: "application/json");
   }
 
+  Future<dynamic> patch(String urlPath, String jsonPayload) async {
+    return callApi(urlPath, method: "patch", payload: jsonPayload, payloadContentType: "application/json");
+  }
+
   Future<dynamic> put(String urlPath, String jsonPayload) async {
     return callApi(urlPath, method: "put", payload: jsonPayload, payloadContentType: "application/json");
   }

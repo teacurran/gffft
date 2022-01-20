@@ -21,7 +21,7 @@ Gallery _$GalleryFromJson(Map<String, dynamic> json) => Gallery(
       items: (json['items'] as List<dynamic>?)
               ?.map((e) => GalleryItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          <GalleryItem>[],
+          const <GalleryItem>[],
     );
 
 Map<String, dynamic> _$GalleryToJson(Gallery instance) => <String, dynamic>{

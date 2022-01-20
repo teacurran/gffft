@@ -11,6 +11,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'gffft_api.dart';
 import 'models/gffft.dart';
+import 'models/gffft_patch_save.dart';
 
 final getIt = GetIt.instance;
 
@@ -29,6 +30,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   GffftApi gffftApi = getIt<GffftApi>();
 
   Future<Gffft>? gffft;
+  bool editing = false;
+
+  bool editingTitle = false;
+  late TextEditingController _titleController;
 
   @override
   void initState() {
@@ -37,8 +42,23 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   }
 
   Future<void> _loadData() async {
-    setState(() {
-      gffft = userApi.getGffft(widget.uid, widget.gid);
+    return setState(() {
+      gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
+        _titleController = TextEditingController(text: gffft.name);
+        return gffft;
+      });
+    });
+  }
+
+  Future<void> _toggleEditing() async {
+    return setState(() {
+      editing = editing ? false : true;
+    });
+  }
+
+  Future<void> _toggleEditingTitle() async {
+    return setState(() {
+      editingTitle = editingTitle ? false : true;
     });
   }
 
@@ -54,7 +74,16 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
 
     var memberActions = <Widget>[];
 
-    if (gffft.membership?.type != "owner") {
+    if (gffft.membership?.type == "owner") {
+      memberActions.add(TextButton.icon(
+        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+        onPressed: () async {
+          await _toggleEditing();
+        },
+        label: Text(editing ? l10n.gffftEditStop : l10n.gffftEdit),
+        icon: const Icon(Icons.settings),
+      ));
+    } else {
       if (gffft.membership == null) {
         memberActions.add(TextButton(
           style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
@@ -333,12 +362,44 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   }
 
   Widget getGffftScreen(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
-    var children = <Widget>[
-      SelectableText(
+    var children = <Widget>[];
+
+    if (editing && editingTitle && gffft.name != null) {
+      children.add(TextField(
+        style: theme.textTheme.headline1,
+        controller: _titleController,
+        textInputAction: TextInputAction.go,
+        onChanged: (value) {
+          GffftPatchSave gffft = GffftPatchSave(
+            uid: widget.uid,
+            gid: widget.gid,
+            name: value,
+          );
+
+          gffftApi
+              .savePartial(gffft)
+              .then((value) => {
+                    setState(() {
+                      _toggleEditingTitle();
+                    })
+                  })
+              .onError((error, stackTrace) => {
+                    setState(() {
+                      print(error);
+                      print(stackTrace);
+                    })
+                  });
+        },
+      ));
+    } else {
+      children.add(SelectableText(
         gffft.name ?? l10n.loading,
         style: theme.textTheme.headline1,
-      )
-    ];
+        onTap: () async {
+          await _toggleEditingTitle();
+        },
+      ));
+    }
     if (gffft.intro != null) {
       children.add(Padding(
           padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),

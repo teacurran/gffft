@@ -460,6 +460,36 @@ class S {
     );
   }
 
+  /// `This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join and create content or just to hand out and talk. To get started, edit this text or add a feature below.`
+  String get gffftIntro {
+    return Intl.message(
+      'This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join and create content or just to hand out and talk. To get started, edit this text or add a feature below.',
+      name: 'gffftIntro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `edit`
+  String get gffftEdit {
+    return Intl.message(
+      'edit',
+      name: 'gffftEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `stop editing`
+  String get gffftEditStop {
+    return Intl.message(
+      'stop editing',
+      name: 'gffftEditStop',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(

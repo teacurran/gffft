@@ -85,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Your Gffft Info"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Error Loading"),
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
+        "gffftEdit": MessageLookupByLibrary.simpleMessage("edit"),
+        "gffftEditStop": MessageLookupByLibrary.simpleMessage("stop editing"),
         "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),
         "gffftHomeBoard": MessageLookupByLibrary.simpleMessage("board"),
         "gffftHomeBookmark": MessageLookupByLibrary.simpleMessage("bookmark"),
@@ -100,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeQuit": MessageLookupByLibrary.simpleMessage("quit"),
         "gffftHomeUnBookmark":
             MessageLookupByLibrary.simpleMessage("un-bookmark"),
+        "gffftIntro": MessageLookupByLibrary.simpleMessage(
+            "This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join and create content or just to hand out and talk. To get started, edit this text or add a feature below."),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or #tag"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),
