@@ -106,7 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: Container(
                                                   child: Text(
                                                 username,
-                                                style: theme.textTheme.headline4,
+                                                style: const TextStyle(
+                                                    fontFamily: 'SharpieStylie', color: Colors.yellow, fontSize: 60),
                                               )))))),
                               Card(
                                   margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
@@ -133,10 +134,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: double.infinity,
                                             child: Padding(
                                                 padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                                                child: Text(
-                                                  l10n!.connect,
-                                                  style: theme.textTheme.headline4,
-                                                )),
+                                                child: Text(l10n!.connect,
+                                                    style: const TextStyle(
+                                                        fontFamily: 'SharpieStylie',
+                                                        color: Colors.yellow,
+                                                        fontSize: 60))),
                                           ),
                                         ],
                                       ))),
@@ -173,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     child: Text(
                                                       l10n.host,
                                                       style: const TextStyle(
-                                                          fontFamily: 'DoubleFeature',
+                                                          fontFamily: 'SharpieStylie',
                                                           color: Colors.yellow,
                                                           fontSize: 60),
                                                     ),

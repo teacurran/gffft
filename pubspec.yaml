@@ -137,6 +137,15 @@ flutter:
     - family: DoubleFeature
       fonts:
         - asset: assets/fonts/DoubleFeature20.ttf
+    - family: SharpieStylie
+      fonts:
+        - asset: assets/fonts/sharpiestylie.otf
+    - family: SimpleRad
+      fonts:
+        - asset: assets/fonts/simplerad.otf
+    - family: Taunton
+      fonts:
+        - asset: assets/fonts/Taunton.otf
 
   assets:
     - assets/antenna-farm.jpg
@@ -144,6 +153,9 @@ flutter:
     - assets/hayes.jpg
     - assets/logo.svg
     - assets/fonts/DoubleFeature20.ttf
+    - assets/fonts/sharpiestylie.otf
+    - assets/fonts/simplerad.otf
+    - assets/fonts/Taunton.otf
     - .env
 
   generate: true
