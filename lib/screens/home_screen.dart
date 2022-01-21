@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   left: 16,
                                                   right: 16,
                                                   child: FittedBox(
-                                                    fit: BoxFit.scaleDown,
+                                                    fit: BoxFit.scaleDow
                                                     alignment: Alignment.centerLeft,
                                                     child: Text(
                                                       l10n.host,
