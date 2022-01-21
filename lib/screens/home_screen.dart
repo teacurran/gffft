@@ -106,8 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: Container(
                                                   child: Text(
                                                 username,
-                                                style: const TextStyle(
-                                                    fontFamily: 'SharpieStylie', color: Colors.yellow, fontSize: 60),
+                                                style: theme.textTheme.headline4,
                                               )))))),
                               Card(
                                   margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
@@ -136,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
                                                 child: Text(l10n!.connect,
                                                     style: const TextStyle(
-                                                        fontFamily: 'SharpieStylie',
+                                                        fontFamily: 'ElectroCandy',
                                                         color: Colors.yellow,
                                                         fontSize: 60))),
                                           ),
@@ -170,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   left: 16,
                                                   right: 16,
                                                   child: FittedBox(
-                                                    fit: BoxFit.scaleDow
+                                                    fit: BoxFit.scaleDown,
                                                     alignment: Alignment.centerLeft,
                                                     child: Text(
                                                       l10n.host,

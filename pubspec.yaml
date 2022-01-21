@@ -137,12 +137,18 @@ flutter:
     - family: DoubleFeature
       fonts:
         - asset: assets/fonts/DoubleFeature20.ttf
+    - family: MetroPass
+      fonts:
+        - asset: assets/fonts/metropass.otf
     - family: SharpieStylie
       fonts:
         - asset: assets/fonts/sharpiestylie.otf
     - family: SimpleRad
       fonts:
         - asset: assets/fonts/simplerad.otf
+    - family: ElectroCandy
+      fonts:
+        - asset: assets/fonts/electro-candy-2.otf
     - family: Taunton
       fonts:
         - asset: assets/fonts/Taunton.otf
@@ -153,6 +159,8 @@ flutter:
     - assets/hayes.jpg
     - assets/logo.svg
     - assets/fonts/DoubleFeature20.ttf
+    - assets/fonts/electro-candy-2.otf
+    - assets/fonts/metropass.otf
     - assets/fonts/sharpiestylie.otf
     - assets/fonts/simplerad.otf
     - assets/fonts/Taunton.otf
