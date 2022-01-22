@@ -29,6 +29,7 @@ import 'boards/create_reply_screen.dart';
 import 'firebase_options.dart';
 import 'galleries/gallery_view_screen.dart';
 import 'gfffts/gffft_api.dart';
+import 'gfffts/gffft_feature.screen.dart';
 import 'gfffts/gffft_home_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_screen.dart';
@@ -124,6 +125,8 @@ class _AppState extends State<App> {
         GffftListScreen.webPath: (uri, params) => const MaterialPage(child: GffftListScreen()),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+$"): (uri, param) =>
             MaterialPage(child: GffftHomeScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/features$"): (uri, param) =>
+            MaterialPage(child: GffftFeatureScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
                 child: BoardViewScreen(
               uid: uri.pathSegments[1],

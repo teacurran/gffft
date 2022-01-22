@@ -1,4 +1,3 @@
-import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -179,15 +178,11 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
 
     gffft.features?.forEach((featureRef) {
       if (featureRef.type == "board" && featureRef.id != null) {
-        int threadCount;
-        int postCount;
         Board? board;
         if (gffft.boards != null) {
           for (var b in gffft.boards!) {
             if (b.id == featureRef.id) {
               board = b;
-              threadCount = b.threads;
-              postCount = b.posts;
             }
           }
         }
@@ -232,8 +227,14 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  Row(children: [SelectableText("threads:"), SelectableText(board.threads.toString())]),
-                                  Row(children: [SelectableText("posts:"), SelectableText(board.posts.toString())]),
+                                  Row(children: [
+                                    const SelectableText("threads:"),
+                                    SelectableText(board.threads.toString())
+                                  ]),
+                                  Row(children: [
+                                    const SelectableText("posts:"),
+                                    SelectableText(board.posts.toString())
+                                  ]),
                                 ])
                           ]))))));
         }
@@ -459,6 +460,25 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
             children: children));
   }
 
+  Widget? getFloatingActionButton(BuildContext context) {
+    if (!editing) {
+      return null;
+    }
+    var l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return FloatingActionButton(
+        child: Icon(Icons.add, color: theme.focusColor),
+        tooltip: l10n!.boardViewActionTooltip,
+        backgroundColor: theme.primaryColor,
+        onPressed: () {
+          VxNavigator.of(context)
+              .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]))
+              .then((value) {
+            _loadGffft();
+          });
+        });
+  }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -508,6 +528,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                     physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                     child: screenBody,
                   )),
+              floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+              floatingActionButton: getFloatingActionButton(context),
             ),
           );
         });
