@@ -9,6 +9,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'gffft_api.dart';
 import 'models/gffft.dart';
+import 'models/gffft_patch_save.dart';
 
 final getIt = GetIt.instance;
 
@@ -46,32 +47,15 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   Widget? getFloatingActionButton(BuildContext context) {
     var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    return FloatingActionButton(
-        child: Icon(Icons.add, color: theme.focusColor),
-        tooltip: l10n!.boardViewActionTooltip,
-        backgroundColor: theme.primaryColor,
+    return FloatingActionButton.extended(
+        icon: const Icon(Icons.save, color: Colors.black),
+        label: Text(l10n!.gffftSettingsSave),
+        backgroundColor: const Color(0xFFFABB59),
+        tooltip: l10n.gffftSettingsSave,
         onPressed: () {
           VxNavigator.of(context).pop();
         });
   }
-
-  Widget _buildCarousel(BuildContext context, int carouselIndex) {
-    return Card(child: Text('Carousel $carouselIndex'));
-  }
-
-  Widget _buildCarouselItem(BuildContext context, int carouselIndex, int itemIndex) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-        ),
-      ),
-    );
-  }
-
-  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -113,48 +97,108 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                 ),
                 centerTitle: true,
               ),
-              body: Center(
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(children: [
-                        Card(
-                          margin: EdgeInsets.all(8),
-                          color: theme.backgroundColor,
-                          child: Container(
+              body: Column(children: [
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 15),
+                    child: SelectableText(
+                      name,
+                      style: theme.textTheme.headline1,
+                    )),
+                SizedBox(
+                    height: 300,
+                    child: PageView(
+                        physics: const PageScrollPhysics(),
+                        controller: PageController(viewportFraction: 0.8),
+                        children: [
+                          SizedBox(
                               height: 300,
                               width: 300,
-                              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                                IconButton(
-                                  icon: const FaIcon(FontAwesomeIcons.commentAlt),
-                                  color: const Color(0xFF9970A9),
-                                  onPressed: () {},
-                                ),
-                                Text(
-                                  l10n!.gffftHomeBoard,
-                                  style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
-                                )
-                              ])),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              side: const BorderSide(
-                                color: Color(0xFF9970A9),
-                                width: 1.0,
+                              child: Card(
+                                margin: const EdgeInsets.all(8),
+                                color: theme.backgroundColor,
+                                child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                      IconButton(
+                                        icon: const Icon(Icons.settings, color: Color(0xFFFABB59)),
+                                        color: const Color(0xFFFABB59),
+                                        onPressed: () {},
+                                      ),
+                                      Text(
+                                        l10n!.gffftSettingsHead,
+                                        style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            l10n.gffftSettingsEnabled,
+                                            style: theme.textTheme.bodyText1,
+                                          ),
+                                          Switch(
+                                            value: gffft?.enabled ?? false,
+                                            onChanged: (value) {
+                                              GffftPatchSave gffft = GffftPatchSave(
+                                                uid: widget.uid,
+                                                gid: widget.gid,
+                                                enabled: value,
+                                              );
+
+                                              gffftApi.savePartial(gffft).then((value) => {
+                                                    setState(() {
+                                                      _loadGffft();
+                                                    })
+                                                  });
+                                            },
+                                          )
+                                        ],
+                                      )
+                                    ])),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: const BorderSide(
+                                      color: Color(0xFFFABB59),
+                                      width: 1.0,
+                                    )),
                               )),
-                        ),
-                        Container(
-                          height: 200,
-                          width: 200,
-                          color: Colors.blue,
-                          child: Text("blue"),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(8),
-                          height: 200,
-                          width: 200,
-                          color: Colors.green,
-                          child: Text("green"),
-                        )
-                      ]))),
+                          Card(
+                            margin: EdgeInsets.all(8),
+                            color: theme.backgroundColor,
+                            child: Container(
+                                height: 300,
+                                width: 300,
+                                child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                  IconButton(
+                                    icon: const FaIcon(FontAwesomeIcons.commentAlt),
+                                    color: const Color(0xFF9970A9),
+                                    onPressed: () {},
+                                  ),
+                                  Text(
+                                    l10n!.gffftHomeBoard,
+                                    style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
+                                  )
+                                ])),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                  color: Color(0xFF9970A9),
+                                  width: 1.0,
+                                )),
+                          ),
+                          Container(
+                            height: 200,
+                            width: 200,
+                            color: Colors.blue,
+                            child: Text("blue"),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(8),
+                            height: 200,
+                            width: 200,
+                            color: Colors.green,
+                            child: Text("green"),
+                          )
+                        ]))
+              ]),
               // PageView.builder(
               //   itemCount: 10,
               //   controller: PageController(viewportFraction: 0.7),

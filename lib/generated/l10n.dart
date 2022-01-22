@@ -490,6 +490,36 @@ class S {
     );
   }
 
+  /// `save and exit`
+  String get gffftSettingsSave {
+    return Intl.message(
+      'save and exit',
+      name: 'gffftSettingsSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `settings`
+  String get gffftSettingsHead {
+    return Intl.message(
+      'settings',
+      name: 'gffftSettingsHead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show in search`
+  String get gffftSettingsEnabled {
+    return Intl.message(
+      'Show in search',
+      name: 'gffftSettingsEnabled',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(

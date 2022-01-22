@@ -106,6 +106,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join you. To get started, edit this text or add a feature below."),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or #tag"),
+        "gffftSettingsEnabled":
+            MessageLookupByLibrary.simpleMessage("Show in search"),
+        "gffftSettingsHead": MessageLookupByLibrary.simpleMessage("settings"),
+        "gffftSettingsSave":
+            MessageLookupByLibrary.simpleMessage("save and exit"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),

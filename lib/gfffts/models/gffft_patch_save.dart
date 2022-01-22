@@ -10,8 +10,10 @@ class GffftPatchSave {
   String? description;
   List<String>? tags;
   String? intro;
+  bool? enabled;
 
-  GffftPatchSave({required this.uid, required this.gid, this.name, this.description, this.tags, this.intro});
+  GffftPatchSave(
+      {required this.uid, required this.gid, this.name, this.description, this.tags, this.intro, this.enabled});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

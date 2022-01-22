@@ -467,7 +467,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     return FloatingActionButton(
-        child: Icon(Icons.settings, color: theme.focusColor),
+        child: const Icon(Icons.settings, color: Colors.black),
         tooltip: l10n!.boardViewActionTooltip,
         backgroundColor: Color(0xFFFABB59),
         onPressed: () {
