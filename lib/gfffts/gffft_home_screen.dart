@@ -26,9 +26,10 @@ class GffftHomeScreen extends StatefulWidget {
 }
 
 class _GffftHomeScreenState extends State<GffftHomeScreen> {
+  final defaultId = "{default}";
+
   UserApi userApi = getIt<UserApi>();
   GffftApi gffftApi = getIt<GffftApi>();
-
   Future<Gffft>? gffft;
 
   bool editing = false;
@@ -36,7 +37,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   bool editingTitle = false;
   late TextEditingController _titleController;
 
-  final defaultId = "{default}";
+  bool editingIntro = false;
+  late TextEditingController _introController;
 
   @override
   void initState() {
@@ -48,6 +50,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     return setState(() {
       gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
         _titleController = TextEditingController(text: gffft.name);
+        _introController = TextEditingController(text: gffft.intro);
         return gffft;
       });
     });
@@ -56,6 +59,12 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   Future<void> _toggleEditing() async {
     return setState(() {
       editing = editing ? false : true;
+    });
+  }
+
+  Future<void> _toggleEditingIntro() async {
+    return setState(() {
+      editingIntro = editingIntro ? false : true;
     });
   }
 
@@ -406,18 +415,38 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       if (introText == defaultId) {
         introText = l10n.gffftIntro;
       }
-      children.add(Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
-          child: ExpandableText(
-            introText,
-            expandText: l10n.showMore,
-            collapseText: l10n.showLess,
-            maxLines: 8,
-            linkColor: theme.textTheme.bodyText1?.color,
-            style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
-            textAlign: TextAlign.justify,
-            animation: true,
-          )));
+      if (editing && editingIntro) {
+        children.add(TextField(
+          style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
+          controller: _introController,
+          textInputAction: TextInputAction.go,
+          maxLines: 5,
+          onSubmitted: (value) {
+            GffftPatchSave gffft = GffftPatchSave(
+              uid: widget.uid,
+              gid: widget.gid,
+              intro: value,
+            );
+
+            gffftApi.savePartial(gffft).then((value) => {
+                  setState(() {
+                    _loadGffft();
+                    _toggleEditingIntro();
+                  })
+                });
+          },
+        ));
+      } else {
+        children.add(Padding(
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+            child: SelectableText(
+              introText,
+              style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
+              onTap: () async {
+                await _toggleEditingIntro();
+              },
+            )));
+      }
     }
 
     children.addAll(getActions(l10n, theme, gffft));
@@ -428,6 +457,14 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: children));
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _introController.dispose();
+
+    super.dispose();
   }
 
   @override

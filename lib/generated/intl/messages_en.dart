@@ -103,7 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeUnBookmark":
             MessageLookupByLibrary.simpleMessage("un-bookmark"),
         "gffftIntro": MessageLookupByLibrary.simpleMessage(
-            "This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join and create content or just to hand out and talk. To get started, edit this text or add a feature below."),
+            "This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join you. To get started, edit this text or add a feature below."),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or #tag"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),
