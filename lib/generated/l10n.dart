@@ -570,6 +570,26 @@ class S {
     );
   }
 
+  /// `Enable calendar`
+  String get gffftSettingsEnableCalendar {
+    return Intl.message(
+      'Enable calendar',
+      name: 'gffftSettingsEnableCalendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A shared calendar that is designed for shared events in the future as well as memories in the past. This is not your office calendar.`
+  String get gffftSettingsEnableCalendarHint {
+    return Intl.message(
+      'A shared calendar that is designed for shared events in the future as well as memories in the past. This is not your office calendar.',
+      name: 'gffftSettingsEnableCalendarHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Who can view:`
   String get gffftSettingsBoardWhoCanView {
     return Intl.message(

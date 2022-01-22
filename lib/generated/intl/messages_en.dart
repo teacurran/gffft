@@ -110,6 +110,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can post:"),
         "gffftSettingsBoardWhoCanView":
             MessageLookupByLibrary.simpleMessage("Who can view:"),
+        "gffftSettingsEnableCalendar":
+            MessageLookupByLibrary.simpleMessage("Enable calendar"),
+        "gffftSettingsEnableCalendarHint": MessageLookupByLibrary.simpleMessage(
+            "A shared calendar that is designed for shared events in the future as well as memories in the past. This is not your office calendar."),
         "gffftSettingsEnableMembership":
             MessageLookupByLibrary.simpleMessage("Enable membership"),
         "gffftSettingsEnableMembershipHint": MessageLookupByLibrary.simpleMessage(

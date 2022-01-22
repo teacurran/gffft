@@ -321,6 +321,107 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                   width: 1.0,
                                 )),
                           ),
+                          Card(
+                            margin: const EdgeInsets.all(8),
+                            color: theme.backgroundColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                  color: Color(0xFFB56277),
+                                  width: 1.0,
+                                )),
+                            child: Container(
+                                padding: const EdgeInsets.all(10),
+                                height: 300,
+                                width: 300,
+                                child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                  IconButton(
+                                    icon: const FaIcon(FontAwesomeIcons.calendarAlt),
+                                    color: const Color(0xFFB56277),
+                                    onPressed: () {},
+                                  ),
+                                  Text(
+                                    l10n.gffftHomeCalendar,
+                                    style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFB56277)),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(
+                                        l10n.gffftSettingsEnableCalendarHint,
+                                        style: theme.textTheme.bodyText1,
+                                        softWrap: true,
+                                      ))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsEnableCalendar,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Switch(
+                                        value: gffft?.hasFeature('calendar') ?? false,
+                                        onChanged: (value) {
+                                          GffftPatchSave gffft = GffftPatchSave(
+                                            uid: widget.uid,
+                                            gid: widget.gid,
+                                            calendarEnabled: value,
+                                          );
+
+                                          gffftApi.savePartial(gffft).then((value) => {
+                                                setState(() {
+                                                  _loadGffft();
+                                                })
+                                              });
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsBoardWhoCanView,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: boardWhoCanView,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsBoardWhoCanPost,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: boardWhoCanPost,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
+                                    ],
+                                  )
+                                ])),
+                          ),
                           Container(
                             height: 200,
                             width: 200,

@@ -110,6 +110,8 @@
   "gffftSettingsEnableMembershipHint": "This allows other people to join your gffft and participate in message boards, galleries, or other features.  Be careful before enabling membership.",
   "gffftSettingsEnableMessageBoard": "Enable Message Board",
   "gffftSettingsEnableMessageBoardHint": "A message board enables you or your guests to post text based threaded messages.",
+  "gffftSettingsEnableCalendar": "Enable calendar",
+  "gffftSettingsEnableCalendarHint": "A shared calendar that is designed for shared events in the future as well as memories in the past. This is not your office calendar.",
   "gffftSettingsBoardWhoCanView": "Who can view:",
   "gffftSettingsBoardWhoCanPost": "Who can post:",
   "gffftHomeBlog": "blog",

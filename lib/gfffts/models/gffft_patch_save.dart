@@ -13,6 +13,7 @@ class GffftPatchSave {
   bool? enabled;
   bool? allowMembers;
   bool? boardEnabled;
+  bool? calendarEnabled;
 
   GffftPatchSave(
       {required this.uid,
@@ -23,7 +24,8 @@ class GffftPatchSave {
       this.intro,
       this.enabled,
       this.allowMembers,
-      this.boardEnabled});
+      this.boardEnabled,
+      this.calendarEnabled});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
