@@ -73,6 +73,9 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
           }
 
           String name = "loading";
+          String boardWhoCanView = "public";
+          String boardWhoCanPost = "public";
+
           var gffft = snapshot.data;
           if (gffft != null) {
             title = "";
@@ -80,6 +83,19 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
             name = "${gffft.name}";
             if (name == defaultId) {
               name = "${gffft.me.username}'s gffft";
+            }
+
+            if (gffft.hasFeature("board") && gffft.boards != null && gffft.boards!.length > 0) {
+              boardWhoCanView = gffft.boards![0].whoCanView;
+              boardWhoCanPost = gffft.boards![0].whoCanPost;
+
+              // hack until drop downs are internationalized
+              if (boardWhoCanPost == "owner") {
+                boardWhoCanPost = "just you";
+              }
+              if (boardWhoCanView == "owner") {
+                boardWhoCanView = "just you";
+              }
             }
           }
 
@@ -223,6 +239,16 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                   ),
                                   Row(
                                     children: [
+                                      Flexible(
+                                          child: Text(
+                                        l10n.gffftSettingsEnableMessageBoardHint,
+                                        style: theme.textTheme.bodyText1,
+                                        softWrap: true,
+                                      ))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
                                       Text(
                                         l10n.gffftSettingsEnableMessageBoard,
                                         style: theme.textTheme.bodyText1,
@@ -247,29 +273,44 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      Flexible(
-                                          child: Text(
-                                        l10n.gffftSettingsEnableMessageBoardHint,
+                                      Text(
+                                        l10n.gffftSettingsBoardWhoCanView,
                                         style: theme.textTheme.bodyText1,
-                                        softWrap: true,
-                                      ))
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: boardWhoCanView,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
                                     ],
                                   ),
                                   Row(
                                     children: [
                                       Text(
-                                        l10n.gffftSettingsBoardWhoCanView,
+                                        l10n.gffftSettingsBoardWhoCanPost,
                                         style: theme.textTheme.bodyText1,
                                       ),
-                                      DropdownButton<String>(
-                                        items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                        onChanged: (_) {},
-                                      )
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: boardWhoCanPost,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
                                     ],
                                   )
                                 ])),

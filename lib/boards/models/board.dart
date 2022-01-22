@@ -2,15 +2,26 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'board.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Board {
-  String? id;
+  String id;
+  DateTime updatedAt;
+  String whoCanView;
+  String whoCanPost;
   String? name;
   String? description;
   int threads;
   int posts;
 
-  Board({required this.id, required this.name, this.description, required this.threads, required this.posts});
+  Board(
+      {required this.id,
+      required this.updatedAt,
+      required this.whoCanView,
+      required this.whoCanPost,
+      required this.name,
+      this.description,
+      required this.threads,
+      required this.posts});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

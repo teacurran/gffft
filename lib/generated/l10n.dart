@@ -580,6 +580,16 @@ class S {
     );
   }
 
+  /// `Who can post:`
+  String get gffftSettingsBoardWhoCanPost {
+    return Intl.message(
+      'Who can post:',
+      name: 'gffftSettingsBoardWhoCanPost',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(

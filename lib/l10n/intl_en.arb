@@ -111,6 +111,7 @@
   "gffftSettingsEnableMessageBoard": "Enable Message Board",
   "gffftSettingsEnableMessageBoardHint": "A message board enables you or your guests to post text based threaded messages.",
   "gffftSettingsBoardWhoCanView": "Who can view:",
+  "gffftSettingsBoardWhoCanPost": "Who can post:",
   "gffftHomeBlog": "blog",
   "gffftHomeMembership": "membership",
   "gffftHomeMemberSince": "since {date}",
