@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/users/user_api.dart';
@@ -111,26 +112,51 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                 ),
                 centerTitle: true,
               ),
-              body: PageView.builder(
-                itemCount: 10,
-                controller: PageController(viewportFraction: 0.7),
-                onPageChanged: (int index) => setState(() => _index = index),
-                itemBuilder: (_, i) {
-                  return Transform.scale(
-                    scale: i == _index ? 1 : 0.9,
-                    child: Card(
-                      elevation: 6,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      child: Center(
-                        child: Text(
-                          "Card ${i + 1}",
-                          style: TextStyle(fontSize: 32),
+              body: Center(
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(children: [
+                        Container(
+                          margin: EdgeInsets.all(8),
+                          height: 200,
+                          width: 200,
+                          color: Colors.red,
+                          child: Text("red"),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+                        Container(
+                          margin: EdgeInsets.all(8),
+                          height: 200,
+                          width: 200,
+                          color: Colors.blue,
+                          child: Text("blue"),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(8),
+                          height: 200,
+                          width: 200,
+                          color: Colors.green,
+                          child: Text("green"),
+                        )
+                      ]))),
+              // PageView.builder(
+              //   itemCount: 10,
+              //   controller: PageController(viewportFraction: 0.7),
+              //   onPageChanged: (int index) => setState(() => _index = index),
+              //   itemBuilder: (_, i) {
+              //     return Transform.scale(
+              //       scale: i == _index ? 1 : 0.9,
+              //       child: Card(
+              //         elevation: 6,
+              //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              //         child: Center(
+              //           child: Text(
+              //             "Card ${i + 1}",
+              //             style: TextStyle(fontSize: 32),
+              //           ),
+              //         ),
+              //       ),
+              //     );
+              //   },
               floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
               floatingActionButton: getFloatingActionButton(context),
             ),
