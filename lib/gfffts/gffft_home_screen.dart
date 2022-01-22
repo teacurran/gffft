@@ -467,9 +467,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     return FloatingActionButton(
-        child: Icon(Icons.add, color: theme.focusColor),
+        child: Icon(Icons.settings, color: theme.focusColor),
         tooltip: l10n!.boardViewActionTooltip,
-        backgroundColor: theme.primaryColor,
+        backgroundColor: Color(0xFFFABB59),
         onPressed: () {
           VxNavigator.of(context)
               .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]))

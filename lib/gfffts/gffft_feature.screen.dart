@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -116,15 +117,31 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                   child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(children: [
-                        Container(
+                        Card(
                           margin: EdgeInsets.all(8),
-                          height: 200,
-                          width: 200,
-                          color: Colors.red,
-                          child: Text("red"),
+                          color: theme.backgroundColor,
+                          child: Container(
+                              height: 300,
+                              width: 300,
+                              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                IconButton(
+                                  icon: const FaIcon(FontAwesomeIcons.commentAlt),
+                                  color: const Color(0xFF9970A9),
+                                  onPressed: () {},
+                                ),
+                                Text(
+                                  l10n!.gffftHomeBoard,
+                                  style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
+                                )
+                              ])),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              side: const BorderSide(
+                                color: Color(0xFF9970A9),
+                                width: 1.0,
+                              )),
                         ),
                         Container(
-                          margin: EdgeInsets.all(8),
                           height: 200,
                           width: 200,
                           color: Colors.blue,
