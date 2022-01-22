@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/gfffts/gffft_screen.dart';
 import 'package:gffft/users/bookmark_screen.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:gffft/users/user_api.dart';
@@ -56,15 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
             var user = snapshot.data;
             String text;
-            String? boardId;
             if (user == null) {
               text = l10n!.loading;
-              boardId = l10n.loading;
             } else {
               text = "Thank You: ${user.username}";
-              if (user.board != null) {
-                boardId = user.board!.id;
-              }
             }
 
             var username = user == null ? l10n!.loading : user.username;
@@ -153,7 +147,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       )),
                                   child: InkWell(
                                       onTap: () {
-                                        VxNavigator.of(context).push(Uri(path: GffftScreen.webPath));
+                                        VxNavigator.of(context)
+                                            .push(Uri(pathSegments: ["users", "me", "gfffts", "default"]));
                                       },
                                       splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                       // Generally, material cards do not have a highlight overlay.

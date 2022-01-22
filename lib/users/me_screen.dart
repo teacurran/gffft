@@ -51,15 +51,10 @@ class _MeScreenState extends State<MeScreen> {
 
           var user = snapshot.data;
           String text;
-          String? boardId;
           if (user == null) {
             text = l10n!.loading;
-            boardId = l10n.loading;
           } else {
             text = "Thank You: ${user.username}";
-            if (user.board != null) {
-              boardId = user.board!.id;
-            }
           }
 
           var username = user == null ? l10n!.loading : user.username;

@@ -1,6 +1,7 @@
 import 'package:gffft/boards/models/board.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
 import 'package:gffft/users/models/bookmark.dart';
+import 'package:gffft/users/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'gffft_membership.dart';
@@ -19,6 +20,7 @@ class Gffft {
   bool allowMembers;
   bool requireApproval;
   bool enableAltHandles;
+  User me;
 
   bool boardEnabled;
   bool calendarEnabled;
@@ -33,6 +35,7 @@ class Gffft {
   Gffft(
       {required this.uid,
       required this.gid,
+      required this.me,
       this.name,
       this.description,
       this.tags,

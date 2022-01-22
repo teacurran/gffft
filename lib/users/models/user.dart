@@ -7,9 +7,8 @@ part 'user.g.dart';
 class User {
   String id;
   String username;
-  Board? board;
 
-  User({required this.id, required this.username, this.board});
+  User({required this.id, required this.username});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

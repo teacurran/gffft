@@ -30,10 +30,13 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   GffftApi gffftApi = getIt<GffftApi>();
 
   Future<Gffft>? gffft;
+
   bool editing = false;
 
   bool editingTitle = false;
   late TextEditingController _titleController;
+
+  final defaultId = "{default}";
 
   @override
   void initState() {
@@ -364,9 +367,14 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   Widget getGffftScreen(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
     var children = <Widget>[];
 
-    if (editing && editingTitle && gffft.name != null) {
+    String name = "${gffft.name}";
+    if (name == defaultId) {
+      name = "${gffft.me.username}'s gffft";
+    }
+    if (editing && editingTitle) {
       children.add(TextField(
         style: theme.textTheme.headline1,
+        textAlign: TextAlign.center,
         controller: _titleController,
         textInputAction: TextInputAction.go,
         onSubmitted: (value) {
@@ -376,25 +384,17 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
             name: value,
           );
 
-          gffftApi
-              .savePartial(gffft)
-              .then((value) => {
-                    setState(() {
-                      _loadGffft();
-                      _toggleEditingTitle();
-                    })
-                  })
-              .onError((error, stackTrace) => {
-                    setState(() {
-                      print(error);
-                      print(stackTrace);
-                    })
-                  });
+          gffftApi.savePartial(gffft).then((value) => {
+                setState(() {
+                  _loadGffft();
+                  _toggleEditingTitle();
+                })
+              });
         },
       ));
     } else {
       children.add(SelectableText(
-        gffft.name ?? l10n.loading,
+        name,
         style: theme.textTheme.headline1,
         onTap: () async {
           await _toggleEditingTitle();
@@ -402,15 +402,19 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       ));
     }
     if (gffft.intro != null) {
+      String introText = "${gffft.intro}";
+      if (introText == defaultId) {
+        introText = l10n.gffftIntro;
+      }
       children.add(Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
           child: ExpandableText(
-            gffft.intro ?? l10n.loading,
+            introText,
             expandText: l10n.showMore,
             collapseText: l10n.showLess,
             maxLines: 8,
             linkColor: theme.textTheme.bodyText1?.color,
-            style: theme.textTheme.bodyText1,
+            style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
             textAlign: TextAlign.justify,
             animation: true,
           )));
