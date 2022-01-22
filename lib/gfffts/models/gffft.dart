@@ -53,6 +53,19 @@ class Gffft {
       this.membership,
       this.bookmark});
 
+  bool hasFeature(String name) {
+    if (features == null) {
+      return false;
+    }
+    for (var i = 0; i < features!.length; i++) {
+      if (features![i].type == name) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
   // }

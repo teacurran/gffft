@@ -105,7 +105,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                       style: theme.textTheme.headline1,
                     )),
                 SizedBox(
-                    height: 300,
+                    height: 400,
                     child: PageView(
                         physics: const PageScrollPhysics(),
                         controller: PageController(viewportFraction: 0.8),
@@ -151,6 +151,50 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                             },
                                           )
                                         ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                              child: Text(
+                                            l10n.gffftSettingsEnabledHint,
+                                            style: theme.textTheme.bodyText1,
+                                            softWrap: true,
+                                          ))
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            l10n.gffftSettingsEnableMembership,
+                                            style: theme.textTheme.bodyText1,
+                                          ),
+                                          Switch(
+                                            value: gffft?.allowMembers ?? false,
+                                            onChanged: (value) {
+                                              GffftPatchSave gffft = GffftPatchSave(
+                                                uid: widget.uid,
+                                                gid: widget.gid,
+                                                allowMembers: value,
+                                              );
+
+                                              gffftApi.savePartial(gffft).then((value) => {
+                                                    setState(() {
+                                                      _loadGffft();
+                                                    })
+                                                  });
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                              child: Text(
+                                            l10n.gffftSettingsEnableMembershipHint,
+                                            style: theme.textTheme.bodyText1,
+                                            softWrap: true,
+                                          ))
+                                        ],
                                       )
                                     ])),
                                 shape: RoundedRectangleBorder(
@@ -164,6 +208,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                             margin: EdgeInsets.all(8),
                             color: theme.backgroundColor,
                             child: Container(
+                                padding: EdgeInsets.all(10),
                                 height: 300,
                                 width: 300,
                                 child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -173,8 +218,59 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                     onPressed: () {},
                                   ),
                                   Text(
-                                    l10n!.gffftHomeBoard,
+                                    l10n.gffftHomeBoard,
                                     style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsEnableMessageBoard,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Switch(
+                                        value: gffft?.hasFeature('board') ?? false,
+                                        onChanged: (value) {
+                                          GffftPatchSave gffft = GffftPatchSave(
+                                            uid: widget.uid,
+                                            gid: widget.gid,
+                                            boardEnabled: value,
+                                          );
+
+                                          gffftApi.savePartial(gffft).then((value) => {
+                                                setState(() {
+                                                  _loadGffft();
+                                                })
+                                              });
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(
+                                        l10n.gffftSettingsEnableMessageBoardHint,
+                                        style: theme.textTheme.bodyText1,
+                                        softWrap: true,
+                                      ))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsBoardWhoCanView,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      DropdownButton<String>(
+                                        items: <String>['A', 'B', 'C', 'D'].map((String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                        onChanged: (_) {},
+                                      )
+                                    ],
                                   )
                                 ])),
                             shape: RoundedRectangleBorder(

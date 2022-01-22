@@ -520,6 +520,66 @@ class S {
     );
   }
 
+  /// `This will enable your gffft to be searched.  To share with just your friends, use a fruit-code instead.`
+  String get gffftSettingsEnabledHint {
+    return Intl.message(
+      'This will enable your gffft to be searched.  To share with just your friends, use a fruit-code instead.',
+      name: 'gffftSettingsEnabledHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable membership`
+  String get gffftSettingsEnableMembership {
+    return Intl.message(
+      'Enable membership',
+      name: 'gffftSettingsEnableMembership',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This allows other people to join your gffft and participate in message boards, galleries, or other features.  Be careful before enabling membership.`
+  String get gffftSettingsEnableMembershipHint {
+    return Intl.message(
+      'This allows other people to join your gffft and participate in message boards, galleries, or other features.  Be careful before enabling membership.',
+      name: 'gffftSettingsEnableMembershipHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Message Board`
+  String get gffftSettingsEnableMessageBoard {
+    return Intl.message(
+      'Enable Message Board',
+      name: 'gffftSettingsEnableMessageBoard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A message board enables you or your guests to post text based threaded messages.`
+  String get gffftSettingsEnableMessageBoardHint {
+    return Intl.message(
+      'A message board enables you or your guests to post text based threaded messages.',
+      name: 'gffftSettingsEnableMessageBoardHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who can view:`
+  String get gffftSettingsBoardWhoCanView {
+    return Intl.message(
+      'Who can view:',
+      name: 'gffftSettingsBoardWhoCanView',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(

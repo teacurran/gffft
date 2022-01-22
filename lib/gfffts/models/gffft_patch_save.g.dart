@@ -14,7 +14,10 @@ GffftPatchSave _$GffftPatchSaveFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       intro: json['intro'] as String?,
-    )..enabled = json['enabled'] as bool?;
+      enabled: json['enabled'] as bool?,
+      allowMembers: json['allowMembers'] as bool?,
+      boardEnabled: json['boardEnabled'] as bool?,
+    );
 
 Map<String, dynamic> _$GffftPatchSaveToJson(GffftPatchSave instance) {
   final val = <String, dynamic>{
@@ -33,5 +36,7 @@ Map<String, dynamic> _$GffftPatchSaveToJson(GffftPatchSave instance) {
   writeNotNull('tags', instance.tags);
   writeNotNull('intro', instance.intro);
   writeNotNull('enabled', instance.enabled);
+  writeNotNull('allowMembers', instance.allowMembers);
+  writeNotNull('boardEnabled', instance.boardEnabled);
   return val;
 }
