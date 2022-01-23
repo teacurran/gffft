@@ -33,6 +33,8 @@ Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       bookmark: json['bookmark'] == null
           ? null
           : Bookmark.fromJson(json['bookmark'] as Map<String, dynamic>),
+      rareFruits: json['rareFruits'] as int? ?? 0,
+      ultraRareFruits: json['ultraRareFruits'] as int? ?? 0,
     )
       ..calendars = (json['calendars'] as List<dynamic>?)
           ?.map((e) => Calendar.fromJson(e as Map<String, dynamic>))
@@ -57,6 +59,8 @@ Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
       'enableAltHandles': instance.enableAltHandles,
       'me': instance.me.toJson(),
       'fruitCode': instance.fruitCode,
+      'rareFruits': instance.rareFruits,
+      'ultraRareFruits': instance.ultraRareFruits,
       'features': instance.features?.map((e) => e.toJson()).toList(),
       'boards': instance.boards?.map((e) => e.toJson()).toList(),
       'calendars': instance.calendars?.map((e) => e.toJson()).toList(),

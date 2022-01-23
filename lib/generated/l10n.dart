@@ -690,6 +690,16 @@ class S {
     );
   }
 
+  /// `Join my gffft!`
+  String get gffftSettingsFruitCodeShare {
+    return Intl.message(
+      'Join my gffft!',
+      name: 'gffftSettingsFruitCodeShare',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `copy to clipboard`
   String get gffftSettingsFruitCodeCopy {
     return Intl.message(

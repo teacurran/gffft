@@ -108,7 +108,10 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
           String notebookWhoCanView = "owner";
           String notebookWhoCanPost = "owner";
 
-          var shareText = "Join my gffft!\n";
+          var shareText = "${l10n!.gffftSettingsFruitCodeShare}\n";
+
+          Widget rareFruitMarker = Flexible(child: Container());
+          Widget ultraRareFruitMarker = Flexible(child: Container());
 
           var gffft = snapshot.data;
           if (gffft != null) {
@@ -146,6 +149,24 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
             shareText = shareText + "${gffft.fruitCode[0]}${gffft.fruitCode[1]}${gffft.fruitCode[2]}\n";
             shareText = shareText + "${gffft.fruitCode[3]}${gffft.fruitCode[4]}${gffft.fruitCode[5]}\n";
             shareText = shareText + "${gffft.fruitCode[6]}${gffft.fruitCode[7]}${gffft.fruitCode[8]}\n";
+
+            if (gffft.ultraRareFruits > 0) {
+              ultraRareFruitMarker = const Flexible(
+                  flex: 3,
+                  child: Text(
+                    "ULTRA\nRARE\nFRUIT",
+                    style: TextStyle(fontFamily: 'DoubleFeature', color: Colors.yellow, fontSize: 20),
+                  ));
+            } else if (gffft.rareFruits > 0) {
+              // using the ultra rare marker for both right now
+              // so it is just on the right side which looks better
+              ultraRareFruitMarker = const Flexible(
+                  flex: 3,
+                  child: Text(
+                    "RARE\nFRUIT",
+                    style: TextStyle(fontFamily: 'SharpieStylie', color: Colors.yellow, fontSize: 20),
+                  ));
+            }
           }
 
           // hack until drop downs are internationalized
@@ -216,7 +237,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                         onPressed: () {},
                                       ),
                                       Text(
-                                        l10n!.gffftSettingsHead,
+                                        l10n.gffftSettingsHead,
                                         style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
                                       ),
                                       Row(
@@ -732,14 +753,20 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                       )),
                                     ],
                                   ),
-                                  SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: GridView.count(
-                                        shrinkWrap: true,
-                                        crossAxisCount: 3,
-                                        children: getFruitCode(context, gffft),
-                                      )),
+                                  Row(
+                                    children: [
+                                      rareFruitMarker,
+                                      SizedBox(
+                                          height: 100,
+                                          width: 100,
+                                          child: GridView.count(
+                                            shrinkWrap: true,
+                                            crossAxisCount: 3,
+                                            children: getFruitCode(context, gffft),
+                                          )),
+                                      ultraRareFruitMarker,
+                                    ],
+                                  ),
                                   TextButton(
                                     onPressed: () {
                                       Clipboard.setData(ClipboardData(text: shareText)).then((_) {
