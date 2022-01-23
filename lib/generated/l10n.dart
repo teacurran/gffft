@@ -610,6 +610,26 @@ class S {
     );
   }
 
+  /// `Enable gallery`
+  String get gffftSettingsGalleryEnable {
+    return Intl.message(
+      'Enable gallery',
+      name: 'gffftSettingsGalleryEnable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A gallery allows you or your gffft's members to post photos and videos. Configure to be viewed as a stream or contact-sheet style.`
+  String get gffftSettingsGalleryEnableHint {
+    return Intl.message(
+      'A gallery allows you or your gffft\'s members to post photos and videos. Configure to be viewed as a stream or contact-sheet style.',
+      name: 'gffftSettingsGalleryEnableHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(

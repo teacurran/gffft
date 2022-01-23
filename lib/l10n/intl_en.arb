@@ -114,6 +114,8 @@
   "gffftSettingsEnableCalendarHint": "A shared calendar that is designed for shared events in the future as well as memories in the past. This is not your office calendar.",
   "gffftSettingsBoardWhoCanView": "Who can view:",
   "gffftSettingsBoardWhoCanPost": "Who can post:",
+  "gffftSettingsGalleryEnable": "Enable gallery",
+  "gffftSettingsGalleryEnableHint": "A gallery allows you or your gffft's members to post photos and videos. Configure to be viewed as a stream or contact-sheet style.",
   "gffftHomeBlog": "blog",
   "gffftHomeMembership": "membership",
   "gffftHomeMemberSince": "since {date}",

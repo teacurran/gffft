@@ -97,20 +97,20 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
 
             if (gffft.hasFeature("board") && gffft.boards != null && gffft.boards!.isNotEmpty) {
               boardEnabled = true;
-              boardWhoCanView = gffft.boards![0].whoCanView;
-              boardWhoCanPost = gffft.boards![0].whoCanPost;
+              boardWhoCanView = gffft.boards!.first.whoCanView;
+              boardWhoCanPost = gffft.boards!.first.whoCanPost;
             }
 
             if (gffft.hasFeature("calendars") && gffft.calendars != null && gffft.calendars!.isNotEmpty) {
               calendarEnabled = true;
-              calendarWhoCanView = gffft.calendars![0].whoCanView;
-              calendarWhoCanPost = gffft.calendars![0].whoCanPost;
+              calendarWhoCanView = gffft.calendars!.first.whoCanView;
+              calendarWhoCanPost = gffft.calendars!.first.whoCanPost;
             }
 
             if (gffft.hasFeature("gallery") && gffft.galleries != null && gffft.galleries!.isNotEmpty) {
               galleryEnabled = true;
-              galleryWhoCanView = gffft.galleries![0].whoCanView;
-              galleryWhoCanPost = gffft.galleries![0].whoCanPost;
+              galleryWhoCanView = gffft.galleries!.first.whoCanView;
+              galleryWhoCanPost = gffft.galleries!.first.whoCanPost;
             }
           }
 
@@ -484,7 +484,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                     children: [
                                       Flexible(
                                           child: Text(
-                                        l10n.gffftSettingsEnableCalendarHint,
+                                        l10n.gffftSettingsGalleryEnableHint,
                                         style: theme.textTheme.bodyText1,
                                         softWrap: true,
                                       ))
@@ -493,16 +493,16 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        l10n.gffftSettingsEnableCalendar,
+                                        l10n.gffftSettingsGalleryEnable,
                                         style: theme.textTheme.bodyText1,
                                       ),
                                       Switch(
-                                        value: calendarEnabled,
+                                        value: galleryEnabled,
                                         onChanged: (value) {
                                           GffftPatchSave gffft = GffftPatchSave(
                                             uid: widget.uid,
                                             gid: widget.gid,
-                                            calendarEnabled: value,
+                                            galleryEnabled: value,
                                           );
 
                                           gffftApi.savePartial(gffft).then((value) => {
