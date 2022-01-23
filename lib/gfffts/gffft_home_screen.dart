@@ -315,7 +315,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                               onPressed: () {},
                             ),
                             Text(
-                              l10n.gffftHomeMedia,
+                              l10n.gffftHomeGallery,
                               style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF00829C)),
                             )
                           ]),

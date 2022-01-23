@@ -1,4 +1,6 @@
 import 'package:gffft/boards/models/board.dart';
+import 'package:gffft/calendars/models/calendar.dart';
+import 'package:gffft/galleries/models/gallery.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
 import 'package:gffft/users/models/bookmark.dart';
 import 'package:gffft/users/models/user.dart';
@@ -29,6 +31,8 @@ class Gffft {
 
   List<GffftFeatureRef>? features;
   List<Board>? boards;
+  List<Calendar>? calendars;
+  List<Gallery>? galleries;
   GffftMembership? membership;
   Bookmark? bookmark;
 

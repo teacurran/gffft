@@ -73,8 +73,18 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
           }
 
           String name = "loading";
-          String boardWhoCanView = "public";
-          String boardWhoCanPost = "public";
+
+          bool boardEnabled = false;
+          String boardWhoCanView = "owner";
+          String boardWhoCanPost = "owner";
+
+          bool calendarEnabled = false;
+          String calendarWhoCanView = "owner";
+          String calendarWhoCanPost = "owner";
+
+          bool galleryEnabled = false;
+          String galleryWhoCanView = "owner";
+          String galleryWhoCanPost = "owner";
 
           var gffft = snapshot.data;
           if (gffft != null) {
@@ -85,18 +95,43 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
               name = "${gffft.me.username}'s gffft";
             }
 
-            if (gffft.hasFeature("board") && gffft.boards != null && gffft.boards!.length > 0) {
+            if (gffft.hasFeature("board") && gffft.boards != null && gffft.boards!.isNotEmpty) {
+              boardEnabled = true;
               boardWhoCanView = gffft.boards![0].whoCanView;
               boardWhoCanPost = gffft.boards![0].whoCanPost;
-
-              // hack until drop downs are internationalized
-              if (boardWhoCanPost == "owner") {
-                boardWhoCanPost = "just you";
-              }
-              if (boardWhoCanView == "owner") {
-                boardWhoCanView = "just you";
-              }
             }
+
+            if (gffft.hasFeature("calendars") && gffft.calendars != null && gffft.calendars!.isNotEmpty) {
+              calendarEnabled = true;
+              calendarWhoCanView = gffft.calendars![0].whoCanView;
+              calendarWhoCanPost = gffft.calendars![0].whoCanPost;
+            }
+
+            if (gffft.hasFeature("gallery") && gffft.galleries != null && gffft.galleries!.isNotEmpty) {
+              galleryEnabled = true;
+              galleryWhoCanView = gffft.galleries![0].whoCanView;
+              galleryWhoCanPost = gffft.galleries![0].whoCanPost;
+            }
+          }
+
+          // hack until drop downs are internationalized
+          if (boardWhoCanPost == "owner") {
+            boardWhoCanPost = "just you";
+          }
+          if (boardWhoCanView == "owner") {
+            boardWhoCanView = "just you";
+          }
+          if (calendarWhoCanPost == "owner") {
+            calendarWhoCanPost = "just you";
+          }
+          if (calendarWhoCanView == "owner") {
+            calendarWhoCanView = "just you";
+          }
+          if (galleryWhoCanPost == "owner") {
+            galleryWhoCanPost = "just you";
+          }
+          if (galleryWhoCanView == "owner") {
+            galleryWhoCanView = "just you";
           }
 
           return SafeArea(
@@ -254,7 +289,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                         style: theme.textTheme.bodyText1,
                                       ),
                                       Switch(
-                                        value: gffft?.hasFeature('board') ?? false,
+                                        value: boardEnabled,
                                         onChanged: (value) {
                                           GffftPatchSave gffft = GffftPatchSave(
                                             uid: widget.uid,
@@ -422,19 +457,107 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                   )
                                 ])),
                           ),
-                          Container(
-                            height: 200,
-                            width: 200,
-                            color: Colors.blue,
-                            child: Text("blue"),
+                          Card(
+                            margin: const EdgeInsets.all(8),
+                            color: theme.backgroundColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                  color: Color(0xFF00829C),
+                                  width: 1.0,
+                                )),
+                            child: Container(
+                                padding: const EdgeInsets.all(10),
+                                height: 300,
+                                width: 300,
+                                child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                  IconButton(
+                                    icon: const FaIcon(FontAwesomeIcons.photoVideo),
+                                    color: const Color(0xFF00829C),
+                                    onPressed: () {},
+                                  ),
+                                  Text(
+                                    l10n.gffftHomeGallery,
+                                    style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF00829C)),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(
+                                        l10n.gffftSettingsEnableCalendarHint,
+                                        style: theme.textTheme.bodyText1,
+                                        softWrap: true,
+                                      ))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsEnableCalendar,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Switch(
+                                        value: calendarEnabled,
+                                        onChanged: (value) {
+                                          GffftPatchSave gffft = GffftPatchSave(
+                                            uid: widget.uid,
+                                            gid: widget.gid,
+                                            calendarEnabled: value,
+                                          );
+
+                                          gffftApi.savePartial(gffft).then((value) => {
+                                                setState(() {
+                                                  _loadGffft();
+                                                })
+                                              });
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsBoardWhoCanView,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: boardWhoCanView,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsBoardWhoCanPost,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: boardWhoCanPost,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
+                                    ],
+                                  )
+                                ])),
                           ),
-                          Container(
-                            margin: EdgeInsets.all(8),
-                            height: 200,
-                            width: 200,
-                            color: Colors.green,
-                            child: Text("green"),
-                          )
                         ]))
               ]),
               // PageView.builder(

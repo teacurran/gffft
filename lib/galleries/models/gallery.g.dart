@@ -17,6 +17,8 @@ Gallery _$GalleryFromJson(Map<String, dynamic> json) => Gallery(
           : Participant.fromJson(json['latestPost'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      whoCanView: json['whoCanView'] as String,
+      whoCanPost: json['whoCanPost'] as String,
       count: json['count'] as int? ?? 0,
       items: (json['items'] as List<dynamic>?)
               ?.map((e) => GalleryItem.fromJson(e as Map<String, dynamic>))
@@ -31,6 +33,8 @@ Map<String, dynamic> _$GalleryToJson(Gallery instance) => <String, dynamic>{
       'photoCount': instance.photoCount,
       'videoCount': instance.videoCount,
       'latestPost': instance.latestPost?.toJson(),
+      'whoCanView': instance.whoCanView,
+      'whoCanPost': instance.whoCanPost,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       'count': instance.count,

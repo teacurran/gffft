@@ -91,8 +91,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeBoard": MessageLookupByLibrary.simpleMessage("board"),
         "gffftHomeBookmark": MessageLookupByLibrary.simpleMessage("bookmark"),
         "gffftHomeCalendar": MessageLookupByLibrary.simpleMessage("calendar"),
+        "gffftHomeGallery": MessageLookupByLibrary.simpleMessage("gallery"),
         "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
-        "gffftHomeMedia": MessageLookupByLibrary.simpleMessage("media"),
         "gffftHomeMemberSince": m0,
         "gffftHomeMembership":
             MessageLookupByLibrary.simpleMessage("membership"),

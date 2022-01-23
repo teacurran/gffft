@@ -700,11 +700,11 @@ class S {
     );
   }
 
-  /// `media`
-  String get gffftHomeMedia {
+  /// `gallery`
+  String get gffftHomeGallery {
     return Intl.message(
-      'media',
-      name: 'gffftHomeMedia',
+      'gallery',
+      name: 'gffftHomeGallery',
       desc: '',
       args: [],
     );
