@@ -22,7 +22,7 @@ class Calendar {
       required this.name,
       this.description,
       required this.events,
-      required this.latestPost});
+      this.latestPost});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
