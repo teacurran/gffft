@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
@@ -57,6 +58,23 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
         });
   }
 
+  List<Widget> getFruitCode(BuildContext context, Gffft? gffft) {
+    final theme = Theme.of(context);
+    var widgets = <Widget>[];
+
+    if (gffft != null) {
+      gffft.fruitCode.forEach((fruit) {
+        widgets.add(Container(
+            child: Text(
+          fruit,
+          style: theme.textTheme.bodyText1!.copyWith(fontSize: 20),
+        )));
+      });
+    }
+
+    return widgets;
+  }
+
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
@@ -90,6 +108,8 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
           String notebookWhoCanView = "owner";
           String notebookWhoCanPost = "owner";
 
+          var shareText = "Join my gffft!\n";
+
           var gffft = snapshot.data;
           if (gffft != null) {
             title = "";
@@ -122,6 +142,10 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
               galleryWhoCanView = gffft.notebooks!.first.whoCanView;
               galleryWhoCanPost = gffft.notebooks!.first.whoCanPost;
             }
+
+            shareText = shareText + "${gffft.fruitCode[0]}${gffft.fruitCode[1]}${gffft.fruitCode[2]}\n";
+            shareText = shareText + "${gffft.fruitCode[3]}${gffft.fruitCode[4]}${gffft.fruitCode[5]}\n";
+            shareText = shareText + "${gffft.fruitCode[6]}${gffft.fruitCode[7]}${gffft.fruitCode[8]}\n";
           }
 
           // hack until drop downs are internationalized
@@ -672,6 +696,75 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                             onChanged: (_) {},
                                           )),
                                     ],
+                                  )
+                                ])),
+                          ),
+                          Card(
+                            margin: const EdgeInsets.all(8),
+                            color: theme.backgroundColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                  color: Colors.green,
+                                  width: 1.0,
+                                )),
+                            child: Container(
+                                padding: const EdgeInsets.all(10),
+                                height: 300,
+                                width: 300,
+                                child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                  IconButton(
+                                    icon: const FaIcon(FontAwesomeIcons.lemon),
+                                    color: Colors.green,
+                                    onPressed: () {},
+                                  ),
+                                  Text(
+                                    l10n.gffftSettingsFruitCode,
+                                    style: theme.textTheme.headline6?.copyWith(color: Colors.green),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(
+                                        l10n.gffftSettingsFruitCodeHint,
+                                        style: theme.textTheme.bodyText1,
+                                        softWrap: true,
+                                      )),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height: 100,
+                                      width: 100,
+                                      child: GridView.count(
+                                        shrinkWrap: true,
+                                        crossAxisCount: 3,
+                                        children: getFruitCode(context, gffft),
+                                      )),
+                                  TextButton(
+                                    onPressed: () {
+                                      Clipboard.setData(ClipboardData(text: shareText)).then((_) {
+                                        print("shareText: ${shareText} copied to clipboard");
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text("fruit code copied to the clipboard")));
+                                      });
+                                    },
+                                    child: Text("copy to clipboard"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      GffftPatchSave gffft = GffftPatchSave(
+                                        uid: widget.uid,
+                                        gid: widget.gid,
+                                        fruitCodeReset: true,
+                                      );
+
+                                      gffftApi.savePartial(gffft).then((value) => {
+                                            setState(() {
+                                              _loadGffft();
+                                            })
+                                          });
+                                    },
+                                    child: Text("generate new fruit code"),
                                   )
                                 ])),
                           ),

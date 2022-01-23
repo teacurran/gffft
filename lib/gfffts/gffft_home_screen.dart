@@ -337,7 +337,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 side: const BorderSide(
-                  color: Color(0xFFFABB59),
+                  color: Colors.deepOrangeAccent,
                   width: 1.0,
                 )),
             child: InkWell(

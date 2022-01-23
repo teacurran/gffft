@@ -69,11 +69,6 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
                 editEnabled = gffft.enabled;
                 editTags = gffft.tags;
 
-                editBoardEnabled = gffft.boardEnabled;
-                editCalendarEnabled = gffft.calendarEnabled;
-                editGalleryEnabled = gffft.galleryEnabled;
-                editNotebookEnabled = gffft.notebookEnabled;
-
                 initialLoad = false;
                 isLoading = false;
               })

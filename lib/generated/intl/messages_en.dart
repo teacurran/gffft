@@ -126,6 +126,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Show in search"),
         "gffftSettingsEnabledHint": MessageLookupByLibrary.simpleMessage(
             "This will enable your gffft to be searched.  To share with just your friends, use a fruit-code instead."),
+        "gffftSettingsFruitCode":
+            MessageLookupByLibrary.simpleMessage("fruit code"),
+        "gffftSettingsFruitCodeHint": MessageLookupByLibrary.simpleMessage(
+            "fruit codes are the way to share a link to your gffft on other platforms.  people will always be able to find you based on the fruit code.  You can change it anytime."),
         "gffftSettingsGalleryEnable":
             MessageLookupByLibrary.simpleMessage("Enable gallery"),
         "gffftSettingsGalleryEnableHint": MessageLookupByLibrary.simpleMessage(

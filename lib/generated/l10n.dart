@@ -670,6 +670,26 @@ class S {
     );
   }
 
+  /// `fruit code`
+  String get gffftSettingsFruitCode {
+    return Intl.message(
+      'fruit code',
+      name: 'gffftSettingsFruitCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `fruit codes are the way to share a link to your gffft on other platforms.  people will always be able to find you based on the fruit code.  You can change it anytime.`
+  String get gffftSettingsFruitCodeHint {
+    return Intl.message(
+      'fruit codes are the way to share a link to your gffft on other platforms.  people will always be able to find you based on the fruit code.  You can change it anytime.',
+      name: 'gffftSettingsFruitCodeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(

@@ -120,6 +120,8 @@
   "gffftSettingsNotebookEnableHint": "Notebooks can be used to create pages to share. Notebooks can be configured to display content inline like a blog, or as a list.",
   "gffftSettingsNotebookWhoCanView": "Who can view:",
   "gffftSettingsNotebookWhoCanEdit": "Who can edit:",
+  "gffftSettingsFruitCode": "fruit code",
+  "gffftSettingsFruitCodeHint": "fruit codes are the way to share a link to your gffft on other platforms.  people will always be able to find you based on the fruit code.  You can change it anytime.",
   "gffftHomeBlog": "blog",
   "gffftHomeMembership": "membership",
   "gffftHomeMemberSince": "since {date}",

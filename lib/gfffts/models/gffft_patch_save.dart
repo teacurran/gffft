@@ -17,6 +17,7 @@ class GffftPatchSave {
   bool? galleryEnabled;
   bool? notebookEnabled;
   String? notebookStyle;
+  bool? fruitCodeReset;
 
   GffftPatchSave(
       {required this.uid,
@@ -31,7 +32,8 @@ class GffftPatchSave {
       this.calendarEnabled,
       this.galleryEnabled,
       this.notebookEnabled,
-      this.notebookStyle});
+      this.notebookStyle,
+      this.fruitCodeReset});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

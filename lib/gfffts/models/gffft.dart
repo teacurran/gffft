@@ -24,11 +24,7 @@ class Gffft {
   bool requireApproval;
   bool enableAltHandles;
   User me;
-
-  bool boardEnabled;
-  bool calendarEnabled;
-  bool galleryEnabled;
-  bool notebookEnabled;
+  List<String> fruitCode;
 
   List<GffftFeatureRef>? features;
   List<Board>? boards;
@@ -38,26 +34,24 @@ class Gffft {
   GffftMembership? membership;
   Bookmark? bookmark;
 
-  Gffft(
-      {required this.uid,
-      required this.gid,
-      required this.me,
-      this.name,
-      this.description,
-      this.tags,
-      this.intro,
-      this.enabled = false,
-      this.allowMembers = false,
-      this.requireApproval = false,
-      this.enableAltHandles = false,
-      this.boardEnabled = false,
-      this.galleryEnabled = false,
-      this.notebookEnabled = false,
-      this.calendarEnabled = false,
-      this.features,
-      this.boards,
-      this.membership,
-      this.bookmark});
+  Gffft({
+    required this.uid,
+    required this.gid,
+    required this.me,
+    required this.fruitCode,
+    this.name,
+    this.description,
+    this.tags,
+    this.intro,
+    this.enabled = false,
+    this.allowMembers = false,
+    this.requireApproval = false,
+    this.enableAltHandles = false,
+    this.features,
+    this.boards,
+    this.membership,
+    this.bookmark,
+  });
 
   bool hasFeature(String name) {
     if (features == null) {
