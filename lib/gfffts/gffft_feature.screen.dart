@@ -53,7 +53,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
         backgroundColor: const Color(0xFFFABB59),
         tooltip: l10n.gffftSettingsSave,
         onPressed: () {
-          VxNavigator.of(context).pop();
+          VxNavigator.of(context).returnAndPush(true);
         });
   }
 

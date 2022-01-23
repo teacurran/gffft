@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -46,6 +47,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   }
 
   Future<void> _loadGffft() async {
+    if (kDebugMode) {
+      print("_loadGffft() called");
+    }
     return setState(() {
       gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
         _titleController = TextEditingController(text: gffft.name);
@@ -474,6 +478,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           VxNavigator.of(context)
               .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]))
               .then((value) {
+            if (kDebugMode) {
+              print("returning from gffft feature set");
+            }
             _loadGffft();
           });
         });
