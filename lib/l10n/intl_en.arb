@@ -122,6 +122,8 @@
   "gffftSettingsNotebookWhoCanEdit": "Who can edit:",
   "gffftSettingsFruitCode": "fruit code",
   "gffftSettingsFruitCodeHint": "fruit codes are the way to share a link to your gffft on other platforms.  people will always be able to find you based on the fruit code.  You can change it anytime.",
+  "gffftSettingsFruitCodeCopy": "copy to clipboard",
+  "gffftSettingsFruitCodeCopied": "fruit code copied to the clipboard",
   "gffftHomeBlog": "blog",
   "gffftHomeMembership": "membership",
   "gffftHomeMemberSince": "since {date}",

@@ -743,12 +743,11 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                   TextButton(
                                     onPressed: () {
                                       Clipboard.setData(ClipboardData(text: shareText)).then((_) {
-                                        print("shareText: ${shareText} copied to clipboard");
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(content: Text("fruit code copied to the clipboard")));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(content: Text(l10n.gffftSettingsFruitCodeCopied)));
                                       });
                                     },
-                                    child: Text("copy to clipboard"),
+                                    child: Text(l10n.gffftSettingsFruitCodeCopy),
                                   ),
                                   TextButton(
                                     onPressed: () {

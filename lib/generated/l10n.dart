@@ -690,6 +690,26 @@ class S {
     );
   }
 
+  /// `copy to clipboard`
+  String get gffftSettingsFruitCodeCopy {
+    return Intl.message(
+      'copy to clipboard',
+      name: 'gffftSettingsFruitCodeCopy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `fruit code copied to the clipboard`
+  String get gffftSettingsFruitCodeCopied {
+    return Intl.message(
+      'fruit code copied to the clipboard',
+      name: 'gffftSettingsFruitCodeCopied',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(
