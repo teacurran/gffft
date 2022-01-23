@@ -355,11 +355,11 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
                             IconButton(
                                 icon: const FaIcon(FontAwesomeIcons.fileAlt),
-                                color: const Color(0xFFFABB59),
+                                color: Colors.deepOrangeAccent,
                                 onPressed: () async {}),
                             Text(
                               l10n.gffftHomePages,
-                              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
+                              style: theme.textTheme.headline6?.copyWith(color: Colors.deepOrangeAccent),
                             )
                           ]),
                           VerticalDivider(),

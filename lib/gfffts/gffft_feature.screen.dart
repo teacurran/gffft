@@ -86,6 +86,10 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
           String galleryWhoCanView = "owner";
           String galleryWhoCanPost = "owner";
 
+          bool notebookEnabled = false;
+          String notebookWhoCanView = "owner";
+          String notebookWhoCanPost = "owner";
+
           var gffft = snapshot.data;
           if (gffft != null) {
             title = "";
@@ -112,6 +116,12 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
               galleryWhoCanView = gffft.galleries!.first.whoCanView;
               galleryWhoCanPost = gffft.galleries!.first.whoCanPost;
             }
+
+            if (gffft.hasFeature("notebook") && gffft.notebooks != null && gffft.notebooks!.isNotEmpty) {
+              notebookEnabled = true;
+              galleryWhoCanView = gffft.notebooks!.first.whoCanView;
+              galleryWhoCanPost = gffft.notebooks!.first.whoCanPost;
+            }
           }
 
           // hack until drop downs are internationalized
@@ -132,6 +142,12 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
           }
           if (galleryWhoCanView == "owner") {
             galleryWhoCanView = "just you";
+          }
+          if (notebookWhoCanPost == "owner") {
+            notebookWhoCanPost = "just you";
+          }
+          if (notebookWhoCanView == "owner") {
+            notebookWhoCanView = "just you";
           }
 
           return SafeArea(
@@ -545,6 +561,107 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                                           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                           child: DropdownButton<String>(
                                             value: boardWhoCanPost,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
+                                    ],
+                                  )
+                                ])),
+                          ),
+                          Card(
+                            margin: const EdgeInsets.all(8),
+                            color: theme.backgroundColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: const BorderSide(
+                                  color: Colors.deepOrangeAccent,
+                                  width: 1.0,
+                                )),
+                            child: Container(
+                                padding: const EdgeInsets.all(10),
+                                height: 300,
+                                width: 300,
+                                child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                  IconButton(
+                                    icon: const FaIcon(FontAwesomeIcons.fileAlt),
+                                    color: Colors.deepOrangeAccent,
+                                    onPressed: () {},
+                                  ),
+                                  Text(
+                                    l10n.gffftHomePages,
+                                    style: theme.textTheme.headline6?.copyWith(color: Colors.deepOrangeAccent),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                          child: Text(
+                                        l10n.gffftSettingsNotebookEnableHint,
+                                        style: theme.textTheme.bodyText1,
+                                        softWrap: true,
+                                      ))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsNotebookEnable,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Switch(
+                                        value: notebookEnabled,
+                                        onChanged: (value) {
+                                          GffftPatchSave gffft = GffftPatchSave(
+                                            uid: widget.uid,
+                                            gid: widget.gid,
+                                            notebookEnabled: value,
+                                          );
+
+                                          gffftApi.savePartial(gffft).then((value) => {
+                                                setState(() {
+                                                  _loadGffft();
+                                                })
+                                              });
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsNotebookWhoCanView,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: notebookWhoCanView,
+                                            items: <String>['just you', 'admins', 'moderators', 'members', 'public']
+                                                .map((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            onChanged: (_) {},
+                                          )),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        l10n.gffftSettingsNotebookWhoCanEdit,
+                                        style: theme.textTheme.bodyText1,
+                                      ),
+                                      Padding(
+                                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                          child: DropdownButton<String>(
+                                            value: notebookWhoCanPost,
                                             items: <String>['just you', 'admins', 'moderators', 'members', 'public']
                                                 .map((String value) {
                                               return DropdownMenuItem<String>(

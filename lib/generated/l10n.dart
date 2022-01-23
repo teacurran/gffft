@@ -630,6 +630,46 @@ class S {
     );
   }
 
+  /// `Enable notebook`
+  String get gffftSettingsNotebookEnable {
+    return Intl.message(
+      'Enable notebook',
+      name: 'gffftSettingsNotebookEnable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notebooks can be used to create pages to share. Notebooks can be configured to display content inline like a blog, or as a list.`
+  String get gffftSettingsNotebookEnableHint {
+    return Intl.message(
+      'Notebooks can be used to create pages to share. Notebooks can be configured to display content inline like a blog, or as a list.',
+      name: 'gffftSettingsNotebookEnableHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who can view:`
+  String get gffftSettingsNotebookWhoCanView {
+    return Intl.message(
+      'Who can view:',
+      name: 'gffftSettingsNotebookWhoCanView',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who can edit:`
+  String get gffftSettingsNotebookWhoCanEdit {
+    return Intl.message(
+      'Who can edit:',
+      name: 'gffftSettingsNotebookWhoCanEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `blog`
   String get gffftHomeBlog {
     return Intl.message(
@@ -730,10 +770,10 @@ class S {
     );
   }
 
-  /// `pages`
+  /// `notebook`
   String get gffftHomePages {
     return Intl.message(
-      'pages',
+      'notebook',
       name: 'gffftHomePages',
       desc: '',
       args: [],

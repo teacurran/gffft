@@ -98,7 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("membership"),
         "gffftHomeNotMember":
             MessageLookupByLibrary.simpleMessage("not a member"),
-        "gffftHomePages": MessageLookupByLibrary.simpleMessage("pages"),
+        "gffftHomePages": MessageLookupByLibrary.simpleMessage("notebook"),
         "gffftHomeQuit": MessageLookupByLibrary.simpleMessage("quit"),
         "gffftHomeUnBookmark":
             MessageLookupByLibrary.simpleMessage("un-bookmark"),
@@ -131,6 +131,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftSettingsGalleryEnableHint": MessageLookupByLibrary.simpleMessage(
             "A gallery allows you or your gffft\'s members to post photos and videos. Configure to be viewed as a stream or contact-sheet style."),
         "gffftSettingsHead": MessageLookupByLibrary.simpleMessage("settings"),
+        "gffftSettingsNotebookEnable":
+            MessageLookupByLibrary.simpleMessage("Enable notebook"),
+        "gffftSettingsNotebookEnableHint": MessageLookupByLibrary.simpleMessage(
+            "Notebooks can be used to create pages to share. Notebooks can be configured to display content inline like a blog, or as a list."),
+        "gffftSettingsNotebookWhoCanEdit":
+            MessageLookupByLibrary.simpleMessage("Who can edit:"),
+        "gffftSettingsNotebookWhoCanView":
+            MessageLookupByLibrary.simpleMessage("Who can view:"),
         "gffftSettingsSave":
             MessageLookupByLibrary.simpleMessage("save and exit"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),

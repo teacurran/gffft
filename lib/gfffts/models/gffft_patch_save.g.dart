@@ -19,6 +19,8 @@ GffftPatchSave _$GffftPatchSaveFromJson(Map<String, dynamic> json) =>
       boardEnabled: json['boardEnabled'] as bool?,
       calendarEnabled: json['calendarEnabled'] as bool?,
       galleryEnabled: json['galleryEnabled'] as bool?,
+      notebookEnabled: json['notebookEnabled'] as bool?,
+      notebookStyle: json['notebookStyle'] as String?,
     );
 
 Map<String, dynamic> _$GffftPatchSaveToJson(GffftPatchSave instance) {
@@ -42,5 +44,7 @@ Map<String, dynamic> _$GffftPatchSaveToJson(GffftPatchSave instance) {
   writeNotNull('boardEnabled', instance.boardEnabled);
   writeNotNull('calendarEnabled', instance.calendarEnabled);
   writeNotNull('galleryEnabled', instance.galleryEnabled);
+  writeNotNull('notebookEnabled', instance.notebookEnabled);
+  writeNotNull('notebookStyle', instance.notebookStyle);
   return val;
 }
