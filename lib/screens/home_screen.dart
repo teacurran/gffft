@@ -89,7 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       )),
                                   child: InkWell(
                                       onTap: () {
-                                        VxNavigator.of(context).push(Uri(pathSegments: ["users", "me"]));
+                                        VxNavigator.of(context)
+                                            .waitAndPush(Uri(pathSegments: ["users", "me"]))
+                                            .then((value) => _loadData());
                                       },
                                       splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                       highlightColor: Colors.transparent,
@@ -148,7 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: InkWell(
                                       onTap: () {
                                         VxNavigator.of(context)
-                                            .push(Uri(pathSegments: ["users", "me", "gfffts", "default"]));
+                                            .waitAndPush(Uri(pathSegments: ["users", "me", "gfffts", "default"]))
+                                            .then((value) => _loadData());
                                       },
                                       splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                       // Generally, material cards do not have a highlight overlay.

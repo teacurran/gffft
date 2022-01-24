@@ -68,7 +68,7 @@ class _MeScreenState extends State<MeScreen> {
               ),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                onPressed: () => VxNavigator.of(context).pop(),
+                onPressed: () => VxNavigator.of(context).returnAndPush(true),
               ),
               centerTitle: true,
             ),
