@@ -6,9 +6,14 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'home_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const String webPath = '/login';
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   String logoAsset = 'assets/logo.svg';
 
   Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
@@ -27,9 +32,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var maxExtent = 150.0;
+    if (MediaQuery.of(context).viewInsets.bottom > 0) {
+      maxExtent = 50;
+    }
     return SignInScreen(
         headerBuilder: getHeaderBuilder,
-        headerMaxExtent: 150,
+        headerMaxExtent: maxExtent,
         sideBuilder: getSidebarBuilder,
         providerConfigs: const [
           EmailProviderConfiguration(),
