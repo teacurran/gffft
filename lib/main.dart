@@ -47,6 +47,16 @@ Future<void> main() async {
 
   if (kIsWeb) {
     await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  } else {
+    if (kDebugMode && false) {
+      // Force disable Crashlytics collection while doing every day development.
+      // Temporarily toggle this to true if you want to test crash reporting in your app.
+
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    } else {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    }
   }
   //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
@@ -60,16 +70,6 @@ Future<void> main() async {
       print('using emulated firebase auth at: localhost, port: 9099');
     }
     FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-  }
-
-  if (kDebugMode && false) {
-    // Force disable Crashlytics collection while doing every day development.
-    // Temporarily toggle this to true if you want to test crash reporting in your app.
-
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-  } else {
-    // Handle Crashlytics enabled status when not in Debug,
-    // e.g. allow your users to opt-in to crash reporting.
   }
 
   getIt.registerSingleton<BoardApi>(BoardApi());
