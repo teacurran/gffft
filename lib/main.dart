@@ -47,7 +47,8 @@ Future<void> main() async {
 
   if (kIsWeb) {
     await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    // FirebaseCrashlytics doesn't work on web
+    // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   } else {
     if (kDebugMode && false) {
       // Force disable Crashlytics collection while doing every day development.
