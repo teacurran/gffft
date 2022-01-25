@@ -80,6 +80,7 @@ dependencies:
   velocity_x: ^3.3.0
 
   window_location_href: ^1.0.0
+  firebase_crashlytics: ^2.4.5
 
 dev_dependencies:
   analyzer: ^3.0.0

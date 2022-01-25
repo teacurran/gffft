@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -136,7 +137,7 @@ class ApiBase {
         await fbAuth.signOut();
       }
       responseJson = _returnResponse(response);
-    } catch (e) {
+    } catch (e, stacktrace) {
       if (e is SocketException) {
         //treat SocketException
         if (kDebugMode) {
@@ -151,6 +152,9 @@ class ApiBase {
         print("Unhandled exception. signing user out.: ${e.toString()}");
         //await fbAuth.signOut();
       }
+
+      await FirebaseCrashlytics.instance
+          .recordError(e, stacktrace, reason: 'API call failed: ${url}, payload: ${payload}');
 
       throw FetchDataException('Unable to fetch data');
     }
