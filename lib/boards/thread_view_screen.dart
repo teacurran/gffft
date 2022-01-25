@@ -135,6 +135,12 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
                   onPressed: () => VxNavigator.of(context).pop(),
                 ),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.refresh, color: theme.secondaryHeaderColor),
+                    onPressed: () => _pagingController.refresh(),
+                  )
+                ],
               ),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: theme.focusColor),

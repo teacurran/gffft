@@ -2,18 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gffft/common/dates.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'models/thread.dart';
 
 class ThreadTitle extends StatelessWidget {
-  const ThreadTitle({Key? key, required this.uid, required this.gid, required this.bid, required this.thread})
+  const ThreadTitle(
+      {Key? key, required this.uid, required this.gid, required this.bid, required this.pager, required this.thread})
       : super(key: key);
 
   final String uid;
   final String gid;
   final String bid;
   final Thread thread;
+  final PagingController<String?, Thread> pager;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,8 @@ class ThreadTitle extends StatelessWidget {
         child: InkWell(
             onTap: () {
               VxNavigator.of(context)
-                  .push(Uri(pathSegments: ["users", uid, "gfffts", gid, "boards", bid, "threads", thread.id]));
+                  .waitAndPush(Uri(pathSegments: ["users", uid, "gfffts", gid, "boards", bid, "threads", thread.id]))
+                  .then((value) => pager.refresh());
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,

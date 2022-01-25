@@ -118,6 +118,12 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
                   onPressed: () => VxNavigator.of(context).pop(),
                 ),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.refresh, color: theme.secondaryHeaderColor),
+                    onPressed: () => _pagingController.refresh(),
+                  )
+                ],
               ),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: theme.focusColor),
@@ -137,7 +143,8 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                     builderDelegate: PagedChildBuilderDelegate<Thread>(
                       animateTransitions: true,
                       itemBuilder: (context, item, index) {
-                        return ThreadTitle(uid: widget.uid, gid: widget.gid, bid: widget.bid, thread: item);
+                        return ThreadTitle(
+                            uid: widget.uid, gid: widget.gid, bid: widget.bid, pager: _pagingController, thread: item);
                       },
                     ))
               ]));
