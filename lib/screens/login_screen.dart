@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var maxExtent = 150.0;
     if (MediaQuery.of(context).viewInsets.bottom > 0) {
-      maxExtent = 50;
+      maxExtent = 0;
     }
     return SignInScreen(
         headerBuilder: getHeaderBuilder,
