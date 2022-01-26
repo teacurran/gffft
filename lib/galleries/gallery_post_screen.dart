@@ -101,6 +101,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final ImagePicker imagePicker = ImagePicker();
 
     return _file == null
         ? Scaffold(
@@ -114,13 +115,37 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
               ),
               centerTitle: true,
             ),
-            body: Center(
-              child: IconButton(
-                icon: const Icon(
-                  Icons.upload,
-                ),
-                onPressed: () => _selectImage(context),
-              ),
+            body: Column(
+              children: [
+                Center(
+                    child: TextButton.icon(
+                        onPressed: () async {
+                          XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+                          if (file != null) {
+                            final fileBytes = await file.readAsBytes();
+                            setState(() {
+                              _file = file;
+                              _fileBytes = fileBytes;
+                            });
+                          }
+                        },
+                        icon: const Icon(Icons.photo_camera),
+                        label: const Text("take a photo"))),
+                Center(
+                    child: TextButton.icon(
+                        onPressed: () async {
+                          XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
+                          if (file != null) {
+                            final fileBytes = await file.readAsBytes();
+                            setState(() {
+                              _file = file;
+                              _fileBytes = fileBytes;
+                            });
+                          }
+                        },
+                        icon: const Icon(Icons.upload),
+                        label: const Text("upload a photo")))
+              ],
             ))
         : Scaffold(
             appBar: AppBar(
