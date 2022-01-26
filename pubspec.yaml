@@ -39,6 +39,7 @@ dependencies:
   # For example, to use Firebase Authentication and Cloud Firestore
   firebase_auth: ^3.3.0
   firebase_dynamic_links: ^4.0.3
+  firebase_storage: ^10.2.5
 
   flutter:
     sdk: flutter
@@ -57,7 +58,9 @@ dependencies:
   flutter_tags_x: any
   flutter_slidable: ^1.2.0
 
+  image_picker: ^0.8.4+5
   infinite_scroll_pagination: any
+  uuid: any
 
   get_it: ^7.2.0
   google_fonts: ^2.1.0

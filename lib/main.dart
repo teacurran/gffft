@@ -175,7 +175,7 @@ class _AppState extends State<App> {
             )),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/galleries/[a-zA-Z0-9]+/post$"): (uri, param) =>
             MaterialPage(
-                child: GalleryViewScreen(
+                child: GalleryPostScreen(
               uid: uri.pathSegments[1],
               gid: uri.pathSegments[3],
               mid: uri.pathSegments[5],

@@ -125,7 +125,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                   onPressed: () {
                     VxNavigator.of(context)
                         .waitAndPush(Uri(
-                            pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.mid, "post"]))
+                            pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", widget.mid, "post"]))
                         .then((value) {
                       _pagingController.refresh();
                     });
