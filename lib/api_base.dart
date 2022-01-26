@@ -60,6 +60,10 @@ enum Status { loadingStatus, completedStatus, errorStatus }
 class ApiBase {
   final String _baseUrl = dotenv.get("API_BASE_URL", fallback: "https://gffft-auth.appspot.com/api/");
 
+  String getBaseUrl() {
+    return _baseUrl;
+  }
+
   Future<dynamic> get(String urlPath, {bool requireAuth = false}) async {
     return callApi(urlPath);
   }
@@ -136,7 +140,7 @@ class ApiBase {
       if (response.statusCode == 403) {
         await fbAuth.signOut();
       }
-      responseJson = _returnResponse(response);
+      responseJson = returnResponse(response);
     } catch (e, stacktrace) {
       if (e is SocketException) {
         //treat SocketException
@@ -169,7 +173,7 @@ class ApiBase {
     return callApi(urlPath, method: "post", requireAuth: true, queryParams: queryParams);
   }
 
-  dynamic _returnResponse(http.Response response) {
+  dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());

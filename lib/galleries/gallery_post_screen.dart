@@ -1,7 +1,13 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'gallery_api.dart';
+
+final getIt = GetIt.instance;
 
 class GalleryPostScreen extends StatefulWidget {
   const GalleryPostScreen({Key? key, required this.uid, required this.gid, required this.mid}) : super(key: key);
@@ -15,11 +21,14 @@ class GalleryPostScreen extends StatefulWidget {
 }
 
 class _GalleryPostScreenState extends State<GalleryPostScreen> {
-  Uint8List? _file;
+  XFile? _file;
+  Uint8List? _fileBytes;
   bool isLoading = false;
   final TextEditingController _descriptionController = TextEditingController();
 
   _selectImage(BuildContext parentContext) async {
+    final ImagePicker imagePicker = ImagePicker();
+
     return showDialog(
       context: parentContext,
       builder: (BuildContext context) {
@@ -31,20 +40,28 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                 child: const Text('Take a photo'),
                 onPressed: () async {
                   Navigator.pop(context);
-                  Uint8List file = await pickImage(ImageSource.camera);
-                  setState(() {
-                    _file = file;
-                  });
+                  XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+                  if (file != null) {
+                    final fileBytes = await file.readAsBytes();
+                    setState(() {
+                      _file = file;
+                      _fileBytes = fileBytes;
+                    });
+                  }
                 }),
             SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
                 child: const Text('Choose from Gallery'),
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  Uint8List file = await pickImage(ImageSource.gallery);
-                  setState(() {
-                    _file = file;
-                  });
+                  XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
+                  if (file != null) {
+                    final fileBytes = await file.readAsBytes();
+                    setState(() {
+                      _file = file;
+                      _fileBytes = fileBytes;
+                    });
+                  }
                 }),
             SimpleDialogOption(
               padding: const EdgeInsets.all(20),
@@ -59,42 +76,13 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
     );
   }
 
-  void postImage(String uid, String username, String profImage) async {
+  void postImage() async {
     setState(() {
       isLoading = true;
     });
-    // start the loading
-    try {
-      // upload to storage and db
-      // upload post here.
-      String res = await FireStoreMethods().uploadPost(
-        _descriptionController.text,
-        _file!,
-        uid,
-        username,
-        profImage,
-      );
-      if (res == "success") {
-        setState(() {
-          isLoading = false;
-        });
-        showSnackBar(
-          context,
-          'Posted!',
-        );
-        clearImage();
-      } else {
-        showSnackBar(context, res);
-      }
-    } catch (err) {
-      setState(() {
-        isLoading = false;
-      });
-      showSnackBar(
-        context,
-        err.toString(),
-      );
-    }
+
+    GalleryApi galleryApi = getIt<GalleryApi>();
+    await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _file!);
   }
 
   void clearImage() {
@@ -111,20 +99,32 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    AppLocalizations? l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
 
     return _file == null
-        ? Center(
-            child: IconButton(
-              icon: const Icon(
-                Icons.upload,
+        ? Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Text(widget.gid, style: theme.textTheme.headline1),
+              backgroundColor: theme.backgroundColor,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: theme.primaryColor),
+                onPressed: () => Navigator.pop(context),
               ),
-              onPressed: () => _selectImage(context),
+              centerTitle: true,
             ),
-          )
+            body: Center(
+              child: IconButton(
+                icon: const Icon(
+                  Icons.upload,
+                ),
+                onPressed: () => _selectImage(context),
+              ),
+            ))
         : Scaffold(
             appBar: AppBar(
-              backgroundColor: mobileBackgroundColor,
+              backgroundColor: theme.backgroundColor,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: clearImage,
@@ -135,11 +135,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
               centerTitle: false,
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => postImage(
-                    userProvider.getUser.uid,
-                    userProvider.getUser.username,
-                    userProvider.getUser.photoUrl,
-                  ),
+                  onPressed: () => postImage(),
                   child: const Text(
                     "Post",
                     style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold, fontSize: 16.0),
@@ -156,11 +152,6 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        userProvider.getUser.photoUrl,
-                      ),
-                    ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: TextField(
@@ -179,7 +170,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                               image: DecorationImage(
                             fit: BoxFit.fill,
                             alignment: FractionalOffset.topCenter,
-                            image: MemoryImage(_file!),
+                            image: MemoryImage(_fileBytes!),
                           )),
                         ),
                       ),
@@ -191,15 +182,6 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
             ),
           );
   }
-}
-
-pickImage(ImageSource source) async {
-  final ImagePicker _imagePicker = ImagePicker();
-  XFile? _file = await _imagePicker.pickImage(source: source);
-  if (_file != null) {
-    return await _file.readAsBytes();
-  }
-  print('No Image Selected');
 }
 
 showSnackBar(BuildContext context, String text) {
