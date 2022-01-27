@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import '../api_base.dart';
 
 class GalleryApi extends ApiBase {
-  Future<void> uploadGalleryItem(String uid, String gid, String mid, XFile file) async {
+  Future<void> uploadGalleryItem(String uid, String gid, String mid, String description, XFile file) async {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
     var url = Uri.parse(getBaseUrl() + "galleries");
@@ -36,6 +36,10 @@ class GalleryApi extends ApiBase {
 
       var image = http.MultipartFile.fromBytes('file', await file.readAsBytes(), filename: file.name);
       request.files.add(image);
+      request.fields['uid'] = uid;
+      request.fields['gid'] = gid;
+      request.fields['mid'] = mid;
+      request.fields['description'] = description;
 
       final streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);

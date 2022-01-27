@@ -38,7 +38,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
       isLoading = true;
     });
 
-    await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _file!);
+    await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _descriptionController.text, _file!);
   }
 
   void clearImage() {
