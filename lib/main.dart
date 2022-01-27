@@ -28,6 +28,7 @@ import 'boards/board_api.dart';
 import 'boards/create_post_screen.dart';
 import 'boards/create_reply_screen.dart';
 import 'firebase_options.dart';
+import 'galleries/gallery_api.dart';
 import 'galleries/gallery_post_screen.dart';
 import 'galleries/gallery_view_screen.dart';
 import 'gfffts/gffft_api.dart';
@@ -75,6 +76,7 @@ Future<void> main() async {
   }
 
   getIt.registerSingleton<BoardApi>(BoardApi());
+  getIt.registerSingleton<GalleryApi>(GalleryApi());
   getIt.registerSingleton<GffftApi>(GffftApi());
   getIt.registerSingleton<UserApi>(UserApi());
   runApp(App());

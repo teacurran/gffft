@@ -310,6 +310,16 @@ class S {
     );
   }
 
+  /// `Description, if you feel like it...`
+  String get galleryPostCaption {
+    return Intl.message(
+      'Description, if you feel like it...',
+      name: 'galleryPostCaption',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Introduction`
   String get editIntro {
     return Intl.message(

@@ -85,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Your Gffft Info"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Error Loading"),
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
+        "galleryPostCaption": MessageLookupByLibrary.simpleMessage(
+            "Description, if you feel like it..."),
         "gffftEdit": MessageLookupByLibrary.simpleMessage("edit"),
         "gffftEditStop": MessageLookupByLibrary.simpleMessage("stop editing"),
         "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),

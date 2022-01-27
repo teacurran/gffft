@@ -64,6 +64,7 @@
   "@editGallery": {
     "description": "Header for Gallery settings"
   },
+  "galleryPostCaption": "Description, if you feel like it...",
   "editIntro": "Introduction",
   "@editIntro": {},
   "editIntroHint": "Longer introduction to this gffft",
