@@ -133,12 +133,18 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
               body: Padding(
                   padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: CustomScrollView(slivers: <Widget>[
-                    PagedSliverList<String?, GalleryItem>(
+                    PagedSliverGrid(
                         pagingController: _pagingController,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.5),
                         builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
                           animateTransitions: true,
                           itemBuilder: (context, item, index) {
-                            return Container();
+                            return Image.network(
+                                "https://storage.googleapis.com/gffft-auth.appspot.com/users/${gffft?.uid}/gfffts/${gffft?.gid}/galleries/${widget.mid}/items/${item.item}");
+                            Container(
+                              child: Text(item.item),
+                            );
                           },
                         ))
                   ])));
