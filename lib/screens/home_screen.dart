@@ -48,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, AsyncSnapshot<User?> snapshot) {
             if (snapshot.hasError) {
               // Navigator.pushReplacementNamed(context, LoginScreen.webPath);
-              Future.delayed(Duration.zero, () async {
-                VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
-              });
+              // Future.delayed(Duration.zero, () async {
+              //   VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
+              // });
             }
 
             var user = snapshot.data;
