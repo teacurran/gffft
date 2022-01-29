@@ -12,12 +12,36 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache dependencies
+      - name: Cache flutter
         uses: actions/cache@v2
         with:
-          path: ~/build
-          key: build-${{ hashFiles('pubspec.lock') }}
-          restore-keys: build-
+          path: |
+            ${{ env.FLUTTER_HOME }}/bin
+          key: install-flutter-2.8.1
+          restore-keys: |
+        install-flutter-
+
+      - name: Cache pubspec dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.FLUTTER_HOME }}/.pub-cache
+            **/.packages
+            **/.flutter-plugins
+            **/.flutter-plugin-dependencies
+            **/.dart_tool/package_config.json
+          key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            build-pubspec-
+
+        - name: Cache build runner
+          uses: actions/cache@v2
+          with:
+            path: |
+              **/.dart_tool/build
+            key: build-runner-${{ hashFiles('**/asset_graph.json') }}-${{ hashFiles('**/pubspec.lock') }}
+            restore-keys: |
+              build-runner-
 
       - name: Create file
         run: |
@@ -26,7 +50,7 @@ jobs:
           echo "EMULATE_FIRESTORE=false" >> .env
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '2.5.3'
+          flutter-version: '2.8.1'
       - run: flutter pub get
       - run: flutter build web
       - uses: FirebaseExtended/action-hosting-deploy@v0
