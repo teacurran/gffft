@@ -142,9 +142,6 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                           itemBuilder: (context, item, index) {
                             return Image.network(
                                 "https://storage.googleapis.com/gffft-auth.appspot.com/users/${gffft?.uid}/gfffts/${gffft?.gid}/galleries/${widget.mid}/items/${item.item}");
-                            Container(
-                              child: Text(item.item),
-                            );
                           },
                         ))
                   ])));

@@ -39,6 +39,8 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
     });
 
     await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _descriptionController.text, _file!);
+
+    VxNavigator.of(context).returnAndPush(true);
   }
 
   void clearImage() {
