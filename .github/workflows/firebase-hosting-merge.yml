@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/build
+          key: build-${{ hashFiles('pubspec.lock') }}
+          restore-keys: build-
+
       - name: Create file
         run: |
           echo "API_BASE_URL=https://us-central1-gffft-auth.cloudfunctions.net/api/" > .env
