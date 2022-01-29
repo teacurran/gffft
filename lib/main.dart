@@ -120,22 +120,13 @@ class _AppState extends State<App> {
           ),
       routes: {
         "/": (uri, params) {
-          if (FirebaseAuth.instance.currentUser != null) {
-            return MaterialPage(child: HomeScreen());
-          }
-          return MaterialPage(child: LoginScreen());
+          return MaterialPage(child: HomeScreen());
         },
         BookmarkScreen.webPath: (uri, params) {
-          if (FirebaseAuth.instance.currentUser != null) {
-            return const MaterialPage(child: BookmarkScreen());
-          }
-          return MaterialPage(child: LoginScreen());
+          return const MaterialPage(child: BookmarkScreen());
         },
         HomeScreen.webPath: (uri, params) {
-          if (FirebaseAuth.instance.currentUser != null) {
-            return MaterialPage(child: HomeScreen());
-          }
-          return MaterialPage(child: LoginScreen());
+          return MaterialPage(child: HomeScreen());
         },
         GffftListScreen.webPath: (uri, params) => const MaterialPage(child: GffftListScreen()),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+$"): (uri, param) =>
