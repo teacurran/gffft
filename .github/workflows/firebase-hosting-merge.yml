@@ -18,8 +18,8 @@ jobs:
           path: |
             ${{ env.FLUTTER_HOME }}/bin
           key: install-flutter-2.8.1
-          restore-keys: install-flutter-
-
+          restore-keys: |
+            install-flutter-
       - name: Cache pubspec dependencies
         uses: actions/cache@v2
         with:
@@ -31,7 +31,6 @@ jobs:
             **/.dart_tool/package_config.json
           key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: build-pubspec-
-
         - name: Cache build runner
           uses: actions/cache@v2
           with:
