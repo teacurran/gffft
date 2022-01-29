@@ -159,8 +159,7 @@ class ApiBase {
         //await fbAuth.signOut();
       }
 
-      await FirebaseCrashlytics.instance
-          .recordError(e, stacktrace, reason: 'API call failed: ${url}, payload: ${payload}');
+      await FirebaseCrashlytics.instance.recordError(e, stacktrace, reason: 'API call failed: $url, payload: $payload');
 
       throw FetchDataException('Unable to fetch data');
     }
