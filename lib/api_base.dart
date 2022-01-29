@@ -109,13 +109,14 @@ class ApiBase {
     dynamic responseJson;
     try {
       final request = http.Request(method, url);
+      final fbUser = await fbAuth.authStateChanges().first;
 
-      if (requireAuth && fbAuth.currentUser == null) {
+      if (requireAuth && fbUser == null) {
         throw FetchDataException('User must be authenticated');
       }
 
-      if (fbAuth.currentUser != null) {
-        final String token = await fbAuth.currentUser!.getIdToken(false);
+      if (fbUser != null) {
+        final String token = await fbUser.getIdToken(false);
         if (kDebugMode) {
           print('auth token: $token');
         }
