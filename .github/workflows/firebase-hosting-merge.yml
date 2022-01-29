@@ -15,11 +15,10 @@ jobs:
       - name: Cache flutter
         uses: actions/cache@v2
         with:
-          path: |
-            ${{ env.FLUTTER_HOME }}/bin
+          path: ${{ env.FLUTTER_HOME }}/bin
           key: install-flutter-2.8.1
-          restore-keys: |
-            install-flutter-
+          restore-keys: install-flutter-
+
       - name: Cache pubspec dependencies
         uses: actions/cache@v2
         with:
