@@ -147,7 +147,7 @@
   "gffftHomeGallery": "gallery",
   "gffftHomePages": "notebook",
   "gffftHomeCalendar": "calendar",
-  "gffftListSearchHint": "name or #tag",
+  "gffftListSearchHint": "name or fruit-code",
   "@gffftListSearchHint": {},
   "host": "Host",
   "@host": {},

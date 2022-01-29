@@ -850,10 +850,10 @@ class S {
     );
   }
 
-  /// `name or #tag`
+  /// `name or fruit-code`
   String get gffftListSearchHint {
     return Intl.message(
-      'name or #tag',
+      'name or fruit-code',
       name: 'gffftListSearchHint',
       desc: '',
       args: [],
