@@ -19,7 +19,7 @@ jobs:
             ${{ env.FLUTTER_HOME }}/bin
           key: install-flutter-2.8.1
           restore-keys: |
-        install-flutter-
+            install-flutter-
 
       - name: Cache pubspec dependencies
         uses: actions/cache@v2
