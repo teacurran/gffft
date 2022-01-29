@@ -11,12 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache flutter
         uses: actions/cache@v2
         with:
           path: ${{ env.FLUTTER_HOME }}/bin
           key: install-flutter-2.8.1
           restore-keys: install-flutter-
+
       - name: Cache pubspec dependencies
         uses: actions/cache@v2
         with:
@@ -28,13 +30,14 @@ jobs:
             **/.dart_tool/package_config.json
           key: build-pubspec-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: build-pubspec-
-        - name: Cache build runner
-          uses: actions/cache@v2
-          with:
-            path: |
-              **/.dart_tool/build
-            key: build-runner-${{ hashFiles('**/asset_graph.json') }}-${{ hashFiles('**/pubspec.lock') }}
-            restore-keys: build-runner-
+
+      - name: Cache build runner
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/.dart_tool/build
+          key: build-runner-${{ hashFiles('**/asset_graph.json') }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: build-runner-
 
       - name: Create file
         run: |
