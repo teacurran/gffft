@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
@@ -26,6 +27,8 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
   static const _pageSize = 200;
   final PagingController<String?, GalleryItem> _pagingController = PagingController(firstPageKey: null);
   Future<Gffft>? gffft;
+
+  final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
 
   @override
   void initState() {
@@ -117,6 +120,12 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
                   onPressed: () => VxNavigator.of(context).pop(),
                 ),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.refresh, color: theme.secondaryHeaderColor),
+                    onPressed: () => _pagingController.refresh(),
+                  )
+                ],
               ),
               floatingActionButton: FloatingActionButton(
                   child: Icon(Icons.add, color: theme.focusColor),
@@ -140,8 +149,13 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                         builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
                           animateTransitions: true,
                           itemBuilder: (context, item, index) {
-                            return Image.network(
-                                "https://storage.googleapis.com/gffft-auth.appspot.com/users/${gffft?.uid}/gfffts/${item.path}");
+                            var thumbUrl = item.urls["320"];
+                            thumbUrl = thumbUrl?.replaceAll("127.0.0.1", storageHost);
+                            if (thumbUrl != null) {
+                              return Image.network(thumbUrl);
+                            } else {
+                              return const Text("loading");
+                            }
                           },
                         ))
                   ])));

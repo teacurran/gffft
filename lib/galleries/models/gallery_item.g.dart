@@ -13,6 +13,7 @@ GalleryItem _$GalleryItemFromJson(Map<String, dynamic> json) => GalleryItem(
       path: json['path'] as String,
       thumbnail: json['thumbnail'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
+      urls: Map<String, String>.from(json['urls'] as Map),
     );
 
 Map<String, dynamic> _$GalleryItemToJson(GalleryItem instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$GalleryItemToJson(GalleryItem instance) =>
       'path': instance.path,
       'thumbnail': instance.thumbnail,
       'createdAt': instance.createdAt.toIso8601String(),
+      'urls': instance.urls,
     };

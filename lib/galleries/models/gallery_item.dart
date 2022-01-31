@@ -11,6 +11,7 @@ class GalleryItem {
   String path;
   bool thumbnail;
   DateTime createdAt;
+  Map<String, String> urls;
 
   GalleryItem(
       {required this.id,
@@ -18,7 +19,8 @@ class GalleryItem {
       required this.fileName,
       required this.path,
       required this.thumbnail,
-      required this.createdAt});
+      required this.createdAt,
+      required this.urls});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
