@@ -7,10 +7,18 @@ part 'gallery_item.g.dart';
 class GalleryItem {
   String id;
   Participant author;
-  String item;
+  String fileName;
+  String path;
+  bool thumbnail;
   DateTime createdAt;
 
-  GalleryItem({required this.id, required this.author, required this.item, required this.createdAt});
+  GalleryItem(
+      {required this.id,
+      required this.author,
+      required this.fileName,
+      required this.path,
+      required this.thumbnail,
+      required this.createdAt});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

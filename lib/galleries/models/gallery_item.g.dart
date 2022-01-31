@@ -9,7 +9,9 @@ part of 'gallery_item.dart';
 GalleryItem _$GalleryItemFromJson(Map<String, dynamic> json) => GalleryItem(
       id: json['id'] as String,
       author: Participant.fromJson(json['author'] as Map<String, dynamic>),
-      item: json['item'] as String,
+      fileName: json['fileName'] as String,
+      path: json['path'] as String,
+      thumbnail: json['thumbnail'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
@@ -17,6 +19,8 @@ Map<String, dynamic> _$GalleryItemToJson(GalleryItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'author': instance.author,
-      'item': instance.item,
+      'fileName': instance.fileName,
+      'path': instance.path,
+      'thumbnail': instance.thumbnail,
       'createdAt': instance.createdAt.toIso8601String(),
     };

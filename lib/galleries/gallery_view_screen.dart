@@ -141,7 +141,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                           animateTransitions: true,
                           itemBuilder: (context, item, index) {
                             return Image.network(
-                                "https://storage.googleapis.com/gffft-auth.appspot.com/users/${gffft?.uid}/gfffts/${gffft?.gid}/galleries/${widget.mid}/items/${item.item}");
+                                "https://storage.googleapis.com/gffft-auth.appspot.com/users/${gffft?.uid}/gfffts/${item.path}");
                           },
                         ))
                   ])));
