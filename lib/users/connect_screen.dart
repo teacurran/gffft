@@ -176,8 +176,10 @@ class _ConnectScreenState extends State<ConnectScreen> {
     final theme = Theme.of(context);
 
     return Theme(
-      data: ThemeData.dark()
-          .copyWith(appBarTheme: theme.appBarTheme, scaffoldBackgroundColor: theme.scaffoldBackgroundColor),
+      data: ThemeData.dark().copyWith(
+          appBarTheme: theme.appBarTheme,
+          scaffoldBackgroundColor: theme.scaffoldBackgroundColor,
+          textTheme: theme.textTheme),
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -213,7 +215,8 @@ class _ConnectScreenState extends State<ConnectScreen> {
   }
 
   Widget _getBookmarkScreen(theme, l10n) {
-    return CustomScrollView(
+    return Container(
+        child: CustomScrollView(
       slivers: <Widget>[
         PagedSliverList<String?, Bookmark>(
           pagingController: _bookmarkController,
@@ -233,11 +236,12 @@ class _ConnectScreenState extends State<ConnectScreen> {
               noItemsFoundIndicatorBuilder: (_) => NoBookmarksFound()),
         ),
       ],
-    );
+    ));
   }
 
   Widget _getFeaturedScreen(theme, l10n) {
-    return CustomScrollView(
+    return Container(
+        child: CustomScrollView(
       slivers: <Widget>[
         PagedSliverList<String?, Bookmark>(
           pagingController: _bookmarkController,
@@ -257,11 +261,12 @@ class _ConnectScreenState extends State<ConnectScreen> {
               noItemsFoundIndicatorBuilder: (_) => NoFeaturedFound()),
         ),
       ],
-    );
+    ));
   }
 
   Widget _getSearchScreen(theme, l10n) {
-    return CustomScrollView(
+    return Container(
+        child: CustomScrollView(
       slivers: <Widget>[
         SearchInputSliver(onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n.gffftListSearchHint),
         PagedSliverList<String?, GffftMinimal>(
@@ -280,7 +285,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
               noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
         ),
       ],
-    );
+    ));
   }
 }
 

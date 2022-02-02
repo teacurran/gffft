@@ -41,6 +41,7 @@ dependencies:
   firebase_dynamic_links: ^4.0.3
   firebase_storage: ^10.2.5
 
+  extended_nested_scroll_view: ^5.0.0
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2

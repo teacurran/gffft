@@ -343,6 +343,10 @@ class _AppState extends State<App> {
         backgroundColor: Color(0xFF33333D),
         elevation: 0,
       ),
+      bottomAppBarTheme: const BottomAppBarTheme(
+        elevation: 0,
+      ),
+      tabBarTheme: null,
       errorColor: const Color(0xFFB87171),
       scaffoldBackgroundColor: const Color(0xFF33333D),
       buttonTheme: const ButtonThemeData(buttonColor: Colors.blue),
