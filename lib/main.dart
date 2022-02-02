@@ -14,7 +14,7 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/board_view_screen.dart';
 import 'package:gffft/boards/thread_view_screen.dart';
-import 'package:gffft/screens/home_screen.dart';
+import 'package:gffft/home/home_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/users/bookmark_screen.dart';
@@ -33,8 +33,9 @@ import 'galleries/gallery_api.dart';
 import 'galleries/gallery_post_screen.dart';
 import 'galleries/gallery_view_screen.dart';
 import 'gfffts/gffft_api.dart';
-import 'gfffts/gffft_feature.screen.dart';
+import 'gfffts/gffft_feature_screen.dart';
 import 'gfffts/gffft_home_screen.dart';
+import 'gfffts/gffft_join_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_screen.dart';
 
@@ -132,8 +133,17 @@ class _AppState extends State<App> {
         GffftListScreen.webPath: (uri, params) => const MaterialPage(child: GffftListScreen()),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+$"): (uri, param) =>
             MaterialPage(child: GffftHomeScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/join"): (uri, param) =>
+            MaterialPage(child: GffftJoinScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/features$"): (uri, param) =>
             MaterialPage(child: GffftFeatureScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/features/[a-zA-Z0-9]+/[a-zA-Z0-9]+"): (uri, param) =>
+            MaterialPage(
+                child: GffftFeatureScreen(
+                    uid: uri.pathSegments[1],
+                    gid: uri.pathSegments[3],
+                    tid: uri.pathSegments[5],
+                    fid: uri.pathSegments[6])),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
                 child: BoardViewScreen(
               uid: uri.pathSegments[1],

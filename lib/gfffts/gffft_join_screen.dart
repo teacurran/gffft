@@ -14,17 +14,17 @@ import 'models/gffft_patch_save.dart';
 
 final getIt = GetIt.instance;
 
-class GffftFeatureScreen extends StatefulWidget {
-  const GffftFeatureScreen({Key? key, required this.uid, required this.gid}) : super(key: key);
+class GffftJoinScreen extends StatefulWidget {
+  const GffftJoinScreen({Key? key, required this.uid, required this.gid}) : super(key: key);
 
   final String uid;
   final String gid;
 
   @override
-  State<GffftFeatureScreen> createState() => _GffftFeatureScreenState();
+  State<GffftJoinScreen> createState() => _GffftJoinScreenState();
 }
 
-class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
+class _GffftJoinScreenState extends State<GffftJoinScreen> {
   final defaultId = "{default}";
 
   UserApi userApi = getIt<UserApi>();

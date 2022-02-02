@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/home/host_card.dart';
+import 'package:gffft/home/profile_card.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/users/connect_screen.dart';
 import 'package:gffft/users/models/user.dart';
@@ -107,105 +109,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ],
                                       ))),
-                              getHostCard(context, user),
-                              getProfileCard(context, user)
+                              HostCard(user: user, loadData: _loadData),
+                              ProfileCard(user: user, loadData: _loadData)
                             ],
                           ),
                         ))));
           }),
     );
-  }
-
-  Widget getHostCard(BuildContext context, User? user) {
-    var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-
-    return Card(
-        margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-        color: theme.backgroundColor,
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            side: const BorderSide(
-              color: Color(0xFF00829C),
-              width: 1.0,
-            )),
-        child: InkWell(
-            onTap: () {
-              if (user == null) {
-                VxNavigator.of(context).waitAndPush(Uri(path: LoginScreen.webPath)).then((value) => _loadData());
-              } else {
-                VxNavigator.of(context)
-                    .waitAndPush(Uri(pathSegments: ["users", "me", "gfffts", "default"]))
-                    .then((value) => _loadData());
-              }
-            },
-            splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-            // Generally, material cards do not have a highlight overlay.
-            highlightColor: Colors.transparent,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                    height: 100,
-                    child: Stack(children: [
-                      Positioned(
-                        top: 16,
-                        left: 16,
-                        right: 16,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            l10n!.host,
-                            style: const TextStyle(fontFamily: 'SharpieStylie', color: Colors.yellow, fontSize: 60),
-                          ),
-                        ),
-                      )
-                    ])),
-              ],
-            )));
-  }
-
-  Widget getProfileCard(BuildContext context, User? user) {
-    var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-
-    if (user == null) {
-      return Center(
-          child: TextButton(
-        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-        onPressed: () {
-          VxNavigator.of(context).waitAndPush(Uri(path: LoginScreen.webPath)).then((value) => _loadData());
-        },
-        child: Text("login or create account"),
-      ));
-    }
-
-    return Card(
-        margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-        color: theme.backgroundColor,
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-            side: const BorderSide(
-              color: Color(0xFF9970A9),
-              width: 1.0,
-            )),
-        child: InkWell(
-            onTap: () {
-              VxNavigator.of(context).waitAndPush(Uri(pathSegments: ["users", "me"])).then((value) => _loadData());
-            },
-            splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-            highlightColor: Colors.transparent,
-            child: Padding(
-                padding: EdgeInsets.all(20),
-                child: SizedBox(
-                    width: double.infinity,
-                    child: Container(
-                        child: Text(
-                      user.username,
-                      style: theme.textTheme.headline4,
-                    ))))));
   }
 }

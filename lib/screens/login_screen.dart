@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'home_screen.dart';
+import '../home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String webPath = '/login';
