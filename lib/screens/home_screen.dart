@@ -181,6 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Text("login or create account"),
       ));
     }
+
     return Card(
         margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
         color: theme.backgroundColor,
