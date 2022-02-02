@@ -18,6 +18,7 @@ import 'package:gffft/screens/home_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/users/bookmark_screen.dart';
+import 'package:gffft/users/connect_screen.dart';
 import 'package:gffft/users/me_screen.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -124,6 +125,9 @@ class _AppState extends State<App> {
         },
         BookmarkScreen.webPath: (uri, params) {
           return const MaterialPage(child: BookmarkScreen());
+        },
+        ConnectScreen.webPath: (uri, params) {
+          return const MaterialPage(child: ConnectScreen());
         },
         HomeScreen.webPath: (uri, params) {
           if (FirebaseAuth.instance.currentUser != null) {

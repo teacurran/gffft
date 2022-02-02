@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/users/bookmark_screen.dart';
+import 'package:gffft/users/connect_screen.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       )),
                                   child: InkWell(
                                       onTap: () {
-                                        VxNavigator.of(context).push(Uri(path: BookmarkScreen.webPath));
+                                        VxNavigator.of(context).push(Uri(path: ConnectScreen.webPath));
                                       },
                                       splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                                       // Generally, material cards do not have a highlight overlay.
