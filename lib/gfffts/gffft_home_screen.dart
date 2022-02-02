@@ -326,7 +326,11 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         memberActions.add(TextButton(
           style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
           onPressed: () async {
-            await gffftApi.joinGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
+            VxNavigator.of(context)
+                .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "join"]))
+                .then((value) {
+              _loadGffft();
+            });
           },
           child: Text(l10n.gffftHomeJoin),
         ));
@@ -482,9 +486,6 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           VxNavigator.of(context)
               .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]))
               .then((value) {
-            if (kDebugMode) {
-              print("returning from gffft feature set");
-            }
             _loadGffft();
           });
         });
