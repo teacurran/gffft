@@ -19,7 +19,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor),
+      child: GestureDetector(
+          onTap: () {
+            print("ontap");
+            VxNavigator.of(context).replace(Uri(path: HomeScreen.webPath));
+          },
+          child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor)),
     );
   }
 

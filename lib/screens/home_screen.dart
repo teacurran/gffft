@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/users/connect_screen.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:gffft/users/user_api.dart';
@@ -12,7 +13,7 @@ final getIt = GetIt.instance;
 const String logoAsset = 'assets/logo.svg';
 
 class HomeScreen extends StatefulWidget {
-  static const String webPath = '/home';
+  static const String webPath = '/';
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -32,6 +33,47 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadData();
+  }
+
+  Widget getProfileCard(BuildContext context, User? user) {
+    var l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    if (user == null) {
+      return Center(
+          child: TextButton(
+        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+        onPressed: () {
+          VxNavigator.of(context).waitAndPush(Uri(path: LoginScreen.webPath)).then((value) => _loadData());
+        },
+        child: Text("login or create account"),
+      ));
+    }
+    return Card(
+        margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+        color: theme.backgroundColor,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            side: const BorderSide(
+              color: Color(0xFF9970A9),
+              width: 1.0,
+            )),
+        child: InkWell(
+            onTap: () {
+              VxNavigator.of(context).waitAndPush(Uri(pathSegments: ["users", "me"])).then((value) => _loadData());
+            },
+            splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+            highlightColor: Colors.transparent,
+            child: Padding(
+                padding: EdgeInsets.all(20),
+                child: SizedBox(
+                    width: double.infinity,
+                    child: Container(
+                        child: Text(
+                      user.username,
+                      style: theme.textTheme.headline4,
+                    ))))));
   }
 
   @override
@@ -58,8 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
             } else {
               text = "Thank You: ${user.username}";
             }
-
-            var username = user == null ? l10n!.loading : user.username;
 
             return SafeArea(
                 child: Scaffold(
@@ -152,33 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ])),
                                         ],
                                       ))),
-                              Card(
-                                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-                                  color: theme.backgroundColor,
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      side: const BorderSide(
-                                        color: Color(0xFF9970A9),
-                                        width: 1.0,
-                                      )),
-                                  child: InkWell(
-                                      onTap: () {
-                                        VxNavigator.of(context)
-                                            .waitAndPush(Uri(pathSegments: ["users", "me"]))
-                                            .then((value) => _loadData());
-                                      },
-                                      splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                                      highlightColor: Colors.transparent,
-                                      child: Padding(
-                                          padding: EdgeInsets.all(20),
-                                          child: SizedBox(
-                                              width: double.infinity,
-                                              child: Container(
-                                                  child: Text(
-                                                username,
-                                                style: theme.textTheme.headline4,
-                                              )))))),
+                              getProfileCard(context, user)
                             ],
                           ),
                         ))));
