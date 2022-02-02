@@ -383,7 +383,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
 
     String name = "${gffft.name}";
     if (name == defaultId) {
-      name = "${gffft.me.username}'s gffft";
+      name = "My gffft";
     }
     if (editing && editingTitle) {
       children.add(TextField(

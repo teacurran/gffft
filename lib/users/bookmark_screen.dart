@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/components/search_input_sliver.dart';
-import 'package:gffft/gfffts/gffft_api.dart';
 import 'package:gffft/gfffts/gffft_list_screen.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -22,7 +20,6 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen> {
-  GffftApi gffftApi = getIt<GffftApi>();
   UserApi userApi = getIt<UserApi>();
 
   static const _pageSize = 200;

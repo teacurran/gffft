@@ -19,7 +19,7 @@ class MeScreen extends StatefulWidget {
 
 class _MeScreenState extends State<MeScreen> {
   UserApi userApi = getIt<UserApi>();
-  Future<User>? user;
+  Future<User?>? user;
   fba.FirebaseAuth fbAuth = fba.FirebaseAuth.instance;
 
   Future<void> _loadData() async {

@@ -9,7 +9,9 @@ part of 'gffft.dart';
 Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       uid: json['uid'] as String,
       gid: json['gid'] as String,
-      me: User.fromJson(json['me'] as Map<String, dynamic>),
+      me: json['me'] == null
+          ? null
+          : User.fromJson(json['me'] as Map<String, dynamic>),
       fruitCode:
           (json['fruitCode'] as List<dynamic>).map((e) => e as String).toList(),
       name: json['name'] as String?,
@@ -57,7 +59,7 @@ Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
       'allowMembers': instance.allowMembers,
       'requireApproval': instance.requireApproval,
       'enableAltHandles': instance.enableAltHandles,
-      'me': instance.me.toJson(),
+      'me': instance.me?.toJson(),
       'fruitCode': instance.fruitCode,
       'rareFruits': instance.rareFruits,
       'ultraRareFruits': instance.ultraRareFruits,

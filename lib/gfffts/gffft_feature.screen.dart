@@ -119,7 +119,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
 
             name = "${gffft.name}";
             if (name == defaultId) {
-              name = "${gffft.me.username}'s gffft";
+              name = "My gffft";
             }
 
             if (gffft.hasFeature("board") && gffft.boards != null && gffft.boards!.isNotEmpty) {

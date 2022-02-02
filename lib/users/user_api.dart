@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
 import 'package:gffft/boards/models/thread_post_result.dart';
 import 'package:gffft/boards/models/thread_result.dart';
 import 'package:gffft/galleries/models/gallery.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/gfffts/models/gffft_membership_post.dart';
 import 'package:gffft/users/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_base.dart';
 import 'models/bookmark_result.dart';
@@ -13,7 +15,13 @@ import 'models/bookmark_result.dart';
 class UserApi extends ApiBase {
   save(User user) {}
 
-  Future<User> me() async {
+  Future<User?> me() async {
+    fbAuth.FirebaseAuth auth = fbAuth.FirebaseAuth.instance;
+    final fbUser = await auth.authStateChanges().first;
+    if (fbUser == null) {
+      return null;
+    }
+
     final response = await getAuthenticated("users/me");
 
     return User.fromJson(response);
@@ -26,7 +34,7 @@ class UserApi extends ApiBase {
   }
 
   Future<Gffft> getGffft(String uid, String gid) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}");
+    final response = await get("users/${uid}/gfffts/${gid}");
     return Gffft.fromJson(response);
   }
 
@@ -42,8 +50,14 @@ class UserApi extends ApiBase {
   }
 
   Future<BookmarkResult> getBookmarks(String? offset, int? max, String? searchTerm) async {
-    final response = await getAuthenticated("users/me/bookmarks");
-    return BookmarkResult.fromJson(response);
+    fbAuth.FirebaseAuth auth = fbAuth.FirebaseAuth.instance;
+    final fbUser = await auth.authStateChanges().first;
+    if (fbUser != null) {
+      final response = await getAuthenticated("users/me/bookmarks");
+      return BookmarkResult.fromJson(response);
+    }
+    final bookmarks = getBookmarksFromLocal();
+    return bookmarks;
   }
 
   Future<void> bookmarkGffft(String uid, String gid) async {
@@ -61,5 +75,14 @@ class UserApi extends ApiBase {
   Future<Gallery> getGallery(String uid, String gid, String mid, String? offset, int? pageSize) async {
     final response = await getAuthenticated("users/${uid}/gfffts/${gid}/galleries/${mid}");
     return Gallery.fromJson(response);
+  }
+
+  Future<BookmarkResult> getBookmarksFromLocal() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bookmarkString = prefs.getString("bookmarks");
+    if (bookmarkString != null) {
+      return Future.value(BookmarkResult.fromJson(jsonDecode(bookmarkString)));
+    }
+    return Future.value(BookmarkResult(count: 0, items: []));
   }
 }

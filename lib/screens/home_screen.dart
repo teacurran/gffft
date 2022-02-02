@@ -8,8 +8,6 @@ import 'package:gffft/users/models/user.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'login_screen.dart';
-
 final getIt = GetIt.instance;
 const String logoAsset = 'assets/logo.svg';
 
@@ -22,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserApi userApi = getIt<UserApi>();
-  Future<User>? user;
+  Future<User?>? user;
 
   Future<void> _loadData() async {
     setState(() {
@@ -48,9 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, AsyncSnapshot<User?> snapshot) {
             if (snapshot.hasError) {
               // Navigator.pushReplacementNamed(context, LoginScreen.webPath);
-              Future.delayed(Duration.zero, () async {
-                VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
-              });
+              // Future.delayed(Duration.zero, () async {
+              //   VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
+              // });
             }
 
             var user = snapshot.data;
@@ -77,33 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                   child: SvgPicture.asset(logoAsset,
                                       semanticsLabel: 'Gffft Logo', color: theme.primaryColor, height: 150)),
-                              Card(
-                                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-                                  color: theme.backgroundColor,
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      side: const BorderSide(
-                                        color: Color(0xFF9970A9),
-                                        width: 1.0,
-                                      )),
-                                  child: InkWell(
-                                      onTap: () {
-                                        VxNavigator.of(context)
-                                            .waitAndPush(Uri(pathSegments: ["users", "me"]))
-                                            .then((value) => _loadData());
-                                      },
-                                      splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                                      highlightColor: Colors.transparent,
-                                      child: Padding(
-                                          padding: EdgeInsets.all(20),
-                                          child: SizedBox(
-                                              width: double.infinity,
-                                              child: Container(
-                                                  child: Text(
-                                                username,
-                                                style: theme.textTheme.headline4,
-                                              )))))),
                               Card(
                                   margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
                                   color: theme.backgroundColor,
@@ -181,6 +152,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ])),
                                         ],
                                       ))),
+                              Card(
+                                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+                                  color: theme.backgroundColor,
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      side: const BorderSide(
+                                        color: Color(0xFF9970A9),
+                                        width: 1.0,
+                                      )),
+                                  child: InkWell(
+                                      onTap: () {
+                                        VxNavigator.of(context)
+                                            .waitAndPush(Uri(pathSegments: ["users", "me"]))
+                                            .then((value) => _loadData());
+                                      },
+                                      splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
+                                      highlightColor: Colors.transparent,
+                                      child: Padding(
+                                          padding: EdgeInsets.all(20),
+                                          child: SizedBox(
+                                              width: double.infinity,
+                                              child: Container(
+                                                  child: Text(
+                                                username,
+                                                style: theme.textTheme.headline4,
+                                              )))))),
                             ],
                           ),
                         ))));

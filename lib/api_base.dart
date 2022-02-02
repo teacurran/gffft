@@ -64,8 +64,8 @@ class ApiBase {
     return _baseUrl;
   }
 
-  Future<dynamic> get(String urlPath, {bool requireAuth = false}) async {
-    return callApi(urlPath);
+  Future<dynamic> get(String urlPath, {bool requireAuth = false, Map<String, String>? queryParams}) async {
+    return callApi(urlPath, requireAuth: requireAuth, queryParams: queryParams);
   }
 
   Future<dynamic> post(String urlPath, String jsonPayload) async {

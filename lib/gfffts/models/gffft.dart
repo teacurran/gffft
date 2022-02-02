@@ -23,7 +23,7 @@ class Gffft {
   bool allowMembers;
   bool requireApproval;
   bool enableAltHandles;
-  User me;
+  User? me;
   List<String> fruitCode;
   int rareFruits;
   int ultraRareFruits;

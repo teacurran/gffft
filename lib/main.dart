@@ -120,10 +120,7 @@ class _AppState extends State<App> {
           ),
       routes: {
         "/": (uri, params) {
-          if (FirebaseAuth.instance.currentUser != null) {
-            return MaterialPage(child: HomeScreen());
-          }
-          return MaterialPage(child: LoginScreen());
+          return MaterialPage(child: HomeScreen());
         },
         BookmarkScreen.webPath: (uri, params) {
           return const MaterialPage(child: BookmarkScreen());

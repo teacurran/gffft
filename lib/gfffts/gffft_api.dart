@@ -30,7 +30,7 @@ class GffftApi extends ApiBase {
     if (q != null && q.isNotEmpty) {
       params['q'] = q;
     }
-    final response = await getAuthenticated("gfffts", queryParams: params);
+    final response = await get("gfffts", queryParams: params);
 
     return GffftResult.fromJson(response);
   }
