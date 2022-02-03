@@ -89,9 +89,31 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
     super.dispose();
   }
 
+  Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
+    AppLocalizations? l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    if (gffft == null) {
+      return null;
+    }
+    if (gffft.me == null) {
+      return null;
+    }
+    return FloatingActionButton(
+        child: Icon(Icons.add, color: theme.focusColor),
+        tooltip: l10n!.boardViewActionTooltip,
+        backgroundColor: theme.primaryColor,
+        onPressed: () {
+          VxNavigator.of(context)
+              .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid, "post"]))
+              .then((value) {
+            _pagingController.refresh();
+          });
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return FutureBuilder(
@@ -125,18 +147,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                   )
                 ],
               ),
-              floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add, color: theme.focusColor),
-                  tooltip: l10n!.boardViewActionTooltip,
-                  backgroundColor: theme.primaryColor,
-                  onPressed: () {
-                    VxNavigator.of(context)
-                        .waitAndPush(Uri(
-                            pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid, "post"]))
-                        .then((value) {
-                      _pagingController.refresh();
-                    });
-                  }),
+              floatingActionButton: getFloatingActionButton(context, gffft),
               body: CustomScrollView(slivers: <Widget>[
                 PagedSliverList<String?, Thread>(
                     pagingController: _pagingController,

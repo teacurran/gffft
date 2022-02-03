@@ -39,13 +39,13 @@ class UserApi extends ApiBase {
   }
 
   Future<ThreadResult> getBoardThreads(String uid, String gid, String bid, String? offset, int? pageSize) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}/threads");
+    final response = await get("users/${uid}/gfffts/${gid}/boards/${bid}/threads");
     return ThreadResult.fromJson(response);
   }
 
   Future<ThreadPostResult> getThread(
       String uid, String gid, String bid, String tid, String? offset, int? pageSize) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}/threads/${tid}");
+    final response = await get("users/${uid}/gfffts/${gid}/boards/${bid}/threads/${tid}");
     return ThreadPostResult.fromJson(response);
   }
 
