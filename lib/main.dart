@@ -428,6 +428,7 @@ class _AppState extends State<App> {
             color: Colors.lightBlue[200],
           ),
           headline1: GoogleFonts.sourceSansPro(color: Color(0xFF1C839E), fontSize: 40, fontWeight: FontWeight.w100),
+          headline3: GoogleFonts.sourceSansPro(fontSize: 24, fontWeight: FontWeight.w400),
           headline4: GoogleFonts.sourceSansPro(color: Colors.lightGreenAccent),
           headline5: GoogleFonts.sourceSansPro(
             fontSize: 40,

@@ -106,6 +106,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("un-bookmark"),
         "gffftIntro": MessageLookupByLibrary.simpleMessage(
             "This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join you. To get started, edit this text or add a feature below."),
+        "gffftJoin": MessageLookupByLibrary.simpleMessage("join this gffft"),
+        "gffftJoinButton": MessageLookupByLibrary.simpleMessage("join!"),
+        "gffftJoinHandle": MessageLookupByLibrary.simpleMessage("handle"),
+        "gffftJoinHandleError": MessageLookupByLibrary.simpleMessage(
+            "Sorry, that handle is already taken on this gffft."),
+        "gffftJoinHandleHint": MessageLookupByLibrary.simpleMessage(
+            "What would you like to be known as on this gffft?"),
+        "gffftJoinRules": MessageLookupByLibrary.simpleMessage("rules"),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or fruit-code"),
         "gffftSettingsBoardWhoCanPost":

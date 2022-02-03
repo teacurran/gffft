@@ -40,8 +40,8 @@ class GffftApi extends ApiBase {
     return Gffft.fromJson(response);
   }
 
-  Future<void> joinGffft(String uid, String gid) async {
-    var membershipPost = GffftMembershipPost(uid: uid, gid: gid);
+  Future<void> joinGffft(String uid, String gid, String handle) async {
+    var membershipPost = GffftMembershipPost(uid: uid, gid: gid, handle: handle);
     await post("users/me/gfffts/membership", jsonEncode(membershipPost));
   }
 

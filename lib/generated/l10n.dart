@@ -500,6 +500,66 @@ class S {
     );
   }
 
+  /// `join this gffft`
+  String get gffftJoin {
+    return Intl.message(
+      'join this gffft',
+      name: 'gffftJoin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `rules`
+  String get gffftJoinRules {
+    return Intl.message(
+      'rules',
+      name: 'gffftJoinRules',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `handle`
+  String get gffftJoinHandle {
+    return Intl.message(
+      'handle',
+      name: 'gffftJoinHandle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What would you like to be known as on this gffft?`
+  String get gffftJoinHandleHint {
+    return Intl.message(
+      'What would you like to be known as on this gffft?',
+      name: 'gffftJoinHandleHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, that handle is already taken on this gffft.`
+  String get gffftJoinHandleError {
+    return Intl.message(
+      'Sorry, that handle is already taken on this gffft.',
+      name: 'gffftJoinHandleError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `join!`
+  String get gffftJoinButton {
+    return Intl.message(
+      'join!',
+      name: 'gffftJoinButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `save and exit`
   String get gffftSettingsSave {
     return Intl.message(
