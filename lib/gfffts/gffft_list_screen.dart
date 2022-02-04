@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -28,7 +29,9 @@ class _GffftListScreenState extends State<GffftListScreen> {
   final PagingController<String?, GffftMinimal> _pagingController = PagingController(firstPageKey: null);
 
   @override
-  void initState() {
+  Future<void> initState() async {
+    await FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_list");
+
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });

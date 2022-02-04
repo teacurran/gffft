@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
 import 'package:gffft/boards/models/thread_post_result.dart';
 import 'package:gffft/boards/models/thread_result.dart';
@@ -21,6 +22,7 @@ class UserApi extends ApiBase {
     if (fbUser == null) {
       return null;
     }
+    await FirebaseAnalytics.instance.setUserId(id: fbUser.uid);
 
     final response = await getAuthenticated("users/me");
 

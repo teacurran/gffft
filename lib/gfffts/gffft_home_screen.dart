@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   late TextEditingController _introController;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
+    await FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_home");
     _loadGffft();
   }
 

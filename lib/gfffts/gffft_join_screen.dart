@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -34,8 +35,9 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
   Future<Gffft>? gffft;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
+    await FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_join");
     _loadGffft();
   }
 
