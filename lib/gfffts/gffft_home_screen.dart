@@ -42,9 +42,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   late TextEditingController _introController;
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    await FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_home");
+    FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_home");
     _loadGffft();
   }
 
