@@ -35,9 +35,10 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
   Future<Gffft>? gffft;
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    await FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_join");
+
+    FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_join");
     _loadGffft();
   }
 
@@ -49,19 +50,6 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
         return gffft;
       });
     });
-  }
-
-  Widget? getFloatingActionButton(BuildContext context) {
-    var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    return FloatingActionButton.extended(
-        icon: const Icon(Icons.save, color: Colors.black),
-        label: Text(l10n!.gffftSettingsSave),
-        backgroundColor: const Color(0xFFFABB59),
-        tooltip: l10n.gffftSettingsSave,
-        onPressed: () {
-          VxNavigator.of(context).returnAndPush(true);
-        });
   }
 
   @override

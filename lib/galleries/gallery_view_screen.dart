@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/users/user_api.dart';
@@ -140,12 +141,12 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                     });
                   }),
               body: Padding(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                   child: CustomScrollView(slivers: <Widget>[
                     PagedSliverGrid(
                         pagingController: _pagingController,
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.5),
+                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
                         builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
                           animateTransitions: true,
                           itemBuilder: (context, item, index) {
@@ -154,7 +155,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                             if (thumbUrl != null) {
                               return Image.network(thumbUrl);
                             } else {
-                              return const Text("loading");
+                              return SvgPicture.asset('assets/spinner_320.svg');
                             }
                           },
                         ))

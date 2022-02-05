@@ -79,6 +79,36 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     });
   }
 
+  Future<void> _saveIntroText() async {
+    GffftPatchSave gffft = GffftPatchSave(
+      uid: widget.uid,
+      gid: widget.gid,
+      intro: _introController.text,
+    );
+
+    gffftApi.savePartial(gffft).then((value) => {
+          setState(() {
+            _loadGffft();
+            _toggleEditingIntro();
+          })
+        });
+  }
+
+  Future<void> _saveTitle() async {
+    GffftPatchSave gffft = GffftPatchSave(
+      uid: widget.uid,
+      gid: widget.gid,
+      name: _titleController.text,
+    );
+
+    gffftApi.savePartial(gffft).then((value) => {
+          setState(() {
+            _loadGffft();
+            _toggleEditingTitle();
+          })
+        });
+  }
+
   List<Widget> getActions(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
     var actions = <Widget>[];
 
@@ -396,26 +426,18 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       name = "My gffft";
     }
     if (editing && editingTitle) {
-      children.add(TextField(
-        style: theme.textTheme.headline1,
-        textAlign: TextAlign.center,
-        controller: _titleController,
-        textInputAction: TextInputAction.go,
-        onSubmitted: (value) {
-          GffftPatchSave gffft = GffftPatchSave(
-            uid: widget.uid,
-            gid: widget.gid,
-            name: value,
-          );
-
-          gffftApi.savePartial(gffft).then((value) => {
-                setState(() {
-                  _loadGffft();
-                  _toggleEditingTitle();
-                })
-              });
-        },
-      ));
+      children.add(Focus(
+          child: TextField(
+            style: theme.textTheme.headline1,
+            textAlign: TextAlign.center,
+            controller: _titleController,
+            textInputAction: TextInputAction.go,
+          ),
+          onFocusChange: (hasFocus) {
+            if (!hasFocus) {
+              _saveTitle();
+            }
+          }));
     } else {
       children.add(SelectableText(
         name,
@@ -431,26 +453,18 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         introText = l10n.gffftIntro;
       }
       if (editing && editingIntro) {
-        children.add(TextField(
-          style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
-          controller: _introController,
-          textInputAction: TextInputAction.go,
-          maxLines: 5,
-          onSubmitted: (value) {
-            GffftPatchSave gffft = GffftPatchSave(
-              uid: widget.uid,
-              gid: widget.gid,
-              intro: value,
-            );
-
-            gffftApi.savePartial(gffft).then((value) => {
-                  setState(() {
-                    _loadGffft();
-                    _toggleEditingIntro();
-                  })
-                });
-          },
-        ));
+        children.add(Focus(
+            child: TextField(
+              style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
+              controller: _introController,
+              textInputAction: TextInputAction.go,
+              maxLines: 5,
+            ),
+            onFocusChange: (hasFocus) {
+              if (!hasFocus) {
+                _saveIntroText();
+              }
+            }));
       } else {
         children.add(Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),

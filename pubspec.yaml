@@ -163,6 +163,7 @@ flutter:
     - assets/gffft-icon.png
     - assets/hayes.jpg
     - assets/logo.svg
+    - assets/spinner_320.svg
     - assets/fonts/DoubleFeature20.ttf
     - assets/fonts/electro-candy-2.otf
     - assets/fonts/metropass.otf
