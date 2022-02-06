@@ -8,6 +8,7 @@ import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'item_view_screen.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
@@ -152,8 +153,15 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                           itemBuilder: (context, item, index) {
                             var thumbUrl = item.urls["320"];
                             thumbUrl = thumbUrl?.replaceAll("127.0.0.1", storageHost);
+
+                            var fullImageUrl = item.urls["1024"];
+                            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
                             if (thumbUrl != null) {
-                              return Image.network(thumbUrl);
+                              return InkWell(
+                                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) {
+                                    return ItemViewScreen(imageFile: Image.network(fullImageUrl))
+                                  }))},
+                                  child: Image.network(thumbUrl));
                             } else {
                               return SvgPicture.asset('assets/spinner_320.svg');
                             }

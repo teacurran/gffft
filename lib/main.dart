@@ -32,6 +32,7 @@ import 'firebase_options.dart';
 import 'galleries/gallery_api.dart';
 import 'galleries/gallery_post_screen.dart';
 import 'galleries/gallery_view_screen.dart';
+import 'galleries/item_view_screen.dart';
 import 'gfffts/gffft_api.dart';
 import 'gfffts/gffft_feature_screen.dart';
 import 'gfffts/gffft_home_screen.dart';
@@ -177,6 +178,14 @@ class _AppState extends State<App> {
               uid: uri.pathSegments[1],
               gid: uri.pathSegments[3],
               mid: uri.pathSegments[5],
+            )),
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/galleries/[a-zA-Z0-9]+/i/$[a-zA-Z0-9]+"): (uri, param) =>
+            MaterialPage(
+                child: ItemViewScreen(
+              uid: uri.pathSegments[1],
+              gid: uri.pathSegments[3],
+              mid: uri.pathSegments[5],
+              iid: uri.pathSegments[7],
             )),
         RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/galleries/[a-zA-Z0-9]+/post$"): (uri, param) =>
             MaterialPage(
