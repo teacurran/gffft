@@ -156,11 +156,22 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
                             var fullImageUrl = item.urls["1024"];
                             fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
-                            if (thumbUrl != null) {
+                            if (thumbUrl != null && gffft != null) {
                               return InkWell(
-                                  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) {
-                                    return ItemViewScreen(imageFile: Image.network(fullImageUrl))
-                                  }))},
+                                  onTap: () {
+                                    VxNavigator.of(context)
+                                        .waitAndPush(Uri(pathSegments: [
+                                          "users",
+                                          gffft.uid,
+                                          "gfffts",
+                                          gffft.gid,
+                                          "galleries",
+                                          widget.mid,
+                                          "i",
+                                          item.id
+                                        ]))
+                                        .then((value) => _pagingController.refresh());
+                                  },
                                   child: Image.network(thumbUrl));
                             } else {
                               return SvgPicture.asset('assets/spinner_320.svg');

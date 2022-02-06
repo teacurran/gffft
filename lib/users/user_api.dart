@@ -11,6 +11,7 @@ import 'package:gffft/users/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_base.dart';
+import '../galleries/models/gallery_item.dart';
 import 'models/bookmark_result.dart';
 
 class UserApi extends ApiBase {
@@ -77,6 +78,11 @@ class UserApi extends ApiBase {
   Future<Gallery> getGallery(String uid, String gid, String mid, String? offset, int? pageSize) async {
     final response = await getAuthenticated("users/${uid}/gfffts/${gid}/galleries/${mid}");
     return Gallery.fromJson(response);
+  }
+
+  Future<GalleryItem> getGalleryItem(String uid, String gid, String mid, String iid) async {
+    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/galleries/${mid}/i/${iid}");
+    return GalleryItem.fromJson(response);
   }
 
   Future<BookmarkResult> getBookmarksFromLocal() async {

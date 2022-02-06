@@ -179,7 +179,7 @@ class _AppState extends State<App> {
               gid: uri.pathSegments[3],
               mid: uri.pathSegments[5],
             )),
-        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/galleries/[a-zA-Z0-9]+/i/$[a-zA-Z0-9]+"): (uri, param) =>
+        RegExp(r"users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/galleries/[a-zA-Z0-9]+/i/[a-zA-Z0-9\-]+$"): (uri, param) =>
             MaterialPage(
                 child: ItemViewScreen(
               uid: uri.pathSegments[1],
