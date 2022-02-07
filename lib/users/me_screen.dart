@@ -11,7 +11,7 @@ import 'models/user.dart';
 final getIt = GetIt.instance;
 
 class MeScreen extends StatefulWidget {
-  static const String webPath = 'users/me';
+  static const String webPath = '/users/me';
 
   @override
   State<MeScreen> createState() => _MeScreenState();
