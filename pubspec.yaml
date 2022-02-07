@@ -28,6 +28,7 @@ dependencies:
   cupertino_icons: ^1.0.3
 
   expandable_text: ^2.2.0
+  extended_image: ^6.0.1
 
   # Add the dependency for the Firebase Core Flutter SDK
   firebase_core: ^1.10.0

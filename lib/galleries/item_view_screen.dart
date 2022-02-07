@@ -1,6 +1,8 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../users/user_api.dart';
 import 'models/gallery_item.dart';
@@ -45,23 +47,34 @@ class _ItemViewScreenState extends State<ItemViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      alignment: Alignment.center,
-      child: FutureBuilder<GalleryItem>(
-        future: item,
-        builder: (_, snapshot) {
-          var galleryItem = snapshot.data;
-          if (galleryItem != null) {
-            var fullImageUrl = galleryItem.urls["1024"];
-            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
-            if (fullImageUrl != null) {
-              return Image.network(fullImageUrl);
-            }
-          }
-          return Container();
+    return GestureDetector(
+        onTap: () {
+          VxNavigator.of(context).returnAndPush(true);
         },
-      ),
-    );
+        child: FutureBuilder<GalleryItem>(
+          future: item,
+          builder: (_, snapshot) {
+            Widget content = Container();
+            var galleryItem = snapshot.data;
+            if (galleryItem != null) {
+              var fullImageUrl = galleryItem.urls["1024"];
+              fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
+
+              if (fullImageUrl != null) {
+                content = ExtendedImage.network(
+                  fullImageUrl,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.center,
+                );
+              }
+            }
+            return Hero(
+              tag: widget.iid,
+              child: content,
+            );
+          },
+        ));
   }
 }

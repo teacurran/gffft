@@ -1,14 +1,15 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'item_view_screen.dart';
+import '../components/common_circular_progress_indicator.dart';
+import 'gallery_image.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
@@ -156,8 +157,10 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
                             var fullImageUrl = item.urls["1024"];
                             fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
-                            if (thumbUrl != null && gffft != null) {
-                              return InkWell(
+
+                            Widget? thumb;
+                            if (thumbUrl != null && gffft != null && fullImageUrl != null) {
+                              thumb = InkWell(
                                   onTap: () {
                                     VxNavigator.of(context)
                                         .waitAndPush(Uri(pathSegments: [
@@ -172,10 +175,67 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                         ]))
                                         .then((value) => _pagingController.refresh());
                                   },
-                                  child: Image.network(thumbUrl));
+                                  child: ExtendedImage.network(thumbUrl, height: 320, width: 320,
+                                      loadStateChanged: (ExtendedImageState state) {
+                                    Widget? widget;
+                                    switch (state.extendedImageLoadState) {
+                                      case LoadState.loading:
+                                        widget = CommonCircularProgressIndicator();
+                                        break;
+                                      case LoadState.completed:
+
+                                        //if you can't konw image size before build,
+                                        //you have to handle crop when image is loaded.
+                                        //so maybe your loading widget size will not the same
+                                        //as image actual size, set returnLoadStateChangedWidget=true,so that
+                                        //image will not to be limited by size which you set for ExtendedImage first time.
+                                        state.returnLoadStateChangedWidget = false;
+
+                                        ///if you don't want override completed widget
+                                        ///please return null or state.completedWidget
+                                        //return null;
+
+                                        widget = Hero(
+                                          tag: item.id,
+                                          child: GalleryImage(knowImageSize: true, size: 320, item: item),
+                                        );
+
+                                        break;
+                                      case LoadState.failed:
+                                        widget = GestureDetector(
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            children: <Widget>[
+                                              Image.asset(
+                                                'assets/failed.jpg',
+                                                fit: BoxFit.fill,
+                                              ),
+                                              const Positioned(
+                                                bottom: 0.0,
+                                                left: 0.0,
+                                                right: 0.0,
+                                                child: Text(
+                                                  'load image failed, click to reload',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            state.reLoadImage();
+                                          },
+                                        );
+                                        break;
+                                    }
+                                  }));
                             } else {
-                              return SvgPicture.asset('assets/spinner_320.svg');
+                              thumb = CommonCircularProgressIndicator();
                             }
+
+                            return Padding(
+                              padding: EdgeInsets.all(1),
+                              child: thumb,
+                            );
                           },
                         ))
                   ])));
