@@ -169,84 +169,82 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
                             Widget? thumb;
                             if (thumbUrl != null && gffft != null && fullImageUrl != null) {
-                              thumb = InkWell(
-                                  onTap: () {
-                                    VxNavigator.of(context)
-                                        .waitAndPush(Uri(
-                                            path: "/" +
-                                                Uri(pathSegments: [
-                                                  "users",
-                                                  gffft.uid,
-                                                  "gfffts",
-                                                  gffft.gid,
-                                                  "galleries",
-                                                  widget.mid,
-                                                  "i",
-                                                  item.id
-                                                ]).toString()))
-                                        .then((value) => _pagingController.refresh());
-                                  },
-                                  child: ExtendedImage.network(thumbUrl, height: 320, width: 320,
-                                      loadStateChanged: (ExtendedImageState state) {
-                                    Widget? widget;
-                                    switch (state.extendedImageLoadState) {
-                                      case LoadState.loading:
-                                        widget = CommonCircularProgressIndicator();
-                                        break;
-                                      case LoadState.completed:
+                              thumb = ExtendedImage.network(thumbUrl, height: 320, width: 320,
+                                  loadStateChanged: (ExtendedImageState state) {
+                                Widget? widget;
+                                switch (state.extendedImageLoadState) {
+                                  case LoadState.loading:
+                                    widget = CommonCircularProgressIndicator();
+                                    break;
+                                  case LoadState.completed:
 
-                                        //if you can't konw image size before build,
-                                        //you have to handle crop when image is loaded.
-                                        //so maybe your loading widget size will not the same
-                                        //as image actual size, set returnLoadStateChangedWidget=true,so that
-                                        //image will not to be limited by size which you set for ExtendedImage first time.
-                                        state.returnLoadStateChangedWidget = false;
+                                    //if you can't konw image size before build,
+                                    //you have to handle crop when image is loaded.
+                                    //so maybe your loading widget size will not the same
+                                    //as image actual size, set returnLoadStateChangedWidget=true,so that
+                                    //image will not to be limited by size which you set for ExtendedImage first time.
+                                    state.returnLoadStateChangedWidget = false;
 
-                                        ///if you don't want override completed widget
-                                        ///please return null or state.completedWidget
-                                        //return null;
+                                    ///if you don't want override completed widget
+                                    ///please return null or state.completedWidget
+                                    //return null;
 
-                                        widget = Hero(
-                                          tag: item.id,
-                                          child: GalleryImage(knowImageSize: true, size: 320, item: item),
-                                        );
+                                    thumb = GalleryImage(knowImageSize: true, size: 320, item: item);
 
-                                        break;
-                                      case LoadState.failed:
-                                        widget = GestureDetector(
-                                          child: Stack(
-                                            fit: StackFit.expand,
-                                            children: <Widget>[
-                                              Image.asset(
-                                                'assets/failed.jpg',
-                                                fit: BoxFit.fill,
-                                              ),
-                                              const Positioned(
-                                                bottom: 0.0,
-                                                left: 0.0,
-                                                right: 0.0,
-                                                child: Text(
-                                                  'load image failed, click to reload',
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              )
-                                            ],
+                                    break;
+                                  case LoadState.failed:
+                                    widget = GestureDetector(
+                                      child: Stack(
+                                        fit: StackFit.expand,
+                                        children: <Widget>[
+                                          Image.asset(
+                                            'assets/failed.jpg',
+                                            fit: BoxFit.fill,
                                           ),
-                                          onTap: () {
-                                            state.reLoadImage();
-                                          },
-                                        );
-                                        break;
-                                    }
-                                  }));
+                                          const Positioned(
+                                            bottom: 0.0,
+                                            left: 0.0,
+                                            right: 0.0,
+                                            child: Text(
+                                              'load image failed, click to reload',
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        state.reLoadImage();
+                                      },
+                                    );
+                                    break;
+                                }
+                              });
                             } else {
                               thumb = CommonCircularProgressIndicator();
                             }
 
-                            return Padding(
-                              padding: EdgeInsets.all(1),
-                              child: thumb,
-                            );
+                            return Hero(
+                                tag: item.id,
+                                child: Padding(
+                                    padding: EdgeInsets.all(1),
+                                    child: InkWell(
+                                        onTap: () {
+                                          if (gffft != null) {
+                                            VxNavigator.of(context).replace(Uri(
+                                                path: "/" +
+                                                    Uri(pathSegments: [
+                                                      "users",
+                                                      gffft.uid,
+                                                      "gfffts",
+                                                      gffft.gid,
+                                                      "galleries",
+                                                      widget.mid,
+                                                      "i",
+                                                      item.id
+                                                    ]).toString()));
+                                          }
+                                        },
+                                        child: thumb!)));
                           },
                         ))
                   ])));

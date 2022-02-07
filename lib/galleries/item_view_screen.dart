@@ -47,34 +47,58 @@ class _ItemViewScreenState extends State<ItemViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          VxNavigator.of(context).returnAndPush(true);
-        },
-        child: FutureBuilder<GalleryItem>(
-          future: item,
-          builder: (_, snapshot) {
-            Widget content = Container();
-            var galleryItem = snapshot.data;
-            if (galleryItem != null) {
-              var fullImageUrl = galleryItem.urls["1024"];
-              fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
+    return Scaffold(
+        body: InkWell(
+            onTap: () {
+              VxNavigator.of(context).replace(Uri(
+                  path: "/" +
+                      Uri(pathSegments: [
+                        "users",
+                        widget.uid,
+                        "gfffts",
+                        widget.gid,
+                        "galleries",
+                        widget.mid,
+                      ]).toString()));
+            },
+            child: FutureBuilder<GalleryItem>(
+              future: item,
+              builder: (_, snapshot) {
+                Widget content = Container();
+                var galleryItem = snapshot.data;
+                if (galleryItem != null) {
+                  var fullImageUrl = galleryItem.urls["1024"];
+                  fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
 
-              if (fullImageUrl != null) {
-                content = ExtendedImage.network(
-                  fullImageUrl,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.contain,
-                  alignment: Alignment.center,
+                  if (fullImageUrl != null) {
+                    content = ExtendedImage.network(
+                      fullImageUrl,
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                      mode: ExtendedImageMode.gesture,
+                      initGestureConfigHandler: (state) {
+                        return GestureConfig(
+                          minScale: 0.9,
+                          animationMinScale: 0.7,
+                          maxScale: 3.0,
+                          animationMaxScale: 3.5,
+                          speed: 1.0,
+                          inertialSpeed: 100.0,
+                          initialScale: 1.0,
+                          inPageView: false,
+                          initialAlignment: InitialAlignment.center,
+                        );
+                      },
+                    );
+                  }
+                }
+                return Hero(
+                  tag: widget.iid,
+                  child: content,
                 );
-              }
-            }
-            return Hero(
-              tag: widget.iid,
-              child: content,
-            );
-          },
-        ));
+              },
+            )));
   }
 }
