@@ -140,8 +140,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                   )),
               child: InkWell(
                   onTap: () {
-                    VxNavigator.of(context)
-                        .push(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!]));
+                    VxNavigator.of(context).push(Uri(
+                        path: "/" +
+                            Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!])
+                                .toString()));
                   },
                   splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                   highlightColor: Colors.transparent,
@@ -191,8 +193,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                 )),
             child: InkWell(
                 onTap: () {
-                  VxNavigator.of(context)
-                      .push(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!]));
+                  VxNavigator.of(context).push(Uri(
+                      path: "/" +
+                          Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!])
+                              .toString()));
                 },
                 splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                 highlightColor: Colors.transparent,
@@ -232,8 +236,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                 )),
             child: InkWell(
                 onTap: () {
-                  VxNavigator.of(context).push(
-                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", featureRef.id!]));
+                  VxNavigator.of(context).push(Uri(
+                      path: "/" +
+                          Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", featureRef.id!])
+                              .toString()));
                 },
                 splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                 highlightColor: Colors.transparent,
@@ -278,8 +284,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                 )),
             child: InkWell(
                 onTap: () {
-                  VxNavigator.of(context)
-                      .push(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!]));
+                  VxNavigator.of(context).push(Uri(
+                      path: "/" +
+                          Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!])
+                              .toString()));
                 },
                 splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
                 highlightColor: Colors.transparent,
@@ -359,7 +367,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
           onPressed: () async {
             VxNavigator.of(context)
-                .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "join"]))
+                .waitAndPush(
+                    Uri(path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "join"]).toString()))
                 .then((value) {
               _loadGffft();
             });
@@ -500,7 +509,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         backgroundColor: Color(0xFFFABB59),
         onPressed: () {
           VxNavigator.of(context)
-              .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]))
+              .waitAndPush(Uri(
+                  path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]).toString()))
               .then((value) {
             _loadGffft();
           });

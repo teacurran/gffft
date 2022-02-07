@@ -78,7 +78,10 @@ class ThreadTitle extends StatelessWidget {
         child: InkWell(
             onTap: () {
               VxNavigator.of(context)
-                  .waitAndPush(Uri(pathSegments: ["users", uid, "gfffts", gid, "boards", bid, "threads", thread.id]))
+                  .waitAndPush(Uri(
+                      path: "/" +
+                          Uri(pathSegments: ["users", uid, "gfffts", gid, "boards", bid, "threads", thread.id])
+                              .toString()))
                   .then((value) => pager.refresh());
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),

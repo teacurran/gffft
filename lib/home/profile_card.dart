@@ -38,7 +38,7 @@ class ProfileCard extends StatelessWidget {
             )),
         child: InkWell(
             onTap: () {
-              VxNavigator.of(context).waitAndPush(Uri(pathSegments: ["users", "me"])).then((value) => loadData());
+              VxNavigator.of(context).waitAndPush(Uri(path: "/users/me")).then((value) => loadData());
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,

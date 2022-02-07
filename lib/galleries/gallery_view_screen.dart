@@ -137,7 +137,16 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                   onPressed: () {
                     VxNavigator.of(context)
                         .waitAndPush(Uri(
-                            pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", widget.mid, "post"]))
+                            path: "/" +
+                                Uri(pathSegments: [
+                                  "users",
+                                  widget.uid,
+                                  "gfffts",
+                                  widget.gid,
+                                  "galleries",
+                                  widget.mid,
+                                  "post"
+                                ]).toString()))
                         .then((value) {
                       _pagingController.refresh();
                     });
@@ -163,16 +172,18 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                               thumb = InkWell(
                                   onTap: () {
                                     VxNavigator.of(context)
-                                        .waitAndPush(Uri(pathSegments: [
-                                          "users",
-                                          gffft.uid,
-                                          "gfffts",
-                                          gffft.gid,
-                                          "galleries",
-                                          widget.mid,
-                                          "i",
-                                          item.id
-                                        ]))
+                                        .waitAndPush(Uri(
+                                            path: "/" +
+                                                Uri(pathSegments: [
+                                                  "users",
+                                                  gffft.uid,
+                                                  "gfffts",
+                                                  gffft.gid,
+                                                  "galleries",
+                                                  widget.mid,
+                                                  "i",
+                                                  item.id
+                                                ]).toString()))
                                         .then((value) => _pagingController.refresh());
                                   },
                                   child: ExtendedImage.network(thumbUrl, height: 320, width: 320,

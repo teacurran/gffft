@@ -227,8 +227,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
                     subtitle: Text(item.name),
                     onTap: () {
                       if (item.gffft != null) {
-                        VxNavigator.of(context)
-                            .push(Uri(pathSegments: ["users", item.gffft!.uid, "gfffts", item.gffft!.gid]));
+                        VxNavigator.of(context).push(Uri(
+                            path: "/" +
+                                Uri(pathSegments: ["users", item.gffft!.uid, "gfffts", item.gffft!.gid]).toString()));
                       }
                     },
                     trailing: Icon(Icons.chevron_right, color: theme.primaryColor),
@@ -252,8 +253,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
                     subtitle: Text(item.name),
                     onTap: () {
                       if (item.gffft != null) {
-                        VxNavigator.of(context)
-                            .push(Uri(pathSegments: ["users", item.gffft!.uid, "gfffts", item.gffft!.gid]));
+                        VxNavigator.of(context).push(Uri(
+                            path: "/" +
+                                Uri(pathSegments: ["users", item.gffft!.uid, "gfffts", item.gffft!.gid]).toString()));
                       }
                     },
                     trailing: Icon(Icons.chevron_right, color: theme.primaryColor),
@@ -277,9 +279,8 @@ class _ConnectScreenState extends State<ConnectScreen> {
                   title: Text(item.name),
                   subtitle: Text(item.name),
                   onTap: () {
-                    if (item != null) {
-                      VxNavigator.of(context).push(Uri(pathSegments: ["users", item.uid, "gfffts", item.gid]));
-                    }
+                    VxNavigator.of(context)
+                        .push(Uri(path: "/" + Uri(pathSegments: ["users", item.uid, "gfffts", item.gid]).toString()));
                   },
                   trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
               noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),

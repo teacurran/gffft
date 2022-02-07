@@ -148,17 +148,19 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
                   backgroundColor: theme.primaryColor,
                   onPressed: () {
                     VxNavigator.of(context)
-                        .waitAndPush(Uri(pathSegments: [
-                      "users",
-                      widget.uid,
-                      "gfffts",
-                      widget.gid,
-                      "boards",
-                      widget.bid,
-                      "threads",
-                      widget.tid,
-                      "reply"
-                    ]))
+                        .waitAndPush(Uri(
+                            path: "/" +
+                                Uri(pathSegments: [
+                                  "users",
+                                  widget.uid,
+                                  "gfffts",
+                                  widget.gid,
+                                  "boards",
+                                  widget.bid,
+                                  "threads",
+                                  widget.tid,
+                                  "reply"
+                                ]).toString()))
                         .then((value) {
                       _pagingController.refresh();
                     });

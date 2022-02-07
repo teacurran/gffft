@@ -42,8 +42,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
     //VxNavigator.of(context).pop();
 
-    VxNavigator.of(context)
-        .returnAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid]));
+    VxNavigator.of(context).returnAndPush(Uri(
+        path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid]).toString()));
   }
 
   @override

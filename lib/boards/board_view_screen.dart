@@ -105,7 +105,10 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
         backgroundColor: theme.primaryColor,
         onPressed: () {
           VxNavigator.of(context)
-              .waitAndPush(Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid, "post"]))
+              .waitAndPush(Uri(
+                  path: "/" +
+                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid, "post"])
+                          .toString()))
               .then((value) {
             _pagingController.refresh();
           });

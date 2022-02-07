@@ -30,9 +30,7 @@ class HostCard extends StatelessWidget {
               if (user == null) {
                 VxNavigator.of(context).waitAndPush(Uri(path: LoginScreen.webPath)).then((value) => loadData());
               } else {
-                VxNavigator.of(context)
-                    .waitAndPush(Uri(pathSegments: ["users", "me", "gfffts", "default"]))
-                    .then((value) => loadData());
+                VxNavigator.of(context).waitAndPush(Uri(path: "/users/me/gfffts/default")).then((value) => loadData());
               }
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
