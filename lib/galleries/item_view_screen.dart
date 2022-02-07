@@ -48,8 +48,9 @@ class _ItemViewScreenState extends State<ItemViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: InkWell(
+        body: GestureDetector(
             onTap: () {
+              // VxNavigator.of(context).pop();
               VxNavigator.of(context).replace(Uri(
                   path: "/" +
                       Uri(pathSegments: [

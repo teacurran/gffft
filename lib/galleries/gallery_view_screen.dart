@@ -230,7 +230,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                     child: InkWell(
                                         onTap: () {
                                           if (gffft != null) {
-                                            VxNavigator.of(context).replace(Uri(
+                                            VxNavigator.of(context).push(Uri(
                                                 path: "/" +
                                                     Uri(pathSegments: [
                                                       "users",
