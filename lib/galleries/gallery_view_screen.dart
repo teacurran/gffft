@@ -245,45 +245,42 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                             //           item.id
                                             //         ]).toString()));
 
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-                                              return Scaffold(
-                                                  appBar: AppBar(
-                                                    title: const Text('Flippers Page'),
-                                                  ),
-                                                  body: InkWell(
-                                                      onTap: () {
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      child: Container(
-                                                          // The blue background emphasizes that it's a new route.
-                                                          color: Colors.lightBlueAccent,
-                                                          padding: const EdgeInsets.all(16.0),
-                                                          alignment: Alignment.topLeft,
-                                                          child: (fullImageUrl != null)
-                                                              ? Hero(
-                                                                  tag: item.id,
-                                                                  child: ExtendedImage.network(fullImageUrl,
-                                                                      width: double.infinity,
-                                                                      height: double.infinity,
-                                                                      fit: BoxFit.contain,
-                                                                      alignment: Alignment.center,
-                                                                      mode: ExtendedImageMode.gesture,
-                                                                      initGestureConfigHandler: (state) {
-                                                                    return GestureConfig(
-                                                                      minScale: 0.9,
-                                                                      animationMinScale: 0.7,
-                                                                      maxScale: 3.0,
-                                                                      animationMaxScale: 3.5,
-                                                                      speed: 1.0,
-                                                                      inertialSpeed: 100.0,
-                                                                      initialScale: 1.0,
-                                                                      inPageView: false,
-                                                                      initialAlignment: InitialAlignment.center,
-                                                                    );
-                                                                  }))
-                                                              : Container())));
-                                            }));
+                                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                                fullscreenDialog: true,
+                                                builder: (BuildContext context) {
+                                                  return Scaffold(
+                                                      body: InkWell(
+                                                          onTap: () {
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          child: Container(
+                                                              // The blue background emphasizes that it's a new route.
+                                                              color: Colors.black54,
+                                                              alignment: Alignment.topLeft,
+                                                              child: (fullImageUrl != null)
+                                                                  ? Hero(
+                                                                      tag: item.id,
+                                                                      child: ExtendedImage.network(fullImageUrl,
+                                                                          width: double.infinity,
+                                                                          height: double.infinity,
+                                                                          fit: BoxFit.contain,
+                                                                          alignment: Alignment.center,
+                                                                          mode: ExtendedImageMode.gesture,
+                                                                          initGestureConfigHandler: (state) {
+                                                                        return GestureConfig(
+                                                                          minScale: 0.9,
+                                                                          animationMinScale: 0.7,
+                                                                          maxScale: 3.0,
+                                                                          animationMaxScale: 3.5,
+                                                                          speed: 1.0,
+                                                                          inertialSpeed: 100.0,
+                                                                          initialScale: 1.0,
+                                                                          inPageView: false,
+                                                                          initialAlignment: InitialAlignment.center,
+                                                                        );
+                                                                      }))
+                                                                  : Container())));
+                                                }));
                                           }
                                         },
                                         child: thumb!)));
