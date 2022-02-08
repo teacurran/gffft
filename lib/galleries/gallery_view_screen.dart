@@ -9,7 +9,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../components/common_circular_progress_indicator.dart';
-import 'gallery_image.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
@@ -169,7 +168,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
                             Widget? thumb;
                             if (thumbUrl != null && gffft != null && fullImageUrl != null) {
-                              thumb = ExtendedImage.network(thumbUrl, height: 320, width: 320,
+                              thumb = ExtendedImage.network(thumbUrl, height: 320, width: 320, cache: true,
                                   loadStateChanged: (ExtendedImageState state) {
                                 Widget? widget;
                                 switch (state.extendedImageLoadState) {
@@ -189,7 +188,10 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                     ///please return null or state.completedWidget
                                     //return null;
 
-                                    thumb = GalleryImage(knowImageSize: true, size: 320, item: item);
+                                    thumb = Hero(
+                                        tag: item.id,
+                                        child:
+                                            ExtendedRawImage(image: state.extendedImageInfo?.image, fit: BoxFit.cover));
 
                                     break;
                                   case LoadState.failed:
@@ -230,18 +232,58 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                     child: InkWell(
                                         onTap: () {
                                           if (gffft != null) {
-                                            VxNavigator.of(context).push(Uri(
-                                                path: "/" +
-                                                    Uri(pathSegments: [
-                                                      "users",
-                                                      gffft.uid,
-                                                      "gfffts",
-                                                      gffft.gid,
-                                                      "galleries",
-                                                      widget.mid,
-                                                      "i",
-                                                      item.id
-                                                    ]).toString()));
+                                            // VxNavigator.of(context).push(Uri(
+                                            //     path: "/" +
+                                            //         Uri(pathSegments: [
+                                            //           "users",
+                                            //           gffft.uid,
+                                            //           "gfffts",
+                                            //           gffft.gid,
+                                            //           "galleries",
+                                            //           widget.mid,
+                                            //           "i",
+                                            //           item.id
+                                            //         ]).toString()));
+
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+                                              return Scaffold(
+                                                  appBar: AppBar(
+                                                    title: const Text('Flippers Page'),
+                                                  ),
+                                                  body: InkWell(
+                                                      onTap: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      child: Container(
+                                                          // The blue background emphasizes that it's a new route.
+                                                          color: Colors.lightBlueAccent,
+                                                          padding: const EdgeInsets.all(16.0),
+                                                          alignment: Alignment.topLeft,
+                                                          child: (fullImageUrl != null)
+                                                              ? Hero(
+                                                                  tag: item.id,
+                                                                  child: ExtendedImage.network(fullImageUrl,
+                                                                      width: double.infinity,
+                                                                      height: double.infinity,
+                                                                      fit: BoxFit.contain,
+                                                                      alignment: Alignment.center,
+                                                                      mode: ExtendedImageMode.gesture,
+                                                                      initGestureConfigHandler: (state) {
+                                                                    return GestureConfig(
+                                                                      minScale: 0.9,
+                                                                      animationMinScale: 0.7,
+                                                                      maxScale: 3.0,
+                                                                      animationMaxScale: 3.5,
+                                                                      speed: 1.0,
+                                                                      inertialSpeed: 100.0,
+                                                                      initialScale: 1.0,
+                                                                      inPageView: false,
+                                                                      initialAlignment: InitialAlignment.center,
+                                                                    );
+                                                                  }))
+                                                              : Container())));
+                                            }));
                                           }
                                         },
                                         child: thumb!)));
