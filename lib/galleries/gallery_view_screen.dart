@@ -247,6 +247,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
                                             Navigator.of(context).push(MaterialPageRoute<void>(
                                                 fullscreenDialog: true,
+                                                maintainState: true,
                                                 builder: (BuildContext context) {
                                                   return Scaffold(
                                                       body: InkWell(
