@@ -14,7 +14,6 @@ class BoardApi extends ApiBase {
   }
 
   Future<void> createPost(PostSubmit p) async {
-    print("creating post: " + jsonEncode(p));
     return post("boards/createPost", jsonEncode(p));
   }
 }

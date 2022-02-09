@@ -178,7 +178,9 @@ class ApiBase {
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());
-        print(responseJson);
+        if (kDebugMode) {
+          print(responseJson);
+        }
         return responseJson;
       case 204:
         return null;
