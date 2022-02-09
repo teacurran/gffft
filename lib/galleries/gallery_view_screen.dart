@@ -256,7 +256,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                                           },
                                                           child: Container(
                                                               // The blue background emphasizes that it's a new route.
-                                                              color: Colors.black54,
+                                                              color: theme.backgroundColor,
                                                               alignment: Alignment.topLeft,
                                                               child: (fullImageUrl != null)
                                                                   ? Hero(
