@@ -3,13 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/boards/models/board.dart';
+import 'package:gffft/boards/board_home_card.dart';
+import 'package:gffft/calendars/calendar_home_card.dart';
 import 'package:gffft/common/dates.dart';
+import 'package:gffft/galleries/gallery_home_card.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../notebooks/notebook_home_card.dart';
 import 'gffft_api.dart';
 import 'models/gffft.dart';
 import 'models/gffft_patch_save.dart';
@@ -112,210 +114,18 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   List<Widget> getActions(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
     var actions = <Widget>[];
 
-    // if (gffft.features == null) {
-    //   return actions;
-    // }
-
     gffft.features?.forEach((featureRef) {
       if (featureRef.type == "board" && featureRef.id != null) {
-        Board? board;
-        if (gffft.boards != null) {
-          for (var b in gffft.boards!) {
-            if (b.id == featureRef.id) {
-              board = b;
-            }
-          }
-        }
-
-        if (board != null) {
-          actions.add(Card(
-              margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-              clipBehavior: Clip.antiAlias,
-              color: theme.backgroundColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  side: const BorderSide(
-                    color: Color(0xFF9970A9),
-                    width: 1.0,
-                  )),
-              child: InkWell(
-                  onTap: () {
-                    VxNavigator.of(context).push(Uri(
-                        path: "/" +
-                            Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!])
-                                .toString()));
-                  },
-                  splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                  highlightColor: Colors.transparent,
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                      child: SizedBox(
-                          width: double.infinity,
-                          child: Row(children: [
-                            Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                              IconButton(
-                                icon: const FaIcon(FontAwesomeIcons.commentAlt),
-                                color: const Color(0xFF9970A9),
-                                onPressed: () {},
-                              ),
-                              Text(
-                                l10n.gffftHomeBoard,
-                                style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
-                              )
-                            ]),
-                            VerticalDivider(),
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Row(children: [
-                                    const SelectableText("threads:"),
-                                    SelectableText(board.threads.toString())
-                                  ]),
-                                  Row(children: [
-                                    const SelectableText("posts:"),
-                                    SelectableText(board.posts.toString())
-                                  ]),
-                                ])
-                          ]))))));
-        }
+        actions.add(BoardHomeCard(gffft: gffft, featureRef: featureRef));
       } else if (featureRef.type == "calendar") {
-        actions.add(Card(
-            margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-            clipBehavior: Clip.antiAlias,
-            color: theme.backgroundColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: const BorderSide(
-                  color: Color(0xFFB56277),
-                  width: 1.0,
-                )),
-            child: InkWell(
-                onTap: () {
-                  VxNavigator.of(context).push(Uri(
-                      path: "/" +
-                          Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!])
-                              .toString()));
-                },
-                splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                highlightColor: Colors.transparent,
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: Row(children: [
-                          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                            IconButton(
-                                icon: FaIcon(FontAwesomeIcons.calendarAlt), onPressed: () {}, color: Color(0xFFB56277)),
-                            Text(
-                              l10n.gffftHomeCalendar,
-                              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFB56277)),
-                            )
-                          ]),
-                          VerticalDivider(),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Row(children: [SelectableText("future events:"), SelectableText("45")]),
-                                Row(children: [SelectableText("past events:"), SelectableText("32")]),
-                              ])
-                        ]))))));
+        actions.add(CalendarHomeCard(gffft: gffft, featureRef: featureRef));
       } else if (featureRef.type == "gallery") {
-        actions.add(Card(
-            margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-            clipBehavior: Clip.antiAlias,
-            color: theme.backgroundColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: const BorderSide(
-                  color: Color(0xFF00829C),
-                  width: 1.0,
-                )),
-            child: InkWell(
-                onTap: () {
-                  VxNavigator.of(context).push(Uri(
-                      path: "/" +
-                          Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", featureRef.id!])
-                              .toString()));
-                },
-                splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                highlightColor: Colors.transparent,
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: Row(children: [
-                          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                            IconButton(
-                              icon: const FaIcon(
-                                FontAwesomeIcons.photoVideo,
-                                color: Color(0xFF00829C),
-                              ),
-                              onPressed: () {},
-                            ),
-                            Text(
-                              l10n.gffftHomeGallery,
-                              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF00829C)),
-                            )
-                          ]),
-                          VerticalDivider(),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Row(children: [SelectableText("photos:"), SelectableText("2938")]),
-                                Row(children: [SelectableText("videos:"), SelectableText("14")]),
-                              ])
-                        ]))))));
+        actions.add(GalleryHomeCard(gffft: gffft, featureRef: featureRef));
       } else if (featureRef.type == "notebook") {
-        actions.add(Card(
-            margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-            clipBehavior: Clip.antiAlias,
-            color: theme.backgroundColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: const BorderSide(
-                  color: Colors.deepOrangeAccent,
-                  width: 1.0,
-                )),
-            child: InkWell(
-                onTap: () {
-                  VxNavigator.of(context).push(Uri(
-                      path: "/" +
-                          Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", featureRef.id!])
-                              .toString()));
-                },
-                splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
-                highlightColor: Colors.transparent,
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 0, 20),
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-                            IconButton(
-                                icon: const FaIcon(FontAwesomeIcons.fileAlt),
-                                color: Colors.deepOrangeAccent,
-                                onPressed: () async {}),
-                            Text(
-                              l10n.gffftHomePages,
-                              style: theme.textTheme.headline6?.copyWith(color: Colors.deepOrangeAccent),
-                            )
-                          ]),
-                          VerticalDivider(),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Row(children: [SelectableText("pages:"), SelectableText("38")]),
-                                Row(children: [SelectableText("edits:"), SelectableText("297")]),
-                              ])
-                        ]))))));
+        actions.add(NotebookHomeCard(
+          gffft: gffft,
+          featureRef: featureRef,
+        ));
       }
     });
 
