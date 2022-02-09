@@ -44,7 +44,7 @@ class LinkSetEditCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
           side: const BorderSide(
-            color: Color(0xFF00829C),
+            color: Color(0xFFEFFF8D),
             width: 1.0,
           )),
       child: Container(
@@ -54,12 +54,12 @@ class LinkSetEditCard extends StatelessWidget {
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             IconButton(
               icon: const FaIcon(FontAwesomeIcons.photoVideo),
-              color: const Color(0xFF00829C),
+              color: const Color(0xFFEFFF8D),
               onPressed: () {},
             ),
             Text(
               l10n!.gffftHomeLinkSet,
-              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF00829C)),
+              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFEFFF8D)),
             ),
             Row(
               children: [
