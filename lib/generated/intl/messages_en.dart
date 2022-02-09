@@ -95,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeCalendar": MessageLookupByLibrary.simpleMessage("calendar"),
         "gffftHomeGallery": MessageLookupByLibrary.simpleMessage("gallery"),
         "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
+        "gffftHomeLinkSet": MessageLookupByLibrary.simpleMessage("Links"),
         "gffftHomeMemberSince": m0,
         "gffftHomeMembership":
             MessageLookupByLibrary.simpleMessage("membership"),
@@ -151,6 +152,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftSettingsGalleryEnableHint": MessageLookupByLibrary.simpleMessage(
             "A gallery allows you or your gffft\'s members to post photos and videos. Configure to be viewed as a stream or contact-sheet style."),
         "gffftSettingsHead": MessageLookupByLibrary.simpleMessage("settings"),
+        "gffftSettingsLinkSetEnable":
+            MessageLookupByLibrary.simpleMessage("Enable links"),
+        "gffftSettingsLinkSetEnableHint": MessageLookupByLibrary.simpleMessage(
+            "Save links for yourself or others"),
         "gffftSettingsNotebookEnable":
             MessageLookupByLibrary.simpleMessage("Enable notebook"),
         "gffftSettingsNotebookEnableHint": MessageLookupByLibrary.simpleMessage(

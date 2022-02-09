@@ -10,6 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../boards/board_edit_card.dart';
 import '../galleries/gallery_edit_card.dart';
+import '../link_sets/link_set_edit_card.dart';
 import '../notebooks/notebook_edit_card.dart';
 import 'gffft_api.dart';
 import 'models/gffft.dart';
@@ -83,6 +84,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
         onSaveComplete: onSaveComplete,
       ),
       GalleryEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
+      LinkSetEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       NotebookEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       FruitCodeEditCard(gffft: gffft, onSaveComplete: onSaveComplete)
     ];

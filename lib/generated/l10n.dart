@@ -500,6 +500,16 @@ class S {
     );
   }
 
+  /// `Links`
+  String get gffftHomeLinkSet {
+    return Intl.message(
+      'Links',
+      name: 'gffftHomeLinkSet',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `join this gffft`
   String get gffftJoin {
     return Intl.message(
@@ -695,6 +705,26 @@ class S {
     return Intl.message(
       'A gallery allows you or your gffft\'s members to post photos and videos. Configure to be viewed as a stream or contact-sheet style.',
       name: 'gffftSettingsGalleryEnableHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save links for yourself or others`
+  String get gffftSettingsLinkSetEnableHint {
+    return Intl.message(
+      'Save links for yourself or others',
+      name: 'gffftSettingsLinkSetEnableHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable links`
+  String get gffftSettingsLinkSetEnable {
+    return Intl.message(
+      'Enable links',
+      name: 'gffftSettingsLinkSetEnable',
       desc: '',
       args: [],
     );

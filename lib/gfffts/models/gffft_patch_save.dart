@@ -15,6 +15,7 @@ class GffftPatchSave {
   bool? boardEnabled;
   bool? calendarEnabled;
   bool? galleryEnabled;
+  bool? linkSetEnabled;
   bool? notebookEnabled;
   String? notebookStyle;
   bool? fruitCodeReset;
@@ -31,6 +32,7 @@ class GffftPatchSave {
       this.boardEnabled,
       this.calendarEnabled,
       this.galleryEnabled,
+      this.linkSetEnabled,
       this.notebookEnabled,
       this.notebookStyle,
       this.fruitCodeReset});
