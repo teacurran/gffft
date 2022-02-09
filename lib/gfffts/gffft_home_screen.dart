@@ -11,6 +11,7 @@ import 'package:gffft/galleries/gallery_home_card.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../link_sets/link_set_home_card.dart';
 import '../notebooks/notebook_home_card.dart';
 import 'gffft_api.dart';
 import 'models/gffft.dart';
@@ -123,6 +124,11 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         actions.add(GalleryHomeCard(gffft: gffft, featureRef: featureRef));
       } else if (featureRef.type == "notebook") {
         actions.add(NotebookHomeCard(
+          gffft: gffft,
+          featureRef: featureRef,
+        ));
+      } else if (featureRef.type == "linkSet") {
+        actions.add(LinkSetHomeCard(
           gffft: gffft,
           featureRef: featureRef,
         ));

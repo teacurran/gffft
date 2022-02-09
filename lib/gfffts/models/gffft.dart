@@ -7,6 +7,7 @@ import 'package:gffft/users/models/bookmark.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../link_sets/models/link_set.dart';
 import 'gffft_membership.dart';
 
 part 'gffft.g.dart';
@@ -33,6 +34,7 @@ class Gffft {
   List<Calendar>? calendars;
   List<Gallery>? galleries;
   List<Notebook>? notebooks;
+  List<LinkSet>? linkSets;
   GffftMembership? membership;
   Bookmark? bookmark;
 
@@ -51,6 +53,8 @@ class Gffft {
       this.enableAltHandles = false,
       this.features,
       this.boards,
+      this.notebooks,
+      this.linkSets,
       this.membership,
       this.bookmark,
       this.rareFruits = 0,
