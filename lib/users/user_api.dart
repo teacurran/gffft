@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_base.dart';
 import '../galleries/models/gallery_item.dart';
+import '../link_sets/models/link_set.dart';
 import 'models/bookmark_result.dart';
 
 class UserApi extends ApiBase {
@@ -83,6 +84,11 @@ class UserApi extends ApiBase {
   Future<GalleryItem> getGalleryItem(String uid, String gid, String mid, String iid) async {
     final response = await getAuthenticated("users/${uid}/gfffts/${gid}/galleries/${mid}/i/${iid}");
     return GalleryItem.fromJson(response);
+  }
+
+  Future<LinkSet> getLinkSet(String uid, String gid, String lid, String? offset, int? pageSize) async {
+    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/links/${lid}");
+    return LinkSet.fromJson(response);
   }
 
   Future<BookmarkResult> getBookmarksFromLocal() async {

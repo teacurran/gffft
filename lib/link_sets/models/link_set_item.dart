@@ -1,31 +1,18 @@
+import 'package:gffft/boards/models/participant.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'link_set_item.dart';
+part 'link_set_item.g.dart';
 
-part 'link_set.g.dart';
-
-@JsonSerializable(explicitToJson: true)
-class LinkSet {
+@JsonSerializable()
+class LinkSetItem {
   String id;
-  DateTime updatedAt;
-  String whoCanView;
-  String whoCanPost;
-  String? name;
-  String? description;
-  int itemCount;
-  int count;
-  List<LinkSetItem> items;
+  Participant author;
+  String url;
+  String description;
+  DateTime createdAt;
 
-  LinkSet(
-      {required this.id,
-      required this.updatedAt,
-      required this.whoCanView,
-      required this.whoCanPost,
-      required this.name,
-      this.description,
-      required this.itemCount,
-      this.count = 0,
-      this.items = const <LinkSetItem>[]});
+  LinkSetItem(
+      {required this.id, required this.author, required this.url, required this.description, required this.createdAt});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
@@ -40,10 +27,10 @@ class LinkSet {
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
   /// The constructor is named after the source class, in this case, User.
-  factory LinkSet.fromJson(Map<String, dynamic> json) => _$LinkSetFromJson(json);
+  factory LinkSetItem.fromJson(Map<String, dynamic> json) => _$LinkSetItemFromJson(json);
 
   /// `toJson` is the convention for a class to declare support for serialization
   /// to JSON. The implementation simply calls the private, generated
   /// helper method `_$UserToJson`.
-  Map<String, dynamic> toJson() => _$LinkSetToJson(this);
+  Map<String, dynamic> toJson() => _$LinkSetItemToJson(this);
 }

@@ -28,6 +28,12 @@ Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       boards: (json['boards'] as List<dynamic>?)
           ?.map((e) => Board.fromJson(e as Map<String, dynamic>))
           .toList(),
+      notebooks: (json['notebooks'] as List<dynamic>?)
+          ?.map((e) => Notebook.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      linkSets: (json['linkSets'] as List<dynamic>?)
+          ?.map((e) => LinkSet.fromJson(e as Map<String, dynamic>))
+          .toList(),
       membership: json['membership'] == null
           ? null
           : GffftMembership.fromJson(
@@ -43,9 +49,6 @@ Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
           .toList()
       ..galleries = (json['galleries'] as List<dynamic>?)
           ?.map((e) => Gallery.fromJson(e as Map<String, dynamic>))
-          .toList()
-      ..notebooks = (json['notebooks'] as List<dynamic>?)
-          ?.map((e) => Notebook.fromJson(e as Map<String, dynamic>))
           .toList();
 
 Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
@@ -68,6 +71,7 @@ Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
       'calendars': instance.calendars?.map((e) => e.toJson()).toList(),
       'galleries': instance.galleries?.map((e) => e.toJson()).toList(),
       'notebooks': instance.notebooks?.map((e) => e.toJson()).toList(),
+      'linkSets': instance.linkSets?.map((e) => e.toJson()).toList(),
       'membership': instance.membership?.toJson(),
       'bookmark': instance.bookmark?.toJson(),
     };

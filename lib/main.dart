@@ -39,6 +39,8 @@ import 'gfffts/gffft_home_screen.dart';
 import 'gfffts/gffft_join_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_screen.dart';
+import 'link_sets/link_set_api.dart';
+import 'link_sets/link_set_view_screen.dart';
 
 final getIt = GetIt.instance;
 
@@ -81,7 +83,9 @@ Future<void> main() async {
   getIt.registerSingleton<BoardApi>(BoardApi());
   getIt.registerSingleton<GalleryApi>(GalleryApi());
   getIt.registerSingleton<GffftApi>(GffftApi());
+  getIt.registerSingleton<LinkSetApi>(LinkSetApi());
   getIt.registerSingleton<UserApi>(UserApi());
+
   runApp(App());
 }
 
@@ -194,6 +198,12 @@ class _AppState extends State<App> {
               uid: uri.pathSegments[1],
               gid: uri.pathSegments[3],
               mid: uri.pathSegments[5],
+            )),
+        RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/links/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
+                child: LinkSetViewScreen(
+              uid: uri.pathSegments[1],
+              gid: uri.pathSegments[3],
+              lid: uri.pathSegments[5],
             )),
         GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
         LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),

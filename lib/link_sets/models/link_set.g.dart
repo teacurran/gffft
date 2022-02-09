@@ -14,6 +14,11 @@ LinkSet _$LinkSetFromJson(Map<String, dynamic> json) => LinkSet(
       name: json['name'] as String?,
       description: json['description'] as String?,
       itemCount: json['itemCount'] as int,
+      count: json['count'] as int? ?? 0,
+      items: (json['items'] as List<dynamic>?)
+              ?.map((e) => LinkSetItem.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <LinkSetItem>[],
     );
 
 Map<String, dynamic> _$LinkSetToJson(LinkSet instance) => <String, dynamic>{
@@ -24,4 +29,6 @@ Map<String, dynamic> _$LinkSetToJson(LinkSet instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'itemCount': instance.itemCount,
+      'count': instance.count,
+      'items': instance.items.map((e) => e.toJson()).toList(),
     };

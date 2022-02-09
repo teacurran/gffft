@@ -160,6 +160,7 @@
   "@gffftListSearchHint": {},
   "host": "Host",
   "@host": {},
+  "linkSetViewActionTooltip": "Add a Link",
   "loading": "Loading",
   "@loading": {},
   "logout": "Logout",

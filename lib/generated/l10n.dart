@@ -960,6 +960,16 @@ class S {
     );
   }
 
+  /// `Add a Link`
+  String get linkSetViewActionTooltip {
+    return Intl.message(
+      'Add a Link',
+      name: 'linkSetViewActionTooltip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Loading`
   String get loading {
     return Intl.message(
