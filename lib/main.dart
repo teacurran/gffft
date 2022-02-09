@@ -15,6 +15,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/board_view_screen.dart';
 import 'package:gffft/boards/thread_view_screen.dart';
 import 'package:gffft/home/home_screen.dart';
+import 'package:gffft/link_sets/link_post_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/users/bookmark_screen.dart';
@@ -201,6 +202,13 @@ class _AppState extends State<App> {
             )),
         RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/links/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
                 child: LinkSetViewScreen(
+              uid: uri.pathSegments[1],
+              gid: uri.pathSegments[3],
+              lid: uri.pathSegments[5],
+            )),
+        RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/links/[a-zA-Z0-9]+/post$"): (uri, param) =>
+            MaterialPage(
+                child: LinkPostScreen(
               uid: uri.pathSegments[1],
               gid: uri.pathSegments[3],
               lid: uri.pathSegments[5],
