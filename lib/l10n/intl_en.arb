@@ -161,6 +161,8 @@
   "host": "Host",
   "@host": {},
   "linkSetViewActionTooltip": "Add a Link",
+  "linkSetPostUrl": "https://",
+  "linkSetPostDescription": "Description (optional)",
   "loading": "Loading",
   "@loading": {},
   "logout": "Logout",

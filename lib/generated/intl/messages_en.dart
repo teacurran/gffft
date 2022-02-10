@@ -167,6 +167,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftSettingsSave":
             MessageLookupByLibrary.simpleMessage("save and exit"),
         "host": MessageLookupByLibrary.simpleMessage("Host"),
+        "linkSetPostDescription":
+            MessageLookupByLibrary.simpleMessage("Description (optional)"),
+        "linkSetPostUrl": MessageLookupByLibrary.simpleMessage("https://"),
         "linkSetViewActionTooltip":
             MessageLookupByLibrary.simpleMessage("Add a Link"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),

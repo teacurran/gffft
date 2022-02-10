@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/home/host_card.dart';
 import 'package:gffft/home/profile_card.dart';
-import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/users/connect_screen.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:gffft/users/user_api.dart';
@@ -109,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ],
                                       ))),
-                              HostCard(user: user, loadData: _loadData),
+                              if (user != null) HostCard(user: user, loadData: _loadData),
                               ProfileCard(user: user, loadData: _loadData)
                             ],
                           ),

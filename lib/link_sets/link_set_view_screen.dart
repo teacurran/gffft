@@ -6,6 +6,7 @@ import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'link_preview_card.dart';
 import 'models/link_set_item.dart';
 
 final getIt = GetIt.instance;
@@ -134,7 +135,7 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  title,
+                  "links",
                   style: theme.textTheme.headline1,
                 ),
                 backgroundColor: theme.backgroundColor,
@@ -156,7 +157,7 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
                     builderDelegate: PagedChildBuilderDelegate<LinkSetItem>(
                       animateTransitions: true,
                       itemBuilder: (context, item, index) {
-                        return Text(item.url);
+                        return Padding(padding: EdgeInsets.fromLTRB(15, 0, 10, 10), child: LinkPreviewCard(link: item));
                       },
                     ))
               ]));

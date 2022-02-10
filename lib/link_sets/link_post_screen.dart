@@ -1,3 +1,4 @@
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -27,9 +28,11 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
   LinkSetApi linkSetApi = getIt<LinkSetApi>();
 
   bool isLoading = false;
+  String? url;
   final TextEditingController _urlController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   Future<Gffft>? gffft;
+  final _formKey = GlobalKey<FormState>();
 
   void postLink() async {
     setState(() {
@@ -93,28 +96,90 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
               ),
               centerTitle: true,
             ),
-            body: Column(
+            body: SingleChildScrollView(
+                child: Column(
               children: <Widget>[
                 isLoading ? const LinearProgressIndicator() : const Padding(padding: EdgeInsets.only(top: 0.0)),
-                TextField(
-                  controller: _urlController,
-                  decoration: InputDecoration(hintText: l10n!.galleryPostCaption),
-                  maxLines: 1,
-                ),
-                TextField(
-                  controller: _descriptionController,
-                  decoration: InputDecoration(hintText: l10n.galleryPostCaption),
-                  maxLines: 1,
-                ),
-                TextButton(
-                  onPressed: () => postLink(),
-                  child: const Text(
-                    "Post",
-                    style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold, fontSize: 16.0),
-                  ),
+                SizedBox(
+                  height: 375,
+                  child: PageView(
+                      physics: const PageScrollPhysics(),
+                      controller: PageController(viewportFraction: 0.95),
+                      children: [
+                        SizedBox(
+                            height: 300,
+                            width: 300,
+                            child: Card(
+                              margin: const EdgeInsets.all(10),
+                              color: theme.backgroundColor,
+                              child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Form(
+                                      key: _formKey,
+                                      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                        if (url != null && url!.isNotEmpty)
+                                          AnyLinkPreview(
+                                            link: url!,
+                                            displayDirection: UIDirection.UIDirectionHorizontal,
+                                            showMultimedia: true,
+                                            bodyMaxLines: 5,
+                                            bodyTextOverflow: TextOverflow.ellipsis,
+                                            titleStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+                                            bodyStyle: const TextStyle(color: Colors.black12, fontSize: 12),
+                                            errorBody: 'Show my custom error body',
+                                            errorTitle: 'Show my custom error title',
+                                            errorWidget: Container(
+                                              color: Colors.grey[300],
+                                              child: const Text('Oops!'),
+                                            ),
+                                            errorImage: "https://google.com/",
+                                            cache: const Duration(days: 7),
+                                            backgroundColor: Colors.grey[300],
+                                            borderRadius: 8,
+                                            removeElevation: false,
+                                            boxShadow: const [BoxShadow(blurRadius: 3, color: Colors.grey)],
+                                            onTap: () {}, // This disables tap event
+                                          ),
+                                        TextField(
+                                          controller: _urlController,
+                                          decoration: InputDecoration(hintText: l10n!.linkSetPostUrl),
+                                          maxLines: 1,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              url = value;
+                                            });
+                                          },
+                                        ),
+                                        TextField(
+                                          controller: _descriptionController,
+                                          decoration: InputDecoration(hintText: l10n.linkSetPostDescription),
+                                          maxLines: 1,
+                                        ),
+                                        TextButton(
+                                            onPressed: () => postLink(),
+                                            child: const Text(
+                                              "Post",
+                                              style: TextStyle(
+                                                  color: Colors.blueAccent,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ))
+                                      ]))),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  side: const BorderSide(
+                                    color: Color(0xFFFABB59),
+                                    width: 1.0,
+                                  )),
+                            )),
+                      ]),
                 )
               ],
-            ),
+            )),
           );
         });
   }

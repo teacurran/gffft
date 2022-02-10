@@ -12,6 +12,6 @@ class LinkSetApi extends ApiBase {
   }
 
   Future<void> createLink(LinkSubmit p) async {
-    return post("links/create", jsonEncode(p));
+    return post("links", jsonEncode(p));
   }
 }

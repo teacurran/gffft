@@ -970,6 +970,26 @@ class S {
     );
   }
 
+  /// `https://`
+  String get linkSetPostUrl {
+    return Intl.message(
+      'https://',
+      name: 'linkSetPostUrl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description (optional)`
+  String get linkSetPostDescription {
+    return Intl.message(
+      'Description (optional)',
+      name: 'linkSetPostDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Loading`
   String get loading {
     return Intl.message(
