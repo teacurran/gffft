@@ -145,18 +145,24 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
                                             boxShadow: const [BoxShadow(blurRadius: 3, color: Colors.grey)],
                                             onTap: () {}, // This disables tap event
                                           ),
-                                        TextField(
-                                          controller: _urlController,
-                                          decoration: InputDecoration(hintText: l10n!.linkSetPostUrl),
-                                          maxLines: 1,
-                                          onChanged: (value) async {
-                                            var linkInfo = await linkSetApi.getLink(value);
-                                            if (kDebugMode) {
-                                              print("linkInfo: ${linkInfo.toString()}");
+                                        Focus(
+                                          child: TextField(
+                                            controller: _urlController,
+                                            decoration: InputDecoration(hintText: l10n!.linkSetPostUrl),
+                                            maxLines: 1,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                url = value;
+                                              });
+                                            },
+                                          ),
+                                          onFocusChange: (hasFocus) async {
+                                            if (!hasFocus) {
+                                              var linkInfo = await linkSetApi.getLink(_urlController.text);
+                                              if (kDebugMode) {
+                                                print("linkInfo: ${linkInfo.toString()}");
+                                              }
                                             }
-                                            setState(() {
-                                              url = value;
-                                            });
                                           },
                                         ),
                                         TextField(
