@@ -1,11 +1,12 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class LinkViewHorizontal extends StatelessWidget {
   final String url;
   final String title;
   final String description;
-  final String imageUri;
+  final String? imageUri;
   final Function() onTap;
   final TextStyle? titleTextStyle;
   final TextStyle? bodyTextStyle;
@@ -20,7 +21,7 @@ class LinkViewHorizontal extends StatelessWidget {
     required this.url,
     required this.title,
     required this.description,
-    required this.imageUri,
+    this.imageUri,
     required this.onTap,
     this.titleTextStyle,
     this.bodyTextStyle,
@@ -71,37 +72,38 @@ class LinkViewHorizontal extends StatelessWidget {
               fontWeight: FontWeight.w400,
             );
 
-        ImageProvider? _img = imageUri != '' ? NetworkImage(imageUri) : null;
-        if (imageUri.startsWith('data:image')) {
-          _img = MemoryImage(
-            base64Decode(imageUri.substring(imageUri.indexOf('base64') + 7)),
-          );
+        ImageProvider? _img = null;
+        if (imageUri != null && imageUri != '') {
+          _img = NetworkImage(imageUri!);
+          if (imageUri!.startsWith('data:image')) {
+            _img = MemoryImage(
+              base64Decode(imageUri!.substring(imageUri!.indexOf('base64') + 7)),
+            );
+          }
         }
 
         return InkWell(
           onTap: () => onTap(),
           child: Row(
             children: <Widget>[
-              showMultiMedia!
+              showMultiMedia! && _img != null
                   ? Expanded(
                       flex: 2,
-                      child: _img == null
-                          ? Container(color: bgColor ?? Colors.grey)
-                          : Container(
-                              margin: EdgeInsets.only(right: 5),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: _img,
-                                  fit: BoxFit.cover,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 5),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: _img,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: radius == 0
+                              ? BorderRadius.zero
+                              : BorderRadius.only(
+                                  topLeft: Radius.circular(radius!),
+                                  bottomLeft: Radius.circular(radius!),
                                 ),
-                                borderRadius: radius == 0
-                                    ? BorderRadius.zero
-                                    : BorderRadius.only(
-                                        topLeft: Radius.circular(radius!),
-                                        bottomLeft: Radius.circular(radius!),
-                                      ),
-                              ),
-                            ),
+                        ),
+                      ),
                     )
                   : SizedBox(width: 5),
               Expanded(
@@ -111,10 +113,8 @@ class LinkViewHorizontal extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      _buildTitleContainer(
-                          _titleFontSize, computeTitleLines(layoutHeight)),
-                      _buildBodyContainer(
-                          _bodyFontSize, computeBodyLines(layoutHeight))
+                      _buildTitleContainer(_titleFontSize, computeTitleLines(layoutHeight)),
+                      _buildBodyContainer(_bodyFontSize, computeBodyLines(layoutHeight))
                     ],
                   ),
                 ),
@@ -159,9 +159,7 @@ class LinkViewHorizontal extends StatelessWidget {
                   description,
                   textAlign: TextAlign.left,
                   style: _bodyTS,
-                  overflow: bodyTextOverflow == null
-                      ? TextOverflow.ellipsis
-                      : bodyTextOverflow,
+                  overflow: bodyTextOverflow == null ? TextOverflow.ellipsis : bodyTextOverflow,
                   maxLines: bodyMaxLines == null ? _maxLines : bodyMaxLines,
                 ),
               ),

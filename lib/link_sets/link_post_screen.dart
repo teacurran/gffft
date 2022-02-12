@@ -1,9 +1,9 @@
-import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
+import 'package:gffft/link_sets/link_preview_card.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -118,50 +118,19 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
                                   child: Form(
                                       key: _formKey,
                                       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                                        if (url != null && url!.isNotEmpty)
-                                          AnyLinkPreview(
-                                            link: url!,
-                                            displayDirection: UIDirection.UIDirectionHorizontal,
-                                            showMultimedia: true,
-                                            bodyMaxLines: 5,
-                                            bodyTextOverflow: TextOverflow.ellipsis,
-                                            titleStyle: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            ),
-                                            bodyStyle: const TextStyle(color: Colors.black12, fontSize: 12),
-                                            errorBody: 'Show my custom error body',
-                                            errorTitle: 'Show my custom error title',
-                                            errorWidget: Container(
-                                              color: Colors.grey[300],
-                                              child: const Text('Oops!'),
-                                            ),
-                                            errorImage: "https://google.com/",
-                                            cache: const Duration(days: 7),
-                                            backgroundColor: Colors.grey[300],
-                                            borderRadius: 8,
-                                            removeElevation: false,
-                                            boxShadow: const [BoxShadow(blurRadius: 3, color: Colors.grey)],
-                                            onTap: () {}, // This disables tap event
-                                          ),
+                                        if (url != null && url!.isNotEmpty) LinkPreviewCard(url: url!),
                                         Focus(
                                           child: TextField(
                                             controller: _urlController,
                                             decoration: InputDecoration(hintText: l10n!.linkSetPostUrl),
                                             maxLines: 1,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                url = value;
-                                              });
-                                            },
+                                            onChanged: (value) {},
                                           ),
                                           onFocusChange: (hasFocus) async {
                                             if (!hasFocus) {
-                                              var linkInfo = await linkSetApi.getLink(_urlController.text);
-                                              if (kDebugMode) {
-                                                print("linkInfo: ${linkInfo.toString()}");
-                                              }
+                                              setState(() {
+                                                url = _urlController.text;
+                                              });
                                             }
                                           },
                                         ),

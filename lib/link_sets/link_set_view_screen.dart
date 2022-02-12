@@ -157,7 +157,9 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
                     builderDelegate: PagedChildBuilderDelegate<LinkSetItem>(
                       animateTransitions: true,
                       itemBuilder: (context, item, index) {
-                        return Padding(padding: EdgeInsets.fromLTRB(15, 0, 10, 10), child: LinkPreviewCard(link: item));
+                        return Padding(
+                            padding: EdgeInsets.fromLTRB(15, 0, 10, 10),
+                            child: LinkPreviewCard(url: item.url, linkSetItem: item));
                       },
                     ))
               ]));

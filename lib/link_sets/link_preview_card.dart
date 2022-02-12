@@ -10,14 +10,17 @@ import 'helpers/link_preview.dart';
 import 'link_set_api.dart';
 import 'link_view_horizontal.dart';
 import 'link_view_vertical.dart';
+import 'models/link.dart';
 import 'parser/base.dart';
 
 final getIt = GetIt.instance;
 
 class LinkPreviewCard extends StatefulWidget {
-  final LinkSetItem link;
+  final String url;
+  final LinkSetItem? linkSetItem;
+  final Link? link;
 
-  const LinkPreviewCard({Key? key, required this.link});
+  const LinkPreviewCard({Key? key, required this.url, this.linkSetItem, this.link});
 
   @override
   State<LinkPreviewCard> createState() => _LinkPreviewCardState();
@@ -36,7 +39,6 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
   String? errorBody;
   String? errorText;
   Widget? errorWidget;
-  String? proxyUrl;
   Widget? placeholderWidget;
   Duration cache = const Duration(days: 1);
   bool showMultimedia = true;
@@ -49,28 +51,29 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
     _errorBody = errorBody ??
         'Oops! Unable to parse the url. We have sent feedback to our developers & we will try to fix this in our next release. Thanks!';
 
-    _linkValid = AnyLinkPreview.isValidLink(widget.link.url);
-    if ((proxyUrl ?? '').isNotEmpty) {
-      _proxyValid = AnyLinkPreview.isValidLink(proxyUrl!);
-    }
-    if (_linkValid && _proxyValid) {
-      var _linkToFetch = ((proxyUrl ?? '') + widget.link.url).trim();
-      if (_linkToFetch.contains('twitter.com')) {
-        _linkToFetch = 'https://publish.twitter.com/oembed?url=$_linkToFetch';
-      }
+    _linkValid = AnyLinkPreview.isValidLink(widget.url);
+
+    if (_linkValid) {
       _loading = true;
-      _getInfo(_linkToFetch);
+      _getInfo(widget.url);
     }
     super.initState();
   }
 
   Future<void> _getInfo(String link) async {
-    var linkInfo = linkSetApi.getLink(link);
+    var link = widget.link;
+    link ??= await linkSetApi.getLink(widget.url);
     if (kDebugMode) {
-      print("linkInfo: ${linkInfo.toString()}");
+      print("linkInfo: ${link.toString()}");
     }
-    _info = await LinkAnalyzer.getInfo(link, cache: cache);
-    if (this.mounted) {
+    if (link != null) {
+      _info = Metadata();
+      _info?.title = link.title;
+      _info?.url = link.url;
+      _info?.desc = link.description;
+      _info?.image = link.image;
+    }
+    if (mounted) {
       setState(() {
         _loading = false;
       });
@@ -116,12 +119,12 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
       height: _height,
       child: (displayDirection == UIDirection.UIDirectionHorizontal)
           ? LinkViewHorizontal(
-              key: widget.key ?? Key(widget.link.url.toString()),
-              url: widget.link.url,
+              key: widget.key ?? Key(widget.url.toString()),
+              url: widget.url,
               title: title!,
               description: desc!,
-              imageUri: image!,
-              onTap: () => _launchURL(widget.link.url),
+              imageUri: image,
+              onTap: () => _launchURL(widget.url),
               titleTextStyle: theme.textTheme.bodyText2?.copyWith(fontWeight: FontWeight.bold),
               bodyTextStyle: theme.textTheme.bodyText1,
               bodyTextOverflow: TextOverflow.ellipsis,
@@ -131,12 +134,12 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
               radius: 8,
             )
           : LinkViewVertical(
-              key: widget.key ?? Key(widget.link.url.toString()),
-              url: widget.link.url,
+              key: widget.key ?? Key(widget.url.toString()),
+              url: widget.url,
               title: title!,
               description: desc!,
               imageUri: image!,
-              onTap: () => _launchURL(widget.link.url),
+              onTap: () => _launchURL(widget.url),
               titleTextStyle: theme.textTheme.headline3,
               bodyTextStyle: theme.textTheme.bodyText1,
               bodyTextOverflow: TextOverflow.ellipsis,
@@ -185,7 +188,7 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
             _height,
             title: LinkAnalyzer.isNotEmpty(info!.title) ? info.title : _errorTitle,
             desc: LinkAnalyzer.isNotEmpty(info.desc) ? info.desc : _errorBody,
-            image: LinkAnalyzer.isNotEmpty(info.image) ? ((proxyUrl ?? '') + (info.image ?? '')) : _errorImage,
+            image: LinkAnalyzer.isNotEmpty(info.image) ? info.image : null,
           );
   }
 }
