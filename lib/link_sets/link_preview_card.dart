@@ -1,13 +1,18 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gffft/link_sets/models/link_set_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'helpers/link_analyzer.dart';
 import 'helpers/link_preview.dart';
+import 'link_set_api.dart';
 import 'link_view_horizontal.dart';
 import 'link_view_vertical.dart';
 import 'parser/base.dart';
+
+final getIt = GetIt.instance;
 
 class LinkPreviewCard extends StatefulWidget {
   final LinkSetItem link;
@@ -19,6 +24,8 @@ class LinkPreviewCard extends StatefulWidget {
 }
 
 class _LinkPreviewCardState extends State<LinkPreviewCard> {
+  LinkSetApi linkSetApi = getIt<LinkSetApi>();
+
   Metadata? _info;
   String? _errorImage, _errorTitle, _errorBody;
   bool _loading = false;
@@ -58,6 +65,10 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
   }
 
   Future<void> _getInfo(String link) async {
+    var linkInfo = linkSetApi.getLink(link);
+    if (kDebugMode) {
+      print("linkInfo: ${linkInfo.toString()}");
+    }
     _info = await LinkAnalyzer.getInfo(link, cache: cache);
     if (this.mounted) {
       setState(() {

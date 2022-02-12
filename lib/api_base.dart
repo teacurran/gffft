@@ -164,7 +164,7 @@ class ApiBase {
       throw FetchDataException('Unable to fetch data');
     }
     if (kDebugMode) {
-      print("response: ${responseJson}");
+      print("response: $responseJson");
     }
     return responseJson;
   }

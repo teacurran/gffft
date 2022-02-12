@@ -1,4 +1,5 @@
 import 'package:any_link_preview/any_link_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -148,7 +149,11 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
                                           controller: _urlController,
                                           decoration: InputDecoration(hintText: l10n!.linkSetPostUrl),
                                           maxLines: 1,
-                                          onChanged: (value) {
+                                          onChanged: (value) async {
+                                            var linkInfo = await linkSetApi.getLink(value);
+                                            if (kDebugMode) {
+                                              print("linkInfo: ${linkInfo.toString()}");
+                                            }
                                             setState(() {
                                               url = value;
                                             });
