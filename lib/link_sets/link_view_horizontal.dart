@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../boards/models/participant.dart';
 
@@ -18,6 +20,7 @@ class LinkViewHorizontal extends StatelessWidget {
   final double? radius;
   final Color? bgColor;
   final Participant? author;
+  final String? threadRef;
 
   LinkViewHorizontal({
     Key? key,
@@ -34,6 +37,7 @@ class LinkViewHorizontal extends StatelessWidget {
     this.bgColor,
     this.radius,
     this.author,
+    this.threadRef,
   }) : super(key: key);
 
   double computeTitleFontSize(double width) {
@@ -89,11 +93,21 @@ class LinkViewHorizontal extends StatelessWidget {
         return Column(
           children: [
             if (author != null)
-              Row(children: [
-                Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                    child: SelectableText(author!.handle, textAlign: TextAlign.left))
-              ]),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Expanded(child: SelectableText(author!.handle, textAlign: TextAlign.left)),
+                    if (threadRef != null)
+                      Flexible(
+                          fit: FlexFit.tight,
+                          child: IconButton(
+                            icon: const FaIcon(FontAwesomeIcons.commentAlt),
+                            color: const Color(0xFF9970A9),
+                            onPressed: () {
+                              VxNavigator.of(context).push(Uri(path: "/$threadRef"));
+                            },
+                          ))
+                  ])),
             Expanded(
                 child: InkWell(
                     onTap: () => onTap(),

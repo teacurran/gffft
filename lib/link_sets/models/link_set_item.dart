@@ -13,6 +13,7 @@ class LinkSetItem {
   String? title;
   String? blurb;
   String? image;
+  String? thread;
   DateTime createdAt;
 
   LinkSetItem(

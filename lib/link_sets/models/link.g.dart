@@ -16,7 +16,7 @@ Link _$LinkFromJson(Map<String, dynamic> json) => Link(
       responseCode: json['responseCode'] as int,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-    );
+    )..blurb = json['blurb'] as String?;
 
 Map<String, dynamic> _$LinkToJson(Link instance) => <String, dynamic>{
       'id': instance.id,
@@ -24,6 +24,7 @@ Map<String, dynamic> _$LinkToJson(Link instance) => <String, dynamic>{
       'url': instance.url,
       'title': instance.title,
       'description': instance.description,
+      'blurb': instance.blurb,
       'image': instance.image,
       'responseCode': instance.responseCode,
       'createdAt': instance.createdAt.toIso8601String(),

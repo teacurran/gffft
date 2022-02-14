@@ -99,6 +99,12 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
   }
 
   Widget _buildLinkContainer(ThemeData theme, double _height) {
+    var description = widget.linkSetItem?.description ?? _link?.description;
+    if (description == null || description.isEmpty) {
+      description = widget.linkSetItem?.blurb;
+    }
+    description ??= '';
+
     return Container(
       height: _height,
       child: (displayDirection == UIDirection.UIDirectionHorizontal)
@@ -106,7 +112,7 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
               key: widget.key ?? Key(widget.url.toString()),
               url: widget.url,
               title: widget.linkSetItem?.title ?? _link?.title ?? widget.url,
-              description: widget.linkSetItem?.description ?? _link?.description ?? '',
+              description: description,
               imageUri: widget.linkSetItem?.image ?? _link?.image ?? '',
               onTap: () => _launchURL(widget.url),
               titleTextStyle: theme.textTheme.bodyText2?.copyWith(fontWeight: FontWeight.bold),
@@ -117,12 +123,13 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
               bgColor: theme.backgroundColor,
               radius: 8,
               author: widget.linkSetItem?.author,
+              threadRef: widget.linkSetItem?.thread,
             )
           : LinkViewVertical(
               key: widget.key ?? Key(widget.url.toString()),
               url: widget.url,
               title: widget.linkSetItem?.title ?? _link?.title ?? '',
-              description: widget.linkSetItem?.description ?? _link?.description ?? '',
+              description: description,
               imageUri: widget.linkSetItem?.image ?? _link?.image ?? '',
               onTap: () => _launchURL(widget.url),
               titleTextStyle: theme.textTheme.headline3,

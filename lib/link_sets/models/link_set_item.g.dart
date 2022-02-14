@@ -16,7 +16,7 @@ LinkSetItem _$LinkSetItemFromJson(Map<String, dynamic> json) => LinkSetItem(
       domain: json['domain'] as String?,
       image: json['image'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
-    );
+    )..thread = json['thread'] as String?;
 
 Map<String, dynamic> _$LinkSetItemToJson(LinkSetItem instance) =>
     <String, dynamic>{
@@ -28,5 +28,6 @@ Map<String, dynamic> _$LinkSetItemToJson(LinkSetItem instance) =>
       'title': instance.title,
       'blurb': instance.blurb,
       'image': instance.image,
+      'thread': instance.thread,
       'createdAt': instance.createdAt.toIso8601String(),
     };
