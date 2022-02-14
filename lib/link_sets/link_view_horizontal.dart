@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../boards/models/participant.dart';
+
 class LinkViewHorizontal extends StatelessWidget {
   final String url;
   final String title;
@@ -15,6 +17,7 @@ class LinkViewHorizontal extends StatelessWidget {
   final int? bodyMaxLines;
   final double? radius;
   final Color? bgColor;
+  final Participant? author;
 
   LinkViewHorizontal({
     Key? key,
@@ -30,6 +33,7 @@ class LinkViewHorizontal extends StatelessWidget {
     this.bodyMaxLines,
     this.bgColor,
     this.radius,
+    this.author,
   }) : super(key: key);
 
   double computeTitleFontSize(double width) {
@@ -82,45 +86,55 @@ class LinkViewHorizontal extends StatelessWidget {
           }
         }
 
-        return InkWell(
-          onTap: () => onTap(),
-          child: Row(
-            children: <Widget>[
-              showMultiMedia! && _img != null
-                  ? Expanded(
-                      flex: 2,
-                      child: Container(
-                        margin: EdgeInsets.only(right: 5),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: _img,
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: radius == 0
-                              ? BorderRadius.zero
-                              : BorderRadius.only(
-                                  topLeft: Radius.circular(radius!),
-                                  bottomLeft: Radius.circular(radius!),
+        return Column(
+          children: [
+            if (author != null)
+              Row(children: [
+                Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                    child: SelectableText(author!.handle, textAlign: TextAlign.left))
+              ]),
+            Expanded(
+                child: InkWell(
+                    onTap: () => onTap(),
+                    child: Row(
+                      children: <Widget>[
+                        showMultiMedia! && _img != null
+                            ? Expanded(
+                                flex: 2,
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 5),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: _img,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: radius == 0
+                                        ? BorderRadius.zero
+                                        : BorderRadius.only(
+                                            topLeft: Radius.circular(radius!),
+                                            bottomLeft: Radius.circular(radius!),
+                                          ),
+                                  ),
                                 ),
+                              )
+                            : SizedBox(width: 5),
+                        Expanded(
+                          flex: 4,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                _buildTitleContainer(_titleFontSize, computeTitleLines(layoutHeight)),
+                                _buildBodyContainer(_bodyFontSize, computeBodyLines(layoutHeight))
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    )
-                  : SizedBox(width: 5),
-              Expanded(
-                flex: 4,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 3),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _buildTitleContainer(_titleFontSize, computeTitleLines(layoutHeight)),
-                      _buildBodyContainer(_bodyFontSize, computeBodyLines(layoutHeight))
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+                      ],
+                    )))
+          ],
         );
       },
     );

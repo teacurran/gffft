@@ -105,7 +105,7 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
           ? LinkViewHorizontal(
               key: widget.key ?? Key(widget.url.toString()),
               url: widget.url,
-              title: widget.linkSetItem?.title ?? _link?.title ?? '',
+              title: widget.linkSetItem?.title ?? _link?.title ?? widget.url,
               description: widget.linkSetItem?.description ?? _link?.description ?? '',
               imageUri: widget.linkSetItem?.image ?? _link?.image ?? '',
               onTap: () => _launchURL(widget.url),
@@ -116,6 +116,7 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
               showMultiMedia: showMultimedia,
               bgColor: theme.backgroundColor,
               radius: 8,
+              author: widget.linkSetItem?.author,
             )
           : LinkViewVertical(
               key: widget.key ?? Key(widget.url.toString()),
