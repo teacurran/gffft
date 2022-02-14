@@ -10,7 +10,6 @@ import 'helpers/link_preview.dart';
 import 'link_set_api.dart';
 import 'link_view_horizontal.dart';
 import 'link_view_vertical.dart';
-import 'models/link.dart';
 import 'parser/base.dart';
 
 final getIt = GetIt.instance;
@@ -18,9 +17,8 @@ final getIt = GetIt.instance;
 class LinkPreviewCard extends StatefulWidget {
   final String url;
   final LinkSetItem? linkSetItem;
-  final Link? link;
 
-  const LinkPreviewCard({Key? key, required this.url, this.linkSetItem, this.link});
+  const LinkPreviewCard({Key? key, required this.url, this.linkSetItem});
 
   @override
   State<LinkPreviewCard> createState() => _LinkPreviewCardState();
@@ -61,18 +59,24 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
   }
 
   Future<void> _getInfo(String link) async {
-    var link = widget.link;
-    link ??= await linkSetApi.getLink(widget.url);
-    if (kDebugMode) {
-      print("linkInfo: ${link.toString()}");
-    }
-    if (link != null) {
-      _info = Metadata();
+    _info = Metadata();
+    var item = widget.linkSetItem;
+    if (item != null) {
+      _info?.title = item.title;
+      _info?.url = item.url;
+      _info?.desc = item.description;
+      _info?.image = item.image;
+    } else {
+      var link = await linkSetApi.getLink(widget.url);
+      if (kDebugMode) {
+        print("linkInfo: ${link.toString()}");
+      }
       _info?.title = link.title;
       _info?.url = link.url;
-      _info?.desc = link.description;
+      _info?.desc = link.description ?? link.blurb;
       _info?.image = link.image;
     }
+
     if (mounted) {
       setState(() {
         _loading = false;

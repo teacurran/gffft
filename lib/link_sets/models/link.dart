@@ -9,6 +9,7 @@ class Link {
   String url;
   String? title;
   String? description;
+  String? blurb;
   String? image;
   int responseCode;
   DateTime createdAt;

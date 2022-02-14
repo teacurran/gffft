@@ -9,10 +9,22 @@ class LinkSetItem {
   Participant author;
   String url;
   String description;
+  String? domain;
+  String? title;
+  String? blurb;
+  String? image;
   DateTime createdAt;
 
   LinkSetItem(
-      {required this.id, required this.author, required this.url, required this.description, required this.createdAt});
+      {required this.id,
+      required this.author,
+      required this.url,
+      required this.description,
+      this.title,
+      this.blurb,
+      this.domain,
+      this.image,
+      required this.createdAt});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
