@@ -90,7 +90,7 @@ class LinkViewHorizontal extends StatelessWidget {
           }
         }
 
-        final authorHandle = author!.handle ?? author!.id;
+        final authorHandle = author?.handle ?? author?.id ?? '';
 
         return Column(
           children: [
