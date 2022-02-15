@@ -85,7 +85,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
       ),
       GalleryEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       LinkSetEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
-      NotebookEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
+      if (false) NotebookEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       FruitCodeEditCard(gffft: gffft, onSaveComplete: onSaveComplete)
     ];
   }
