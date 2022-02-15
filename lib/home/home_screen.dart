@@ -54,12 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
             }
 
             var user = snapshot.data;
-            String text;
-            if (user == null) {
-              text = l10n!.loading;
-            } else {
-              text = "Thank You: ${user.username}";
-            }
 
             return SafeArea(
                 child: Scaffold(

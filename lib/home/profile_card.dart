@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gffft/common/dates.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -46,10 +47,12 @@ class ProfileCard extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 child: SizedBox(
                     width: double.infinity,
-                    child: Container(
-                        child: Text(
-                      user!.username,
-                      style: theme.textTheme.headline4,
-                    ))))));
+                    child: Column(children: [
+                      SelectableText(l10n!.loggedIn),
+                      SelectableText(
+                        l10n.homeAccountSince(formatDateTime(user!.createdAt)),
+                        style: theme.textTheme.headline6,
+                      )
+                    ])))));
   }
 }

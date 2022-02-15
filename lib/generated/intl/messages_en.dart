@@ -22,7 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(date) => "since ${date}";
 
-  static String m1(field) => "${field} is required";
+  static String m1(date) => "account since ${date}";
+
+  static String m2(field) => "${field} is required";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -166,6 +168,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can view:"),
         "gffftSettingsSave":
             MessageLookupByLibrary.simpleMessage("save and exit"),
+        "homeAccountSince": m1,
         "host": MessageLookupByLibrary.simpleMessage("Host"),
         "linkSetPostDescription":
             MessageLookupByLibrary.simpleMessage("Description (optional)"),
@@ -173,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "linkSetViewActionTooltip":
             MessageLookupByLibrary.simpleMessage("Add a Link"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
+        "loggedIn": MessageLookupByLibrary.simpleMessage("logged in"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "me": MessageLookupByLibrary.simpleMessage("me"),
         "memberTypeAdmin":
@@ -184,7 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "showLess": MessageLookupByLibrary.simpleMessage("show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("show more"),
-        "validateFieldIsRequired": m1,
+        "validateFieldIsRequired": m2,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

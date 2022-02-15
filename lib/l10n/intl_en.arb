@@ -158,6 +158,16 @@
   "gffftHomeCalendar": "calendar",
   "gffftListSearchHint": "name or fruit-code",
   "@gffftListSearchHint": {},
+  "homeAccountSince": "account since {date}",
+  "@homeAccountSince": {
+    "description": "'since 2021-01-12' formatted in users date format",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2021-01-12"
+      }
+    }
+  },
   "host": "Host",
   "@host": {},
   "linkSetViewActionTooltip": "Add a Link",
@@ -165,6 +175,7 @@
   "linkSetPostDescription": "Description (optional)",
   "loading": "Loading",
   "@loading": {},
+  "loggedIn": "logged in",
   "logout": "Logout",
   "@logout": {},
   "me": "me",

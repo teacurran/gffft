@@ -14,16 +14,16 @@ class BoardEditCard extends StatelessWidget {
 
   final Gffft gffft;
   final VoidCallback? onSaveComplete;
-  GffftApi gffftApi = getIt<GffftApi>();
-
-  bool boardEnabled = false;
-  String boardWhoCanView = "owner";
-  String boardWhoCanPost = "owner";
+  final GffftApi gffftApi = getIt<GffftApi>();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var l10n = AppLocalizations.of(context);
+
+    bool boardEnabled = false;
+    String boardWhoCanView = "owner";
+    String boardWhoCanPost = "owner";
 
     if (gffft.hasFeature("board") && gffft.boards != null && gffft.boards!.isNotEmpty) {
       boardEnabled = true;

@@ -950,6 +950,16 @@ class S {
     );
   }
 
+  /// `account since {date}`
+  String homeAccountSince(String date) {
+    return Intl.message(
+      'account since $date',
+      name: 'homeAccountSince',
+      desc: '\'since 2021-01-12\' formatted in users date format',
+      args: [date],
+    );
+  }
+
   /// `Host`
   String get host {
     return Intl.message(
@@ -995,6 +1005,16 @@ class S {
     return Intl.message(
       'Loading',
       name: 'loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `logged in`
+  String get loggedIn {
+    return Intl.message(
+      'logged in',
+      name: 'loggedIn',
       desc: '',
       args: [],
     );

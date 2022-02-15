@@ -6,6 +6,7 @@ import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../common/dates.dart';
 import 'models/user.dart';
 
 final getIt = GetIt.instance;
@@ -50,14 +51,6 @@ class _MeScreenState extends State<MeScreen> {
           }
 
           var user = snapshot.data;
-          String text;
-          if (user == null) {
-            text = l10n!.loading;
-          } else {
-            text = "Thank You: ${user.username}";
-          }
-
-          var username = user == null ? l10n!.loading : user.username;
 
           return Scaffold(
             appBar: AppBar(
@@ -75,29 +68,28 @@ class _MeScreenState extends State<MeScreen> {
             body: Center(
                 child: Column(
               children: [
-                Card(
-                    margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-                    color: theme.backgroundColor,
-                    clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        side: const BorderSide(
-                          color: Color(0xFF9970A9),
-                          width: 1.0,
-                        )),
-                    child: Padding(
-                        padding: EdgeInsets.all(20),
-                        child: SizedBox(
-                            width: double.infinity,
-                            child: Container(
-                                child: Text(
-                              username,
-                              style: theme.textTheme.headline4,
-                            ))))),
-                TextButton(
-                    onPressed: () => {userApi.changeUsername().then((value) => _loadData())},
-                    // {fbAuth.signOut().then((value) => Navigator.pushReplacementNamed(context, LoginScreen.webPath))},
-                    child: Text(l10n.changeUsername)),
+                if (user != null)
+                  Card(
+                      margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+                      color: theme.backgroundColor,
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: const BorderSide(
+                            color: Color(0xFF9970A9),
+                            width: 1.0,
+                          )),
+                      child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: SizedBox(
+                              width: double.infinity,
+                              child: Column(children: [
+                                SelectableText(l10n!.loggedIn),
+                                SelectableText(
+                                  l10n!.homeAccountSince(formatDateTime(user!.createdAt)),
+                                  style: theme.textTheme.headline6,
+                                )
+                              ])))),
                 TextButton(
                     onPressed: () => {
                           fbAuth
