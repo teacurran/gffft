@@ -74,7 +74,7 @@ class LinkSetHomeCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Row(children: [
-                              const SelectableText("links:"),
+                              SelectableText(l10n.gffftHomeLinkSetLinks),
                               SelectableText((linkSet == null) ? "0" : linkSet.itemCount.toString())
                             ]),
                           ])

@@ -500,11 +500,21 @@ class S {
     );
   }
 
-  /// `Links`
+  /// `links`
   String get gffftHomeLinkSet {
     return Intl.message(
-      'Links',
+      'links',
       name: 'gffftHomeLinkSet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `links:`
+  String get gffftHomeLinkSetLinks {
+    return Intl.message(
+      'links:',
+      name: 'gffftHomeLinkSetLinks',
       desc: '',
       args: [],
     );

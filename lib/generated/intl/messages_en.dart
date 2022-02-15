@@ -101,7 +101,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeGalleryVideos":
             MessageLookupByLibrary.simpleMessage("videos:"),
         "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
-        "gffftHomeLinkSet": MessageLookupByLibrary.simpleMessage("Links"),
+        "gffftHomeLinkSet": MessageLookupByLibrary.simpleMessage("links"),
+        "gffftHomeLinkSetLinks": MessageLookupByLibrary.simpleMessage("links:"),
         "gffftHomeMemberSince": m0,
         "gffftHomeMembership":
             MessageLookupByLibrary.simpleMessage("membership"),
