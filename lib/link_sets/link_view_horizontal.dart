@@ -90,15 +90,18 @@ class LinkViewHorizontal extends StatelessWidget {
           }
         }
 
+        final authorHandle = author!.handle ?? author!.id;
+
         return Column(
           children: [
             if (author != null)
               Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    Expanded(child: SelectableText(author!.handle, textAlign: TextAlign.left)),
+                    Expanded(child: SelectableText(authorHandle, textAlign: TextAlign.left)),
                     if (threadRef != null)
                       Flexible(
+                          flex: 0,
                           fit: FlexFit.tight,
                           child: IconButton(
                             icon: const FaIcon(FontAwesomeIcons.commentAlt),

@@ -5,7 +5,7 @@ part 'participant.g.dart';
 @JsonSerializable()
 class Participant {
   String id;
-  String handle;
+  String? handle;
 
   Participant({required this.id, required this.handle});
 

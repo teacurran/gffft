@@ -94,7 +94,7 @@ class ThreadTitle extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        thread.firstPost.handle,
+                        thread.firstPost.handle ?? thread.firstPost.id,
                         style: theme.textTheme.bodyText1,
                       ),
                       Expanded(

@@ -84,9 +84,9 @@ class _MeScreenState extends State<MeScreen> {
                           child: SizedBox(
                               width: double.infinity,
                               child: Column(children: [
-                                SelectableText(l10n!.loggedIn),
+                                SelectableText(l10n.loggedIn),
                                 SelectableText(
-                                  l10n!.homeAccountSince(formatDateTime(user!.createdAt)),
+                                  l10n.homeAccountSince(formatDateTime(user.createdAt)),
                                   style: theme.textTheme.headline6,
                                 )
                               ])))),

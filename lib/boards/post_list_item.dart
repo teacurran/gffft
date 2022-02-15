@@ -36,7 +36,7 @@ class PostListItem extends StatelessWidget {
                       ],
                     ),
                     child: Text(
-                      post.author.handle,
+                      post.author.handle ?? post.author.id,
                       style: theme.textTheme.bodyText1,
                     ),
                     endActionPane: ActionPane(
