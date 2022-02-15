@@ -920,6 +920,26 @@ class S {
     );
   }
 
+  /// `photos:`
+  String get gffftHomeGalleryPhotos {
+    return Intl.message(
+      'photos:',
+      name: 'gffftHomeGalleryPhotos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `videos:`
+  String get gffftHomeGalleryVideos {
+    return Intl.message(
+      'videos:',
+      name: 'gffftHomeGalleryVideos',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `notebook`
   String get gffftHomePages {
     return Intl.message(

@@ -6,6 +6,7 @@ import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../gfffts/models/gffft.dart';
+import 'models/gallery.dart';
 
 final getIt = GetIt.instance;
 
@@ -19,6 +20,15 @@ class GalleryHomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var l10n = AppLocalizations.of(context);
+
+    Gallery? gallery;
+    if (gffft.galleries != null) {
+      for (var g in gffft.galleries!) {
+        if (g.id == featureRef.id) {
+          gallery = g;
+        }
+      }
+    }
 
     return Card(
         margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
@@ -63,8 +73,14 @@ class GalleryHomeCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Row(children: const [SelectableText("photos:"), SelectableText("2938")]),
-                            Row(children: const [SelectableText("videos:"), SelectableText("14")]),
+                            Row(children: [
+                              SelectableText(l10n.gffftHomeGalleryPhotos),
+                              SelectableText((gallery == null) ? "?" : gallery.photoCount.toString())
+                            ]),
+                            Row(children: [
+                              SelectableText(l10n.gffftHomeGalleryVideos),
+                              SelectableText((gallery == null) ? "?" : gallery.videoCount.toString())
+                            ]),
                           ])
                     ])))));
   }

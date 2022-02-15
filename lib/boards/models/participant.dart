@@ -7,7 +7,7 @@ class Participant {
   String id;
   String? handle;
 
-  Participant({required this.id, required this.handle});
+  Participant({required this.id, this.handle});
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

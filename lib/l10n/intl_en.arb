@@ -154,6 +154,8 @@
   "gffftHomeUnBookmark": "un-bookmark",
   "gffftHomeBoard": "board",
   "gffftHomeGallery": "gallery",
+  "gffftHomeGalleryPhotos": "photos:",
+  "gffftHomeGalleryVideos": "videos:",
   "gffftHomePages": "notebook",
   "gffftHomeCalendar": "calendar",
   "gffftListSearchHint": "name or fruit-code",

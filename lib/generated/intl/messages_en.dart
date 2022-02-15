@@ -96,6 +96,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeBookmark": MessageLookupByLibrary.simpleMessage("bookmark"),
         "gffftHomeCalendar": MessageLookupByLibrary.simpleMessage("calendar"),
         "gffftHomeGallery": MessageLookupByLibrary.simpleMessage("gallery"),
+        "gffftHomeGalleryPhotos":
+            MessageLookupByLibrary.simpleMessage("photos:"),
+        "gffftHomeGalleryVideos":
+            MessageLookupByLibrary.simpleMessage("videos:"),
         "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
         "gffftHomeLinkSet": MessageLookupByLibrary.simpleMessage("Links"),
         "gffftHomeMemberSince": m0,

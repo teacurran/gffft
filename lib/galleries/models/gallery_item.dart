@@ -8,7 +8,7 @@ class GalleryItem {
   String id;
   Participant author;
   String fileName;
-  String path;
+  String filePath;
   bool thumbnail;
   DateTime createdAt;
   Map<String, String> urls;
@@ -17,7 +17,7 @@ class GalleryItem {
       {required this.id,
       required this.author,
       required this.fileName,
-      required this.path,
+      required this.filePath,
       required this.thumbnail,
       required this.createdAt,
       required this.urls});
