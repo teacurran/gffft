@@ -77,17 +77,17 @@ class UserApi extends ApiBase {
   }
 
   Future<Gallery> getGallery(String uid, String gid, String mid, String? offset, int? pageSize) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/galleries/${mid}");
+    final response = await get("users/${uid}/gfffts/${gid}/galleries/${mid}");
     return Gallery.fromJson(response);
   }
 
   Future<GalleryItem> getGalleryItem(String uid, String gid, String mid, String iid) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/galleries/${mid}/i/${iid}");
+    final response = await get("users/${uid}/gfffts/${gid}/galleries/${mid}/i/${iid}");
     return GalleryItem.fromJson(response);
   }
 
   Future<LinkSet> getLinkSet(String uid, String gid, String lid, String? offset, int? pageSize) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/links/${lid}");
+    final response = await get("users/${uid}/gfffts/${gid}/links/${lid}");
     return LinkSet.fromJson(response);
   }
 
