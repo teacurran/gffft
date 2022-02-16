@@ -47,6 +47,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
       gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
         // initialize this to a default handle for the user?
         _handleController = TextEditingController();
+        _handleController.text = gffft.membership?.handle ?? '';
         return gffft;
       });
     });
@@ -79,7 +80,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
             shareText = shareText + "${gffft.fruitCode[6]}${gffft.fruitCode[7]}${gffft.fruitCode[8]}\n";
           }
 
-          Widget content = (gffft == null) ? Container() : getJoinContent(l10n, theme);
+          Widget content = (gffft == null) ? Container() : getMembershipContent(l10n, theme);
 
           return SafeArea(
             child: Scaffold(
@@ -124,7 +125,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
         });
   }
 
-  Widget getJoinContent(AppLocalizations l10n, ThemeData theme) {
+  Widget getMembershipContent(AppLocalizations l10n, ThemeData theme) {
     return Container(
         padding: EdgeInsets.all(10),
         child: Form(
@@ -132,25 +133,8 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               isLoading ? const LinearProgressIndicator() : const Padding(padding: EdgeInsets.only(top: 0.0)),
               SelectableText(
-                l10n.gffftJoin,
+                l10n.gffftMembershipTitle,
                 style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
-              ),
-              Row(
-                children: [
-                  SelectableText(
-                    l10n.gffftJoinRules,
-                    style: theme.textTheme.headline3,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Flexible(
-                      child: SelectableText(
-                    "here will be some rules for this gffft.\n  *maybe bullet points\n  *like, no jerks\n  *let users configure this?",
-                    style: theme.textTheme.bodyText1,
-                  ))
-                ],
               ),
               Row(
                 children: [
@@ -203,7 +187,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
                       VxNavigator.of(context).returnAndPush(true);
                     }
                   },
-                  child: Text(l10n.gffftJoinButton)),
+                  child: Text(l10n.gffftMembershipSaveButton)),
             ])));
   }
 

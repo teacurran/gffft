@@ -124,6 +124,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftJoinRules": MessageLookupByLibrary.simpleMessage("rules"),
         "gffftListSearchHint":
             MessageLookupByLibrary.simpleMessage("name or fruit-code"),
+        "gffftMembershipSaveButton":
+            MessageLookupByLibrary.simpleMessage("save!"),
+        "gffftMembershipTitle":
+            MessageLookupByLibrary.simpleMessage("your membership"),
         "gffftSettingsBoardWhoCanPost":
             MessageLookupByLibrary.simpleMessage("Who can post:"),
         "gffftSettingsBoardWhoCanView":

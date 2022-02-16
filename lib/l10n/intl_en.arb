@@ -111,6 +111,8 @@
   "gffftJoinHandleHint": "What would you like to be known as on this gffft?",
   "gffftJoinHandleError": "Sorry, that handle is already taken on this gffft.",
   "gffftJoinButton": "join!",
+  "gffftMembershipTitle": "your membership",
+  "gffftMembershipSaveButton": "save!",
   "gffftSettingsSave": "save and exit",
   "gffftSettingsHead": "settings",
   "gffftSettingsEnabled": "Show in search",

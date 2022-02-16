@@ -580,6 +580,26 @@ class S {
     );
   }
 
+  /// `your membership`
+  String get gffftMembershipTitle {
+    return Intl.message(
+      'your membership',
+      name: 'gffftMembershipTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `save!`
+  String get gffftMembershipSaveButton {
+    return Intl.message(
+      'save!',
+      name: 'gffftMembershipSaveButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `save and exit`
   String get gffftSettingsSave {
     return Intl.message(
