@@ -155,7 +155,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         onPressed: () async {
           await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
         },
-        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_add, color: Color(0xFFFFDC56))),
+        child: const Padding(
+            padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_add_outlined, color: Color(0xFFFFDC56))),
         style: TextButton.styleFrom(
           minimumSize: Size.zero,
           padding: EdgeInsets.zero,
@@ -165,7 +166,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     } else {
       memberActions.add(TextButton(
         onPressed: () async {
-          await userApi.unBookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
+          await userApi.unBookmarkGffft(gffft.uid, gffft.gid).then((value) => {_loadGffft()});
         },
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_remove, color: Color(0xFFFFDC56))),
         style: TextButton.styleFrom(
@@ -176,6 +177,35 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       ));
     }
 
+    memberActions.add(const SizedBox(width: 5));
+    if (gffft.membership == null) {
+      memberActions.add(TextButton(
+        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+        onPressed: () async {
+          VxNavigator.of(context)
+              .waitAndPush(
+                  Uri(path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "join"]).toString()))
+              .then((value) {
+            _loadGffft();
+          });
+        },
+        child: Text(l10n.gffftHomeJoin),
+      ));
+    } else {
+      memberActions.add(TextButton(
+        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.account_box, color: Color(0xFFFFDC56))),
+        onPressed: () async {
+          await _toggleEditing();
+        },
+        style: TextButton.styleFrom(
+          minimumSize: Size.zero,
+          padding: EdgeInsets.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+      ));
+    }
+
+    memberActions.add(const SizedBox(width: 5));
     if (gffft.membership?.type == "owner") {
       memberActions.add(TextButton(
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
@@ -188,29 +218,6 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ));
-    } else {
-      if (gffft.membership == null) {
-        memberActions.add(TextButton(
-          style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-          onPressed: () async {
-            VxNavigator.of(context)
-                .waitAndPush(
-                    Uri(path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "join"]).toString()))
-                .then((value) {
-              _loadGffft();
-            });
-          },
-          child: Text(l10n.gffftHomeJoin),
-        ));
-      } else {
-        memberActions.add(TextButton(
-          style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-          onPressed: () async {
-            await gffftApi.quitGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
-          },
-          child: Text(l10n.gffftHomeQuit),
-        ));
-      }
     }
 
     return Card(
@@ -245,12 +252,17 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                       textAlign: TextAlign.left,
                     )
                   ]),
-                  VerticalDivider(),
+                  const VerticalDivider(),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
-                      children: memberActions)
+                      children: [
+                        Row(
+                          children: memberActions,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        )
+                      ])
                 ]))));
   }
 
