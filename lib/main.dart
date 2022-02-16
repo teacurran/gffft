@@ -272,6 +272,7 @@ class _AppState extends State<App> {
       ),
       themeMode: ThemeMode.system,
       home: const Scaffold(),
+      title: "¡gffft!",
     );
   }
 

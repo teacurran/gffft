@@ -151,22 +151,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     var memberActions = <Widget>[];
 
     if (gffft.bookmark == null) {
-      memberActions.add(InkWell(
-        borderRadius: BorderRadius.circular(5.0),
-        customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            side: const BorderSide(
-              color: Color(0xFF00829C),
-              width: 1.0,
-            )),
-        child: Icon(Icons.settings),
-        onTap: () async {
+      memberActions.add(TextButton(
+        onPressed: () async {
           await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
         },
-      ));
-
-      memberActions.add(TextButton(
-        onPressed: () {},
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_add, color: Color(0xFFFFDC56))),
         style: TextButton.styleFrom(
           minimumSize: Size.zero,
@@ -174,50 +162,31 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ));
-
+    } else {
       memberActions.add(TextButton(
-        onPressed: () {},
-        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
+        onPressed: () async {
+          await userApi.unBookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
+        },
+        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_remove, color: Color(0xFFFFDC56))),
         style: TextButton.styleFrom(
           minimumSize: Size.zero,
           padding: EdgeInsets.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ));
-
-      memberActions.add(TextButton.icon(
-        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-        onPressed: () async {
-          await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
-        },
-        icon: const Icon(Icons.settings),
-        label: Text(""),
-      ));
-      memberActions.add(TextButton(
-        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-        onPressed: () async {
-          await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
-        },
-        child: Text(l10n.gffftHomeBookmark),
-      ));
-    } else {
-      memberActions.add(TextButton(
-        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
-        onPressed: () async {
-          await userApi.unBookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
-        },
-        child: Text(l10n.gffftHomeUnBookmark),
-      ));
     }
 
     if (gffft.membership?.type == "owner") {
-      memberActions.add(TextButton.icon(
-        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+      memberActions.add(TextButton(
+        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
         onPressed: () async {
           await _toggleEditing();
         },
-        label: Text(editing ? l10n.gffftEditStop : l10n.gffftEdit),
-        icon: const Icon(Icons.settings),
+        style: TextButton.styleFrom(
+          minimumSize: Size.zero,
+          padding: EdgeInsets.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
       ));
     } else {
       if (gffft.membership == null) {
