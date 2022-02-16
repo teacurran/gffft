@@ -151,6 +151,48 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     var memberActions = <Widget>[];
 
     if (gffft.bookmark == null) {
+      memberActions.add(InkWell(
+        borderRadius: BorderRadius.circular(5.0),
+        customBorder: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: const BorderSide(
+              color: Color(0xFF00829C),
+              width: 1.0,
+            )),
+        child: Icon(Icons.settings),
+        onTap: () async {
+          await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
+        },
+      ));
+
+      memberActions.add(TextButton(
+        onPressed: () {},
+        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_add, color: Color(0xFFFFDC56))),
+        style: TextButton.styleFrom(
+          minimumSize: Size.zero,
+          padding: EdgeInsets.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+      ));
+
+      memberActions.add(TextButton(
+        onPressed: () {},
+        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
+        style: TextButton.styleFrom(
+          minimumSize: Size.zero,
+          padding: EdgeInsets.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+      ));
+
+      memberActions.add(TextButton.icon(
+        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+        onPressed: () async {
+          await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
+        },
+        icon: const Icon(Icons.settings),
+        label: Text(""),
+      ));
       memberActions.add(TextButton(
         style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
         onPressed: () async {
