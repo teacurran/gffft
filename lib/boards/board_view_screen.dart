@@ -107,7 +107,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
           VxNavigator.of(context)
               .waitAndPush(Uri(
                   path: "/" +
-                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid, "post"])
+                      Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "boards", widget.bid, "post"])
                           .toString()))
               .then((value) {
             _pagingController.refresh();

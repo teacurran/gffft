@@ -99,6 +99,41 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
     super.dispose();
   }
 
+  Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
+    AppLocalizations? l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    if (gffft == null) {
+      return null;
+    }
+    if (gffft.me == null) {
+      return null;
+    }
+    return FloatingActionButton(
+        child: Icon(Icons.reply_all, color: theme.focusColor),
+        tooltip: l10n!.boardViewActionTooltip,
+        backgroundColor: theme.primaryColor,
+        onPressed: () {
+          VxNavigator.of(context)
+              .waitAndPush(Uri(
+                  path: "/" +
+                      Uri(pathSegments: [
+                        "users",
+                        gffft.uid,
+                        "gfffts",
+                        gffft.gid,
+                        "boards",
+                        widget.bid,
+                        "threads",
+                        widget.tid,
+                        "reply"
+                      ]).toString()))
+              .then((value) {
+            _pagingController.refresh();
+          });
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
@@ -142,29 +177,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
                   )
                 ],
               ),
-              floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add, color: theme.focusColor),
-                  tooltip: l10n!.boardViewActionTooltip,
-                  backgroundColor: theme.primaryColor,
-                  onPressed: () {
-                    VxNavigator.of(context)
-                        .waitAndPush(Uri(
-                            path: "/" +
-                                Uri(pathSegments: [
-                                  "users",
-                                  widget.uid,
-                                  "gfffts",
-                                  widget.gid,
-                                  "boards",
-                                  widget.bid,
-                                  "threads",
-                                  widget.tid,
-                                  "reply"
-                                ]).toString()))
-                        .then((value) {
-                      _pagingController.refresh();
-                    });
-                  }),
+              floatingActionButton: getFloatingActionButton(context, gffft),
               body: CustomScrollView(slivers: <Widget>[
                 SliverToBoxAdapter(
                     child: Padding(
