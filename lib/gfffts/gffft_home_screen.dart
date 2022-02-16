@@ -153,6 +153,15 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     if (gffft.bookmark == null) {
       memberActions.add(TextButton(
         onPressed: () async {
+          if (gffft.me == null) {
+            const snackBar = SnackBar(
+              content: Text('You must be signed in for that'),
+              behavior: SnackBarBehavior.floating,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            return;
+          }
+
           await userApi.bookmarkGffft(widget.uid, widget.gid).then((value) => {_loadGffft()});
         },
         child: const Padding(
@@ -182,6 +191,15 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       memberActions.add(TextButton(
         style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
         onPressed: () async {
+          if (gffft.me == null) {
+            const snackBar = SnackBar(
+              content: Text('You must be signed in for that'),
+              behavior: SnackBarBehavior.floating,
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            return;
+          }
+
           VxNavigator.of(context)
               .waitAndPush(
                   Uri(path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "join"]).toString()))

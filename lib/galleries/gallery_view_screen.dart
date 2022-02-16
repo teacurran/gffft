@@ -93,6 +93,32 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
     super.dispose();
   }
 
+  Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
+    AppLocalizations? l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    if (gffft == null) {
+      return null;
+    }
+    if (gffft.me == null) {
+      return null;
+    }
+    return FloatingActionButton(
+        child: Icon(Icons.add, color: theme.focusColor),
+        tooltip: l10n!.boardViewActionTooltip,
+        backgroundColor: theme.primaryColor,
+        onPressed: () {
+          VxNavigator.of(context)
+              .waitAndPush(Uri(
+                  path: "/" +
+                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", widget.mid, "post"])
+                          .toString()))
+              .then((value) {
+            _pagingController.refresh();
+          });
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
@@ -129,27 +155,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                   )
                 ],
               ),
-              floatingActionButton: FloatingActionButton(
-                  child: Icon(Icons.add, color: theme.focusColor),
-                  tooltip: l10n!.boardViewActionTooltip,
-                  backgroundColor: theme.primaryColor,
-                  onPressed: () {
-                    VxNavigator.of(context)
-                        .waitAndPush(Uri(
-                            path: "/" +
-                                Uri(pathSegments: [
-                                  "users",
-                                  widget.uid,
-                                  "gfffts",
-                                  widget.gid,
-                                  "galleries",
-                                  widget.mid,
-                                  "post"
-                                ]).toString()))
-                        .then((value) {
-                      _pagingController.refresh();
-                    });
-                  }),
+              floatingActionButton: getFloatingActionButton(context, gffft),
               body: Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                   child: CustomScrollView(slivers: <Widget>[
