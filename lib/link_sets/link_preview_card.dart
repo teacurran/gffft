@@ -149,8 +149,8 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
     final theme = Theme.of(context);
 
     var _height = (displayDirection == UIDirection.UIDirectionHorizontal || !showMultimedia)
-        ? ((MediaQuery.of(context).size.height) * 0.15)
-        : ((MediaQuery.of(context).size.height) * 0.25);
+        ? ((MediaQuery.of(context).size.height) * 0.20)
+        : ((MediaQuery.of(context).size.height) * 0.30);
 
     Widget _loadingErrorWidget = Container(
       height: _height,

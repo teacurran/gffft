@@ -96,7 +96,7 @@ class LinkViewHorizontal extends StatelessWidget {
           children: [
             if (author != null)
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Expanded(child: SelectableText(authorHandle, textAlign: TextAlign.left)),
                     if (threadRef != null)
