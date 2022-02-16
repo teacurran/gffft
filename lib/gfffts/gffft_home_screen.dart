@@ -195,7 +195,12 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
       memberActions.add(TextButton(
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.account_box, color: Color(0xFFFFDC56))),
         onPressed: () async {
-          await _toggleEditing();
+          VxNavigator.of(context)
+              .waitAndPush(Uri(
+                  path: "/" + Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "membership"]).toString()))
+              .then((value) {
+            _loadGffft();
+          });
         },
         style: TextButton.styleFrom(
           minimumSize: Size.zero,

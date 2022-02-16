@@ -39,6 +39,7 @@ import 'gfffts/gffft_feature_screen.dart';
 import 'gfffts/gffft_home_screen.dart';
 import 'gfffts/gffft_join_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
+import 'gfffts/gffft_membership_screen.dart';
 import 'gfffts/gffft_screen.dart';
 import 'link_sets/link_set_api.dart';
 import 'link_sets/link_set_view_screen.dart';
@@ -141,6 +142,8 @@ class _AppState extends State<App> {
             MaterialPage(child: GffftHomeScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/join"): (uri, param) =>
             MaterialPage(child: GffftJoinScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
+        RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/membership"): (uri, param) =>
+            MaterialPage(child: GffftMembershipScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/features$"): (uri, param) =>
             MaterialPage(child: GffftFeatureScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/features/[a-zA-Z0-9]+/[a-zA-Z0-9]+"): (uri, param) =>
