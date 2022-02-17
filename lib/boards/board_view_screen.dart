@@ -117,6 +117,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return FutureBuilder(
@@ -135,7 +136,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  title,
+                  l10n!.gffftHomeBoard,
                   style: theme.textTheme.headline1,
                 ),
                 backgroundColor: theme.backgroundColor,

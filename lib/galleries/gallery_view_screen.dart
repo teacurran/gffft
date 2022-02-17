@@ -140,7 +140,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  title,
+                  l10n!.gffftHomeGallery,
                   style: theme.textTheme.headline1,
                 ),
                 backgroundColor: theme.backgroundColor,

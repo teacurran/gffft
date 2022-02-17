@@ -16,8 +16,9 @@ final getIt = GetIt.instance;
 class LinkPreviewCard extends StatefulWidget {
   final String url;
   final LinkSetItem? linkSetItem;
+  final Link? link;
 
-  const LinkPreviewCard({Key? key, required this.url, this.linkSetItem});
+  const LinkPreviewCard({Key? key, required this.url, this.linkSetItem, this.link});
 
   @override
   State<LinkPreviewCard> createState() => _LinkPreviewCardState();
@@ -53,6 +54,9 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
 
     if (_linkValid) {
       _loading = true;
+      if (widget.link != null) {
+        _link = widget.link;
+      }
       _getInfo();
     }
     super.initState();

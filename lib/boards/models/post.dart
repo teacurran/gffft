@@ -1,4 +1,5 @@
 import 'package:gffft/boards/models/participant.dart';
+import 'package:gffft/link_sets/models/link.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'post.g.dart';
@@ -9,12 +10,14 @@ class Post {
   String body;
   DateTime createdAt;
   Participant author;
+  Link? link;
 
   Post({
     required this.id,
     required this.body,
     required this.createdAt,
     required this.author,
+    this.link,
   });
 
   /// A necessary factory constructor for creating a new User instance

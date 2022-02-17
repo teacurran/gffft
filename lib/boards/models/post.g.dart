@@ -11,6 +11,9 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       body: json['body'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       author: Participant.fromJson(json['author'] as Map<String, dynamic>),
+      link: json['link'] == null
+          ? null
+          : Link.fromJson(json['link'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -18,4 +21,5 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'body': instance.body,
       'createdAt': instance.createdAt.toIso8601String(),
       'author': instance.author.toJson(),
+      'link': instance.link?.toJson(),
     };

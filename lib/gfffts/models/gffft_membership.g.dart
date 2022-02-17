@@ -10,7 +10,7 @@ GffftMembership _$GffftMembershipFromJson(Map<String, dynamic> json) =>
     GffftMembership(
       type: json['type'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
-      handle: json['handle'],
+      handle: json['handle'] as String?,
     );
 
 Map<String, dynamic> _$GffftMembershipToJson(GffftMembership instance) =>

@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gffft/common/dates.dart';
 
+import '../link_sets/link_preview_card.dart';
 import 'models/post.dart';
 
 class PostListItem extends StatelessWidget {
@@ -67,15 +68,17 @@ class PostListItem extends StatelessWidget {
                 ],
               ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  child: Row(children: [
-                    Expanded(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Column(children: [
+                    if (post.link != null) LinkPreviewCard(url: post.link?.url ?? '', link: post.link),
+                    SizedBox(
+                        width: double.infinity,
                         child: Text(
-                      post.body,
-                      style: theme.textTheme.headline6,
-                      softWrap: true,
-                      textAlign: TextAlign.left,
-                    ))
+                          post.body,
+                          style: theme.textTheme.headline6,
+                          softWrap: true,
+                          textAlign: TextAlign.left,
+                        ))
                   ])),
             ])));
   }

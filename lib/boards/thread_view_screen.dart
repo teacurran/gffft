@@ -162,7 +162,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
           return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  title,
+                  l10n!.gffftHomeBoard,
                   style: theme.textTheme.headline1,
                 ),
                 backgroundColor: theme.backgroundColor,
