@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Future.delayed(Duration.zero, () async {
               //   VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
               // });
+              return (SelectableText("error: ${snapshot.error.toString()}"));
             }
 
             var user = snapshot.data;
