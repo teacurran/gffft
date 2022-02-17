@@ -1,8 +1,8 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/galleries/paged_item_view_screen.dart';
 import 'package:gffft/galleries/self_reloading_thumbnail.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/users/user_api.dart';
@@ -31,6 +31,8 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
   Future<Gffft>? gffft;
 
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
+
+  List<GalleryItem> itemList = List<GalleryItem>.empty(growable: true);
 
   @override
   void initState() {
@@ -76,6 +78,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
       );
 
       final isLastPage = newItems.count < _pageSize;
+      itemList.addAll(newItems.items);
       if (isLastPage) {
         _pagingController.appendLastPage(newItems.items);
       } else {
@@ -84,6 +87,20 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
     } catch (error) {
       _pagingController.error = error;
     }
+  }
+
+  GalleryItem? getItemInfo(int index) {
+    if (itemList.length == 1) {
+      return itemList.first;
+    }
+    if (index > itemList.length - 1) {
+      index = index.remainder(itemList.length - 1);
+    }
+    var range = itemList.sublist(index, index + 1);
+    if (range.isEmpty) {
+      return null;
+    }
+    return range.first;
   }
 
   @override
@@ -206,33 +223,16 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                                           onTap: () {
                                                             Navigator.of(context).pop();
                                                           },
-                                                          child: Container(
-                                                              // The blue background emphasizes that it's a new route.
-                                                              color: theme.backgroundColor,
-                                                              alignment: Alignment.topLeft,
-                                                              child: (fullImageUrl != null)
-                                                                  ? Hero(
-                                                                      tag: item.id,
-                                                                      child: ExtendedImage.network(fullImageUrl,
-                                                                          width: double.infinity,
-                                                                          height: double.infinity,
-                                                                          fit: BoxFit.contain,
-                                                                          alignment: Alignment.center,
-                                                                          mode: ExtendedImageMode.gesture,
-                                                                          initGestureConfigHandler: (state) {
-                                                                        return GestureConfig(
-                                                                          minScale: 0.9,
-                                                                          animationMinScale: 0.7,
-                                                                          maxScale: 3.0,
-                                                                          animationMaxScale: 3.5,
-                                                                          speed: 1.0,
-                                                                          inertialSpeed: 100.0,
-                                                                          initialScale: 1.0,
-                                                                          inPageView: false,
-                                                                          initialAlignment: InitialAlignment.center,
-                                                                        );
-                                                                      }))
-                                                                  : Container())));
+                                                          child: GestureDetector(
+                                                              onTap: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: PagedItemViewScreen(
+                                                                  uid: widget.uid,
+                                                                  gid: widget.gid,
+                                                                  mid: widget.mid,
+                                                                  index: index,
+                                                                  getItemInfo: getItemInfo))));
                                                 }));
                                           }
                                         },
