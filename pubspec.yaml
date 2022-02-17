@@ -57,7 +57,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   flutter_svg: ^1.0.0
   flutter_localized_locales: ^2.0.3
-  flutterfire_ui: ^0.3.0
+  flutterfire_ui: ^0.3.4
   flutter_tags_x: any
   flutter_slidable: ^1.2.0
 
