@@ -23,7 +23,7 @@ class ProfileCard extends StatelessWidget {
         onPressed: () {
           VxNavigator.of(context).waitAndPush(Uri(path: LoginScreen.webPath)).then((value) => loadData());
         },
-        child: Text("login or create account"),
+        child: const Text("login or create account"),
       ));
     }
 

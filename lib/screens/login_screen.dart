@@ -56,10 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
         actions: [
           AuthStateChangeAction<SignedIn>((context, _) {
-            VxNavigator.of(context).push(Uri(path: HomeScreen.webPath));
+            VxNavigator.of(context).returnAndPush(true);
           }),
           SignedOutAction((context) {
-            VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
+            VxNavigator.of(context).returnAndPush(true);
           })
         ]);
   }
