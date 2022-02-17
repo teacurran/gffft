@@ -94,7 +94,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
       return itemList.first;
     }
     if (index > itemList.length - 1) {
-      index = index.remainder(itemList.length - 1);
+      index = index.remainder(itemList.length - 1) - 1;
     }
     var range = itemList.sublist(index, index + 1);
     if (range.isEmpty) {
