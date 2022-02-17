@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -87,6 +88,8 @@ Future<void> main() async {
   getIt.registerSingleton<GffftApi>(GffftApi());
   getIt.registerSingleton<LinkSetApi>(LinkSetApi());
   getIt.registerSingleton<UserApi>(UserApi());
+
+  timeDilation = 3.0;
 
   runApp(App());
 }

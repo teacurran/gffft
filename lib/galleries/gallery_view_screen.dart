@@ -198,7 +198,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                 tag: item.id,
                                 child: Padding(
                                     padding: EdgeInsets.all(1),
-                                    child: InkWell(
+                                    child: GestureDetector(
                                         onTap: () {
                                           if (gffft != null) {
                                             // VxNavigator.of(context).push(Uri(
@@ -214,14 +214,26 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                             //           item.id
                                             //         ]).toString()));
 
-                                            Navigator.of(context).push(MaterialPageRoute<void>(
+                                            Navigator.of(context).push(PageRouteBuilder(
                                                 fullscreenDialog: true,
                                                 maintainState: true,
-                                                builder: (BuildContext context) {
+                                                pageBuilder: (BuildContext context, Animation<double> animation,
+                                                    Animation<double> secondaryAnimation) {
                                                   return Scaffold(
-                                                      body: InkWell(
+                                                      body: GestureDetector(
                                                           onTap: () {
                                                             Navigator.of(context).pop();
+                                                          },
+                                                          onPanUpdate: (details) {
+                                                            // Swiping in down direction.
+                                                            if (details.delta.dy > 0) {
+                                                              Navigator.of(context).pop();
+                                                            }
+
+                                                            // Swiping in up direction.
+                                                            if (details.delta.dy < 0) {
+                                                              Navigator.of(context).pop();
+                                                            }
                                                           },
                                                           child: GestureDetector(
                                                               onTap: () {
