@@ -80,3 +80,6 @@ android/.idea
 .firebase
 tmp/
 /ios/build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
