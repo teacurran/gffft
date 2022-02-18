@@ -47,15 +47,17 @@ class BoardEditCard extends StatelessWidget {
           height: 300,
           width: 300,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.commentAlt),
-              color: const Color(0xFF9970A9),
-              onPressed: () {},
-            ),
-            Text(
-              l10n!.gffftHomeBoard,
-              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
-            ),
+            Row(children: [
+              IconButton(
+                icon: const FaIcon(FontAwesomeIcons.commentAlt),
+                color: const Color(0xFF9970A9),
+                onPressed: () {},
+              ),
+              Text(
+                l10n!.gffftHomeBoard,
+                style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
+              )
+            ]),
             Row(
               children: [
                 Flexible(

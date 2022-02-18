@@ -820,10 +820,10 @@ class S {
     );
   }
 
-  /// `fruit codes are the way to share a link to your gffft on other platforms.  people will always be able to find you based on the fruit code.  You can change it anytime.`
+  /// `use fruit codes to share your gffft with others`
   String get gffftSettingsFruitCodeHint {
     return Intl.message(
-      'fruit codes are the way to share a link to your gffft on other platforms.  people will always be able to find you based on the fruit code.  You can change it anytime.',
+      'use fruit codes to share your gffft with others',
       name: 'gffftSettingsFruitCodeHint',
       desc: '',
       args: [],
@@ -887,6 +887,16 @@ class S {
       name: 'gffftHomeMemberSince',
       desc: '\'since 2021-01-12\' formatted in users date format',
       args: [date],
+    );
+  }
+
+  /// `show fruit code`
+  String get gffftSettingsFruitCodeEnable {
+    return Intl.message(
+      'show fruit code',
+      name: 'gffftSettingsFruitCodeEnable',
+      desc: '',
+      args: [],
     );
   }
 

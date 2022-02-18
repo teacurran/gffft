@@ -78,15 +78,17 @@ class _GffftEditCardState extends State<GffftEditCard> {
           child: Container(
               padding: const EdgeInsets.all(10),
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.settings, color: Color(0xFFFABB59)),
-                  color: const Color(0xFFFABB59),
-                  onPressed: () {},
-                ),
-                Text(
-                  l10n!.gffftSettingsGeneralHead,
-                  style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
-                ),
+                Row(children: [
+                  IconButton(
+                    icon: const Icon(Icons.settings, color: Color(0xFFFABB59)),
+                    color: const Color(0xFFFABB59),
+                    onPressed: () {},
+                  ),
+                  Text(
+                    l10n!.gffftSettingsGeneralHead,
+                    style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
+                  )
+                ]),
                 Row(
                   children: [
                     Flexible(

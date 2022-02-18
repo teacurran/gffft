@@ -52,15 +52,17 @@ class GalleryEditCard extends StatelessWidget {
           height: 300,
           width: 300,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.photoVideo),
-              color: const Color(0xFF00829C),
-              onPressed: () {},
-            ),
-            Text(
-              l10n!.gffftHomeGallery,
-              style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF00829C)),
-            ),
+            Row(children: [
+              IconButton(
+                icon: const FaIcon(FontAwesomeIcons.photoVideo),
+                color: const Color(0xFF00829C),
+                onPressed: () {},
+              ),
+              Text(
+                l10n!.gffftHomeGallery,
+                style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF00829C)),
+              )
+            ]),
             Row(
               children: [
                 Flexible(

@@ -42,6 +42,11 @@ class FruitCodeEditCard extends StatelessWidget {
     Widget rareFruitMarker = Flexible(child: Container());
     Widget ultraRareFruitMarker = Flexible(child: Container());
 
+    bool fruitCodeEnabled = false;
+    if (gffft.hasFeature("fruitCode")) {
+      fruitCodeEnabled = true;
+    }
+
     if (gffft.ultraRareFruits > 0) {
       ultraRareFruitMarker = const Flexible(
           flex: 3,
@@ -80,15 +85,17 @@ class FruitCodeEditCard extends StatelessWidget {
           height: 300,
           width: 300,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.lemon),
-              color: Colors.green,
-              onPressed: () {},
-            ),
-            Text(
-              l10n.gffftSettingsFruitCode,
-              style: theme.textTheme.headline6?.copyWith(color: Colors.green),
-            ),
+            Row(children: [
+              IconButton(
+                icon: const FaIcon(FontAwesomeIcons.lemon),
+                color: Colors.green,
+                onPressed: () {},
+              ),
+              Text(
+                l10n.gffftSettingsFruitCode,
+                style: theme.textTheme.headline6?.copyWith(color: Colors.green),
+              )
+            ]),
             Row(
               children: [
                 Flexible(
@@ -133,7 +140,27 @@ class FruitCodeEditCard extends StatelessWidget {
                 gffftApi.savePartial(gffft).then((value) => onSaveComplete!());
               },
               child: Text("generate new fruit code"),
-            )
+            ),
+            Row(
+              children: [
+                Text(
+                  l10n.gffftSettingsFruitCodeEnable,
+                  style: theme.textTheme.bodyText1,
+                ),
+                Switch(
+                  value: fruitCodeEnabled,
+                  onChanged: (value) {
+                    GffftPatchSave gffft = GffftPatchSave(
+                      uid: this.gffft.uid,
+                      gid: this.gffft.gid,
+                      fruitCodeEnabled: value,
+                    );
+
+                    gffftApi.savePartial(gffft).then((value) => onSaveComplete!());
+                  },
+                )
+              ],
+            ),
           ])),
     );
   }

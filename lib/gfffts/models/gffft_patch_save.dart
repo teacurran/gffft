@@ -19,23 +19,26 @@ class GffftPatchSave {
   bool? notebookEnabled;
   String? notebookStyle;
   bool? fruitCodeReset;
+  bool? fruitCodeEnabled;
 
-  GffftPatchSave(
-      {required this.uid,
-      required this.gid,
-      this.name,
-      this.description,
-      this.tags,
-      this.intro,
-      this.enabled,
-      this.allowMembers,
-      this.boardEnabled,
-      this.calendarEnabled,
-      this.galleryEnabled,
-      this.linkSetEnabled,
-      this.notebookEnabled,
-      this.notebookStyle,
-      this.fruitCodeReset});
+  GffftPatchSave({
+    required this.uid,
+    required this.gid,
+    this.name,
+    this.description,
+    this.tags,
+    this.intro,
+    this.enabled,
+    this.allowMembers,
+    this.boardEnabled,
+    this.calendarEnabled,
+    this.galleryEnabled,
+    this.linkSetEnabled,
+    this.notebookEnabled,
+    this.notebookStyle,
+    this.fruitCodeReset,
+    this.fruitCodeEnabled,
+  });
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
