@@ -12,6 +12,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../link_sets/link_set_home_card.dart';
 import '../notebooks/notebook_home_card.dart';
+import 'fruit_code_home_card.dart';
 import 'gffft_api.dart';
 import 'models/gffft.dart';
 
@@ -71,6 +72,10 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
         actions.add(LinkSetHomeCard(
           gffft: gffft,
           featureRef: featureRef,
+        ));
+      } else if (featureRef.type == "fruitCode") {
+        actions.add(FruitCodeHomeCard(
+          gffft: gffft,
         ));
       }
     });

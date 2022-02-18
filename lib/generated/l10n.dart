@@ -830,10 +830,10 @@ class S {
     );
   }
 
-  /// `Join my gffft!`
+  /// `¡gffft!`
   String get gffftSettingsFruitCodeShare {
     return Intl.message(
-      'Join my gffft!',
+      '¡gffft!',
       name: 'gffftSettingsFruitCodeShare',
       desc: '',
       args: [],

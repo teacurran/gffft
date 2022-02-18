@@ -39,14 +39,13 @@ class FruitCodeEditCard extends StatelessWidget {
     var l10n = AppLocalizations.of(context);
     GffftApi gffftApi = getIt<GffftApi>();
 
-    Widget rareFruitMarker = Flexible(child: Container());
-    Widget ultraRareFruitMarker = Flexible(child: Container());
-
     bool fruitCodeEnabled = false;
     if (gffft.hasFeature("fruitCode")) {
       fruitCodeEnabled = true;
     }
 
+    Widget rareFruitMarker = Flexible(child: Container());
+    Widget ultraRareFruitMarker = Flexible(child: Container());
     if (gffft.ultraRareFruits > 0) {
       ultraRareFruitMarker = const Flexible(
           flex: 3,
