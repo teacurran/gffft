@@ -162,6 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enable gallery"),
         "gffftSettingsGalleryEnableHint": MessageLookupByLibrary.simpleMessage(
             "A gallery allows you or your gffft\'s members to post photos and videos. Configure to be viewed as a stream or contact-sheet style."),
+        "gffftSettingsGeneralHead":
+            MessageLookupByLibrary.simpleMessage("general"),
         "gffftSettingsHead": MessageLookupByLibrary.simpleMessage("settings"),
         "gffftSettingsLinkSetEnable":
             MessageLookupByLibrary.simpleMessage("Enable links"),

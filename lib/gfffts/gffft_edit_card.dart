@@ -8,34 +8,65 @@ import '../gfffts/models/gffft_patch_save.dart';
 
 final getIt = GetIt.instance;
 
-class GffftEditCard extends StatelessWidget {
+class GffftEditCard extends StatefulWidget {
   GffftEditCard({Key? key, required this.gffft, this.onSaveComplete}) : super(key: key);
 
   final Gffft gffft;
   final VoidCallback? onSaveComplete;
+
+  @override
+  State<GffftEditCard> createState() => _GffftEditCardState();
+}
+
+class _GffftEditCardState extends State<GffftEditCard> {
   GffftApi gffftApi = getIt<GffftApi>();
+
+  late TextEditingController _titleController;
+  late TextEditingController _introController;
 
   bool boardEnabled = false;
   String boardWhoCanView = "owner";
   String boardWhoCanPost = "owner";
 
   @override
+  void initState() {
+    super.initState();
+
+    _titleController = TextEditingController(text: widget.gffft.name);
+    _introController = TextEditingController(text: widget.gffft.intro);
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _introController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var l10n = AppLocalizations.of(context);
 
-    if (gffft.hasFeature("board") && gffft.boards != null && gffft.boards!.isNotEmpty) {
-      boardEnabled = true;
-      boardWhoCanView = gffft.boards!.first.whoCanView;
-      boardWhoCanPost = gffft.boards!.first.whoCanPost;
+    Future<void> _saveIntroText() async {
+      GffftPatchSave gffft = GffftPatchSave(
+        uid: widget.gffft.uid,
+        gid: widget.gffft.gid,
+        intro: _introController.text,
+      );
+
+      gffftApi.savePartial(gffft).then((value) => widget.onSaveComplete);
     }
 
-    // hack until drop downs are internationalized
-    if (boardWhoCanPost == "owner") {
-      boardWhoCanPost = "just you";
-    }
-    if (boardWhoCanView == "owner") {
-      boardWhoCanView = "just you";
+    Future<void> _saveTitle() async {
+      GffftPatchSave gffft = GffftPatchSave(
+        uid: widget.gffft.uid,
+        gid: widget.gffft.gid,
+        name: _titleController.text,
+      );
+
+      gffftApi.savePartial(gffft).then((value) => widget.onSaveComplete);
     }
 
     return SizedBox(
@@ -45,7 +76,7 @@ class GffftEditCard extends StatelessWidget {
           margin: const EdgeInsets.all(8),
           color: theme.backgroundColor,
           child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.settings, color: Color(0xFFFABB59)),
@@ -53,34 +84,14 @@ class GffftEditCard extends StatelessWidget {
                   onPressed: () {},
                 ),
                 Text(
-                  l10n!.gffftSettingsHead,
+                  l10n!.gffftSettingsGeneralHead,
                   style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
                 ),
                 Row(
                   children: [
-                    Text(
-                      l10n.gffftSettingsEnabled,
-                      style: theme.textTheme.bodyText1,
-                    ),
-                    Switch(
-                      value: gffft.enabled,
-                      onChanged: (value) {
-                        GffftPatchSave gffft = GffftPatchSave(
-                          uid: this.gffft.uid,
-                          gid: this.gffft.gid,
-                          enabled: value,
-                        );
-
-                        gffftApi.savePartial(gffft).then((value) => onSaveComplete!());
-                      },
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
                     Flexible(
                         child: Text(
-                      l10n.gffftSettingsEnabledHint,
+                      "name",
                       style: theme.textTheme.bodyText1,
                       softWrap: true,
                     ))
@@ -88,34 +99,48 @@ class GffftEditCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      l10n.gffftSettingsEnableMembership,
-                      style: theme.textTheme.bodyText1,
-                    ),
-                    Switch(
-                      value: gffft.allowMembers,
-                      onChanged: (value) {
-                        GffftPatchSave gffft = GffftPatchSave(
-                          uid: this.gffft.uid,
-                          gid: this.gffft.gid,
-                          allowMembers: value,
-                        );
-
-                        gffftApi.savePartial(gffft).then((value) => onSaveComplete!());
-                      },
-                    )
+                    Flexible(
+                        child: Focus(
+                            child: TextField(
+                              style: theme.textTheme.headline1,
+                              textAlign: TextAlign.center,
+                              controller: _titleController,
+                              textInputAction: TextInputAction.go,
+                            ),
+                            onFocusChange: (hasFocus) {
+                              if (!hasFocus) {
+                                _saveTitle();
+                              }
+                            }))
                   ],
                 ),
                 Row(
                   children: [
                     Flexible(
                         child: Text(
-                      l10n.gffftSettingsEnableMembershipHint,
+                      "intro (optional)",
                       style: theme.textTheme.bodyText1,
                       softWrap: true,
                     ))
                   ],
-                )
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                        child: Focus(
+                            child: TextField(
+                              style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
+                              controller: _introController,
+                              textInputAction: TextInputAction.go,
+                              maxLines: 5,
+                            ),
+                            onFocusChange: (hasFocus) {
+                              if (!hasFocus) {
+                                _saveIntroText();
+                              }
+                            }))
+                  ],
+                ),
               ])),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),

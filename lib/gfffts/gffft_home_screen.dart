@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,7 +14,6 @@ import '../link_sets/link_set_home_card.dart';
 import '../notebooks/notebook_home_card.dart';
 import 'gffft_api.dart';
 import 'models/gffft.dart';
-import 'models/gffft_patch_save.dart';
 
 final getIt = GetIt.instance;
 
@@ -36,14 +34,6 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   GffftApi gffftApi = getIt<GffftApi>();
   Future<Gffft>? gffft;
 
-  bool editing = false;
-
-  bool editingTitle = false;
-  late TextEditingController _titleController;
-
-  bool editingIntro = false;
-  late TextEditingController _introController;
-
   @override
   void initState() {
     super.initState();
@@ -57,59 +47,9 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     }
     return setState(() {
       gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
-        _titleController = TextEditingController(text: gffft.name);
-        _introController = TextEditingController(text: gffft.intro);
         return gffft;
       });
     });
-  }
-
-  Future<void> _toggleEditing() async {
-    return setState(() {
-      editing = editing ? false : true;
-    });
-  }
-
-  Future<void> _toggleEditingIntro() async {
-    return setState(() {
-      editingIntro = editingIntro ? false : true;
-    });
-  }
-
-  Future<void> _toggleEditingTitle() async {
-    return setState(() {
-      editingTitle = editingTitle ? false : true;
-    });
-  }
-
-  Future<void> _saveIntroText() async {
-    GffftPatchSave gffft = GffftPatchSave(
-      uid: widget.uid,
-      gid: widget.gid,
-      intro: _introController.text,
-    );
-
-    gffftApi.savePartial(gffft).then((value) => {
-          setState(() {
-            _loadGffft();
-            _toggleEditingIntro();
-          })
-        });
-  }
-
-  Future<void> _saveTitle() async {
-    GffftPatchSave gffft = GffftPatchSave(
-      uid: widget.uid,
-      gid: widget.gid,
-      name: _titleController.text,
-    );
-
-    gffftApi.savePartial(gffft).then((value) => {
-          setState(() {
-            _loadGffft();
-            _toggleEditingTitle();
-          })
-        });
   }
 
   List<Widget> getActions(AppLocalizations l10n, ThemeData theme, Gffft gffft) {
@@ -232,8 +172,13 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     if (gffft.membership?.type == "owner") {
       memberActions.add(TextButton(
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
-        onPressed: () async {
-          await _toggleEditing();
+        onPressed: () {
+          VxNavigator.of(context)
+              .waitAndPush(Uri(
+                  path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]).toString()))
+              .then((value) {
+            _loadGffft();
+          });
         },
         style: TextButton.styleFrom(
           minimumSize: Size.zero,
@@ -296,57 +241,22 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     if (name == defaultId) {
       name = "My gffft";
     }
-    if (editing && editingTitle) {
-      children.add(Focus(
-          child: TextField(
-            style: theme.textTheme.headline1,
-            textAlign: TextAlign.center,
-            controller: _titleController,
-            textInputAction: TextInputAction.go,
-          ),
-          onFocusChange: (hasFocus) {
-            if (!hasFocus) {
-              _saveTitle();
-            }
-          }));
-    } else {
-      children.add(SelectableText(
-        name,
-        style: theme.textTheme.headline1,
-        onTap: () async {
-          await _toggleEditingTitle();
-        },
-      ));
-    }
+    children.add(SelectableText(
+      name,
+      style: theme.textTheme.headline1,
+    ));
+
     if (gffft.intro != null) {
       String introText = "${gffft.intro}";
       if (introText == defaultId) {
         introText = l10n.gffftIntro;
       }
-      if (editing && editingIntro) {
-        children.add(Focus(
-            child: TextField(
-              style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
-              controller: _introController,
-              textInputAction: TextInputAction.go,
-              maxLines: 5,
-            ),
-            onFocusChange: (hasFocus) {
-              if (!hasFocus) {
-                _saveIntroText();
-              }
-            }));
-      } else {
-        children.add(Padding(
-            padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
-            child: SelectableText(
-              introText,
-              style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
-              onTap: () async {
-                await _toggleEditingIntro();
-              },
-            )));
-      }
+      children.add(Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+          child: SelectableText(
+            introText,
+            style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
+          )));
     }
 
     children.addAll(getActions(l10n, theme, gffft));
@@ -359,31 +269,8 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
             children: children));
   }
 
-  Widget? getFloatingActionButton(BuildContext context) {
-    if (!editing) {
-      return null;
-    }
-    var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    return FloatingActionButton(
-        child: const Icon(Icons.settings, color: Colors.black),
-        tooltip: l10n!.boardViewActionTooltip,
-        backgroundColor: Color(0xFFFABB59),
-        onPressed: () {
-          VxNavigator.of(context)
-              .waitAndPush(Uri(
-                  path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "features"]).toString()))
-              .then((value) {
-            _loadGffft();
-          });
-        });
-  }
-
   @override
   void dispose() {
-    _titleController.dispose();
-    _introController.dispose();
-
     super.dispose();
   }
 
@@ -428,8 +315,6 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                     physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                     child: screenBody,
                   )),
-              floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-              floatingActionButton: getFloatingActionButton(context),
             ),
           );
         });

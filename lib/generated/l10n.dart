@@ -620,6 +620,16 @@ class S {
     );
   }
 
+  /// `general`
+  String get gffftSettingsGeneralHead {
+    return Intl.message(
+      'general',
+      name: 'gffftSettingsGeneralHead',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Show in search`
   String get gffftSettingsEnabled {
     return Intl.message(

@@ -13,6 +13,7 @@ import '../galleries/gallery_edit_card.dart';
 import '../link_sets/link_set_edit_card.dart';
 import '../notebooks/notebook_edit_card.dart';
 import 'gffft_api.dart';
+import 'gffft_search_card.dart';
 import 'models/gffft.dart';
 
 final getIt = GetIt.instance;
@@ -86,7 +87,11 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
       GalleryEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       LinkSetEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       if (false) NotebookEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
-      FruitCodeEditCard(gffft: gffft, onSaveComplete: onSaveComplete)
+      FruitCodeEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
+      GffftSearchCard(
+        gffft: gffft,
+        onSaveComplete: onSaveComplete,
+      ),
     ];
   }
 
@@ -98,31 +103,14 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
     return FutureBuilder(
         future: gffft,
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
-          Widget screenBody = Column();
-
-          var title = "connecting";
-          if (snapshot.hasError) {
-            title = "error";
-          }
-
-          String name = "loading";
-
           var gffft = snapshot.data;
-          if (gffft != null) {
-            title = "";
-
-            name = "${gffft.name}";
-            if (name == defaultId) {
-              name = "My gffft";
-            }
-          }
 
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 title: Text(
-                  title,
+                  l10n!.gffftSettingsHead,
                   style: theme.textTheme.headline1,
                 ),
                 leading: IconButton(
@@ -132,12 +120,6 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                 centerTitle: true,
               ),
               body: Column(children: [
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 15),
-                    child: SelectableText(
-                      name,
-                      style: theme.textTheme.headline1,
-                    )),
                 SizedBox(
                     height: 400,
                     child: PageView(
