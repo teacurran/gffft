@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,9 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<User?>? user;
 
   Future<void> _loadData() async {
-    setState(() {
-      user = userApi.me();
+    user = userApi.me().onError((error, stackTrace) async {
+      await fbAuth.FirebaseAuth.instance.signOut();
+      if (kDebugMode) {
+        print("error getting me, token expired?");
+      }
+      return null;
     });
+    setState(() {});
   }
 
   @override
