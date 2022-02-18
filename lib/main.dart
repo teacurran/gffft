@@ -459,14 +459,17 @@ class _AppState extends State<App> {
             letterSpacing: letterSpacingOrNone(2.8),
             color: Colors.lightBlue[200],
           ),
+          caption: GoogleFonts.sourceSansPro(
+              fontSize: 14,
+              height: 1.4,
+              fontWeight: FontWeight.normal,
+              letterSpacing: letterSpacingOrNone(0.5),
+              color: Colors.white),
           headline1: GoogleFonts.sourceSansPro(color: Color(0xFF1C839E), fontSize: 40, fontWeight: FontWeight.w100),
           headline3: GoogleFonts.sourceSansPro(fontSize: 24, fontWeight: FontWeight.w400),
           headline4: GoogleFonts.sourceSansPro(color: Colors.lightGreenAccent),
           headline5: GoogleFonts.sourceSansPro(
-            fontSize: 40,
-            fontWeight: FontWeight.w600,
-            letterSpacing: letterSpacingOrNone(1.4),
-          ),
+              fontSize: 40, fontWeight: FontWeight.w600, letterSpacing: letterSpacingOrNone(1.4), color: Colors.white),
           subtitle1: TextStyle(color: Colors.lightGreenAccent), // input text
           headline6: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
         );

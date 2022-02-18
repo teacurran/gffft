@@ -21,10 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: GestureDetector(
           onTap: () {
-            print("ontap");
             VxNavigator.of(context).replace(Uri(path: HomeScreen.webPath));
           },
-          child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: Theme.of(context).primaryColor)),
+          child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: const Color(0xFF1C839E))),
     );
   }
 

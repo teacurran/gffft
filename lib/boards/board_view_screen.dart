@@ -123,16 +123,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
     return FutureBuilder(
         future: gffft,
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
-          var title = "connecting";
-          if (snapshot.hasError) {
-            title = "error";
-          }
-
           var gffft = snapshot.data;
-          if (gffft != null) {
-            title = gffft.name ?? "";
-          }
-
           return Scaffold(
               appBar: AppBar(
                 title: Text(

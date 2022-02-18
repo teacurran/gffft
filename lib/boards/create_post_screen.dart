@@ -34,11 +34,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     BoardApi boardApi = getIt<BoardApi>();
     final subject = _subject.text;
     final body = _body.text;
-    print("handlePost: $subject, $body");
 
     PostSubmit post = PostSubmit(widget.uid, widget.gid, widget.bid, body, subject: subject);
     await boardApi.createPost(post);
-    print("post sent!");
 
     //VxNavigator.of(context).pop();
 
