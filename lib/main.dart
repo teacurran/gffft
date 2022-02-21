@@ -14,7 +14,6 @@ import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/board_view_screen.dart';
 import 'package:gffft/boards/thread_view_screen.dart';
-import 'package:gffft/home/home_screen.dart';
 import 'package:gffft/link_sets/link_post_screen.dart';
 import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
@@ -41,6 +40,7 @@ import 'gfffts/gffft_join_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_membership_screen.dart';
 import 'gfffts/gffft_screen.dart';
+import 'home/tabbed_home_screen.dart';
 import 'link_sets/link_set_api.dart';
 import 'link_sets/link_set_view_screen.dart';
 
@@ -128,8 +128,8 @@ class _AppState extends State<App> {
             ),
           ),
       routes: {
-        HomeScreen.webPath: (uri, params) {
-          return MaterialPage(child: HomeScreen());
+        TabbedHomeScreen.webPath: (uri, params) {
+          return MaterialPage(child: TabbedHomeScreen());
         },
         BookmarkScreen.webPath: (uri, params) {
           return const MaterialPage(child: BookmarkScreen());
