@@ -42,6 +42,15 @@ class UserApi extends ApiBase {
     return Gffft.fromJson(response);
   }
 
+  Future<Gffft?> getGffftIfLoggedIn(String uid, String gid) async {
+    try {
+      final response = await get("users/${uid}/gfffts/${gid}");
+      return Gffft.fromJson(response);
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<ThreadResult> getBoardThreads(String uid, String gid, String bid, String? offset, int? pageSize) async {
     final response = await get("users/${uid}/gfffts/${gid}/boards/${bid}/threads");
     return ThreadResult.fromJson(response);
