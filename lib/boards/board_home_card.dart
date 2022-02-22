@@ -33,7 +33,7 @@ class BoardHomeCard extends StatelessWidget {
     return Card(
         margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
         clipBehavior: Clip.antiAlias,
-        color: theme.backgroundColor,
+        color: Colors.transparent,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
             side: const BorderSide(
