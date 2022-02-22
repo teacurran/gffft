@@ -8,6 +8,9 @@ import '../home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String webPath = '/login';
+  final VoidCallback loginStateChanged;
+
+  const LoginScreen({Key? key, required this.loginStateChanged}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -36,10 +39,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var maxExtent = 150.0;
+    var maxExtent = 50.0;
     if (MediaQuery.of(context).viewInsets.bottom > 0) {
       maxExtent = 0;
     }
+
+    // always 0 for now
+    maxExtent = 0;
+
     return SignInScreen(
         headerBuilder: getHeaderBuilder,
         headerMaxExtent: maxExtent,
@@ -55,10 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
         actions: [
           AuthStateChangeAction<SignedIn>((context, _) {
-            VxNavigator.of(context).returnAndPush(true);
+            widget.loginStateChanged();
           }),
           SignedOutAction((context) {
-            VxNavigator.of(context).returnAndPush(true);
+            widget.loginStateChanged();
           })
         ]);
   }

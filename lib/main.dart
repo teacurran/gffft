@@ -15,7 +15,6 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/board_view_screen.dart';
 import 'package:gffft/boards/thread_view_screen.dart';
 import 'package:gffft/link_sets/link_post_screen.dart';
-import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/letter_spacing.dart';
 import 'package:gffft/users/bookmark_screen.dart';
 import 'package:gffft/users/connect_screen.dart';
@@ -217,7 +216,6 @@ class _AppState extends State<App> {
               lid: uri.pathSegments[5],
             )),
         GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
-        LoginScreen.webPath: (uri, params) => MaterialPage(child: LoginScreen()),
         MeScreen.webPath: (uri, params) => MaterialPage(child: MeScreen()),
       });
 

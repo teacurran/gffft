@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/users/user_api.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'gffft_api.dart';
 import 'gffft_home_screen_body.dart';
@@ -60,41 +60,28 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
     return FutureBuilder(
         future: gffft,
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
-          Widget screenBody = Column();
+          Widget screenBody = Container();
 
           var title = "connecting";
           if (snapshot.hasError) {
             title = "error";
           }
 
-          var gffft = snapshot.data;
-          if (gffft != null) {
-            title = "";
-            screenBody = GffftHomeScreenBody(gffft: gffft, onGffftChange: _loadGffft);
-          }
-
-          return SafeArea(
-            child: Scaffold(
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                title: Text(
-                  title,
-                  style: theme.textTheme.headline1,
-                ),
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
-                ),
-                centerTitle: true,
-              ),
-              body: RefreshIndicator(
+          if (snapshot.connectionState == ConnectionState.done) {
+            var gffft = snapshot.data;
+            if (gffft == null) {
+              screenBody = LoginScreen(loginStateChanged: _loadGffft);
+            } else {
+              title = "";
+              screenBody = RefreshIndicator(
                   onRefresh: _loadGffft,
                   child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                    child: screenBody,
-                  )),
-            ),
-          );
+                      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                      child: GffftHomeScreenBody(gffft: gffft, onGffftChange: _loadGffft)));
+            }
+          }
+
+          return screenBody;
         });
   }
 }
