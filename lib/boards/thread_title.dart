@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:gffft/boards/thread_view_screen.dart';
 import 'package:gffft/common/dates.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'models/thread.dart';
 
@@ -77,12 +77,11 @@ class ThreadTitle extends StatelessWidget {
         ),
         child: InkWell(
             onTap: () {
-              VxNavigator.of(context)
-                  .waitAndPush(Uri(
-                      path: "/" +
-                          Uri(pathSegments: ["users", uid, "gfffts", gid, "boards", bid, "threads", thread.id])
-                              .toString()))
-                  .then((value) => pager.refresh());
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return ThreadViewScreen(uid: uid, gid: gid, bid: bid, tid: thread.id);
+              })).then((value) {
+                pager.refresh();
+              });
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,

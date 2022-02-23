@@ -130,10 +130,10 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                   l10n!.gffftHomeBoard,
                   style: theme.textTheme.headline1,
                 ),
-                backgroundColor: theme.backgroundColor,
+                backgroundColor: Colors.transparent,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
                 actions: [
                   IconButton(

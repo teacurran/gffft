@@ -94,7 +94,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                 backgroundColor: theme.backgroundColor,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                  onPressed: () => VxNavigator.of(context).returnAndPush(true),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
                 centerTitle: true,
               ),

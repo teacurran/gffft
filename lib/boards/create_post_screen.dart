@@ -6,7 +6,6 @@ import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'board_api.dart';
 import 'models/post_submit.dart';
@@ -40,8 +39,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
     //VxNavigator.of(context).pop();
 
-    VxNavigator.of(context).returnAndPush(Uri(
-        path: "/" + Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "boards", widget.bid]).toString()));
+    Navigator.of(context).pop();
   }
 
   @override

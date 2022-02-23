@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/galleries/gallery_view_screen.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../gfffts/models/gffft.dart';
 import 'models/gallery.dart';
@@ -42,10 +42,9 @@ class GalleryHomeCard extends StatelessWidget {
             )),
         child: InkWell(
             onTap: () {
-              VxNavigator.of(context).push(Uri(
-                  path: "/" +
-                      Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "galleries", featureRef.id!])
-                          .toString()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return GalleryViewScreen(uid: gffft.uid, gid: gffft.gid, mid: featureRef.id!);
+              }));
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,

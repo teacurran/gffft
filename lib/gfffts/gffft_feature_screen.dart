@@ -54,11 +54,9 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   Widget? getFloatingActionButton(BuildContext context) {
     var l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    return FloatingActionButton.extended(
-        icon: const Icon(Icons.save, color: Colors.black),
-        label: Text(l10n!.gffftSettingsSave),
+    return FloatingActionButton(
+        child: const Icon(Icons.save, color: Colors.black),
         backgroundColor: const Color(0xFFFABB59),
-        tooltip: l10n.gffftSettingsSave,
         onPressed: () {
           VxNavigator.of(context).returnAndPush(true);
         });

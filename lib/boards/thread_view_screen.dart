@@ -112,7 +112,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
     return FloatingActionButton(
         child: Icon(Icons.reply_all, color: theme.focusColor),
         tooltip: l10n!.boardViewActionTooltip,
-        backgroundColor: theme.primaryColor,
+        backgroundColor: Colors.transparent,
         onPressed: () {
           VxNavigator.of(context)
               .waitAndPush(Uri(

@@ -284,7 +284,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
                       return GffftHomeScreen(uid: item.uid, gid: item.gid);
                     }));
                   },
-                  trailing: Icon(Icons.chevron_left_sharp, color: theme.primaryColor)),
+                  trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
               noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
         ),
       ],

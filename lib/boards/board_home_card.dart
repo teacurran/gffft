@@ -3,9 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../gfffts/models/gffft.dart';
+import 'board_view_screen.dart';
 import 'models/board.dart';
 
 final getIt = GetIt.instance;
@@ -42,10 +42,9 @@ class BoardHomeCard extends StatelessWidget {
             )),
         child: InkWell(
             onTap: () {
-              VxNavigator.of(context).push(Uri(
-                  path: "/" +
-                      Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "boards", featureRef.id!])
-                          .toString()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return BoardViewScreen(uid: gffft.uid, gid: gffft.gid, bid: featureRef.id!);
+              }));
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,

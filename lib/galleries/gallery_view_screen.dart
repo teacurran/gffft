@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/galleries/gallery_post_screen.dart';
 import 'package:gffft/galleries/paged_item_view_screen.dart';
 import 'package:gffft/galleries/self_reloading_thumbnail.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
@@ -125,12 +126,9 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
         tooltip: l10n!.boardViewActionTooltip,
         backgroundColor: theme.primaryColor,
         onPressed: () {
-          VxNavigator.of(context)
-              .waitAndPush(Uri(
-                  path: "/" +
-                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", widget.mid, "post"])
-                          .toString()))
-              .then((value) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return GalleryPostScreen(uid: widget.uid, gid: widget.gid, mid: widget.mid);
+          })).then((value) {
             itemList = List<GalleryItem>.empty(growable: true);
             _pagingController.refresh();
           });
@@ -161,7 +159,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                   l10n!.gffftHomeGallery,
                   style: theme.textTheme.headline1,
                 ),
-                backgroundColor: theme.backgroundColor,
+                backgroundColor: Colors.transparent,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
                   onPressed: () => VxNavigator.of(context).pop(),
