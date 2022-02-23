@@ -131,6 +131,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                       Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "galleries", widget.mid, "post"])
                           .toString()))
               .then((value) {
+            itemList = List<GalleryItem>.empty(growable: true);
             _pagingController.refresh();
           });
         });
