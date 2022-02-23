@@ -12,10 +12,13 @@ import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../users/me_screen.dart';
 import '../users/models/bookmark.dart';
 import '../users/models/user.dart';
 
 final getIt = GetIt.instance;
+
+final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
 
 class TabbedHomeScreen extends StatefulWidget {
   const TabbedHomeScreen({Key? key}) : super(key: key);
@@ -26,7 +29,9 @@ class TabbedHomeScreen extends StatefulWidget {
   State<TabbedHomeScreen> createState() => _TabbedHomeScreenState();
 }
 
-class _TabbedHomeScreenState extends State<TabbedHomeScreen> {
+class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+
   UserApi userApi = getIt<UserApi>();
   GffftApi gffftApi = getIt<GffftApi>();
   Future<User?>? user;
@@ -90,8 +95,11 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> {
       }
     });
 
-    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+
     _loadData();
+
+    super.initState();
   }
 
   Future<void> _fetchBookmarkPage(pageKey) async {
@@ -155,27 +163,26 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> {
           appBarTheme: theme.appBarTheme,
           scaffoldBackgroundColor: theme.scaffoldBackgroundColor,
           textTheme: theme.textTheme),
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            flexibleSpace: SafeArea(
-                child: TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.home)),
-                Tab(icon: Icon(IconData(0x0047, fontFamily: 'Gffft'))),
-                Tab(icon: Icon(Icons.account_box)),
-              ],
-            )),
-            automaticallyImplyLeading: false,
-          ),
-          body: TabBarView(
-            children: [
-              _getSearchScreen(theme, l10n),
-              GffftHomeScreen(uid: "me", gid: "default"),
-              _getFeaturedScreen(theme, l10n),
+      child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: SafeArea(
+              child: TabBar(
+            controller: _tabController,
+            tabs: [
+              Tab(icon: Icon(Icons.home)),
+              Tab(icon: Icon(IconData(0x0047, fontFamily: 'Gffft'))),
+              Tab(icon: Icon(Icons.account_box)),
             ],
-          ),
+          )),
+          automaticallyImplyLeading: false,
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            _getSearchScreen(theme, l10n),
+            const GffftHomeScreen(uid: "me", gid: "default"),
+            MeScreen(),
+          ],
         ),
       ),
     );
@@ -208,8 +215,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> {
   }
 
   Widget _getSearchScreen(theme, l10n) {
-    return Container(
-        child: CustomScrollView(
+    return CustomScrollView(
       slivers: <Widget>[
         SearchInputSliver(onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n.gffftListSearchHint),
         PagedSliverList<String?, GffftMinimal>(
@@ -220,14 +226,15 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> {
                   title: Text(item.name),
                   subtitle: Text(item.name),
                   onTap: () {
-                    VxNavigator.of(context)
-                        .push(Uri(path: "/" + Uri(pathSegments: ["users", item.uid, "gfffts", item.gid]).toString()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return GffftHomeScreen(uid: item.uid, gid: item.gid);
+                    }));
                   },
-                  trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
+                  trailing: Icon(Icons.chevron_left_sharp, color: theme.primaryColor)),
               noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
         ),
       ],
-    ));
+    );
   }
 }
 

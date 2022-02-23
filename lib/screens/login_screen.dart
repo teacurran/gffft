@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'package:velocity_x/velocity_x.dart';
-
-import '../home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String webPath = '/login';
@@ -22,11 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget getHeaderBuilder(BuildContext context, BoxConstraints constraints, double shrinkOffset) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-      child: GestureDetector(
-          onTap: () {
-            VxNavigator.of(context).replace(Uri(path: HomeScreen.webPath));
-          },
-          child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: const Color(0xFF1C839E))),
+      child: SvgPicture.asset(logoAsset, semanticsLabel: 'Gffft Logo', color: const Color(0xFF1C839E)),
     );
   }
 

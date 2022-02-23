@@ -90,13 +90,7 @@ class _MeScreenState extends State<MeScreen> {
                                   style: theme.textTheme.headline6,
                                 )
                               ])))),
-                TextButton(
-                    onPressed: () => {
-                          fbAuth
-                              .signOut()
-                              .then((value) => VxNavigator.of(context).replace(Uri(path: LoginScreen.webPath)))
-                        },
-                    child: Text(l10n.logout))
+                TextButton(onPressed: () => {fbAuth.signOut().then((value) => _loadData())}, child: Text(l10n.logout))
               ],
             )),
           );
