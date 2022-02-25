@@ -40,7 +40,7 @@ class LinkSetEditCard extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.all(8),
-      color: theme.backgroundColor,
+      color: Colors.transparent,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
           side: const BorderSide(
@@ -93,46 +93,46 @@ class LinkSetEditCard extends StatelessWidget {
                 )
               ],
             ),
-            Row(
-              children: [
-                Text(
-                  l10n.gffftSettingsBoardWhoCanView,
-                  style: theme.textTheme.bodyText1,
-                ),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: DropdownButton<String>(
-                      value: linkSetWhoCanView,
-                      items: <String>['just you', 'admins', 'moderators', 'members', 'public'].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (_) {},
-                    )),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  l10n.gffftSettingsBoardWhoCanPost,
-                  style: theme.textTheme.bodyText1,
-                ),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: DropdownButton<String>(
-                      value: linkSetWhoCanPost,
-                      items: <String>['just you', 'admins', 'moderators', 'members', 'public'].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (_) {},
-                    )),
-              ],
-            )
+            // Row(
+            //   children: [
+            //     Text(
+            //       l10n.gffftSettingsBoardWhoCanView,
+            //       style: theme.textTheme.bodyText1,
+            //     ),
+            //     Padding(
+            //         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+            //         child: DropdownButton<String>(
+            //           value: linkSetWhoCanView,
+            //           items: <String>['just you', 'admins', 'moderators', 'members', 'public'].map((String value) {
+            //             return DropdownMenuItem<String>(
+            //               value: value,
+            //               child: Text(value),
+            //             );
+            //           }).toList(),
+            //           onChanged: (_) {},
+            //         )),
+            //   ],
+            // ),
+            // Row(
+            //   children: [
+            //     Text(
+            //       l10n.gffftSettingsBoardWhoCanPost,
+            //       style: theme.textTheme.bodyText1,
+            //     ),
+            //     Padding(
+            //         padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+            //         child: DropdownButton<String>(
+            //           value: linkSetWhoCanPost,
+            //           items: <String>['just you', 'admins', 'moderators', 'members', 'public'].map((String value) {
+            //             return DropdownMenuItem<String>(
+            //               value: value,
+            //               child: Text(value),
+            //             );
+            //           }).toList(),
+            //           onChanged: (_) {},
+            //         )),
+            //   ],
+            // )
           ])),
     );
   }

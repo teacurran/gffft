@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/fruit_code_edit_card.dart';
@@ -110,10 +108,6 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
                 title: Text(
                   l10n!.gffftSettingsHead,
                   style: theme.textTheme.headline1,
-                ),
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
                 ),
                 centerTitle: true,
               ),

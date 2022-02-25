@@ -72,7 +72,7 @@ class FruitCodeEditCard extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.all(8),
-      color: theme.backgroundColor,
+      color: Colors.transparent,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
           side: const BorderSide(

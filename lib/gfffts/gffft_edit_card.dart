@@ -74,7 +74,7 @@ class _GffftEditCardState extends State<GffftEditCard> {
         width: 300,
         child: Card(
           margin: const EdgeInsets.all(8),
-          color: theme.backgroundColor,
+          color: Colors.transparent,
           child: Container(
               padding: const EdgeInsets.all(10),
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[

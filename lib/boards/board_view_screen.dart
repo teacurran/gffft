@@ -7,6 +7,9 @@ import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../style/app_theme.dart';
+import '../style/app_theme_data.dart';
+import 'create_post_screen.dart';
 import 'models/thread.dart';
 
 final getIt = GetIt.instance;
@@ -91,7 +94,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
 
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     if (gffft == null) {
       return null;
@@ -104,12 +107,9 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
         tooltip: l10n!.boardViewActionTooltip,
         backgroundColor: theme.primaryColor,
         onPressed: () {
-          VxNavigator.of(context)
-              .waitAndPush(Uri(
-                  path: "/" +
-                      Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "boards", widget.bid, "post"])
-                          .toString()))
-              .then((value) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return CreatePostScreen(uid: gffft.uid, gid: gffft.gid, bid: widget.bid);
+          })).then((value) {
             _pagingController.refresh();
           });
         });
@@ -117,8 +117,8 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = context.appTheme.materialTheme;
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
 
     return FutureBuilder(
         future: gffft,
@@ -130,14 +130,15 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
                   l10n!.gffftHomeBoard,
                   style: theme.textTheme.headline1,
                 ),
+                centerTitle: true,
                 backgroundColor: Colors.transparent,
                 leading: IconButton(
-                  icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
+                  icon: Icon(Icons.arrow_back, color: theme.primaryColor),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 actions: [
                   IconButton(
-                    icon: Icon(Icons.refresh, color: theme.secondaryHeaderColor),
+                    icon: Icon(Icons.refresh, color: theme.primaryColor),
                     onPressed: () => _pagingController.refresh(),
                   )
                 ],

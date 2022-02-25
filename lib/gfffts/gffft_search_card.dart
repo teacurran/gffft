@@ -43,7 +43,7 @@ class GffftSearchCard extends StatelessWidget {
         width: 300,
         child: Card(
           margin: const EdgeInsets.all(8),
-          color: theme.backgroundColor,
+          color: Colors.transparent,
           child: Container(
               padding: EdgeInsets.all(10),
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[

@@ -59,10 +59,6 @@ class _MeScreenState extends State<MeScreen> {
                 l10n!.me,
                 style: theme.textTheme.headline1,
               ),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                onPressed: () => VxNavigator.of(context).returnAndPush(true),
-              ),
               centerTitle: true,
             ),
             body: Center(

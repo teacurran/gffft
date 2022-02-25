@@ -6,6 +6,7 @@ import 'package:card_settings/widgets/text_fields/card_settings_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/style/app_theme.dart';
 
 import 'board_api.dart';
 import 'models/post_submit.dart';
@@ -45,7 +46,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     return Scaffold(
         appBar: AppBar(
