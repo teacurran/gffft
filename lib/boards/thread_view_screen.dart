@@ -4,10 +4,11 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/models/thread_post_result.dart';
 import 'package:gffft/boards/post_list_item.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:velocity_x/velocity_x.dart';
 
+import 'create_reply_screen.dart';
 import 'models/post.dart';
 
 final getIt = GetIt.instance;
@@ -114,21 +115,9 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
         tooltip: l10n!.boardViewActionTooltip,
         backgroundColor: Colors.transparent,
         onPressed: () {
-          VxNavigator.of(context)
-              .waitAndPush(Uri(
-                  path: "/" +
-                      Uri(pathSegments: [
-                        "users",
-                        gffft.uid,
-                        "gfffts",
-                        gffft.gid,
-                        "boards",
-                        widget.bid,
-                        "threads",
-                        widget.tid,
-                        "reply"
-                      ]).toString()))
-              .then((value) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return CreateReplyScreen(uid: widget.uid, gid: widget.gid, bid: widget.bid, tid: widget.tid);
+          })).then((value) {
             _pagingController.refresh();
           });
         });
@@ -137,7 +126,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     return FutureBuilder(
         future: gffft,
@@ -168,7 +157,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
                 backgroundColor: theme.backgroundColor,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 actions: [
                   IconButton(

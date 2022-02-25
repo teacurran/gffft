@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "boardViewActionTooltip": "add a post",
-  "boardCreatePostTitle": "create a post",
+  "boardCreatePostTitle": "post",
   "boardCreatePostBody": "body",
   "boardReplyToThread": "reply",
   "boardCreatePostSubject": "subject",

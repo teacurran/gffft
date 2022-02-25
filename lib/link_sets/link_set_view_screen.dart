@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
+import 'package:gffft/link_sets/link_post_screen.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'link_preview_card.dart';
 import 'models/link_set_item.dart';
@@ -91,7 +92,7 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
 
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     if (gffft == null) {
       return null;
@@ -104,12 +105,9 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
         tooltip: l10n!.linkSetViewActionTooltip,
         backgroundColor: theme.primaryColor,
         onPressed: () {
-          VxNavigator.of(context)
-              .waitAndPush(Uri(
-                  path: "/" +
-                      Uri(pathSegments: ["users", widget.uid, "gfffts", widget.gid, "links", widget.lid, "post"])
-                          .toString()))
-              .then((value) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return LinkPostScreen(uid: widget.uid, gid: widget.gid, lid: widget.lid);
+          })).then((value) {
             _pagingController.refresh();
           });
         });
@@ -117,7 +115,7 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     return FutureBuilder(
         future: gffft,
@@ -138,10 +136,11 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
                   "links",
                   style: theme.textTheme.headline1,
                 ),
+                centerTitle: true,
                 backgroundColor: theme.backgroundColor,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 actions: [
                   IconButton(

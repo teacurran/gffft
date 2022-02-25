@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `create a post`
+  /// `post`
   String get boardCreatePostTitle {
     return Intl.message(
-      'create a post',
+      'post',
       name: 'boardCreatePostTitle',
       desc: '',
       args: [],

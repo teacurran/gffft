@@ -51,7 +51,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(widget.gid, style: theme.textTheme.headline1),
+          title: Text(l10n!.boardCreatePostTitle, style: theme.textTheme.headline1),
           backgroundColor: theme.backgroundColor,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: theme.primaryColor),
@@ -64,7 +64,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             child: CardSettings(showMaterialonIOS: true, children: [
               CardSettingsSection(
                   header: CardSettingsHeader(
-                    label: l10n!.boardCreatePostTitle,
+                    label: l10n.boardCreatePostTitle,
                     color: theme.primaryColor,
                   ),
                   children: [

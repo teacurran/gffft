@@ -6,9 +6,9 @@ import 'package:gffft/galleries/gallery_post_screen.dart';
 import 'package:gffft/galleries/paged_item_view_screen.dart';
 import 'package:gffft/galleries/self_reloading_thumbnail.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'models/gallery_item.dart';
 
@@ -113,7 +113,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     if (gffft == null) {
       return null;
@@ -138,7 +138,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     return FutureBuilder(
         future: gffft,
@@ -159,10 +159,11 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                   l10n!.gffftHomeGallery,
                   style: theme.textTheme.headline1,
                 ),
+                centerTitle: true,
                 backgroundColor: Colors.transparent,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.secondaryHeaderColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 actions: [
                   IconButton(

@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'gallery_api.dart';
 
@@ -40,7 +39,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
 
     await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _descriptionController.text, _file!);
 
-    VxNavigator.of(context).returnAndPush(true);
+    Navigator.pop(context);
   }
 
   void clearImage() {

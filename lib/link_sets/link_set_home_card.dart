@@ -3,7 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:gffft/link_sets/link_set_view_screen.dart';
+import 'package:gffft/style/app_theme.dart';
 
 import '../gfffts/models/gffft.dart';
 import 'models/link_set.dart';
@@ -20,8 +21,8 @@ class LinkSetHomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     var l10n = AppLocalizations.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     LinkSet? linkSet;
     if (gffft.linkSets != null) {
@@ -44,10 +45,9 @@ class LinkSetHomeCard extends StatelessWidget {
             )),
         child: InkWell(
             onTap: () {
-              VxNavigator.of(context).push(Uri(
-                  path: "/" +
-                      Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "links", featureRef.id!])
-                          .toString()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return LinkSetViewScreen(uid: gffft.uid, gid: gffft.gid, lid: featureRef.id!);
+              }));
             },
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,

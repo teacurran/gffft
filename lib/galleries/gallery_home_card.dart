@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/galleries/gallery_view_screen.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
+import 'package:gffft/style/app_theme.dart';
 
 import '../gfffts/models/gffft.dart';
 import 'models/gallery.dart';
@@ -18,8 +19,8 @@ class GalleryHomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     var l10n = AppLocalizations.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     Gallery? gallery;
     if (gffft.galleries != null) {

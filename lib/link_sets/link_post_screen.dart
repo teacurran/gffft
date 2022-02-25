@@ -4,9 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/link_sets/link_preview_card.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'link_set_api.dart';
 import 'models/link_submit.dart';
@@ -45,7 +45,7 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
 
     await linkSetApi.createLink(linkSubmit);
 
-    VxNavigator.of(context).returnAndPush(true);
+    Navigator.pop(context);
   }
 
   Future<void> _loadGffft() async {
@@ -70,7 +70,7 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
     final ImagePicker imagePicker = ImagePicker();
 
     return FutureBuilder(
@@ -93,7 +93,7 @@ class _LinkPostScreenState extends State<LinkPostScreen> {
               backgroundColor: theme.backgroundColor,
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                onPressed: () => VxNavigator.of(context).returnAndPush(true),
+                onPressed: () => Navigator.pop(context),
               ),
               centerTitle: true,
             ),

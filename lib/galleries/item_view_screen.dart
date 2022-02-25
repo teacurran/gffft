@@ -2,7 +2,6 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../users/user_api.dart';
 import 'models/gallery_item.dart';
@@ -50,7 +49,7 @@ class _ItemViewScreenState extends State<ItemViewScreen> {
     return Scaffold(
         body: GestureDetector(
             onTap: () {
-              VxNavigator.of(context).pop();
+              Navigator.pop(context);
               // VxNavigator.of(context).replace(Uri(
               //     path: "/" +
               //         Uri(pathSegments: [

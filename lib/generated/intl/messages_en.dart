@@ -32,8 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "boardCreatePostPost": MessageLookupByLibrary.simpleMessage("post!"),
         "boardCreatePostSubject":
             MessageLookupByLibrary.simpleMessage("subject"),
-        "boardCreatePostTitle":
-            MessageLookupByLibrary.simpleMessage("create a post"),
+        "boardCreatePostTitle": MessageLookupByLibrary.simpleMessage("post"),
         "boardReplyToThread": MessageLookupByLibrary.simpleMessage("reply"),
         "boardThreadAuthorReport":
             MessageLookupByLibrary.simpleMessage("report"),
