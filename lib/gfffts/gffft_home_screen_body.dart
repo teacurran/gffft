@@ -6,6 +6,7 @@ import 'package:gffft/boards/board_home_card.dart';
 import 'package:gffft/calendars/calendar_home_card.dart';
 import 'package:gffft/common/dates.dart';
 import 'package:gffft/galleries/gallery_home_card.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../link_sets/link_set_home_card.dart';
@@ -30,7 +31,7 @@ class GffftHomeScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
 
     var children = <Widget>[];
 

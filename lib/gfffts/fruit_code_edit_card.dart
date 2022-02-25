@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/style/app_theme.dart';
 
 import '../gfffts/gffft_api.dart';
 import '../gfffts/models/gffft.dart';
@@ -35,8 +36,8 @@ class FruitCodeEditCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     var l10n = AppLocalizations.of(context);
+    final ThemeData theme = context.appTheme.materialTheme;
     GffftApi gffftApi = getIt<GffftApi>();
 
     bool fruitCodeEnabled = false;
@@ -119,7 +120,7 @@ class FruitCodeEditCard extends StatelessWidget {
                 ultraRareFruitMarker,
               ],
             ),
-            TextButton(
+            OutlinedButton(
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: shareText)).then((_) {
                   ScaffoldMessenger.of(context)
@@ -128,7 +129,7 @@ class FruitCodeEditCard extends StatelessWidget {
               },
               child: Text(l10n.gffftSettingsFruitCodeCopy),
             ),
-            TextButton(
+            OutlinedButton(
               onPressed: () {
                 GffftPatchSave gffft = GffftPatchSave(
                   uid: this.gffft.uid,
@@ -138,7 +139,7 @@ class FruitCodeEditCard extends StatelessWidget {
 
                 gffftApi.savePartial(gffft).then((value) => onSaveComplete!());
               },
-              child: Text("generate new fruit code"),
+              child: const Text("generate new"),
             ),
             Row(
               children: [
