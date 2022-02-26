@@ -18,7 +18,7 @@ class FruitCodeEditCard extends StatelessWidget {
   final VoidCallback? onSaveComplete;
 
   List<Widget> getFruitCode(BuildContext context, Gffft? gffft) {
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
     var widgets = <Widget>[];
 
     if (gffft != null) {

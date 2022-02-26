@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/home/host_card.dart';
 import 'package:gffft/home/profile_card.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/connect_screen.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:gffft/users/user_api.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return StreamBuilder<fbAuth.User?>(
       stream: fbAuth.FirebaseAuth.instance.userChanges(),

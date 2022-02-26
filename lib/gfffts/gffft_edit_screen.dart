@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/components/card_settings_tag.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/ui/string_picker_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -149,7 +150,7 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     List<StringPickerModel> memberTypes = _getMemberTypes(l10n);
     List<StringPickerModel> safeMemberTypes = _getSafeMemberTypes(l10n);

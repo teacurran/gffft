@@ -5,6 +5,7 @@ import 'package:gffft/components/first_page_exception_indicator.dart';
 import 'package:gffft/components/search_input_sliver.dart';
 import 'package:gffft/gfffts/gffft_api.dart';
 import 'package:gffft/gfffts/models/gffft_minimal.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -173,7 +174,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return Theme(
       data: ThemeData.dark().copyWith(

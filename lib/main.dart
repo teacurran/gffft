@@ -317,7 +317,6 @@ class _AppState extends State<App> {
           ],
           darkTheme: context.appTheme.materialTheme,
           theme: context.appTheme.materialTheme,
-          themeMode: ThemeMode.dark,
         );
         // show your app’s home page after login
       },

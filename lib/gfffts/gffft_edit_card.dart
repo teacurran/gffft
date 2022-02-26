@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/style/app_theme.dart';
 
 import '../gfffts/gffft_api.dart';
 import '../gfffts/models/gffft.dart';
@@ -46,7 +47,7 @@ class _GffftEditCardState extends State<GffftEditCard> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
     var l10n = AppLocalizations.of(context);
 
     Future<void> _saveIntroText() async {

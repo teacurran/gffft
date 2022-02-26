@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/common/dates.dart';
 import 'package:gffft/screens/login_screen.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -14,7 +15,7 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     if (user == null) {
       return Center(

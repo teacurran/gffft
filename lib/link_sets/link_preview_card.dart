@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/link_sets/models/link_set_item.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'helpers/link_preview.dart';
@@ -149,8 +149,7 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     var _height = (displayDirection == UIDirection.UIDirectionHorizontal || !showMultimedia)
         ? ((MediaQuery.of(context).size.height) * 0.20)

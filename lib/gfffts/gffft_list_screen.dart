@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/components/search_input_sliver.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -88,7 +89,7 @@ class _GffftListScreenState extends State<GffftListScreen> {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return Scaffold(
       appBar: AppBar(

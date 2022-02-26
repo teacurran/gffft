@@ -6,6 +6,7 @@ import 'package:gffft/boards/board_home_card.dart';
 import 'package:gffft/calendars/calendar_home_card.dart';
 import 'package:gffft/common/dates.dart';
 import 'package:gffft/galleries/gallery_home_card.dart';
+import 'package:gffft/gfffts/gffft_join_screen.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -31,7 +32,7 @@ class GffftHomeScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final ThemeData theme = context.appTheme.materialTheme;
+    final theme = context.appTheme.materialTheme;
 
     var children = <Widget>[];
 
@@ -159,17 +160,16 @@ class GffftHomeScreenBody extends StatelessWidget {
             return;
           }
 
-          VxNavigator.of(context)
-              .waitAndPush(
-                  Uri(path: "/" + Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "join"]).toString()))
-              .then((value) {
-            onGffftChange();
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return GffftJoinScreen(uid: gffft.uid, gid: gffft.gid);
+          })).then((value) {
+            onGffftChange;
           });
         },
         child: Text(l10n.gffftHomeJoin),
       ));
     } else {
-      memberActions.add(TextButton(
+      memberActions.add(OutlinedButton(
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.account_box, color: Color(0xFFFFDC56))),
         onPressed: () async {
           VxNavigator.of(context)
@@ -189,7 +189,7 @@ class GffftHomeScreenBody extends StatelessWidget {
 
     memberActions.add(const SizedBox(width: 5));
     if (gffft.membership?.type == "owner") {
-      memberActions.add(TextButton(
+      memberActions.add(OutlinedButton(
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -198,11 +198,12 @@ class GffftHomeScreenBody extends StatelessWidget {
             onGffftChange();
           });
         },
-        style: TextButton.styleFrom(
-          minimumSize: Size.zero,
-          padding: EdgeInsets.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
+        style: theme.outlinedButtonTheme.style,
+        // TextButton.styleFrom(
+        //   minimumSize: Size.zero,
+        //   padding: EdgeInsets.zero,
+        //   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // ),
       ));
     }
 

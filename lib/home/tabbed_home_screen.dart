@@ -9,6 +9,7 @@ import 'package:gffft/components/search_input_sliver.dart';
 import 'package:gffft/gfffts/gffft_api.dart';
 import 'package:gffft/gfffts/gffft_home_screen.dart';
 import 'package:gffft/gfffts/models/gffft_minimal.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -107,7 +108,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
         return PageRouteBuilder(pageBuilder: (context, animiX, animiY) {
           // use page PageRouteBuilder instead of 'PageRouteBuilder' to avoid material route animation
           var l10n = AppLocalizations.of(context);
-          final theme = Theme.of(context);
+          final theme = context.appTheme.materialTheme;
 
           navStack[0] = context;
           return _getSearchScreen(theme, l10n);
@@ -189,8 +190,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return Theme(
         data: ThemeData.dark().copyWith(

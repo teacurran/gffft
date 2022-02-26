@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gffft/gfffts/gffft_edit_screen.dart';
+import 'package:gffft/style/app_theme.dart';
 
 class GffftScreen extends StatelessWidget {
   static const String webPath = '/me';
@@ -8,7 +9,7 @@ class GffftScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return Scaffold(
       appBar: AppBar(

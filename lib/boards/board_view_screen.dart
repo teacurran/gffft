@@ -5,10 +5,8 @@ import 'package:gffft/boards/thread_title.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../style/app_theme.dart';
-import '../style/app_theme_data.dart';
 import 'create_post_screen.dart';
 import 'models/thread.dart';
 

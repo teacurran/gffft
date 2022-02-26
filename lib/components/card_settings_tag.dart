@@ -4,6 +4,7 @@ import 'package:card_settings/helpers/platform_functions.dart';
 import 'package:card_settings/interfaces/common_field_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
+import 'package:gffft/style/app_theme.dart';
 
 import 'non_decorated_card_settings_field.dart';
 
@@ -151,7 +152,7 @@ class _CardSettingsTagState extends FormFieldState<List<String>> {
   }
 
   TagsTextField _textField(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
     return TagsTextField(
       inputDecoration: const InputDecoration().applyDefaults(theme.inputDecorationTheme),
       width: double.infinity,

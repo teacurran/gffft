@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/fruit_code_edit_card.dart';
 import 'package:gffft/gfffts/gffft_edit_card.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 
 import '../boards/board_edit_card.dart';
@@ -49,8 +50,6 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   }
 
   Widget? getFloatingActionButton(BuildContext context) {
-    var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     return FloatingActionButton(
         child: const Icon(Icons.save, color: Colors.black),
         backgroundColor: const Color(0xFFFABB59),
@@ -91,7 +90,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return FutureBuilder(
         future: gffft,

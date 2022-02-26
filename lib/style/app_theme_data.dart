@@ -30,7 +30,7 @@ class AppThemeData {
       backgroundColor: const Color(0xFF33333D),
       primaryColor: const Color(0xFF1C839E),
       secondaryHeaderColor: Colors.white,
-      primaryColorDark: Colors.black,
+      primaryColorDark: const Color(0xFF1C839E),
       primaryColorLight: const Color(0xFF9970A9),
       focusColor: const Color(0xCCFFFFFF),
       textTheme: _buildTextTheme(base.textTheme),

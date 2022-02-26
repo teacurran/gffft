@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -56,7 +57,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return FutureBuilder(
         future: gffft,
