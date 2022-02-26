@@ -40,23 +40,22 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
       isLoading = true;
     });
 
-    await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _descriptionController.text, _file!,
-        onUploadProgress: _setUploadProgress);
+    await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _descriptionController.text, _file!);
 
     Navigator.pop(context);
   }
 
-  void _setUploadProgress(int sentBytes, int totalBytes) {
-    double __progressValue = remap(sentBytes.toDouble(), 0, totalBytes.toDouble(), 0, 1);
-
-    __progressValue = double.parse(__progressValue.toStringAsFixed(2));
-
-    if (__progressValue != _progressValue) {
-      setState(() {
-        _progressValue = __progressValue;
-      });
-    }
-  }
+  // void _setUploadProgress(int sentBytes, int totalBytes) {
+  //   double __progressValue = remap(sentBytes.toDouble(), 0, totalBytes.toDouble(), 0, 1);
+  //
+  //   __progressValue = double.parse(__progressValue.toStringAsFixed(2));
+  //
+  //   if (__progressValue != _progressValue) {
+  //     setState(() {
+  //       _progressValue = __progressValue;
+  //     });
+  //   }
+  // }
 
   static double remap(double value, double originalMinValue, double originalMaxValue, double translatedMinValue,
       double translatedMaxValue) {
