@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
 import 'package:gffft/style/app_theme.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../gfffts/models/gffft.dart';
 
@@ -32,12 +31,7 @@ class CalendarHomeCard extends StatelessWidget {
               width: 1.0,
             )),
         child: InkWell(
-            onTap: () {
-              VxNavigator.of(context).push(Uri(
-                  path: "/" +
-                      Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "boards", featureRef.id!])
-                          .toString()));
-            },
+            onTap: () {},
             splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(.25),
             highlightColor: Colors.transparent,
             child: Padding(

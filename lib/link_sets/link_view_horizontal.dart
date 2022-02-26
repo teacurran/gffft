@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -83,7 +84,10 @@ class LinkViewHorizontal extends StatelessWidget {
         ImageProvider? _img = null;
         if (imageUri != null && imageUri != '') {
           _img = NetworkImage(imageUri!);
-          if (imageUri!.startsWith('data:image')) {
+          if (imageUri!.startsWith('data:image/svg+xml,')) {
+            var svgImage = imageUri!.substring(19);
+            _img = Svg(svgImage);
+          } else if (imageUri!.startsWith('data:image')) {
             _img = MemoryImage(
               base64Decode(imageUri!.substring(imageUri!.indexOf('base64') + 7)),
             );

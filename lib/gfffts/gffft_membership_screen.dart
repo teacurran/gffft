@@ -1,12 +1,9 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'gffft_api.dart';
 import 'models/gffft.dart';
@@ -93,7 +90,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
                 ),
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
                 centerTitle: true,
               ),
@@ -171,7 +168,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
                   ))
                 ],
               ),
-              TextButton(
+              OutlinedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       setState(() {
@@ -185,7 +182,7 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
                         isLoading = false;
                       });
 
-                      VxNavigator.of(context).returnAndPush(true);
+                      Navigator.pop(context);
                     }
                   },
                   child: Text(l10n.gffftMembershipSaveButton)),

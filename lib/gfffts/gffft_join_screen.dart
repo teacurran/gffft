@@ -1,12 +1,9 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'gffft_api.dart';
 import 'models/gffft.dart';
@@ -87,12 +84,12 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 title: SelectableText(
-                  gffftName,
+                  l10n.gffftJoin,
                   style: theme.textTheme.headline1,
                 ),
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-                  onPressed: () => VxNavigator.of(context).pop(),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
                 centerTitle: true,
               ),
@@ -127,15 +124,11 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
 
   Widget getJoinContent(AppLocalizations l10n, ThemeData theme) {
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Form(
             key: _formKey,
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               isLoading ? const LinearProgressIndicator() : const Padding(padding: EdgeInsets.only(top: 0.0)),
-              SelectableText(
-                l10n.gffftJoin,
-                style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
-              ),
               Row(
                 children: [
                   SelectableText(
@@ -187,7 +180,7 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
                   ))
                 ],
               ),
-              TextButton(
+              OutlinedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       setState(() {
@@ -201,7 +194,7 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
                         isLoading = false;
                       });
 
-                      VxNavigator.of(context).returnAndPush(true);
+                      Navigator.of(context).pop();
                     }
                   },
                   child: Text(l10n.gffftJoinButton)),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/components/search_input_sliver.dart';
+import 'package:gffft/gfffts/gffft_home_screen.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import 'gffft_api.dart';
 import 'models/gffft_minimal.dart';
@@ -100,7 +100,7 @@ class _GffftListScreenState extends State<GffftListScreen> {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: theme.primaryColor),
-          onPressed: () => VxNavigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
       ),
@@ -115,7 +115,9 @@ class _GffftListScreenState extends State<GffftListScreen> {
                   title: Text(item.name),
                   subtitle: Text(item.description ?? "unknown"),
                   onTap: () {
-                    VxNavigator.of(context).push(Uri(pathSegments: ["users", item.uid, "gfffts", item.gid]));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                      return GffftHomeScreen(uid: item.uid, gid: item.gid);
+                    }));
                   },
                   trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
             ),

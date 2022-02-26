@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/board_home_card.dart';
@@ -7,8 +6,8 @@ import 'package:gffft/calendars/calendar_home_card.dart';
 import 'package:gffft/common/dates.dart';
 import 'package:gffft/galleries/gallery_home_card.dart';
 import 'package:gffft/gfffts/gffft_join_screen.dart';
+import 'package:gffft/gfffts/gffft_membership_screen.dart';
 import 'package:gffft/style/app_theme.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../link_sets/link_set_home_card.dart';
 import '../notebooks/notebook_home_card.dart';
@@ -124,32 +123,23 @@ class GffftHomeScreenBody extends StatelessWidget {
 
           await userApi.bookmarkGffft(gffft.uid, gffft.gid).then((value) => {onGffftChange()});
         },
-        child: const Padding(
-            padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_add_outlined, color: Color(0xFFFFDC56))),
-        style: TextButton.styleFrom(
-          minimumSize: Size.zero,
-          padding: EdgeInsets.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
+        child: const Icon(Icons.bookmark_add_outlined, color: Color(0xFFFFDC56)),
+        style: theme.outlinedButtonTheme.style,
       ));
     } else {
-      memberActions.add(TextButton(
+      memberActions.add(OutlinedButton(
         onPressed: () async {
           await userApi.unBookmarkGffft(gffft.uid, gffft.gid).then((value) => {onGffftChange()});
         },
-        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.bookmark_remove, color: Color(0xFFFFDC56))),
-        style: TextButton.styleFrom(
-          minimumSize: Size.zero,
-          padding: EdgeInsets.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
+        child: const Icon(Icons.bookmark_remove, color: Color(0xFFFFDC56)),
+        style: theme.outlinedButtonTheme.style,
       ));
     }
 
     memberActions.add(const SizedBox(width: 5));
     if (gffft.membership == null) {
-      memberActions.add(TextButton(
-        style: ButtonStyle(foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFFDC56))),
+      memberActions.add(OutlinedButton(
+        style: theme.outlinedButtonTheme.style,
         onPressed: () async {
           if (gffft.me == null) {
             const snackBar = SnackBar(
@@ -166,24 +156,19 @@ class GffftHomeScreenBody extends StatelessWidget {
             onGffftChange;
           });
         },
-        child: Text(l10n.gffftHomeJoin),
+        child: Padding(padding: const EdgeInsets.fromLTRB(0, 3, 0, 3), child: Text(l10n.gffftHomeJoin)),
       ));
     } else {
       memberActions.add(OutlinedButton(
         child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.account_box, color: Color(0xFFFFDC56))),
         onPressed: () async {
-          VxNavigator.of(context)
-              .waitAndPush(Uri(
-                  path: "/" + Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "membership"]).toString()))
-              .then((value) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return GffftMembershipScreen(uid: gffft.uid, gid: gffft.gid);
+          })).then((value) {
             onGffftChange();
           });
         },
-        style: TextButton.styleFrom(
-          minimumSize: Size.zero,
-          padding: EdgeInsets.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        ),
+        style: theme.outlinedButtonTheme.style,
       ));
     }
 
@@ -199,11 +184,6 @@ class GffftHomeScreenBody extends StatelessWidget {
           });
         },
         style: theme.outlinedButtonTheme.style,
-        // TextButton.styleFrom(
-        //   minimumSize: Size.zero,
-        //   padding: EdgeInsets.zero,
-        //   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        // ),
       ));
     }
 

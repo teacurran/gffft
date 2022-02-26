@@ -12,7 +12,6 @@ import 'package:gffft/gfffts/models/gffft_minimal.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../users/me_screen.dart';
 import '../users/models/bookmark.dart';
@@ -247,32 +246,6 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
             ),
           ),
         ));
-  }
-
-  Widget _getFeaturedScreen(theme, l10n) {
-    return Container(
-        child: CustomScrollView(
-      slivers: <Widget>[
-        PagedSliverList<String?, Bookmark>(
-          pagingController: _bookmarkController,
-          builderDelegate: PagedChildBuilderDelegate<Bookmark>(
-              animateTransitions: true,
-              itemBuilder: (context, item, index) => ListTile(
-                    title: Text(item.name),
-                    subtitle: Text(item.name),
-                    onTap: () {
-                      if (item.gffft != null) {
-                        VxNavigator.of(context).push(Uri(
-                            path: "/" +
-                                Uri(pathSegments: ["users", item.gffft!.uid, "gfffts", item.gffft!.gid]).toString()));
-                      }
-                    },
-                    trailing: Icon(Icons.chevron_right, color: theme.primaryColor),
-                  ),
-              noItemsFoundIndicatorBuilder: (_) => NoFeaturedFound()),
-        ),
-      ],
-    ));
   }
 
   Widget _getSearchScreen(theme, l10n) {

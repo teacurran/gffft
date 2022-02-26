@@ -112,8 +112,9 @@ class AppThemeData {
   OutlinedButtonThemeData get outlineButtonThemeData {
     return OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-      minimumSize: const Size(88, 36),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      minimumSize: Size.zero,
+      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(2)),
       ),
