@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/users/user_api.dart';
 
@@ -37,6 +37,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
   Future<GalleryItem>? galleryItem;
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
+  Timer? reloadTimer = null;
 
   @override
   void initState() {
@@ -45,6 +46,9 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
   }
 
   Future<void> _initialLoadIfNeccessary() async {
+    if (kDebugMode) {
+      print("_initialLoadIfNeccessary()");
+    }
     if (widget.initialGalleryItem != null) {
       if (widget.initialGalleryItem?.thumbnail ?? false) {
         var completer = Completer<GalleryItem>();
@@ -64,7 +68,9 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
           galleryItem = completer.future;
         });
       } else {
-        Timer(const Duration(seconds: 5), () => _initialLoadIfNeccessary);
+        reloadTimer = Timer(const Duration(seconds: 1), () {
+          _initialLoadIfNeccessary();
+        });
       }
     }
 
