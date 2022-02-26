@@ -8,8 +8,16 @@ import 'package:image_picker/image_picker.dart';
 
 import '../api_base.dart';
 
+typedef void OnUploadProgressCallback(int sentBytes, int totalBytes);
+
 class GalleryApi extends ApiBase {
-  Future<void> uploadGalleryItem(String uid, String gid, String mid, String description, XFile file) async {
+  static HttpClient getHttpClient() {
+    HttpClient httpClient = HttpClient()..connectionTimeout = const Duration(seconds: 120);
+    return httpClient;
+  }
+
+  Future<void> uploadGalleryItem(String uid, String gid, String mid, String description, XFile file,
+      {OnUploadProgressCallback? onUploadProgress}) async {
     FirebaseAuth fbAuth = FirebaseAuth.instance;
 
     var url = Uri.parse(getBaseUrl() + "galleries");
@@ -17,9 +25,10 @@ class GalleryApi extends ApiBase {
       print('Posting gallery item, url $url');
     }
 
-    dynamic responseJson;
+    String? responseJson;
     try {
-      final request = http.MultipartRequest("POST", url);
+      final httpClient = getHttpClient();
+      final request = await httpClient.postUrl(url);
 
       // this method always requires auth
       if (fbAuth.currentUser == null) {
@@ -29,24 +38,62 @@ class GalleryApi extends ApiBase {
         if (kDebugMode) {
           print('auth token: $token');
         }
-        request.headers.addAll({
-          "Authorization": "Bearer $token",
-        });
+        request.headers.set("Authorization", "Bearer $token");
       }
 
-      var image = http.MultipartFile.fromBytes('file', await file.readAsBytes(), filename: file.name);
-      request.files.add(image);
-      request.fields['uid'] = uid;
-      request.fields['gid'] = gid;
-      request.fields['mid'] = mid;
-      request.fields['description'] = description;
+      final requestMultipart = http.MultipartRequest("POST", url);
 
-      final streamedResponse = await request.send();
-      var response = await http.Response.fromStream(streamedResponse);
+      var image = http.MultipartFile.fromBytes('file', await file.readAsBytes(), filename: file.name);
+      requestMultipart.files.add(image);
+      requestMultipart.fields['uid'] = uid;
+      requestMultipart.fields['gid'] = gid;
+      requestMultipart.fields['mid'] = mid;
+      requestMultipart.fields['description'] = description;
+
+      var msStream = requestMultipart.finalize();
+      var totalByteLength = requestMultipart.contentLength;
+
+      var multipartContentType = requestMultipart.headers[HttpHeaders.contentTypeHeader];
+      if (multipartContentType != null) {
+        request.headers.set(HttpHeaders.contentTypeHeader, multipartContentType);
+      }
+
+      request.contentLength = totalByteLength;
+      int byteCount = 0;
+      Stream<List<int>> streamUpload = msStream.transform(
+        StreamTransformer.fromHandlers(
+          handleData: (data, sink) {
+            byteCount += data.length;
+
+            if (onUploadProgress != null) {
+              onUploadProgress(byteCount, totalByteLength);
+            }
+
+            sink.add(data);
+          },
+          handleError: (error, stack, sink) {
+            print(error.toString());
+          },
+          handleDone: (sink) {
+            sink.close();
+            // UPLOAD DONE;
+          },
+        ),
+      );
+
+      // var image = http.MultipartFile.fromBytes('file', await file.readAsBytes(), filename: file.name);
+
+      await request.addStream(streamUpload);
+
+      //final streamedResponse = await request.send();
+      // var response = await http.Response.fromStream(streamedResponse);
+
+      final response = await request.close();
+
       if (response.statusCode == 403) {
         await fbAuth.signOut();
       }
-      responseJson = returnResponse(response);
+      //responseJson = await returnResponseFromClient(response);
     } catch (e, stacktrace) {
       if (e is SocketException) {
         //treat SocketException
@@ -68,6 +115,6 @@ class GalleryApi extends ApiBase {
 
       throw FetchDataException('Unable to post gallery item');
     }
-    return responseJson;
+    //return responseJson;
   }
 }

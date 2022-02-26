@@ -29,6 +29,8 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
   XFile? _file;
   Uint8List? _fileBytes;
   bool isLoading = false;
+  double _progressValue = 0;
+
   final TextEditingController _descriptionController = TextEditingController();
   Future<Gffft>? gffft;
 
@@ -37,9 +39,32 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
       isLoading = true;
     });
 
-    await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _descriptionController.text, _file!);
+    await galleryApi.uploadGalleryItem(widget.uid, widget.gid, widget.mid, _descriptionController.text, _file!,
+        onUploadProgress: _setUploadProgress);
 
     Navigator.pop(context);
+  }
+
+  void _setUploadProgress(int sentBytes, int totalBytes) {
+    double __progressValue = remap(sentBytes.toDouble(), 0, totalBytes.toDouble(), 0, 1);
+
+    __progressValue = double.parse(__progressValue.toStringAsFixed(2));
+
+    if (__progressValue != _progressValue) {
+      setState(() {
+        _progressValue = __progressValue;
+      });
+    }
+  }
+
+  static double remap(double value, double originalMinValue, double originalMaxValue, double translatedMinValue,
+      double translatedMaxValue) {
+    if (originalMaxValue - originalMinValue == 0) return 0;
+
+    return (value - originalMinValue) /
+            (originalMaxValue - originalMinValue) *
+            (translatedMaxValue - translatedMinValue) +
+        translatedMinValue;
   }
 
   void clearImage() {
@@ -132,7 +157,9 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                     )
                   : Column(
                       children: <Widget>[
-                        isLoading ? const LinearProgressIndicator() : const Padding(padding: EdgeInsets.only(top: 0.0)),
+                        isLoading
+                            ? LinearProgressIndicator(value: _progressValue)
+                            : const Padding(padding: EdgeInsets.only(top: 0.0)),
                         const Divider(),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 3,
