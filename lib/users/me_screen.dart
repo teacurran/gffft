@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart' as fba;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gffft/screens/login_screen.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../common/dates.dart';
 import 'models/user.dart';
@@ -46,9 +44,9 @@ class _MeScreenState extends State<MeScreen> {
         builder: (context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.hasError) {
             // Navigator.pushReplacementNamed(context, LoginScreen.webPath);
-            Future.delayed(Duration.zero, () async {
-              VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
-            });
+            // Future.delayed(Duration.zero, () async {
+            //   VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
+            // });
           }
 
           var user = snapshot.data;

@@ -4,7 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/fruit_code_edit_card.dart';
 import 'package:gffft/gfffts/gffft_edit_card.dart';
 import 'package:gffft/users/user_api.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../boards/board_edit_card.dart';
 import '../galleries/gallery_edit_card.dart';
@@ -55,9 +54,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
     return FloatingActionButton(
         child: const Icon(Icons.save, color: Colors.black),
         backgroundColor: const Color(0xFFFABB59),
-        onPressed: () {
-          VxNavigator.of(context).returnAndPush(true);
-        });
+        onPressed: () => Navigator.of(context).pop());
   }
 
   void onSaveComplete() {

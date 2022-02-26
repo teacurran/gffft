@@ -40,6 +40,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
   static const _pageSize = 100;
   String? _searchTerm;
   int _selectedIndex = 0;
+  int _lastTabIndex = 0;
   List<BuildContext?> navStack = [null, null, null]; // one buildContext for each tab to store history  of navigation
   late List<Widget> mainTabs;
 
@@ -198,25 +199,22 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
             textTheme: theme.textTheme),
         child: WillPopScope(
           onWillPop: () async {
-            var whatContext = navStack[_tabController.index] ?? context;
+            setState(() {
+              _selectedIndex = _tabController.index;
+            });
+            var whatContext = navStack[_selectedIndex] ?? context;
             if (Navigator.of(whatContext).canPop()) {
               Navigator.of(whatContext).pop();
-              setState(() {
-                _selectedIndex = _tabController.index;
-              });
               return false;
             } else {
               if (_tabController.index == 0) {
-                setState(() {
-                  _selectedIndex = _tabController.index;
-                });
                 SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // close the app
                 return true;
               } else {
-                _tabController.index = 0; // back to first tap if current tab history stack is empty
                 setState(() {
                   _selectedIndex = _tabController.index;
                 });
+                _tabController.index = 0; // back to first tap if current tab history stack is empty
                 return false;
               }
             }
@@ -225,6 +223,15 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
             appBar: AppBar(
               flexibleSpace: SafeArea(
                   child: TabBar(
+                onTap: (value) {
+                  if (value == _lastTabIndex) {
+                    var whatContext = navStack[value] ?? context;
+                    if (Navigator.of(whatContext).canPop()) {
+                      Navigator.of(whatContext).pop();
+                    }
+                  }
+                  _lastTabIndex = value;
+                },
                 controller: _tabController,
                 tabs: [
                   Tab(icon: Icon(Icons.home)),
