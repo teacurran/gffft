@@ -200,7 +200,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                     padding: EdgeInsets.all(1),
                                     child: GestureDetector(
                                         onTap: () {
-                                          if (gffft != null) {
+                                          if (fullImageUrl != null) {
                                             // VxNavigator.of(context).push(Uri(
                                             //     path: "/" +
                                             //         Uri(pathSegments: [
@@ -235,16 +235,12 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                                                               Navigator.of(context).pop();
                                                             }
                                                           },
-                                                          child: GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.of(context).pop();
-                                                              },
-                                                              child: PagedItemViewScreen(
-                                                                  uid: widget.uid,
-                                                                  gid: widget.gid,
-                                                                  mid: widget.mid,
-                                                                  index: index,
-                                                                  getItemInfo: getItemInfo))));
+                                                          child: PagedItemViewScreen(
+                                                              uid: widget.uid,
+                                                              gid: widget.gid,
+                                                              mid: widget.mid,
+                                                              index: index,
+                                                              getItemInfo: getItemInfo)));
                                                 }));
                                           }
                                         },
