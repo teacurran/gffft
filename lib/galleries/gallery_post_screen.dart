@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -95,7 +96,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
     final ImagePicker imagePicker = ImagePicker();
 
     return FutureBuilder(
@@ -114,7 +115,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
           return Scaffold(
               appBar: AppBar(
                 automaticallyImplyLeading: false,
-                title: Text(title, style: theme.textTheme.headline1),
+                title: Text(l10n!.galleryPostTitle, style: theme.textTheme.headline1),
                 backgroundColor: theme.backgroundColor,
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back, color: theme.primaryColor),
@@ -127,18 +128,20 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                       children: [
                         Center(
                             child: TextButton.icon(
-                                onPressed: () async {
-                                  XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
-                                  if (file != null) {
-                                    final fileBytes = await file.readAsBytes();
-                                    setState(() {
-                                      _file = file;
-                                      _fileBytes = fileBytes;
-                                    });
-                                  }
-                                },
-                                icon: const Icon(Icons.photo_camera),
-                                label: const Text("take a photo"))),
+                          onPressed: () async {
+                            XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+                            if (file != null) {
+                              final fileBytes = await file.readAsBytes();
+                              setState(() {
+                                _file = file;
+                                _fileBytes = fileBytes;
+                              });
+                            }
+                          },
+                          icon: const Icon(Icons.photo_camera),
+                          label: const Text("take a photo"),
+                          style: theme.outlinedButtonTheme.style,
+                        )),
                         Center(
                             child: TextButton.icon(
                                 onPressed: () async {
@@ -176,7 +179,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                           children: <Widget>[
                             TextField(
                               controller: _descriptionController,
-                              decoration: InputDecoration(hintText: l10n!.galleryPostCaption),
+                              decoration: InputDecoration(hintText: l10n.galleryPostCaption),
                               maxLines: 1,
                             ),
                             TextButton(

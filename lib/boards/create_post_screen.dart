@@ -46,7 +46,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final ThemeData theme = context.appTheme.materialTheme;
+    final theme = context.appTheme.materialTheme;
 
     return Scaffold(
         appBar: AppBar(

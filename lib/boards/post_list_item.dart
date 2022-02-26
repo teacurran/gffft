@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gffft/common/dates.dart';
+import 'package:gffft/style/app_theme.dart';
 
 import '../link_sets/link_preview_card.dart';
 import 'models/post.dart';
@@ -21,7 +22,7 @@ class PostListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return Card(
         child: Padding(

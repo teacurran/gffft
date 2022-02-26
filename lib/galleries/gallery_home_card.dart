@@ -20,7 +20,7 @@ class GalleryHomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final ThemeData theme = context.appTheme.materialTheme;
+    final theme = context.appTheme.materialTheme;
 
     Gallery? gallery;
     if (gffft.galleries != null) {

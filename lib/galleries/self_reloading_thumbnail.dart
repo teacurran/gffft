@@ -75,9 +75,6 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-
     return FutureBuilder(
         future: galleryItem,
         builder: (context, AsyncSnapshot<GalleryItem?> snapshot) {

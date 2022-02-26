@@ -88,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
         "galleryPostCaption": MessageLookupByLibrary.simpleMessage(
             "Description, if you feel like it..."),
+        "galleryPostTitle": MessageLookupByLibrary.simpleMessage("post"),
         "gffftEdit": MessageLookupByLibrary.simpleMessage("edit"),
         "gffftEditStop": MessageLookupByLibrary.simpleMessage("stop editing"),
         "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),

@@ -64,6 +64,7 @@
   "@editGallery": {
     "description": "Header for Gallery settings"
   },
+  "galleryPostTitle": "post",
   "galleryPostCaption": "Description, if you feel like it...",
   "editIntro": "Introduction",
   "@editIntro": {},

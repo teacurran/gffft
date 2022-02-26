@@ -113,7 +113,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final ThemeData theme = context.appTheme.materialTheme;
+    final theme = context.appTheme.materialTheme;
 
     if (gffft == null) {
       return null;

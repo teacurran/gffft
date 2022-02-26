@@ -102,7 +102,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
 
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     if (gffft == null) {
       return null;
@@ -126,7 +126,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final ThemeData theme = context.appTheme.materialTheme;
+    final theme = context.appTheme.materialTheme;
 
     return FutureBuilder(
         future: gffft,

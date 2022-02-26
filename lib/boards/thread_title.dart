@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gffft/boards/thread_view_screen.dart';
 import 'package:gffft/common/dates.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'models/thread.dart';
@@ -20,7 +21,7 @@ class ThreadTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
     return Slidable(
         // Specify a key if the Slidable is dismissible.
         key: const ValueKey(0),

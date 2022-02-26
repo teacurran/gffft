@@ -94,7 +94,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
 
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
     AppLocalizations? l10n = AppLocalizations.of(context);
-    final ThemeData theme = context.appTheme.materialTheme;
+    final theme = context.appTheme.materialTheme;
 
     if (gffft == null) {
       return null;
@@ -117,7 +117,7 @@ class _BoardViewScreenState extends State<BoardViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = context.appTheme.materialTheme;
+    final theme = context.appTheme.materialTheme;
     AppLocalizations? l10n = AppLocalizations.of(context);
 
     return FutureBuilder(

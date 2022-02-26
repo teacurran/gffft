@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/screens/login_screen.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -38,7 +39,7 @@ class _MeScreenState extends State<MeScreen> {
   @override
   Widget build(BuildContext context) {
     var l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
+    final theme = context.appTheme.materialTheme;
 
     return FutureBuilder(
         future: user,
@@ -67,7 +68,7 @@ class _MeScreenState extends State<MeScreen> {
                 if (user != null)
                   Card(
                       margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
-                      color: theme.backgroundColor,
+                      color: Colors.transparent,
                       clipBehavior: Clip.antiAlias,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
