@@ -85,6 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "editYourGffftInfo":
             MessageLookupByLibrary.simpleMessage("Your Gffft Info"),
         "errorLoading": MessageLookupByLibrary.simpleMessage("Error Loading"),
+        "errorYouMustBeSignedInForThat": MessageLookupByLibrary.simpleMessage(
+            "You must be signed in for that"),
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
         "galleryPostCaption": MessageLookupByLibrary.simpleMessage(
             "Description, if you feel like it..."),

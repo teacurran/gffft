@@ -113,8 +113,8 @@ class GffftHomeScreenBody extends StatelessWidget {
       memberActions.add(TextButton(
         onPressed: () async {
           if (gffft.me == null) {
-            const snackBar = SnackBar(
-              content: Text('You must be signed in for that'),
+            final snackBar = SnackBar(
+              content: SelectableText(l10n.errorYouMustBeSignedInForThat),
               behavior: SnackBarBehavior.floating,
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -137,7 +137,7 @@ class GffftHomeScreenBody extends StatelessWidget {
     }
 
     memberActions.add(const SizedBox(width: 5));
-    if (gffft.membership == null) {
+    if (gffft.membership == null || gffft.membership?.type == "anon") {
       memberActions.add(OutlinedButton(
         style: theme.outlinedButtonTheme.style,
         onPressed: () async {

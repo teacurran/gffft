@@ -470,6 +470,16 @@ class S {
     );
   }
 
+  /// `You must be signed in for that`
+  String get errorYouMustBeSignedInForThat {
+    return Intl.message(
+      'You must be signed in for that',
+      name: 'errorYouMustBeSignedInForThat',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Flag`
   String get flag {
     return Intl.message(

@@ -99,6 +99,7 @@
   },
   "errorLoading": "Error Loading",
   "@errorLoading": {},
+  "errorYouMustBeSignedInForThat": "You must be signed in for that",
   "flag": "Flag",
   "@flag": {},
   "gffftIntro":  "This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join you. To get started, edit this text or add a feature below.",
