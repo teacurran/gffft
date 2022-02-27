@@ -161,6 +161,24 @@
   "gffftHomeBookmark": "bookmark",
   "gffftHomeUnBookmark": "un-bookmark",
   "gffftHomeBoard": "board",
+  "gffftHomeBoardThreads": "threads:",
+  "gffftHomeBoardThreadsNew": "{count} new",
+  "@gffftHomeBoardThreadsNew": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gffftHomeBoardPosts": "posts:",
+  "gffftHomeBoardPostsNew": "{count} new",
+  "@gffftHomeBoardPostsNew": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "gffftHomeGallery": "gallery",
   "gffftHomeGalleryPhotos": "photos:",
   "gffftHomeGalleryPhotosNew": "{count} new",
@@ -173,6 +191,13 @@
   },
   "gffftHomeGalleryVideos": "videos:",
   "gffftHomeGalleryVideosNew": "{count} new",
+  "@gffftHomeGalleryVideosNew": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "gffftHomePages": "notebook",
   "gffftHomeCalendar": "calendar",
   "gffftListSearchHint": "name or fruit-code",

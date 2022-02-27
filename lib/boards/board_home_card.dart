@@ -31,6 +31,9 @@ class BoardHomeCard extends StatelessWidget {
       }
     }
 
+    final newThreads = gffft.membership?.updateCounters?.boardThreads ?? 0;
+    final newPosts = gffft.membership?.updateCounters?.galleryVideos ?? 0;
+
     return Card(
         margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
         clipBehavior: Clip.antiAlias,
@@ -65,20 +68,28 @@ class BoardHomeCard extends StatelessWidget {
                           style: theme.textTheme.headline6?.copyWith(color: const Color(0xFF9970A9)),
                         )
                       ]),
-                      VerticalDivider(),
+                      const VerticalDivider(),
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Row(children: [
-                              const SelectableText("threads:"),
-                              SelectableText((board == null) ? "?" : board.threads.toString())
+                              SelectableText(l10n.gffftHomeBoardThreads),
+                              SelectableText(
+                                  (board == null) ? "?" : board.threads.toString() + ((newThreads > 0) ? ", " : "")),
+                              if (newThreads > 0)
+                                SelectableText(l10n.gffftHomeBoardThreadsNew(newThreads),
+                                    style: theme.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold)),
                             ]),
                             Row(children: [
-                              const SelectableText("posts:"),
-                              SelectableText((board == null) ? "?" : board.posts.toString())
+                              SelectableText(l10n.gffftHomeBoardPosts),
+                              SelectableText(
+                                  (board == null) ? "?" : board.posts.toString() + ((newPosts > 0) ? ", " : "")),
                             ]),
+                            if (newPosts > 0)
+                              SelectableText(l10n.gffftHomeBoardPostsNew(newPosts),
+                                  style: theme.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold)),
                           ])
                     ])))));
   }

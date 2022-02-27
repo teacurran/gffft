@@ -24,11 +24,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(count) => "${count} new";
 
-  static String m2(date) => "since ${date}";
+  static String m2(count) => "${count} new";
 
-  static String m3(date) => "account since ${date}";
+  static String m3(count) => "${count} new";
 
-  static String m4(field) => "${field} is required";
+  static String m4(date) => "since ${date}";
+
+  static String m5(date) => "account since ${date}";
+
+  static String m6(field) => "${field} is required";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -101,19 +105,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftEditStop": MessageLookupByLibrary.simpleMessage("stop editing"),
         "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),
         "gffftHomeBoard": MessageLookupByLibrary.simpleMessage("board"),
+        "gffftHomeBoardPosts": MessageLookupByLibrary.simpleMessage("posts:"),
+        "gffftHomeBoardPostsNew": m0,
+        "gffftHomeBoardThreads":
+            MessageLookupByLibrary.simpleMessage("threads:"),
+        "gffftHomeBoardThreadsNew": m1,
         "gffftHomeBookmark": MessageLookupByLibrary.simpleMessage("bookmark"),
         "gffftHomeCalendar": MessageLookupByLibrary.simpleMessage("calendar"),
         "gffftHomeGallery": MessageLookupByLibrary.simpleMessage("gallery"),
         "gffftHomeGalleryPhotos":
             MessageLookupByLibrary.simpleMessage("photos:"),
-        "gffftHomeGalleryPhotosNew": m0,
+        "gffftHomeGalleryPhotosNew": m2,
         "gffftHomeGalleryVideos":
             MessageLookupByLibrary.simpleMessage("videos:"),
-        "gffftHomeGalleryVideosNew": m1,
+        "gffftHomeGalleryVideosNew": m3,
         "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
         "gffftHomeLinkSet": MessageLookupByLibrary.simpleMessage("links"),
         "gffftHomeLinkSetLinks": MessageLookupByLibrary.simpleMessage("links:"),
-        "gffftHomeMemberSince": m2,
+        "gffftHomeMemberSince": m4,
         "gffftHomeMembership":
             MessageLookupByLibrary.simpleMessage("membership"),
         "gffftHomeNotMember":
@@ -191,7 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can view:"),
         "gffftSettingsSave":
             MessageLookupByLibrary.simpleMessage("save and exit"),
-        "homeAccountSince": m3,
+        "homeAccountSince": m5,
         "host": MessageLookupByLibrary.simpleMessage("Host"),
         "linkSetPostDescription":
             MessageLookupByLibrary.simpleMessage("Description (optional)"),
@@ -211,7 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "showLess": MessageLookupByLibrary.simpleMessage("show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("show more"),
-        "validateFieldIsRequired": m4,
+        "validateFieldIsRequired": m6,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

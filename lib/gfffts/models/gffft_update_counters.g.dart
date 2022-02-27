@@ -11,7 +11,7 @@ GffftUpdateCounters _$GffftUpdateCountersFromJson(Map<String, dynamic> json) =>
       galleryPhotos: json['galleryPhotos'] as int?,
       galleryVideos: json['galleryVideos'] as int?,
       boardThreads: json['boardThreads'] as int?,
-      boardReplies: json['boardReplies'] as int?,
+      boardPosts: json['boardPosts'] as int?,
       linkSetItems: json['linkSetItems'] as int?,
     );
 
@@ -21,6 +21,6 @@ Map<String, dynamic> _$GffftUpdateCountersToJson(
       'galleryPhotos': instance.galleryPhotos,
       'galleryVideos': instance.galleryVideos,
       'boardThreads': instance.boardThreads,
-      'boardReplies': instance.boardReplies,
+      'boardPosts': instance.boardPosts,
       'linkSetItems': instance.linkSetItems,
     };

@@ -87,7 +87,12 @@ class GalleryHomeCard extends StatelessWidget {
                             ]),
                             Row(children: [
                               SelectableText(l10n.gffftHomeGalleryVideos),
-                              SelectableText((gallery == null) ? "?" : gallery.videoCount.toString())
+                              SelectableText((gallery == null)
+                                  ? "?"
+                                  : gallery.videoCount.toString() + ((newVideos > 0) ? ", " : "")),
+                              if (newVideos > 0)
+                                SelectableText(l10n.gffftHomeGalleryVideosNew(newVideos),
+                                    style: theme.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold)),
                             ]),
                           ])
                     ])))));

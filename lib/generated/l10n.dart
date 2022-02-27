@@ -990,6 +990,46 @@ class S {
     );
   }
 
+  /// `threads:`
+  String get gffftHomeBoardThreads {
+    return Intl.message(
+      'threads:',
+      name: 'gffftHomeBoardThreads',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count} new`
+  String gffftHomeBoardThreadsNew(int count) {
+    return Intl.message(
+      '$count new',
+      name: 'gffftHomeBoardThreadsNew',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `posts:`
+  String get gffftHomeBoardPosts {
+    return Intl.message(
+      'posts:',
+      name: 'gffftHomeBoardPosts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{count} new`
+  String gffftHomeBoardPostsNew(int count) {
+    return Intl.message(
+      '$count new',
+      name: 'gffftHomeBoardPostsNew',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `gallery`
   String get gffftHomeGallery {
     return Intl.message(
@@ -1031,7 +1071,7 @@ class S {
   }
 
   /// `{count} new`
-  String gffftHomeGalleryVideosNew(Object count) {
+  String gffftHomeGalleryVideosNew(int count) {
     return Intl.message(
       '$count new',
       name: 'gffftHomeGalleryVideosNew',

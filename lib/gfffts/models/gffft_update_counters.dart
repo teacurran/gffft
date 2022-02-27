@@ -7,11 +7,10 @@ class GffftUpdateCounters {
   int? galleryPhotos;
   int? galleryVideos;
   int? boardThreads;
-  int? boardReplies;
+  int? boardPosts;
   int? linkSetItems;
 
-  GffftUpdateCounters(
-      {this.galleryPhotos, this.galleryVideos, this.boardThreads, this.boardReplies, this.linkSetItems});
+  GffftUpdateCounters({this.galleryPhotos, this.galleryVideos, this.boardThreads, this.boardPosts, this.linkSetItems});
 
   factory GffftUpdateCounters.fromJson(Map<String, dynamic> json) => _$GffftUpdateCountersFromJson(json);
   Map<String, dynamic> toJson() => _$GffftUpdateCountersToJson(this);
