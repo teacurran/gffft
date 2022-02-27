@@ -160,7 +160,7 @@ class GffftHomeScreenBody extends StatelessWidget {
       ));
     } else {
       memberActions.add(OutlinedButton(
-        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.account_box, color: Color(0xFFFFDC56))),
+        child: const Icon(Icons.account_box, color: Color(0xFFFFDC56)),
         onPressed: () async {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return GffftMembershipScreen(uid: gffft.uid, gid: gffft.gid);
@@ -175,7 +175,7 @@ class GffftHomeScreenBody extends StatelessWidget {
     memberActions.add(const SizedBox(width: 5));
     if (gffft.membership?.type == "owner") {
       memberActions.add(OutlinedButton(
-        child: const Padding(padding: EdgeInsets.all(10), child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
+        child: const Icon(Icons.settings, color: Color(0xFFFFDC56)),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return GffftFeatureScreen(uid: gffft.uid, gid: gffft.gid);
