@@ -99,6 +99,7 @@
   },
   "errorLoading": "Error Loading",
   "@errorLoading": {},
+  "errorYouMustBeAMember": "You must be a member for that",
   "errorYouMustBeSignedInForThat": "You must be signed in for that",
   "flag": "Flag",
   "@flag": {},
@@ -162,7 +163,16 @@
   "gffftHomeBoard": "board",
   "gffftHomeGallery": "gallery",
   "gffftHomeGalleryPhotos": "photos:",
+  "gffftHomeGalleryPhotosNew": "{count} new",
+  "@gffftHomeGalleryPhotosNew": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "gffftHomeGalleryVideos": "videos:",
+  "gffftHomeGalleryVideosNew": "{count} new",
   "gffftHomePages": "notebook",
   "gffftHomeCalendar": "calendar",
   "gffftListSearchHint": "name or fruit-code",

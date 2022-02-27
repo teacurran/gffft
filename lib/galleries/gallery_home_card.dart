@@ -31,6 +31,9 @@ class GalleryHomeCard extends StatelessWidget {
       }
     }
 
+    final newPhotos = gffft.membership?.updateCounters?.galleryPhotos ?? 0;
+    final newVideos = gffft.membership?.updateCounters?.galleryVideos ?? 0;
+
     return Card(
         margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
         clipBehavior: Clip.antiAlias,
@@ -75,7 +78,12 @@ class GalleryHomeCard extends StatelessWidget {
                           children: <Widget>[
                             Row(children: [
                               SelectableText(l10n.gffftHomeGalleryPhotos),
-                              SelectableText((gallery == null) ? "?" : gallery.photoCount.toString())
+                              SelectableText((gallery == null)
+                                  ? "?"
+                                  : gallery.photoCount.toString() + ((newPhotos > 0) ? ", " : "")),
+                              if (newPhotos > 0)
+                                SelectableText(l10n.gffftHomeGalleryPhotosNew(newPhotos),
+                                    style: theme.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold)),
                             ]),
                             Row(children: [
                               SelectableText(l10n.gffftHomeGalleryVideos),

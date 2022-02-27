@@ -112,7 +112,7 @@ class GffftHomeScreenBody extends StatelessWidget {
     if (gffft.bookmark == null) {
       memberActions.add(TextButton(
         onPressed: () async {
-          if (gffft.me == null) {
+          if (gffft.membership == null || gffft.membership?.type == "anon") {
             final snackBar = SnackBar(
               content: SelectableText(l10n.errorYouMustBeSignedInForThat),
               behavior: SnackBarBehavior.floating,

@@ -194,7 +194,7 @@ class _GffftJoinScreenState extends State<GffftJoinScreen> {
                         isLoading = false;
                       });
 
-                      Navigator.of(context).pop();
+                      Navigator.pop(context);
                     }
                   },
                   child: Text(l10n.gffftJoinButton)),

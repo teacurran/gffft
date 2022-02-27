@@ -107,7 +107,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
     if (gffft == null) {
       return null;
     }
-    if (gffft.me == null) {
+    if (gffft.membership == null || gffft.membership?.type == "anon") {
       return null;
     }
     return FloatingActionButton(

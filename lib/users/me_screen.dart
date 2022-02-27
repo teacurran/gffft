@@ -6,6 +6,7 @@ import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 
 import '../common/dates.dart';
+import '../screens/login_screen.dart';
 import 'models/user.dart';
 
 final getIt = GetIt.instance;
@@ -51,19 +52,19 @@ class _MeScreenState extends State<MeScreen> {
 
           var user = snapshot.data;
 
-          return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: Text(
-                l10n!.me,
-                style: theme.textTheme.headline1,
+          if (user != null) {
+            return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                title: Text(
+                  l10n!.me,
+                  style: theme.textTheme.headline1,
+                ),
+                centerTitle: true,
               ),
-              centerTitle: true,
-            ),
-            body: Center(
-                child: Column(
-              children: [
-                if (user != null)
+              body: Center(
+                  child: Column(
+                children: [
                   Card(
                       margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
                       color: Colors.transparent,
@@ -85,10 +86,13 @@ class _MeScreenState extends State<MeScreen> {
                                   style: theme.textTheme.headline6,
                                 )
                               ])))),
-                TextButton(onPressed: () => {fbAuth.signOut().then((value) => _loadData())}, child: Text(l10n.logout))
-              ],
-            )),
-          );
+                  TextButton(onPressed: () => {fbAuth.signOut().then((value) => _loadData())}, child: Text(l10n.logout))
+                ],
+              )),
+            );
+          } else {
+            return LoginScreen(loginStateChanged: _loadData);
+          }
         });
   }
 }

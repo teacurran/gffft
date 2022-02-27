@@ -470,6 +470,16 @@ class S {
     );
   }
 
+  /// `You must be a member for that`
+  String get errorYouMustBeAMember {
+    return Intl.message(
+      'You must be a member for that',
+      name: 'errorYouMustBeAMember',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `You must be signed in for that`
   String get errorYouMustBeSignedInForThat {
     return Intl.message(
@@ -1000,6 +1010,16 @@ class S {
     );
   }
 
+  /// `{count} new`
+  String gffftHomeGalleryPhotosNew(int count) {
+    return Intl.message(
+      '$count new',
+      name: 'gffftHomeGalleryPhotosNew',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `videos:`
   String get gffftHomeGalleryVideos {
     return Intl.message(
@@ -1007,6 +1027,16 @@ class S {
       name: 'gffftHomeGalleryVideos',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{count} new`
+  String gffftHomeGalleryVideosNew(Object count) {
+    return Intl.message(
+      '$count new',
+      name: 'gffftHomeGalleryVideosNew',
+      desc: '',
+      args: [count],
     );
   }
 
