@@ -108,6 +108,14 @@
   "gffftEditStop": "stop editing",
   "gffftHomeLinkSet": "links",
   "gffftHomeLinkSetLinks": "links:",
+  "gffftHomeLinkSetLinksNew": "{count} new",
+  "@gffftHomeLinkSetLinksNew": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "gffftJoin": "join this gffft",
   "gffftJoinRules": "rules",
   "gffftJoinHandle": "handle",

@@ -32,6 +32,7 @@ class LinkSetHomeCard extends StatelessWidget {
         }
       }
     }
+    final newLinks = gffft.membership?.updateCounters?.linkSetItems ?? 0;
 
     return Card(
         margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
@@ -75,7 +76,10 @@ class LinkSetHomeCard extends StatelessWidget {
                           children: <Widget>[
                             Row(children: [
                               SelectableText(l10n.gffftHomeLinkSetLinks),
-                              SelectableText((linkSet == null) ? "0" : linkSet.itemCount.toString())
+                              SelectableText((linkSet == null) ? "0" : linkSet.itemCount.toString() + ((newLinks > 0) ? ", " : "")),
+                              if (newLinks > 0)
+                                SelectableText(l10n.gffftHomeLinkSetLinksNew(newLinks),
+                                    style: theme.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold)),
                             ]),
                           ])
                     ])))));

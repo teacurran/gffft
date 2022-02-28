@@ -550,6 +550,16 @@ class S {
     );
   }
 
+  /// `{count} new`
+  String gffftHomeLinkSetLinksNew(int count) {
+    return Intl.message(
+      '$count new',
+      name: 'gffftHomeLinkSetLinksNew',
+      desc: '',
+      args: [count],
+    );
+  }
+
   /// `join this gffft`
   String get gffftJoin {
     return Intl.message(

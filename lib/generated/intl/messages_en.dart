@@ -28,11 +28,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(count) => "${count} new";
 
-  static String m4(date) => "since ${date}";
+  static String m4(count) => "${count} new";
 
-  static String m5(date) => "account since ${date}";
+  static String m5(date) => "since ${date}";
 
-  static String m6(field) => "${field} is required";
+  static String m6(date) => "account since ${date}";
+
+  static String m7(field) => "${field} is required";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -122,7 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gffftHomeJoin": MessageLookupByLibrary.simpleMessage("join"),
         "gffftHomeLinkSet": MessageLookupByLibrary.simpleMessage("links"),
         "gffftHomeLinkSetLinks": MessageLookupByLibrary.simpleMessage("links:"),
-        "gffftHomeMemberSince": m4,
+        "gffftHomeLinkSetLinksNew": m4,
+        "gffftHomeMemberSince": m5,
         "gffftHomeMembership":
             MessageLookupByLibrary.simpleMessage("membership"),
         "gffftHomeNotMember":
@@ -200,7 +203,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Who can view:"),
         "gffftSettingsSave":
             MessageLookupByLibrary.simpleMessage("save and exit"),
-        "homeAccountSince": m5,
+        "homeAccountSince": m6,
         "host": MessageLookupByLibrary.simpleMessage("Host"),
         "linkSetPostDescription":
             MessageLookupByLibrary.simpleMessage("Description (optional)"),
@@ -220,7 +223,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "showLess": MessageLookupByLibrary.simpleMessage("show less"),
         "showMore": MessageLookupByLibrary.simpleMessage("show more"),
-        "validateFieldIsRequired": m6,
+        "validateFieldIsRequired": m7,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }
