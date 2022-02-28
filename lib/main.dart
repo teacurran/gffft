@@ -144,12 +144,21 @@ class _AppState extends State<App> {
         RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/features$"): (uri, param) =>
             MaterialPage(child: GffftFeatureScreen(uid: uri.pathSegments[1], gid: uri.pathSegments[3])),
         RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/features/[a-zA-Z0-9]+/[a-zA-Z0-9]+"): (uri, param) =>
-            MaterialPage(
+            VxRoutePage(
                 child: GffftFeatureScreen(
                     uid: uri.pathSegments[1],
                     gid: uri.pathSegments[3],
                     tid: uri.pathSegments[5],
-                    fid: uri.pathSegments[6])),
+                    fid: uri.pathSegments[6]),
+                transition: (animation, child) => FadeTransition(
+                      opacity: Tween(begin: 0.0, end: 0.0).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeInOut,
+                        ),
+                      ),
+                      child: child,
+                    )),
         RegExp(r"^\/users\/[a-zA-Z0-9\.\-]+/gfffts/[a-zA-Z0-9]+/boards/[a-zA-Z0-9]+$"): (uri, param) => MaterialPage(
                 child: BoardViewScreen(
               uid: uri.pathSegments[1],

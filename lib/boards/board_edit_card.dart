@@ -41,6 +41,7 @@ class BoardEditCard extends StatelessWidget {
     }
 
     return Card(
+      elevation: 0,
       margin: const EdgeInsets.all(8),
       color: Colors.transparent,
       child: Container(

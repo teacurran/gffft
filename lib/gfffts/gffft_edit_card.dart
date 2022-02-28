@@ -74,77 +74,79 @@ class _GffftEditCardState extends State<GffftEditCard> {
         height: 300,
         width: 300,
         child: Card(
+          elevation: 0,
           margin: const EdgeInsets.all(8),
           color: Colors.transparent,
-          child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Row(children: [
-                  IconButton(
-                    icon: const Icon(Icons.settings, color: Color(0xFFFABB59)),
-                    color: const Color(0xFFFABB59),
-                    onPressed: () {},
-                  ),
-                  Text(
-                    l10n!.gffftSettingsGeneralHead,
-                    style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
-                  )
-                ]),
-                Row(
-                  children: [
-                    Flexible(
-                        child: Text(
-                      "name",
-                      style: theme.textTheme.bodyText1,
-                      softWrap: true,
-                    ))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                        child: Focus(
-                            child: TextField(
-                              style: theme.textTheme.headline1,
-                              textAlign: TextAlign.center,
-                              controller: _titleController,
-                              textInputAction: TextInputAction.go,
-                            ),
-                            onFocusChange: (hasFocus) {
-                              if (!hasFocus) {
-                                _saveTitle();
-                              }
-                            }))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                        child: Text(
-                      "intro (optional)",
-                      style: theme.textTheme.bodyText1,
-                      softWrap: true,
-                    ))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                        child: Focus(
-                            child: TextField(
-                              style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
-                              controller: _introController,
-                              textInputAction: TextInputAction.go,
-                              maxLines: 5,
-                            ),
-                            onFocusChange: (hasFocus) {
-                              if (!hasFocus) {
-                                _saveIntroText();
-                              }
-                            }))
-                  ],
-                ),
-              ])),
+          child: SingleChildScrollView(
+              child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    Row(children: [
+                      IconButton(
+                        icon: const Icon(Icons.settings, color: Color(0xFFFABB59)),
+                        color: const Color(0xFFFABB59),
+                        onPressed: () {},
+                      ),
+                      Text(
+                        l10n!.gffftSettingsGeneralHead,
+                        style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
+                      )
+                    ]),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: Text(
+                          "name",
+                          style: theme.textTheme.bodyText1,
+                          softWrap: true,
+                        ))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: Focus(
+                                child: TextField(
+                                  style: theme.textTheme.headline1,
+                                  textAlign: TextAlign.center,
+                                  controller: _titleController,
+                                  textInputAction: TextInputAction.go,
+                                ),
+                                onFocusChange: (hasFocus) {
+                                  if (!hasFocus) {
+                                    _saveTitle();
+                                  }
+                                }))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: Text(
+                          "intro (optional)",
+                          style: theme.textTheme.bodyText1,
+                          softWrap: true,
+                        ))
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                            child: Focus(
+                                child: TextField(
+                                  style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
+                                  controller: _introController,
+                                  textInputAction: TextInputAction.go,
+                                  maxLines: 3,
+                                ),
+                                onFocusChange: (hasFocus) {
+                                  if (!hasFocus) {
+                                    _saveIntroText();
+                                  }
+                                }))
+                      ],
+                    ),
+                  ]))),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
               side: const BorderSide(

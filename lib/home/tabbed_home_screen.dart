@@ -232,7 +232,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
                   _lastTabIndex = value;
                 },
                 controller: _tabController,
-                tabs: [
+                tabs: const [
                   Tab(icon: Icon(Icons.home)),
                   Tab(icon: Icon(IconData(0x0047, fontFamily: 'Gffft'))),
                   Tab(icon: Icon(Icons.account_box)),

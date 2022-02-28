@@ -8,13 +8,13 @@ import 'package:gffft/galleries/gallery_home_card.dart';
 import 'package:gffft/gfffts/gffft_join_screen.dart';
 import 'package:gffft/gfffts/gffft_membership_screen.dart';
 import 'package:gffft/style/app_theme.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../link_sets/link_set_home_card.dart';
 import '../notebooks/notebook_home_card.dart';
 import '../users/user_api.dart';
 import 'fruit_code_home_card.dart';
 import 'gffft_api.dart';
-import 'gffft_feature_screen.dart';
 import 'models/gffft.dart';
 
 final getIt = GetIt.instance;
@@ -175,13 +175,20 @@ class GffftHomeScreenBody extends StatelessWidget {
     memberActions.add(const SizedBox(width: 5));
     if (gffft.membership?.type == "owner") {
       memberActions.add(OutlinedButton(
-        child: const Icon(Icons.settings, color: Color(0xFFFFDC56)),
+        child: const Hero(tag: "settings-button", child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return GffftFeatureScreen(uid: gffft.uid, gid: gffft.gid);
-          })).then((value) {
+          VxNavigator.of(context)
+              .waitAndPush(
+                  Uri(path: "/" + Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "features"]).toString()))
+              .then((value) {
             onGffftChange();
           });
+
+          // Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //   return GffftFeatureScreen(uid: gffft.uid, gid: gffft.gid);
+          // })).then((value) {
+          //   onGffftChange();
+          // });
         },
         style: theme.outlinedButtonTheme.style,
       ));

@@ -97,46 +97,46 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
           var gffft = snapshot.data;
 
-          return SafeArea(
-            child: Scaffold(
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                title: Text(
-                  l10n!.gffftSettingsHead,
-                  style: theme.textTheme.headline1,
-                ),
-                centerTitle: true,
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Text(
+                l10n!.gffftSettingsHead,
+                style: theme.textTheme.headline1,
               ),
-              body: Column(children: [
-                SizedBox(
-                    height: 400,
-                    child: PageView(
-                        physics: const PageScrollPhysics(),
-                        controller: PageController(viewportFraction: 0.8),
-                        children: getEditCards(gffft)))
-              ]),
-              // PageView.builder(
-              //   itemCount: 10,
-              //   controller: PageController(viewportFraction: 0.7),
-              //   onPageChanged: (int index) => setState(() => _index = index),
-              //   itemBuilder: (_, i) {
-              //     return Transform.scale(
-              //       scale: i == _index ? 1 : 0.9,
-              //       child: Card(
-              //         elevation: 6,
-              //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              //         child: Center(
-              //           child: Text(
-              //             "Card ${i + 1}",
-              //             style: TextStyle(fontSize: 32),
-              //           ),
-              //         ),
-              //       ),
-              //     );
-              //   },
-              floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-              floatingActionButton: getFloatingActionButton(context),
+              centerTitle: true,
             ),
+
+            backgroundColor: theme.backgroundColor,
+            body: Column(children: [
+              SizedBox(
+                  height: 400,
+                  child: PageView(
+                      physics: const PageScrollPhysics(),
+                      controller: PageController(viewportFraction: 0.8),
+                      children: getEditCards(gffft)))
+            ]),
+            // PageView.builder(
+            //   itemCount: 10,
+            //   controller: PageController(viewportFraction: 0.7),
+            //   onPageChanged: (int index) => setState(() => _index = index),
+            //   itemBuilder: (_, i) {
+            //     return Transform.scale(
+            //       scale: i == _index ? 1 : 0.9,
+            //       child: Card(
+            //         elevation: 6,
+            //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            //         child: Center(
+            //           child: Text(
+            //             "Card ${i + 1}",
+            //             style: TextStyle(fontSize: 32),
+            //           ),
+            //         ),
+            //       ),
+            //     );
+            //   },
+            floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+            floatingActionButton: getFloatingActionButton(context),
           );
         });
   }

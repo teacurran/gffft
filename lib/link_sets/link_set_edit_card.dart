@@ -40,6 +40,7 @@ class LinkSetEditCard extends StatelessWidget {
     }
 
     return Card(
+      elevation: 0,
       margin: const EdgeInsets.all(8),
       color: Colors.transparent,
       shape: RoundedRectangleBorder(

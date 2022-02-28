@@ -72,6 +72,7 @@ class FruitCodeEditCard extends StatelessWidget {
     shareText = shareText + "${gffft.fruitCode[6]}${gffft.fruitCode[7]}${gffft.fruitCode[8]}\n";
 
     return Card(
+      elevation: 0,
       margin: const EdgeInsets.all(8),
       color: Colors.transparent,
       shape: RoundedRectangleBorder(
