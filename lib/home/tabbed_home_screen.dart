@@ -55,6 +55,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
       }
       return null;
     });
+    _searchController.refresh();
     setState(() {});
   }
 
