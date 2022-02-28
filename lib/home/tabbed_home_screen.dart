@@ -64,10 +64,6 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
       _fetchBookmarkPage(pageKey);
     });
 
-    _searchController.addPageRequestListener((pageKey) {
-      _fetchSearchPage(pageKey);
-    });
-
     _bookmarkController.addStatusListener((status) {
       if (status == PagingStatus.subsequentPageError) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -82,6 +78,10 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
           ),
         );
       }
+    });
+
+    _searchController.addPageRequestListener((pageKey) {
+      _fetchSearchPage(pageKey);
     });
 
     _searchController.addStatusListener((status) {

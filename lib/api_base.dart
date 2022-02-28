@@ -109,8 +109,13 @@ class ApiBase {
     dynamic responseJson;
     try {
       final request = http.Request(method, url);
-      final fbUser = await fbAuth.authStateChanges().first;
-      //final fbUser = fbAuth.currentUser;
+      // this causes:
+      // Uncaught DeferredLoadException: 'Loading main.dart.js_1.part.js failed: the code with hash 'JLmiu+O5NLuJN+WqCynEyvC4lPA=' was not loaded.
+      // event log:
+      // final fbUser = await fbAuth.authStateChanges().first;
+
+      // but this does not always seem to be initialized
+      final fbUser = fbAuth.currentUser;
 
       if (requireAuth && fbUser == null) {
         throw FetchDataException('User must be authenticated');
