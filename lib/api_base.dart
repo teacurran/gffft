@@ -109,8 +109,8 @@ class ApiBase {
     dynamic responseJson;
     try {
       final request = http.Request(method, url);
-      //final fbUser = await fbAuth.authStateChanges().first;
-      final fbUser = fbAuth.currentUser;
+      final fbUser = await fbAuth.authStateChanges().first;
+      //final fbUser = fbAuth.currentUser;
 
       if (requireAuth && fbUser == null) {
         throw FetchDataException('User must be authenticated');
