@@ -118,7 +118,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
           // use page PageRouteBuilder instead of 'PageRouteBuilder' to avoid material route animation
 
           navStack[1] = context;
-          return GffftHomeScreen(uid: "me", gid: "default");
+          return const GffftHomeScreen(uid: "me", gid: "default");
         });
       }),
       Navigator(onGenerateRoute: (RouteSettings settings) {
@@ -248,6 +248,27 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
         ));
   }
 
+  Widget getTrailingItems(theme, l10n, GffftMinimal gffft) {
+    var boardThreads = gffft.membership?.updateCounters?.boardThreads ?? 0;
+    var boardPosts = gffft.membership?.updateCounters?.boardPosts ?? 0;
+    var galleryPhotos = gffft.membership?.updateCounters?.galleryPhotos ?? 0;
+    var galleryVideos = gffft.membership?.updateCounters?.galleryVideos ?? 0;
+    var linkSetItems = gffft.membership?.updateCounters?.linkSetItems ?? 0;
+
+    var hasUpdate = (boardThreads > 0) || boardPosts > 0 || galleryPhotos > 0 || galleryVideos > 0 || linkSetItems > 0;
+
+    Widget trailiningIcon = FittedBox(
+        fit: BoxFit.fill,
+        child: Row(
+          children: <Widget>[
+            if (hasUpdate) Icon(Icons.new_releases, color: theme.primaryColor),
+            Icon(Icons.chevron_right, color: theme.primaryColor),
+          ],
+        ));
+
+    return trailiningIcon;
+  }
+
   Widget _getSearchScreen(theme, l10n) {
     return CustomScrollView(
       slivers: <Widget>[
@@ -264,7 +285,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
                       return GffftHomeScreen(uid: item.uid, gid: item.gid);
                     }));
                   },
-                  trailing: Icon(Icons.chevron_right, color: theme.primaryColor)),
+                  trailing: getTrailingItems(theme, l10n, item)),
               noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
         ),
       ],

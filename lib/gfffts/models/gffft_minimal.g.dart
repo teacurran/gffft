@@ -18,7 +18,9 @@ GffftMinimal _$GffftMinimalFromJson(Map<String, dynamic> json) => GffftMinimal(
       galleryEnabled: json['galleryEnabled'] as bool? ?? false,
       pagesEnabled: json['pagesEnabled'] as bool? ?? false,
       bid: json['bid'] as String?,
-    );
+    )..membership = json['membership'] == null
+        ? null
+        : GffftMembership.fromJson(json['membership'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GffftMinimalToJson(GffftMinimal instance) =>
     <String, dynamic>{
@@ -33,4 +35,5 @@ Map<String, dynamic> _$GffftMinimalToJson(GffftMinimal instance) =>
       'galleryEnabled': instance.galleryEnabled,
       'pagesEnabled': instance.pagesEnabled,
       'bid': instance.bid,
+      'membership': instance.membership,
     };

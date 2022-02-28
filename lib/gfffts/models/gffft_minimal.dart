@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'gffft_membership.dart';
+
 part 'gffft_minimal.g.dart';
 
 @JsonSerializable()
@@ -15,6 +17,7 @@ class GffftMinimal {
   bool galleryEnabled;
   bool pagesEnabled;
   String? bid;
+  GffftMembership? membership;
 
   GffftMinimal(
       {required this.uid,
