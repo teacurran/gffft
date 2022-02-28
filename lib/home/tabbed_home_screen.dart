@@ -231,41 +231,26 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
     var l10n = AppLocalizations.of(context);
     final theme = context.appTheme.materialTheme;
 
-    return FutureBuilder(
-        future: user,
-        builder: (context, AsyncSnapshot<User?> snapshot) {
-          Widget screenBody = const Center(child: CircularProgressIndicator());
-
-          if (snapshot.connectionState == ConnectionState.done) {
-            // this is bad form, we aren't even looking at snapshot.data
-            // this is an attempt to defer the loading of the search
-            // screen until the app has initialized enough that it sends
-            // correct auth headers
-            screenBody = CustomScrollView(
-              slivers: <Widget>[
-                SearchInputSliver(
-                    onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n!.gffftListSearchHint),
-                PagedSliverList<String?, GffftMinimal>(
-                  pagingController: _searchController,
-                  builderDelegate: PagedChildBuilderDelegate<GffftMinimal>(
-                      animateTransitions: true,
-                      itemBuilder: (context, item, index) => ListTile(
-                          title: Text(item.name),
-                          subtitle: Text(item.name),
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return GffftHomeScreen(uid: item.uid, gid: item.gid);
-                            }));
-                          },
-                          trailing: getTrailingItems(theme, l10n, item)),
-                      noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
-                ),
-              ],
-            );
-          }
-
-          return screenBody;
-        });
+    return CustomScrollView(
+      slivers: <Widget>[
+        SearchInputSliver(onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n!.gffftListSearchHint),
+        PagedSliverList<String?, GffftMinimal>(
+          pagingController: _searchController,
+          builderDelegate: PagedChildBuilderDelegate<GffftMinimal>(
+              animateTransitions: true,
+              itemBuilder: (context, item, index) => ListTile(
+                  title: Text(item.name),
+                  subtitle: Text(item.name),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return GffftHomeScreen(uid: item.uid, gid: item.gid);
+                    }));
+                  },
+                  trailing: getTrailingItems(theme, l10n, item)),
+              noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
+        ),
+      ],
+    );
   }
 }
 
