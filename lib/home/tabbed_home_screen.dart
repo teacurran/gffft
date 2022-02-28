@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/components/first_page_exception_indicator.dart';
 import 'package:gffft/components/search_input_sliver.dart';
@@ -55,32 +56,11 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
       }
       return null;
     });
-    _searchController.refresh();
     setState(() {});
   }
 
   @override
   void initState() {
-    _bookmarkController.addPageRequestListener((pageKey) {
-      _fetchBookmarkPage(pageKey);
-    });
-
-    _bookmarkController.addStatusListener((status) {
-      if (status == PagingStatus.subsequentPageError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text(
-              'Something went wrong while fetching a new page.',
-            ),
-            action: SnackBarAction(
-              label: 'Retry',
-              onPressed: () => _bookmarkController.retryLastFailedRequest(),
-            ),
-          ),
-        );
-      }
-    });
-
     _searchController.addPageRequestListener((pageKey) {
       _fetchSearchPage(pageKey);
     });
@@ -107,11 +87,8 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
       Navigator(onGenerateRoute: (RouteSettings settings) {
         return PageRouteBuilder(pageBuilder: (context, animiX, animiY) {
           // use page PageRouteBuilder instead of 'PageRouteBuilder' to avoid material route animation
-          var l10n = AppLocalizations.of(context);
-          final theme = context.appTheme.materialTheme;
-
           navStack[0] = context;
-          return _getSearchScreen(theme, l10n);
+          return _getSearchScreen(context);
         });
       }),
       Navigator(onGenerateRoute: (RouteSettings settings) {
@@ -135,25 +112,6 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
     _loadData();
 
     super.initState();
-  }
-
-  Future<void> _fetchBookmarkPage(pageKey) async {
-    try {
-      final newItems = await userApi.getBookmarks(
-        pageKey,
-        _pageSize,
-        _searchTerm,
-      );
-
-      final isLastPage = newItems.count < _pageSize;
-      if (isLastPage) {
-        _bookmarkController.appendLastPage(newItems.items);
-      } else {
-        _bookmarkController.appendPage(newItems.items, newItems.items.last.gid);
-      }
-    } catch (error) {
-      _bookmarkController.error = error;
-    }
   }
 
   Future<void> _fetchSearchPage(pageKey) async {
@@ -270,27 +228,45 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
     return trailiningIcon;
   }
 
-  Widget _getSearchScreen(theme, l10n) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SearchInputSliver(onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n.gffftListSearchHint),
-        PagedSliverList<String?, GffftMinimal>(
-          pagingController: _searchController,
-          builderDelegate: PagedChildBuilderDelegate<GffftMinimal>(
-              animateTransitions: true,
-              itemBuilder: (context, item, index) => ListTile(
-                  title: Text(item.name),
-                  subtitle: Text(item.name),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return GffftHomeScreen(uid: item.uid, gid: item.gid);
-                    }));
-                  },
-                  trailing: getTrailingItems(theme, l10n, item)),
-              noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
-        ),
-      ],
-    );
+  Widget _getSearchScreen(BuildContext context) {
+    var l10n = AppLocalizations.of(context);
+    final theme = context.appTheme.materialTheme;
+
+    return FutureBuilder(
+        future: user,
+        builder: (context, AsyncSnapshot<User?> snapshot) {
+          Widget screenBody = const LoadingIndicator(size: 30, borderWidth: 1);
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            // this is bad form, we aren't even looking at snapshot.data
+            // this is an attempt to defer the loading of the search
+            // screen until the app has initialized enough that it sends
+            // correct auth headers
+            screenBody = CustomScrollView(
+              slivers: <Widget>[
+                SearchInputSliver(
+                    onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n!.gffftListSearchHint),
+                PagedSliverList<String?, GffftMinimal>(
+                  pagingController: _searchController,
+                  builderDelegate: PagedChildBuilderDelegate<GffftMinimal>(
+                      animateTransitions: true,
+                      itemBuilder: (context, item, index) => ListTile(
+                          title: Text(item.name),
+                          subtitle: Text(item.name),
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return GffftHomeScreen(uid: item.uid, gid: item.gid);
+                            }));
+                          },
+                          trailing: getTrailingItems(theme, l10n, item)),
+                      noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
+                ),
+              ],
+            );
+          }
+
+          return screenBody;
+        });
   }
 }
 
