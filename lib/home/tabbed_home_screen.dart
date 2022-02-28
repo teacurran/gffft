@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/components/first_page_exception_indicator.dart';
 import 'package:gffft/components/search_input_sliver.dart';
@@ -61,6 +60,8 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
 
   @override
   void initState() {
+    super.initState();
+
     _searchController.addPageRequestListener((pageKey) {
       _fetchSearchPage(pageKey);
     });
@@ -110,8 +111,6 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
     ];
 
     _loadData();
-
-    super.initState();
   }
 
   Future<void> _fetchSearchPage(pageKey) async {
@@ -235,7 +234,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
     return FutureBuilder(
         future: user,
         builder: (context, AsyncSnapshot<User?> snapshot) {
-          Widget screenBody = const LoadingIndicator(size: 30, borderWidth: 1);
+          Widget screenBody = const Center(child: CircularProgressIndicator());
 
           if (snapshot.connectionState == ConnectionState.done) {
             // this is bad form, we aren't even looking at snapshot.data

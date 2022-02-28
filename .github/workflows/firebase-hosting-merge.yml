@@ -47,6 +47,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.10.0'
+      - run: flutter clean
       - run: flutter pub get
       - run: flutter build web --source-maps --release
       - name: Installing minifier
