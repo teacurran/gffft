@@ -44,7 +44,7 @@ class BoardEditCard extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       color: Colors.transparent,
       child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           height: 300,
           width: 300,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
