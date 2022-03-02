@@ -48,7 +48,15 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
   final PagingController<String?, GffftMinimal> _searchController = PagingController(firstPageKey: null);
 
   Future<void> _loadData() async {
-    user = userApi.me().onError((error, stackTrace) async {
+    user = userApi.me().then((value) {
+      if (kDebugMode) {
+        print("users me loaded, setting up search controllers");
+      }
+
+      _searchController.refresh();
+
+      return value;
+    }).onError((error, stackTrace) async {
       await fbAuth.FirebaseAuth.instance.signOut();
       if (kDebugMode) {
         print("error getting me, token expired?");
