@@ -39,7 +39,8 @@ class GalleryEditCard extends StatelessWidget {
       galleryWhoCanView = "just you";
     }
 
-    return Card(
+    return SingleChildScrollView(
+        child: Card(
       elevation: 0,
       margin: const EdgeInsets.all(8),
       color: Colors.transparent,
@@ -52,7 +53,6 @@ class GalleryEditCard extends StatelessWidget {
       child: Container(
           padding: const EdgeInsets.all(10),
           height: 300,
-          width: 300,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             Row(children: [
               IconButton(
@@ -136,6 +136,6 @@ class GalleryEditCard extends StatelessWidget {
             //   ],
             // )
           ])),
-    );
+    ));
   }
 }

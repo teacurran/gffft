@@ -248,7 +248,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
               animateTransitions: true,
               itemBuilder: (context, item, index) => ListTile(
                   title: Text(item.name),
-                  subtitle: Text(item.name),
+                  subtitle: Text(item.description ?? item.name),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
                       return GffftHomeScreen(uid: item.uid, gid: item.gid);

@@ -71,7 +71,8 @@ class FruitCodeEditCard extends StatelessWidget {
     shareText = shareText + "${gffft.fruitCode[3]}${gffft.fruitCode[4]}${gffft.fruitCode[5]}\n";
     shareText = shareText + "${gffft.fruitCode[6]}${gffft.fruitCode[7]}${gffft.fruitCode[8]}\n";
 
-    return Card(
+    return SingleChildScrollView(
+        child: Card(
       elevation: 0,
       margin: const EdgeInsets.all(8),
       color: Colors.transparent,
@@ -84,7 +85,6 @@ class FruitCodeEditCard extends StatelessWidget {
       child: Container(
           padding: const EdgeInsets.all(10),
           height: 300,
-          width: 300,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             Row(children: [
               IconButton(
@@ -110,38 +110,47 @@ class FruitCodeEditCard extends StatelessWidget {
             Row(
               children: [
                 rareFruitMarker,
-                SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: 3,
-                      children: getFruitCode(context, gffft),
-                    )),
+                GestureDetector(
+                    onTap: () {
+                      Clipboard.setData(ClipboardData(text: shareText)).then((_) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(l10n.gffftSettingsFruitCodeCopied)));
+                      });
+                    },
+                    child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: GridView.count(
+                          shrinkWrap: true,
+                          crossAxisCount: 3,
+                          children: getFruitCode(context, gffft),
+                        ))),
                 ultraRareFruitMarker,
               ],
             ),
-            OutlinedButton(
-              onPressed: () {
-                Clipboard.setData(ClipboardData(text: shareText)).then((_) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(l10n.gffftSettingsFruitCodeCopied)));
-                });
-              },
-              child: Text(l10n.gffftSettingsFruitCodeCopy),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                GffftPatchSave gffft = GffftPatchSave(
-                  uid: this.gffft.uid,
-                  gid: this.gffft.gid,
-                  fruitCodeReset: true,
-                );
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              OutlinedButton(
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: shareText)).then((_) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(l10n.gffftSettingsFruitCodeCopied)));
+                  });
+                },
+                child: Icon(Icons.copy, color: theme.primaryColor),
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  GffftPatchSave gffft = GffftPatchSave(
+                    uid: this.gffft.uid,
+                    gid: this.gffft.gid,
+                    fruitCodeReset: true,
+                  );
 
-                gffftApi.savePartial(gffft).then((value) => onSaveComplete!());
-              },
-              child: const Text("generate new"),
-            ),
+                  gffftApi.savePartial(gffft).then((value) => onSaveComplete!());
+                },
+                child: Icon(Icons.refresh, color: theme.primaryColor),
+              )
+            ]),
             Row(
               children: [
                 Text(
@@ -163,6 +172,6 @@ class FruitCodeEditCard extends StatelessWidget {
               ],
             ),
           ])),
-    );
+    ));
   }
 }

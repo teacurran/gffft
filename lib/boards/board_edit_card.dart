@@ -40,14 +40,14 @@ class BoardEditCard extends StatelessWidget {
       boardWhoCanView = "just you";
     }
 
-    return Card(
+    return SingleChildScrollView(
+        child: Card(
       elevation: 0,
       margin: const EdgeInsets.all(8),
       color: Colors.transparent,
       child: Container(
           padding: const EdgeInsets.all(10),
           height: 300,
-          width: 300,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             Row(children: [
               IconButton(
@@ -137,6 +137,6 @@ class BoardEditCard extends StatelessWidget {
             color: Color(0xFF9970A9),
             width: 1.0,
           )),
-    );
+    ));
   }
 }

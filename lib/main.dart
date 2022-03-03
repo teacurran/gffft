@@ -36,7 +36,6 @@ import 'gfffts/gffft_home_screen.dart';
 import 'gfffts/gffft_join_screen.dart';
 import 'gfffts/gffft_list_screen.dart';
 import 'gfffts/gffft_membership_screen.dart';
-import 'gfffts/gffft_screen.dart';
 import 'home/tabbed_home_screen.dart';
 import 'link_sets/link_set_api.dart';
 import 'link_sets/link_set_view_screen.dart';
@@ -222,7 +221,6 @@ class _AppState extends State<App> {
               gid: uri.pathSegments[3],
               lid: uri.pathSegments[5],
             )),
-        GffftScreen.webPath: (uri, params) => MaterialPage(child: GffftScreen()),
         MeScreen.webPath: (uri, params) => MaterialPage(child: MeScreen()),
       });
 

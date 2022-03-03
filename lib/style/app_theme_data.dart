@@ -43,7 +43,7 @@ class AppThemeData {
             fontWeight: FontWeight.w500,
           ),
           isDense: false,
-          contentPadding: EdgeInsets.all(5),
+          contentPadding: EdgeInsets.all(10),
           filled: false,
           border: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.blue, width: 1.0),
@@ -55,10 +55,10 @@ class AppThemeData {
             borderSide: BorderSide(color: Color(0xFF935D5D), width: 1.0),
           ),
           fillColor: Color(0xFFE0E2E2),
-          focusedBorder: UnderlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.purpleAccent, width: 1.0),
           ),
-          enabledBorder: UnderlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.purple, width: 1.0),
           )),
       visualDensity: VisualDensity.standard,
