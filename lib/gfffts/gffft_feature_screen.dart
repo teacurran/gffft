@@ -108,14 +108,10 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
             ),
 
             backgroundColor: theme.backgroundColor,
-            body: Column(children: [
-              SizedBox(
-                  height: 400,
-                  child: PageView(
-                      physics: const PageScrollPhysics(),
-                      controller: PageController(viewportFraction: 0.8),
-                      children: getEditCards(gffft)))
-            ]),
+            body: PageView(
+                physics: const PageScrollPhysics(),
+                controller: PageController(viewportFraction: 0.8),
+                children: getEditCards(gffft)),
             // PageView.builder(
             //   itemCount: 10,
             //   controller: PageController(viewportFraction: 0.7),
