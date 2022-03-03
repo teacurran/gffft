@@ -159,9 +159,7 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
                     )
                   : Column(
                       children: <Widget>[
-                        isLoading
-                            ? LinearProgressIndicator(value: _progressValue)
-                            : const Padding(padding: EdgeInsets.only(top: 0.0)),
+                        isLoading ? const LinearProgressIndicator() : const Padding(padding: EdgeInsets.only(top: 0.0)),
                         const Divider(),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 3,
