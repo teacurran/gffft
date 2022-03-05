@@ -19,6 +19,7 @@ class SelfReloadingThumbnail extends StatefulWidget {
     required this.gid,
     required this.mid,
     required this.iid,
+    required this.size,
     this.initialGalleryItem,
   }) : super(key: key);
 
@@ -27,6 +28,7 @@ class SelfReloadingThumbnail extends StatefulWidget {
   final String mid;
   final String iid;
   final GalleryItem? initialGalleryItem;
+  final double size;
 
   @override
   State<SelfReloadingThumbnail> createState() => _SelfReloadingThumbnailState();
@@ -94,16 +96,12 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
             return CommonCircularProgressIndicator();
           }
 
-          var thumbUrl = item.urls["320"];
-          thumbUrl = thumbUrl?.replaceAll("127.0.0.1", storageHost);
-
-          var fullImageUrl = item.urls["1024"];
-          fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
+          var imageUrl = item.urls[widget.size.toInt().toString()];
+          imageUrl = imageUrl?.replaceAll("127.0.0.1", storageHost);
 
           Widget? thumb;
-          if (thumbUrl != null && fullImageUrl != null) {
-            thumb = ExtendedImage.network(thumbUrl, height: 320, width: 320, cache: true,
-                loadStateChanged: (ExtendedImageState state) {
+          if (imageUrl != null) {
+            thumb = ExtendedImage.network(imageUrl, cache: true, loadStateChanged: (ExtendedImageState state) {
               Widget? widget;
               switch (state.extendedImageLoadState) {
                 case LoadState.loading:
