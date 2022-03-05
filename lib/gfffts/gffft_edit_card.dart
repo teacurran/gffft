@@ -106,7 +106,7 @@ class _GffftEditCardState extends State<GffftEditCard> {
                         child: TextField(
                           textAlign: TextAlign.left,
                           controller: _titleController,
-                          decoration: const InputDecoration(labelText: "name"),
+                          decoration: InputDecoration(labelText: l10n.gffftEditCardName),
                         ),
                         onFocusChange: (hasFocus) {
                           if (!hasFocus) {
@@ -117,7 +117,7 @@ class _GffftEditCardState extends State<GffftEditCard> {
                     padding: fieldPadding,
                     child: Focus(
                         child: TextField(
-                          decoration: const InputDecoration(labelText: "description (optional)"),
+                          decoration: InputDecoration(labelText: l10n.gffftEditCardDescription),
                           controller: _descController,
                           textInputAction: TextInputAction.go,
                           maxLines: 2,
@@ -131,7 +131,7 @@ class _GffftEditCardState extends State<GffftEditCard> {
                     padding: fieldPadding,
                     child: Focus(
                         child: TextField(
-                          decoration: const InputDecoration(labelText: "intro (optional)"),
+                          decoration: InputDecoration(labelText: l10n.gffftEditCardIntro),
                           controller: _introController,
                           textInputAction: TextInputAction.go,
                           maxLines: 5,

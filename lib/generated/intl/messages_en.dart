@@ -104,6 +104,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Description, if you feel like it..."),
         "galleryPostTitle": MessageLookupByLibrary.simpleMessage("post"),
         "gffftEdit": MessageLookupByLibrary.simpleMessage("edit"),
+        "gffftEditCardDescription":
+            MessageLookupByLibrary.simpleMessage("description (optional)"),
+        "gffftEditCardIntro":
+            MessageLookupByLibrary.simpleMessage("intro (optional)"),
+        "gffftEditCardName": MessageLookupByLibrary.simpleMessage("name"),
         "gffftEditStop": MessageLookupByLibrary.simpleMessage("stop editing"),
         "gffftHomeBlog": MessageLookupByLibrary.simpleMessage("blog"),
         "gffftHomeBoard": MessageLookupByLibrary.simpleMessage("board"),

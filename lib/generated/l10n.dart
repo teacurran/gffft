@@ -670,6 +670,36 @@ class S {
     );
   }
 
+  /// `name`
+  String get gffftEditCardName {
+    return Intl.message(
+      'name',
+      name: 'gffftEditCardName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `description (optional)`
+  String get gffftEditCardDescription {
+    return Intl.message(
+      'description (optional)',
+      name: 'gffftEditCardDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `intro (optional)`
+  String get gffftEditCardIntro {
+    return Intl.message(
+      'intro (optional)',
+      name: 'gffftEditCardIntro',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Show in search`
   String get gffftSettingsEnabled {
     return Intl.message(

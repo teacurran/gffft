@@ -30,6 +30,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
   static const _pageSize = 200;
   final PagingController<String?, GalleryItem> _pagingController = PagingController(firstPageKey: null);
   Future<Gffft>? gffft;
+  bool showGridView = false;
 
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
 
@@ -65,6 +66,12 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
   Future<void> _loadGffft() async {
     setState(() {
       gffft = userApi.getGffft(widget.uid, widget.gid);
+    });
+  }
+
+  void _toggleView() {
+    setState(() {
+      showGridView = !showGridView;
     });
   }
 
@@ -135,6 +142,106 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
         });
   }
 
+  Widget _getGridView(BuildContext context) {
+    return PagedSliverGrid(
+        pagingController: _pagingController,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
+        builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
+          animateTransitions: true,
+          itemBuilder: (context, item, index) {
+            Widget thumb = SelfReloadingThumbnail(
+              size: 320,
+              uid: widget.uid,
+              gid: widget.gid,
+              mid: widget.mid,
+              iid: item.id,
+              initialGalleryItem: item,
+            );
+
+            var fullImageUrl = item.urls["1024"];
+            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
+
+            return Hero(
+                tag: item.id,
+                child: Padding(
+                    padding: EdgeInsets.all(1),
+                    child: GestureDetector(
+                        onTap: () {
+                          if (fullImageUrl != null) {
+                            // VxNavigator.of(context).push(Uri(
+                            //     path: "/" +
+                            //         Uri(pathSegments: [
+                            //           "users",
+                            //           gffft.uid,
+                            //           "gfffts",
+                            //           gffft.gid,
+                            //           "galleries",
+                            //           widget.mid,
+                            //           "i",
+                            //           item.id
+                            //         ]).toString()));
+
+                            Navigator.of(context).push(PageRouteBuilder(
+                                fullscreenDialog: true,
+                                maintainState: true,
+                                pageBuilder: (BuildContext context, Animation<double> animation,
+                                    Animation<double> secondaryAnimation) {
+                                  return Scaffold(
+                                      body: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          onPanUpdate: (details) {
+                                            // Swiping in down direction.
+                                            if (details.delta.dy > 0) {
+                                              Navigator.of(context).pop();
+                                            }
+
+                                            // Swiping in up direction.
+                                            if (details.delta.dy < 0) {
+                                              Navigator.of(context).pop();
+                                            }
+                                          },
+                                          child: PagedItemViewScreen(
+                                              uid: widget.uid,
+                                              gid: widget.gid,
+                                              mid: widget.mid,
+                                              index: index,
+                                              getItemInfo: getItemInfo)));
+                                }));
+                          }
+                        },
+                        child: thumb)));
+          },
+        ));
+  }
+
+  Widget _getListView(BuildContext context) {
+    return PagedSliverList(
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
+          animateTransitions: true,
+          itemBuilder: (context, item, index) {
+            Widget thumb = SelfReloadingThumbnail(
+              size: 1024,
+              uid: widget.uid,
+              gid: widget.gid,
+              mid: widget.mid,
+              iid: item.id,
+              initialGalleryItem: item,
+            );
+
+            var fullImageUrl = item.urls["1024"];
+            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
+
+            return Column(children: [
+              Hero(tag: item.id, child: Padding(padding: const EdgeInsets.all(1), child: thumb)),
+              SelectableText(item.author.handle ?? 'unknown')
+            ]);
+          },
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
@@ -153,6 +260,8 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
             title = gffft.name ?? "";
           }
 
+          final toggleViewIcon = (showGridView) ? Icons.photo : Icons.view_comfortable;
+
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -167,6 +276,10 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                 ),
                 actions: [
                   IconButton(
+                    icon: Icon(toggleViewIcon, color: theme.secondaryHeaderColor),
+                    onPressed: () => _toggleView(),
+                  ),
+                  IconButton(
                     icon: Icon(Icons.refresh, color: theme.secondaryHeaderColor),
                     onPressed: () => _pagingController.refresh(),
                   )
@@ -175,79 +288,12 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
               floatingActionButton: getFloatingActionButton(context, gffft),
               body: Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  child: CustomScrollView(slivers: <Widget>[
-                    PagedSliverGrid(
-                        pagingController: _pagingController,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
-                        builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
-                          animateTransitions: true,
-                          itemBuilder: (context, item, index) {
-                            Widget thumb = SelfReloadingThumbnail(
-                              uid: widget.uid,
-                              gid: widget.gid,
-                              mid: widget.mid,
-                              iid: item.id,
-                              initialGalleryItem: item,
-                            );
-
-                            var fullImageUrl = item.urls["1024"];
-                            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
-
-                            return Hero(
-                                tag: item.id,
-                                child: Padding(
-                                    padding: EdgeInsets.all(1),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          if (fullImageUrl != null) {
-                                            // VxNavigator.of(context).push(Uri(
-                                            //     path: "/" +
-                                            //         Uri(pathSegments: [
-                                            //           "users",
-                                            //           gffft.uid,
-                                            //           "gfffts",
-                                            //           gffft.gid,
-                                            //           "galleries",
-                                            //           widget.mid,
-                                            //           "i",
-                                            //           item.id
-                                            //         ]).toString()));
-
-                                            Navigator.of(context).push(PageRouteBuilder(
-                                                fullscreenDialog: true,
-                                                maintainState: true,
-                                                pageBuilder: (BuildContext context, Animation<double> animation,
-                                                    Animation<double> secondaryAnimation) {
-                                                  return Scaffold(
-                                                      body: GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          onPanUpdate: (details) {
-                                                            // Swiping in down direction.
-                                                            if (details.delta.dy > 0) {
-                                                              Navigator.of(context).pop();
-                                                            }
-
-                                                            // Swiping in up direction.
-                                                            if (details.delta.dy < 0) {
-                                                              Navigator.of(context).pop();
-                                                            }
-                                                          },
-                                                          child: PagedItemViewScreen(
-                                                              uid: widget.uid,
-                                                              gid: widget.gid,
-                                                              mid: widget.mid,
-                                                              index: index,
-                                                              getItemInfo: getItemInfo)));
-                                                }));
-                                          }
-                                        },
-                                        child: thumb)));
-                          },
-                        ))
-                  ])));
+                  child: RefreshIndicator(
+                      onRefresh: () async {
+                        _pagingController.refresh();
+                      },
+                      child: CustomScrollView(
+                          slivers: <Widget>[if (showGridView) _getGridView(context) else _getListView(context)]))));
         });
   }
 }
