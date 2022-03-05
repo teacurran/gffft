@@ -234,7 +234,10 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
             var fullImageUrl = item.urls["1024"];
             fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
 
-            return Hero(tag: item.id, child: Padding(padding: EdgeInsets.all(1), child: thumb));
+            return Column(children: [
+              Hero(tag: item.id, child: Padding(padding: const EdgeInsets.all(1), child: thumb)),
+              SelectableText(item.author.handle ?? 'unknown')
+            ]);
           },
         ));
   }
