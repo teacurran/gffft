@@ -175,79 +175,83 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
               floatingActionButton: getFloatingActionButton(context, gffft),
               body: Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  child: CustomScrollView(slivers: <Widget>[
-                    PagedSliverGrid(
-                        pagingController: _pagingController,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
-                        builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
-                          animateTransitions: true,
-                          itemBuilder: (context, item, index) {
-                            Widget thumb = SelfReloadingThumbnail(
-                              uid: widget.uid,
-                              gid: widget.gid,
-                              mid: widget.mid,
-                              iid: item.id,
-                              initialGalleryItem: item,
-                            );
+                  child: RefreshIndicator(
+                      onRefresh: () async {
+                        _pagingController.refresh();
+                      },
+                      child: CustomScrollView(slivers: <Widget>[
+                        PagedSliverGrid(
+                            pagingController: _pagingController,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
+                            builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
+                              animateTransitions: true,
+                              itemBuilder: (context, item, index) {
+                                Widget thumb = SelfReloadingThumbnail(
+                                  uid: widget.uid,
+                                  gid: widget.gid,
+                                  mid: widget.mid,
+                                  iid: item.id,
+                                  initialGalleryItem: item,
+                                );
 
-                            var fullImageUrl = item.urls["1024"];
-                            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
+                                var fullImageUrl = item.urls["1024"];
+                                fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
 
-                            return Hero(
-                                tag: item.id,
-                                child: Padding(
-                                    padding: EdgeInsets.all(1),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          if (fullImageUrl != null) {
-                                            // VxNavigator.of(context).push(Uri(
-                                            //     path: "/" +
-                                            //         Uri(pathSegments: [
-                                            //           "users",
-                                            //           gffft.uid,
-                                            //           "gfffts",
-                                            //           gffft.gid,
-                                            //           "galleries",
-                                            //           widget.mid,
-                                            //           "i",
-                                            //           item.id
-                                            //         ]).toString()));
+                                return Hero(
+                                    tag: item.id,
+                                    child: Padding(
+                                        padding: EdgeInsets.all(1),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              if (fullImageUrl != null) {
+                                                // VxNavigator.of(context).push(Uri(
+                                                //     path: "/" +
+                                                //         Uri(pathSegments: [
+                                                //           "users",
+                                                //           gffft.uid,
+                                                //           "gfffts",
+                                                //           gffft.gid,
+                                                //           "galleries",
+                                                //           widget.mid,
+                                                //           "i",
+                                                //           item.id
+                                                //         ]).toString()));
 
-                                            Navigator.of(context).push(PageRouteBuilder(
-                                                fullscreenDialog: true,
-                                                maintainState: true,
-                                                pageBuilder: (BuildContext context, Animation<double> animation,
-                                                    Animation<double> secondaryAnimation) {
-                                                  return Scaffold(
-                                                      body: GestureDetector(
-                                                          onTap: () {
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          onPanUpdate: (details) {
-                                                            // Swiping in down direction.
-                                                            if (details.delta.dy > 0) {
-                                                              Navigator.of(context).pop();
-                                                            }
+                                                Navigator.of(context).push(PageRouteBuilder(
+                                                    fullscreenDialog: true,
+                                                    maintainState: true,
+                                                    pageBuilder: (BuildContext context, Animation<double> animation,
+                                                        Animation<double> secondaryAnimation) {
+                                                      return Scaffold(
+                                                          body: GestureDetector(
+                                                              onTap: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              onPanUpdate: (details) {
+                                                                // Swiping in down direction.
+                                                                if (details.delta.dy > 0) {
+                                                                  Navigator.of(context).pop();
+                                                                }
 
-                                                            // Swiping in up direction.
-                                                            if (details.delta.dy < 0) {
-                                                              Navigator.of(context).pop();
-                                                            }
-                                                          },
-                                                          child: PagedItemViewScreen(
-                                                              uid: widget.uid,
-                                                              gid: widget.gid,
-                                                              mid: widget.mid,
-                                                              index: index,
-                                                              getItemInfo: getItemInfo)));
-                                                }));
-                                          }
-                                        },
-                                        child: thumb)));
-                          },
-                        ))
-                  ])));
+                                                                // Swiping in up direction.
+                                                                if (details.delta.dy < 0) {
+                                                                  Navigator.of(context).pop();
+                                                                }
+                                                              },
+                                                              child: PagedItemViewScreen(
+                                                                  uid: widget.uid,
+                                                                  gid: widget.gid,
+                                                                  mid: widget.mid,
+                                                                  index: index,
+                                                                  getItemInfo: getItemInfo)));
+                                                    }));
+                                              }
+                                            },
+                                            child: thumb)));
+                              },
+                            ))
+                      ]))));
         });
   }
 }
