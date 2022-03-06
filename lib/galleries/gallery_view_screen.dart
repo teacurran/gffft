@@ -8,8 +8,10 @@ import 'package:gffft/galleries/self_reloading_thumbnail.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../style/letter_spacing.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
@@ -27,7 +29,6 @@ class GalleryViewScreen extends StatefulWidget {
 
 class _GalleryViewScreenState extends State<GalleryViewScreen> {
   UserApi userApi = getIt<UserApi>();
-  static const _pageSize = 200;
   final PagingController<String?, GalleryItem> _pagingController = PagingController(firstPageKey: null);
   Future<Gffft>? gffft;
   bool showGridView = false;
@@ -77,15 +78,16 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
   Future<void> _fetchPage(pageKey) async {
     try {
+      final pageSize = showGridView ? 100 : 5;
       final newItems = await userApi.getGallery(
         widget.uid,
         widget.gid,
         widget.mid,
         pageKey,
-        _pageSize,
+        pageSize,
       );
 
-      final isLastPage = newItems.count < _pageSize;
+      final isLastPage = newItems.count < pageSize;
       itemList.addAll(newItems.items);
       if (isLastPage) {
         _pagingController.appendLastPage(newItems.items);
@@ -217,6 +219,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
   }
 
   Widget _getListView(BuildContext context) {
+    final ThemeData theme = context.appTheme.materialTheme;
     return PagedSliverList(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
@@ -235,8 +238,25 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
             fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
 
             return Column(children: [
-              Hero(tag: item.id, child: Padding(padding: const EdgeInsets.all(1), child: thumb)),
-              SelectableText(item.author.handle ?? 'unknown')
+              Container(
+                padding: const EdgeInsets.all(5),
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.white12,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
+                ),
+                child: SelectableText(item.author.handle ?? 'unknown',
+                    style: GoogleFonts.sourceSansPro(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      letterSpacing: letterSpacingOrNone(2.8),
+                      color: Colors.lightBlue,
+                    )),
+              ),
+              Hero(tag: item.id, child: thumb)
             ]);
           },
         ));
