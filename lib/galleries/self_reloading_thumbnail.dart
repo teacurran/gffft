@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
@@ -180,15 +181,21 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                   topRight: Radius.circular(4.0),
                 ),
               ),
-              child: SelectableText(item.author.handle ?? 'unknown',
-                  style: GoogleFonts.sourceSansPro(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 18,
-                    letterSpacing: letterSpacingOrNone(2.8),
-                    color: Colors.lightBlue,
-                  )),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                SelectableText(item.author.handle ?? 'unknown',
+                    style: GoogleFonts.sourceSansPro(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      letterSpacing: letterSpacingOrNone(2.8),
+                      color: Colors.lightBlue,
+                    )),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Platform.isAndroid ? Icons.more_vert : Icons.more_horiz),
+                )
+              ]),
             ),
-            GestureDetector(onDoubleTap: () => _likeItem(item), child: thumb)
+            GestureDetector(onDoubleTap: () => _likeItem(item), child: thumb),
           ]);
         });
   }
