@@ -6,22 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/users/user_api.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../components/common_circular_progress_indicator.dart';
+import '../style/letter_spacing.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
 
 class SelfReloadingThumbnail extends StatefulWidget {
-  const SelfReloadingThumbnail({
-    Key? key,
-    required this.uid,
-    required this.gid,
-    required this.mid,
-    required this.iid,
-    required this.size,
-    this.initialGalleryItem,
-  }) : super(key: key);
+  const SelfReloadingThumbnail(
+      {Key? key,
+      required this.uid,
+      required this.gid,
+      required this.mid,
+      required this.iid,
+      required this.size,
+      this.initialGalleryItem,
+      this.listView = false})
+      : super(key: key);
 
   final String uid;
   final String gid;
@@ -29,6 +32,7 @@ class SelfReloadingThumbnail extends StatefulWidget {
   final String iid;
   final GalleryItem? initialGalleryItem;
   final double size;
+  final bool listView;
 
   @override
   State<SelfReloadingThumbnail> createState() => _SelfReloadingThumbnailState();
@@ -45,6 +49,12 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
   void initState() {
     _initialLoadIfNeccessary();
     super.initState();
+  }
+
+  void _likeItem(GalleryItem item) {
+    if (kDebugMode) {
+      print("double tap received: ${item.id}");
+    }
   }
 
   Future<void> _initialLoadIfNeccessary() async {
@@ -155,7 +165,31 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
           thumb ??= CommonCircularProgressIndicator();
 
-          return thumb!;
+          if (!widget.listView) {
+            return thumb!;
+          }
+
+          return Column(children: [
+            Container(
+              padding: const EdgeInsets.all(5),
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white12,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  topRight: Radius.circular(4.0),
+                ),
+              ),
+              child: SelectableText(item.author.handle ?? 'unknown',
+                  style: GoogleFonts.sourceSansPro(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 18,
+                    letterSpacing: letterSpacingOrNone(2.8),
+                    color: Colors.lightBlue,
+                  )),
+            ),
+            GestureDetector(onDoubleTap: () => _likeItem(item), child: thumb)
+          ]);
         });
   }
 }

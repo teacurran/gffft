@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,10 +9,8 @@ import 'package:gffft/galleries/self_reloading_thumbnail.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../style/letter_spacing.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
@@ -166,7 +165,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
             return Hero(
                 tag: item.id,
                 child: Padding(
-                    padding: EdgeInsets.all(1),
+                    padding: const EdgeInsets.all(1),
                     child: GestureDetector(
                         onTap: () {
                           if (fullImageUrl != null) {
@@ -225,39 +224,14 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
         builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
           animateTransitions: true,
           itemBuilder: (context, item, index) {
-            Widget thumb = SelfReloadingThumbnail(
-              size: 1024,
-              uid: widget.uid,
-              gid: widget.gid,
-              mid: widget.mid,
-              iid: item.id,
-              initialGalleryItem: item,
-            );
-
-            var fullImageUrl = item.urls["1024"];
-            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
-
-            return Column(children: [
-              Container(
-                padding: const EdgeInsets.all(5),
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white12,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    topRight: Radius.circular(4.0),
-                  ),
-                ),
-                child: SelectableText(item.author.handle ?? 'unknown',
-                    style: GoogleFonts.sourceSansPro(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 18,
-                      letterSpacing: letterSpacingOrNone(2.8),
-                      color: Colors.lightBlue,
-                    )),
-              ),
-              Hero(tag: item.id, child: thumb)
-            ]);
+            return SelfReloadingThumbnail(
+                size: 1024,
+                uid: widget.uid,
+                gid: widget.gid,
+                mid: widget.mid,
+                iid: item.id,
+                initialGalleryItem: item,
+                listView: true);
           },
         ));
   }
