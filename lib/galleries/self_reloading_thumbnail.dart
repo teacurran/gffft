@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
@@ -172,7 +171,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
           return Column(children: [
             Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Colors.white12,
@@ -189,9 +188,28 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                       letterSpacing: letterSpacingOrNone(2.8),
                       color: Colors.lightBlue,
                     )),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Platform.isAndroid ? Icons.more_vert : Icons.more_horiz),
+                PopupMenuButton<int>(
+                  offset: Offset.fromDirection(1, 50),
+                  padding: EdgeInsets.zero,
+                  onSelected: (item) {
+                    if (kDebugMode) {
+                      print("item: $item");
+                    }
+
+                    showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                              child: Padding(
+                                  padding: const EdgeInsets.all(32.0),
+                                  child: Text('This is the modal bottom sheet. Tap anywhere to dismiss.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Theme.of(context).accentColor, fontSize: 24.0))));
+                        });
+                  },
+                  itemBuilder: (context) => [
+                    const PopupMenuItem<int>(value: 0, child: Text('edit')),
+                  ],
                 )
               ]),
             ),
