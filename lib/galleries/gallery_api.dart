@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 import '../api_base.dart';
+import 'models/gallery_item_like_submit.dart';
 
 class GalleryApi extends ApiBase {
   Future<void> uploadGalleryItem(String uid, String gid, String mid, String description, XFile file) async {
@@ -69,5 +71,9 @@ class GalleryApi extends ApiBase {
       throw FetchDataException('Unable to post gallery item');
     }
     return responseJson;
+  }
+
+  Future<void> likePost(GalleryItemLikeSubmit l) async {
+    return post("galleries/like", jsonEncode(l));
   }
 }

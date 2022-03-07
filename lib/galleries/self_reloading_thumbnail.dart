@@ -4,12 +4,15 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/galleries/models/gallery_item_like_submit.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/common_circular_progress_indicator.dart';
 import '../style/letter_spacing.dart';
+import 'gallery_api.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
@@ -39,7 +42,8 @@ class SelfReloadingThumbnail extends StatefulWidget {
 }
 
 class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
-  UserApi userApi = getIt<UserApi>();
+  final userApi = getIt<UserApi>();
+  final galleryApi = getIt<GalleryApi>();
 
   Future<GalleryItem>? galleryItem;
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
@@ -51,10 +55,12 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
     super.initState();
   }
 
-  void _likeItem(GalleryItem item) {
+  Future<void> _likeItem(GalleryItem item) async {
     if (kDebugMode) {
       print("double tap received: ${item.id}");
     }
+
+    await galleryApi.likePost(GalleryItemLikeSubmit(widget.uid, widget.gid, widget.mid, widget.iid));
   }
 
   Future<void> _initialLoadIfNeccessary() async {
@@ -214,6 +220,13 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
               ]),
             ),
             GestureDetector(onDoubleTap: () => _likeItem(item), child: thumb),
+            Padding(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: Row(
+                  children: [FaIcon(FontAwesomeIcons.heart)],
+                )),
+            if (item.description != null)
+              Padding(padding: const EdgeInsets.fromLTRB(5, 5, 5, 5), child: SelectableText(item.description!))
           ]);
         });
   }
