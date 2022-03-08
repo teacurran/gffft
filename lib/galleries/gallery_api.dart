@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 import '../api_base.dart';
+import 'models/gallery_item.dart';
 import 'models/gallery_item_like_submit.dart';
 
 class GalleryApi extends ApiBase {
@@ -73,7 +74,8 @@ class GalleryApi extends ApiBase {
     return responseJson;
   }
 
-  Future<void> likePost(GalleryItemLikeSubmit l) async {
-    return post("galleries/like", jsonEncode(l));
+  Future<GalleryItem> likePost(GalleryItemLikeSubmit l) async {
+    final response = await post("galleries/like", jsonEncode(l));
+    return GalleryItem.fromJson(response);
   }
 }

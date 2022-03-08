@@ -15,6 +15,8 @@ GalleryItem _$GalleryItemFromJson(Map<String, dynamic> json) => GalleryItem(
       createdAt: DateTime.parse(json['createdAt'] as String),
       urls: Map<String, String>.from(json['urls'] as Map),
       description: json['description'] as String?,
+      likeCount: json['likeCount'] as int?,
+      liked: json['liked'] as bool?,
     );
 
 Map<String, dynamic> _$GalleryItemToJson(GalleryItem instance) =>
@@ -27,4 +29,6 @@ Map<String, dynamic> _$GalleryItemToJson(GalleryItem instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'description': instance.description,
       'urls': instance.urls,
+      'likeCount': instance.likeCount,
+      'liked': instance.liked,
     };

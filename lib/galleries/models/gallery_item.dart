@@ -13,6 +13,8 @@ class GalleryItem {
   DateTime createdAt;
   String? description;
   Map<String, String> urls;
+  int? likeCount;
+  bool? liked;
 
   GalleryItem(
       {required this.id,
@@ -22,7 +24,9 @@ class GalleryItem {
       required this.thumbnail,
       required this.createdAt,
       required this.urls,
-      this.description});
+      this.description,
+      this.likeCount,
+      this.liked});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

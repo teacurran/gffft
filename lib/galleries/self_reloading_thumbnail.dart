@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:badges/badges.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/galleries/models/gallery_item_like_submit.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -60,7 +62,12 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
       print("double tap received: ${item.id}");
     }
 
-    await galleryApi.likePost(GalleryItemLikeSubmit(widget.uid, widget.gid, widget.mid, widget.iid));
+    var gi = await galleryApi.likePost(GalleryItemLikeSubmit(widget.uid, widget.gid, widget.mid, widget.iid));
+    var completer = Completer<GalleryItem>();
+    completer.complete(gi);
+    setState(() {
+      galleryItem = completer.future;
+    });
   }
 
   Future<void> _initialLoadIfNeccessary() async {
@@ -99,6 +106,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.appTheme.materialTheme;
     return FutureBuilder(
         future: galleryItem,
         builder: (context, AsyncSnapshot<GalleryItem?> snapshot) {
@@ -175,6 +183,12 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
             return thumb!;
           }
 
+          var liked = item.liked ?? false;
+          var likeIcon = liked ? const FaIcon(FontAwesomeIcons.solidHeart) : const FaIcon(FontAwesomeIcons.heart);
+
+          var likeCount = item.likeCount ?? 0;
+          var likeBadge = (likeCount > 1) ? SelectableText(item.likeCount.toString()) : null;
+
           return Column(children: [
             Container(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
@@ -220,13 +234,28 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
               ]),
             ),
             GestureDetector(onDoubleTap: () => _likeItem(item), child: thumb),
-            Padding(
-                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                child: Row(
-                  children: [FaIcon(FontAwesomeIcons.heart)],
-                )),
+            Row(
+              children: [
+                Badge(
+                    badgeContent: likeBadge,
+                    badgeColor: Colors.transparent,
+                    child: IconButton(
+                      onPressed: () => _likeItem(item),
+                      icon: likeIcon,
+                      enableFeedback: true,
+                    ))
+              ],
+            ),
             if (item.description != null)
-              Padding(padding: const EdgeInsets.fromLTRB(5, 5, 5, 5), child: SelectableText(item.description!))
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+                  child: Row(children: [
+                    SelectableText(
+                      item.description!,
+                      textAlign: TextAlign.left,
+                      style: theme.textTheme.bodyText1,
+                    )
+                  ]))
           ]);
         });
   }
