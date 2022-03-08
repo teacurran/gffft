@@ -1,6 +1,7 @@
 // @dart=2.14
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_localizations.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -94,9 +95,21 @@ class App extends StatefulWidget {
 
 // First way to monitor changes in the routing stack:
 class NavigationObserver extends VxObserver {
+  FirebaseAnalytics fba = FirebaseAnalytics.instance;
+
   @override
   void didChangeRoute(Uri route, Page page, String pushOrPop) {
     print("${route.path} - $pushOrPop");
+
+    final String? screenName = route.path;
+    if (screenName != null) {
+      fba.setCurrentScreen(screenName: screenName).catchError(
+        (Object error) {
+          debugPrint('$FirebaseAnalyticsObserver: $error');
+        },
+        test: (Object error) => error is PlatformException,
+      );
+    }
   }
 
   @override

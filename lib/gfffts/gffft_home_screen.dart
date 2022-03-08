@@ -31,11 +31,12 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
   @override
   void initState() {
     super.initState();
-    FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_home");
+
     _loadGffft();
   }
 
   Future<void> _loadGffft() async {
+    await FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_home");
     if (kDebugMode) {
       print("_loadGffft() called");
     }

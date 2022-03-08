@@ -1,27 +1,35 @@
 import 'dart:async';
 
+import 'package:badges/badges.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/galleries/models/gallery_item_like_submit.dart';
+import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../components/common_circular_progress_indicator.dart';
+import '../style/letter_spacing.dart';
+import 'gallery_api.dart';
 import 'models/gallery_item.dart';
 
 final getIt = GetIt.instance;
 
 class SelfReloadingThumbnail extends StatefulWidget {
-  const SelfReloadingThumbnail({
-    Key? key,
-    required this.uid,
-    required this.gid,
-    required this.mid,
-    required this.iid,
-    required this.size,
-    this.initialGalleryItem,
-  }) : super(key: key);
+  const SelfReloadingThumbnail(
+      {Key? key,
+      required this.uid,
+      required this.gid,
+      required this.mid,
+      required this.iid,
+      required this.size,
+      this.initialGalleryItem,
+      this.listView = false})
+      : super(key: key);
 
   final String uid;
   final String gid;
@@ -29,13 +37,15 @@ class SelfReloadingThumbnail extends StatefulWidget {
   final String iid;
   final GalleryItem? initialGalleryItem;
   final double size;
+  final bool listView;
 
   @override
   State<SelfReloadingThumbnail> createState() => _SelfReloadingThumbnailState();
 }
 
 class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
-  UserApi userApi = getIt<UserApi>();
+  final userApi = getIt<UserApi>();
+  final galleryApi = getIt<GalleryApi>();
 
   Future<GalleryItem>? galleryItem;
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
@@ -45,6 +55,19 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
   void initState() {
     _initialLoadIfNeccessary();
     super.initState();
+  }
+
+  Future<void> _likeItem(GalleryItem item) async {
+    if (kDebugMode) {
+      print("double tap received: ${item.id}");
+    }
+
+    var gi = await galleryApi.likePost(GalleryItemLikeSubmit(widget.uid, widget.gid, widget.mid, widget.iid));
+    var completer = Completer<GalleryItem>();
+    completer.complete(gi);
+    setState(() {
+      galleryItem = completer.future;
+    });
   }
 
   Future<void> _initialLoadIfNeccessary() async {
@@ -83,6 +106,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.appTheme.materialTheme;
     return FutureBuilder(
         future: galleryItem,
         builder: (context, AsyncSnapshot<GalleryItem?> snapshot) {
@@ -155,7 +179,84 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
           thumb ??= CommonCircularProgressIndicator();
 
-          return thumb!;
+          if (!widget.listView) {
+            return thumb!;
+          }
+
+          var liked = item.liked ?? false;
+          var likeIcon = liked ? const FaIcon(FontAwesomeIcons.solidHeart) : const FaIcon(FontAwesomeIcons.heart);
+
+          var likeCount = item.likeCount ?? 0;
+          var likeBadge = (likeCount > 1) ? SelectableText(item.likeCount.toString()) : null;
+
+          return Column(children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white12,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  topRight: Radius.circular(4.0),
+                ),
+              ),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                SelectableText(item.author.handle ?? 'unknown',
+                    style: GoogleFonts.sourceSansPro(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      letterSpacing: letterSpacingOrNone(2.8),
+                      color: Colors.lightBlue,
+                    )),
+                PopupMenuButton<int>(
+                  offset: Offset.fromDirection(1, 50),
+                  padding: EdgeInsets.zero,
+                  onSelected: (item) {
+                    if (kDebugMode) {
+                      print("item: $item");
+                    }
+
+                    showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                              child: Padding(
+                                  padding: const EdgeInsets.all(32.0),
+                                  child: Text('This is the modal bottom sheet. Tap anywhere to dismiss.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Theme.of(context).accentColor, fontSize: 24.0))));
+                        });
+                  },
+                  itemBuilder: (context) => [
+                    const PopupMenuItem<int>(value: 0, child: Text('edit')),
+                  ],
+                )
+              ]),
+            ),
+            GestureDetector(onDoubleTap: () => _likeItem(item), child: thumb),
+            Row(
+              children: [
+                Badge(
+                    badgeContent: likeBadge,
+                    badgeColor: Colors.transparent,
+                    child: IconButton(
+                      onPressed: () => _likeItem(item),
+                      icon: likeIcon,
+                      enableFeedback: true,
+                    ))
+              ],
+            ),
+            if (item.description != null)
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+                  child: Row(children: [
+                    SelectableText(
+                      item.description!,
+                      textAlign: TextAlign.left,
+                      style: theme.textTheme.bodyText1,
+                    )
+                  ]))
+          ]);
         });
   }
 }

@@ -36,11 +36,11 @@ class _GffftMembershipScreenState extends State<GffftMembershipScreen> {
   void initState() {
     super.initState();
 
-    FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_join");
     _loadGffft();
   }
 
   Future<void> _loadGffft() async {
+    await FirebaseAnalytics.instance.setCurrentScreen(screenName: "gffft_join");
     return setState(() {
       gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
         // initialize this to a default handle for the user?

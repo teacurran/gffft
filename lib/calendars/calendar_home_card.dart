@@ -21,7 +21,7 @@ class CalendarHomeCard extends StatelessWidget {
     var l10n = AppLocalizations.of(context);
 
     return Card(
-        margin: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+        margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
         clipBehavior: Clip.antiAlias,
         color: theme.backgroundColor,
         shape: RoundedRectangleBorder(

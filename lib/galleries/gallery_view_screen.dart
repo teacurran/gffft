@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,7 +28,6 @@ class GalleryViewScreen extends StatefulWidget {
 
 class _GalleryViewScreenState extends State<GalleryViewScreen> {
   UserApi userApi = getIt<UserApi>();
-  static const _pageSize = 200;
   final PagingController<String?, GalleryItem> _pagingController = PagingController(firstPageKey: null);
   Future<Gffft>? gffft;
   bool showGridView = false;
@@ -77,15 +77,16 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
   Future<void> _fetchPage(pageKey) async {
     try {
+      final pageSize = showGridView ? 100 : 5;
       final newItems = await userApi.getGallery(
         widget.uid,
         widget.gid,
         widget.mid,
         pageKey,
-        _pageSize,
+        pageSize,
       );
 
-      final isLastPage = newItems.count < _pageSize;
+      final isLastPage = newItems.count < pageSize;
       itemList.addAll(newItems.items);
       if (isLastPage) {
         _pagingController.appendLastPage(newItems.items);
@@ -164,7 +165,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
             return Hero(
                 tag: item.id,
                 child: Padding(
-                    padding: EdgeInsets.all(1),
+                    padding: const EdgeInsets.all(1),
                     child: GestureDetector(
                         onTap: () {
                           if (fullImageUrl != null) {
@@ -217,27 +218,20 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
   }
 
   Widget _getListView(BuildContext context) {
+    final ThemeData theme = context.appTheme.materialTheme;
     return PagedSliverList(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<GalleryItem>(
           animateTransitions: true,
           itemBuilder: (context, item, index) {
-            Widget thumb = SelfReloadingThumbnail(
-              size: 1024,
-              uid: widget.uid,
-              gid: widget.gid,
-              mid: widget.mid,
-              iid: item.id,
-              initialGalleryItem: item,
-            );
-
-            var fullImageUrl = item.urls["1024"];
-            fullImageUrl = fullImageUrl?.replaceAll("127.0.0.1", storageHost);
-
-            return Column(children: [
-              Hero(tag: item.id, child: Padding(padding: const EdgeInsets.all(1), child: thumb)),
-              SelectableText(item.author.handle ?? 'unknown')
-            ]);
+            return SelfReloadingThumbnail(
+                size: 1024,
+                uid: widget.uid,
+                gid: widget.gid,
+                mid: widget.mid,
+                iid: item.id,
+                initialGalleryItem: item,
+                listView: true);
           },
         ));
   }

@@ -14,6 +14,9 @@ GalleryItem _$GalleryItemFromJson(Map<String, dynamic> json) => GalleryItem(
       thumbnail: json['thumbnail'] as bool,
       createdAt: DateTime.parse(json['createdAt'] as String),
       urls: Map<String, String>.from(json['urls'] as Map),
+      description: json['description'] as String?,
+      likeCount: json['likeCount'] as int?,
+      liked: json['liked'] as bool?,
     );
 
 Map<String, dynamic> _$GalleryItemToJson(GalleryItem instance) =>
@@ -24,5 +27,8 @@ Map<String, dynamic> _$GalleryItemToJson(GalleryItem instance) =>
       'filePath': instance.filePath,
       'thumbnail': instance.thumbnail,
       'createdAt': instance.createdAt.toIso8601String(),
+      'description': instance.description,
       'urls': instance.urls,
+      'likeCount': instance.likeCount,
+      'liked': instance.liked,
     };
