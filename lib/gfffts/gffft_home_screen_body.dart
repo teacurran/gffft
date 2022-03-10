@@ -15,6 +15,7 @@ import '../notebooks/notebook_home_card.dart';
 import '../users/user_api.dart';
 import 'fruit_code_home_card.dart';
 import 'gffft_api.dart';
+import 'gffft_feature_screen.dart';
 import 'models/gffft.dart';
 
 final getIt = GetIt.instance;
@@ -177,18 +178,18 @@ class GffftHomeScreenBody extends StatelessWidget {
       memberActions.add(OutlinedButton(
         child: const Hero(tag: "settings-button", child: Icon(Icons.settings, color: Color(0xFFFFDC56))),
         onPressed: () {
-          VxNavigator.of(context)
-              .waitAndPush(
-                  Uri(path: "/" + Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "features"]).toString()))
-              .then((value) {
-            onGffftChange();
-          });
-
-          // Navigator.push(context, MaterialPageRoute(builder: (context) {
-          //   return GffftFeatureScreen(uid: gffft.uid, gid: gffft.gid);
-          // })).then((value) {
+          // VxNavigator.of(context)
+          //     .waitAndPush(
+          //         Uri(path: "/" + Uri(pathSegments: ["users", gffft.uid, "gfffts", gffft.gid, "features"]).toString()))
+          //     .then((value) {
           //   onGffftChange();
           // });
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return GffftFeatureScreen(uid: gffft.uid, gid: gffft.gid);
+          })).then((value) {
+            onGffftChange();
+          });
         },
         style: theme.outlinedButtonTheme.style,
       ));

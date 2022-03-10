@@ -13,6 +13,7 @@ import '../notebooks/notebook_edit_card.dart';
 import 'gffft_api.dart';
 import 'gffft_search_card.dart';
 import 'models/gffft.dart';
+import 'models/gffft_patch_save.dart';
 
 final getIt = GetIt.instance;
 
@@ -35,25 +36,55 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   GffftApi gffftApi = getIt<GffftApi>();
   Future<Gffft>? gffft;
 
+  late TextEditingController _titleController;
+  late TextEditingController _introController;
+  late TextEditingController _descController;
+
   @override
   void initState() {
     super.initState();
+
     _loadGffft();
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _introController.dispose();
+    _descController.dispose();
+
+    super.dispose();
   }
 
   Future<void> _loadGffft() async {
     return setState(() {
       gffft = userApi.getGffft(widget.uid, widget.gid).then((gffft) {
+        _titleController = TextEditingController(text: gffft.name);
+        _introController = TextEditingController(text: gffft.intro);
+        _descController = TextEditingController(text: gffft.description);
+
         return gffft;
       });
     });
   }
 
-  Widget? getFloatingActionButton(BuildContext context) {
+  Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
+    if (gffft == null) {
+      return null;
+    }
     return FloatingActionButton(
         child: const Icon(Icons.save, color: Colors.black),
         backgroundColor: const Color(0xFFFABB59),
-        onPressed: () => Navigator.of(context).pop());
+        onPressed: () {
+          GffftPatchSave patchBody = GffftPatchSave(
+              uid: gffft.uid,
+              gid: gffft.gid,
+              intro: _introController.text,
+              description: _descController.text,
+              name: _titleController.text);
+
+          gffftApi.savePartial(patchBody).then((value) => Navigator.of(context).pop());
+        });
   }
 
   void onSaveComplete() {
@@ -70,6 +101,9 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
     return [
       GffftEditCard(
         gffft: gffft,
+        titleController: _titleController,
+        introController: _introController,
+        descController: _descController,
         onSaveComplete: onSaveComplete,
       ),
       BoardEditCard(
@@ -132,7 +166,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
             //     );
             //   },
             floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-            floatingActionButton: getFloatingActionButton(context),
+            floatingActionButton: getFloatingActionButton(context, gffft),
           );
         });
   }

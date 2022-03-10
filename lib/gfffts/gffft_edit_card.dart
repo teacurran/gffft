@@ -3,80 +3,25 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/style/app_theme.dart';
 
-import '../gfffts/gffft_api.dart';
 import '../gfffts/models/gffft.dart';
-import '../gfffts/models/gffft_patch_save.dart';
 
 final getIt = GetIt.instance;
 
-class GffftEditCard extends StatefulWidget {
-  GffftEditCard({Key? key, required this.gffft, this.onSaveComplete}) : super(key: key);
+class GffftEditCard extends StatelessWidget {
+  const GffftEditCard(
+      {Key? key,
+      required this.gffft,
+      this.onSaveComplete,
+      required this.titleController,
+      required this.introController,
+      required this.descController})
+      : super(key: key);
 
   final Gffft gffft;
   final VoidCallback? onSaveComplete;
-
-  @override
-  State<GffftEditCard> createState() => _GffftEditCardState();
-}
-
-class _GffftEditCardState extends State<GffftEditCard> {
-  GffftApi gffftApi = getIt<GffftApi>();
-
-  late TextEditingController _titleController;
-  late TextEditingController _introController;
-  late TextEditingController _descController;
-
-  bool boardEnabled = false;
-  String boardWhoCanView = "owner";
-  String boardWhoCanPost = "owner";
-
-  @override
-  void initState() {
-    super.initState();
-
-    _titleController = TextEditingController(text: widget.gffft.name);
-    _introController = TextEditingController(text: widget.gffft.intro);
-    _descController = TextEditingController(text: widget.gffft.description);
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _introController.dispose();
-    _descController.dispose();
-
-    super.dispose();
-  }
-
-  Future<void> _saveIntroText() async {
-    GffftPatchSave gffft = GffftPatchSave(
-      uid: widget.gffft.uid,
-      gid: widget.gffft.gid,
-      intro: _introController.text,
-    );
-
-    gffftApi.savePartial(gffft).then((value) => widget.onSaveComplete);
-  }
-
-  Future<void> _saveDescription() async {
-    GffftPatchSave gffft = GffftPatchSave(
-      uid: widget.gffft.uid,
-      gid: widget.gffft.gid,
-      description: _descController.text,
-    );
-
-    gffftApi.savePartial(gffft).then((value) => widget.onSaveComplete);
-  }
-
-  Future<void> _saveTitle() async {
-    GffftPatchSave gffft = GffftPatchSave(
-      uid: widget.gffft.uid,
-      gid: widget.gffft.gid,
-      name: _titleController.text,
-    );
-
-    gffftApi.savePartial(gffft).then((value) => widget.onSaveComplete);
-  }
+  final TextEditingController titleController;
+  final TextEditingController introController;
+  final TextEditingController descController;
 
   @override
   Widget build(BuildContext context) {
@@ -102,45 +47,28 @@ class _GffftEditCardState extends State<GffftEditCard> {
                 ]),
                 Padding(
                     padding: fieldPadding,
-                    child: Focus(
-                        child: TextField(
-                          textAlign: TextAlign.left,
-                          controller: _titleController,
-                          decoration: InputDecoration(labelText: l10n.gffftEditCardName),
-                        ),
-                        onFocusChange: (hasFocus) {
-                          if (!hasFocus) {
-                            _saveTitle();
-                          }
-                        })),
+                    child: TextField(
+                      textAlign: TextAlign.left,
+                      controller: titleController,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(labelText: l10n.gffftEditCardName),
+                    )),
                 Padding(
                     padding: fieldPadding,
-                    child: Focus(
-                        child: TextField(
-                          decoration: InputDecoration(labelText: l10n.gffftEditCardDescription),
-                          controller: _descController,
-                          textInputAction: TextInputAction.go,
-                          maxLines: 2,
-                        ),
-                        onFocusChange: (hasFocus) {
-                          if (!hasFocus) {
-                            _saveDescription();
-                          }
-                        })),
+                    child: TextField(
+                      decoration: InputDecoration(labelText: l10n.gffftEditCardDescription),
+                      controller: descController,
+                      textInputAction: TextInputAction.newline,
+                      maxLines: 2,
+                    )),
                 Padding(
                     padding: fieldPadding,
-                    child: Focus(
-                        child: TextField(
-                          decoration: InputDecoration(labelText: l10n.gffftEditCardIntro),
-                          controller: _introController,
-                          textInputAction: TextInputAction.go,
-                          maxLines: 5,
-                        ),
-                        onFocusChange: (hasFocus) {
-                          if (!hasFocus) {
-                            _saveIntroText();
-                          }
-                        })),
+                    child: TextField(
+                      decoration: InputDecoration(labelText: l10n.gffftEditCardIntro),
+                      controller: introController,
+                      textInputAction: TextInputAction.newline,
+                      maxLines: 5,
+                    )),
               ])),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
