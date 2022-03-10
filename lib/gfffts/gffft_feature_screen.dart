@@ -39,6 +39,7 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   late TextEditingController _titleController;
   late TextEditingController _introController;
   late TextEditingController _descController;
+  bool isSaving = false;
 
   @override
   void initState() {
@@ -68,23 +69,33 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
     });
   }
 
+  _saveEdit(BuildContext context, Gffft gffft) async {
+    setState(() {
+      isSaving = true;
+    });
+    GffftPatchSave patchBody = GffftPatchSave(
+        uid: gffft.uid,
+        gid: gffft.gid,
+        intro: _introController.text,
+        description: _descController.text,
+        name: _titleController.text);
+
+    await gffftApi.savePartial(patchBody);
+    Navigator.pop(context);
+  }
+
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
     if (gffft == null) {
       return null;
     }
+    if (isSaving) {
+      return FloatingActionButton(
+          child: const CircularProgressIndicator(), backgroundColor: const Color(0xFFFABB59), onPressed: () {});
+    }
     return FloatingActionButton(
         child: const Icon(Icons.save, color: Colors.black),
         backgroundColor: const Color(0xFFFABB59),
-        onPressed: () {
-          GffftPatchSave patchBody = GffftPatchSave(
-              uid: gffft.uid,
-              gid: gffft.gid,
-              intro: _introController.text,
-              description: _descController.text,
-              name: _titleController.text);
-
-          gffftApi.savePartial(patchBody).then((value) => Navigator.of(context).pop());
-        });
+        onPressed: () => _saveEdit(context, gffft));
   }
 
   void onSaveComplete() {
