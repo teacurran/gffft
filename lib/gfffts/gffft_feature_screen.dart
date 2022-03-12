@@ -85,9 +85,6 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   }
 
   Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
-    if (gffft == null) {
-      return null;
-    }
     if (isSaving) {
       return FloatingActionButton(
           child: const CircularProgressIndicator(), backgroundColor: const Color(0xFFFABB59), onPressed: () {});
@@ -95,7 +92,11 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
     return FloatingActionButton(
         child: const Icon(Icons.save, color: Colors.black),
         backgroundColor: const Color(0xFFFABB59),
-        onPressed: () => _saveEdit(context, gffft));
+        onPressed: () {
+          if (gffft != null) {
+            _saveEdit(context, gffft);
+          }
+        });
   }
 
   void onSaveComplete() {
