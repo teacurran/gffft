@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/galleries/item_edit_sheet.dart';
 import 'package:gffft/galleries/models/gallery_item_like_submit.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
@@ -29,7 +30,8 @@ class SelfReloadingThumbnail extends StatefulWidget {
       required this.iid,
       required this.size,
       this.initialGalleryItem,
-      this.listView = false})
+      this.listView = false,
+      this.onItemDeleted})
       : super(key: key);
 
   final String uid;
@@ -39,6 +41,7 @@ class SelfReloadingThumbnail extends StatefulWidget {
   final GalleryItem? initialGalleryItem;
   final double size;
   final bool listView;
+  final void Function(String iid)? onItemDeleted;
 
   @override
   State<SelfReloadingThumbnail> createState() => _SelfReloadingThumbnailState();
@@ -51,7 +54,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
   Future<GalleryItem>? galleryItem;
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
   Timer? reloadTimer;
-  final TextEditingController _titleController = TextEditingController();
+  bool deleted = false;
 
   @override
   void initState() {
@@ -78,7 +81,6 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
     }
     if (widget.initialGalleryItem != null) {
       if (widget.initialGalleryItem?.thumbnail ?? false) {
-        _titleController.text = widget.initialGalleryItem?.description ?? "";
         var completer = Completer<GalleryItem>();
         completer.complete(widget.initialGalleryItem);
         setState(() {
@@ -89,7 +91,6 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
     if (galleryItem == null) {
       var gi = await userApi.getGalleryItem(widget.uid, widget.gid, widget.mid, widget.iid);
-      _titleController.text = gi.description ?? "";
       if (gi.thumbnail) {
         var completer = Completer<GalleryItem>();
         completer.complete(gi);
@@ -112,6 +113,10 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
   Widget build(BuildContext context) {
     final theme = context.appTheme.materialTheme;
     var l10n = AppLocalizations.of(context);
+
+    if (deleted) {
+      return Container();
+    }
 
     return FutureBuilder(
         future: galleryItem,
@@ -212,39 +217,31 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                 PopupMenuButton<int>(
                   offset: Offset.fromDirection(1, 50),
                   padding: EdgeInsets.zero,
-                  onSelected: (item) {
-                    if (kDebugMode) {
-                      print("item: $item");
-                    }
-
+                  onSelected: (menuIndex) {
                     showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext context) {
-                          return Padding(
-                              padding: const EdgeInsets.all(32.0),
-                              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                                Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                                    child: TextField(
-                                      textAlign: TextAlign.left,
-                                      controller: _titleController,
-                                      textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(labelText: l10n!.galleryItemDescription),
-                                    )),
-                                Row(
-                                  children: [
-                                    OutlinedButton.icon(
-                                      onPressed: () {},
-                                      label: Text("delete"),
-                                      style: theme.outlinedButtonTheme.style,
-                                      icon: const FaIcon(FontAwesomeIcons.trashAlt, size: 14.0),
-                                    ),
-                                    OutlinedButton(
-                                        onPressed: () {}, child: Text("save"), style: theme.outlinedButtonTheme.style),
-                                  ],
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                )
-                              ]));
+                          return ItemEditSheet(
+                            uid: widget.uid,
+                            gid: widget.gid,
+                            mid: widget.mid,
+                            galleryItem: item,
+                            onItemChanged: (GalleryItem gi) {
+                              var completer = Completer<GalleryItem>();
+                              completer.complete(gi);
+                              setState(() {
+                                galleryItem = completer.future;
+                              });
+                            },
+                            onItemDeleted: () {
+                              if (widget.onItemDeleted != null) {
+                                widget.onItemDeleted!(widget.iid);
+                              }
+                              setState(() {
+                                deleted = true;
+                              });
+                            },
+                          );
                         });
                   },
                   itemBuilder: (context) => [

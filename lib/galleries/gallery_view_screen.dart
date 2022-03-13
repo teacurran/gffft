@@ -217,6 +217,12 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
         ));
   }
 
+  void _onItemDeleted(String iid) {
+    if (kDebugMode) {
+      print("item has been deleted:$iid");
+    }
+  }
+
   Widget _getListView(BuildContext context) {
     final ThemeData theme = context.appTheme.materialTheme;
     return PagedSliverList(
@@ -231,7 +237,8 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                 mid: widget.mid,
                 iid: item.id,
                 initialGalleryItem: item,
-                listView: true);
+                listView: true,
+                onItemDeleted: _onItemDeleted);
           },
         ));
   }

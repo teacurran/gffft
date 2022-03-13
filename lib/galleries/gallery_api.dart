@@ -79,8 +79,7 @@ class GalleryApi extends ApiBase {
     return GalleryItem.fromJson(response);
   }
 
-  Future<GalleryItem> deleteItem(String uid, String gid, String mid, String iid) async {
-    final response = await delete("users/$uid/gfffts/$gid/galleries/$mid/i/$iid", null);
-    return GalleryItem.fromJson(response);
+  Future<void> deleteItem(String uid, String gid, String mid, String iid) async {
+    await delete("users/$uid/gfffts/$gid/galleries/$mid/i/$iid", null);
   }
 }
