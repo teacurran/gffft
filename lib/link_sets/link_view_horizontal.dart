@@ -23,7 +23,7 @@ class LinkViewHorizontal extends StatelessWidget {
   final Participant? author;
   final String? threadRef;
 
-  LinkViewHorizontal({
+  const LinkViewHorizontal({
     Key? key,
     required this.url,
     required this.title,
@@ -100,7 +100,7 @@ class LinkViewHorizontal extends StatelessWidget {
           children: [
             if (author != null)
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Expanded(child: SelectableText(authorHandle, textAlign: TextAlign.left)),
                     if (threadRef != null)
@@ -124,7 +124,7 @@ class LinkViewHorizontal extends StatelessWidget {
                             ? Expanded(
                                 flex: 2,
                                 child: Container(
-                                  margin: EdgeInsets.only(right: 5),
+                                  margin: const EdgeInsets.only(right: 5),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: _img,
@@ -139,11 +139,11 @@ class LinkViewHorizontal extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : SizedBox(width: 5),
+                            : const SizedBox(width: 5),
                         Expanded(
                           flex: 4,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 3),
+                            padding: const EdgeInsets.symmetric(vertical: 3),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -167,7 +167,7 @@ class LinkViewHorizontal extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            alignment: Alignment(-1.0, -1.0),
+            alignment: const Alignment(-1.0, -1.0),
             child: Text(
               title,
               style: _titleTS,
@@ -189,13 +189,13 @@ class LinkViewHorizontal extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Container(
-                alignment: Alignment(-1.0, -1.0),
+                alignment: const Alignment(-1.0, -1.0),
                 child: Text(
                   description,
                   textAlign: TextAlign.left,
                   style: _bodyTS,
-                  overflow: bodyTextOverflow == null ? TextOverflow.ellipsis : bodyTextOverflow,
-                  maxLines: bodyMaxLines == null ? _maxLines : bodyMaxLines,
+                  overflow: bodyTextOverflow ?? TextOverflow.ellipsis,
+                  maxLines: bodyMaxLines ?? _maxLines,
                 ),
               ),
             ),

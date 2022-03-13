@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// Used to store and retrieve the user email address and phone
@@ -10,7 +11,7 @@ class StorageProvider {
 
   // email
   Future<void> setEmail(String email) async {
-    print("setting email to:${email}");
+    if (kDebugMode) print("setting email to:${email}");
     await flutterSecureStorage.write(key: storageUserEmailKey, value: email);
   }
 
@@ -20,7 +21,7 @@ class StorageProvider {
 
   Future<String?> getEmail() async {
     String? email = await flutterSecureStorage.read(key: storageUserEmailKey);
-    print("get email to:$email");
+    if (kDebugMode) print("get email to:$email");
     return email;
   }
 }

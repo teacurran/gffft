@@ -87,7 +87,7 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
   }
 
   Widget _buildPlaceHolder(Color color, double defaultHeight) {
-    return Container(
+    return SizedBox(
       height: defaultHeight,
       child: LayoutBuilder(builder: (context, constraints) {
         var layoutWidth = constraints.biggest.width;
@@ -109,7 +109,7 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
     }
     description ??= '';
 
-    return Container(
+    return SizedBox(
       height: _height,
       child: (displayDirection == UIDirection.UIDirectionHorizontal)
           ? LinkViewHorizontal(
@@ -172,8 +172,9 @@ class _LinkPreviewCardState extends State<LinkPreviewCard> {
       ),
     );
 
-    if (_loading)
+    if (_loading) {
       return (!_linkValid || !_proxyValid) ? _loadingErrorWidget : (placeholderWidget ?? _loadingErrorWidget);
+    }
 
     return widget.linkSetItem == null && _link == null
         ? errorWidget ?? _buildPlaceHolder(theme.backgroundColor, _height)

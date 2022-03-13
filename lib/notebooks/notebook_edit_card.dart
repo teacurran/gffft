@@ -99,7 +99,7 @@ class NotebookEditCard extends StatelessWidget {
                   style: theme.textTheme.bodyText1,
                 ),
                 Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: DropdownButton<String>(
                       value: notebookWhoCanView,
                       items: <String>['just you', 'admins', 'moderators', 'members', 'public'].map((String value) {

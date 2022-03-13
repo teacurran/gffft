@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -26,13 +25,13 @@ class PostListItem extends StatelessWidget {
 
     return Card(
         child: Padding(
-            padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
             child: Column(children: [
               Row(
                 children: [
                   Slidable(
                     startActionPane: ActionPane(
-                      motion: ScrollMotion(),
+                      motion: const ScrollMotion(),
                       children: [
                         Text(l10n!.boardThreadAuthorVisit),
                       ],
@@ -42,13 +41,13 @@ class PostListItem extends StatelessWidget {
                       style: theme.textTheme.bodyText1,
                     ),
                     endActionPane: ActionPane(
-                      motion: ScrollMotion(),
+                      motion: const ScrollMotion(),
                       children: [
                         Expanded(
                             child: Container(
                                 color: Colors.white,
                                 child: Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                     child: Text(
                                       l10n.boardThreadAuthorReport,
                                       style: theme.textTheme.bodyText1?.copyWith(

@@ -22,13 +22,12 @@ class FruitCodeEditCard extends StatelessWidget {
     var widgets = <Widget>[];
 
     if (gffft != null) {
-      gffft.fruitCode.forEach((fruit) {
-        widgets.add(Container(
-            child: Text(
+      for (var fruit in gffft.fruitCode) {
+        widgets.add(Text(
           fruit,
           style: theme.textTheme.bodyText1!.copyWith(fontSize: 20),
-        )));
-      });
+        ));
+      }
     }
 
     return widgets;

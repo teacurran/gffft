@@ -50,6 +50,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
   Future<GalleryItem>? galleryItem;
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
   Timer? reloadTimer = null;
+  late TextEditingController _titleController;
 
   @override
   void initState() {
@@ -107,6 +108,8 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
   @override
   Widget build(BuildContext context) {
     final theme = context.appTheme.materialTheme;
+    var l10n = AppLocalizations.of(context);
+
     return FutureBuilder(
         future: galleryItem,
         builder: (context, AsyncSnapshot<GalleryItem?> snapshot) {
@@ -219,12 +222,28 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                     showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext context) {
-                          return Container(
-                              child: Padding(
-                                  padding: const EdgeInsets.all(32.0),
-                                  child: Text('This is the modal bottom sheet. Tap anywhere to dismiss.',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Theme.of(context).accentColor, fontSize: 24.0))));
+                          const fieldPadding = EdgeInsets.fromLTRB(0, 5, 0, 20);
+
+                          return Padding(
+                              padding: const EdgeInsets.all(32.0),
+                              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                Row(children: [
+                                  const Padding(
+                                      padding: fieldPadding, child: Icon(Icons.settings, color: Color(0xFFFABB59))),
+                                  Text(
+                                    l10n!.gffftSettingsGeneralHead,
+                                    style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
+                                  )
+                                ]),
+                                Padding(
+                                    padding: fieldPadding,
+                                    child: TextField(
+                                      textAlign: TextAlign.left,
+                                      controller: titleController,
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(labelText: l10n.gffftEditCardName),
+                                    ))
+                              ]));
                         });
                   },
                   itemBuilder: (context) => [

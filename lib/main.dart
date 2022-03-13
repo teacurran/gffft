@@ -99,7 +99,7 @@ class NavigationObserver extends VxObserver {
 
   @override
   void didChangeRoute(Uri route, Page page, String pushOrPop) {
-    print("${route.path} - $pushOrPop");
+    if (kDebugMode) print("${route.path} - $pushOrPop");
 
     final String? screenName = route.path;
     if (screenName != null) {
@@ -114,12 +114,12 @@ class NavigationObserver extends VxObserver {
 
   @override
   void didPush(Route route, Route? previousRoute) {
-    print("pushed ${route} - $previousRoute");
+    if (kDebugMode) print("pushed $route - $previousRoute");
   }
 
   @override
   void didPop(Route route, Route? previousRoute) {
-    print("popped ${route} - $previousRoute");
+    if (kDebugMode) print("popped $route - $previousRoute");
   }
 }
 
@@ -138,7 +138,7 @@ class _AppState extends State<App> {
           ),
       routes: {
         TabbedHomeScreen.webPath: (uri, params) {
-          return MaterialPage(child: TabbedHomeScreen());
+          return const MaterialPage(child: TabbedHomeScreen());
         },
         BookmarkScreen.webPath: (uri, params) {
           return const MaterialPage(child: BookmarkScreen());
@@ -312,7 +312,7 @@ class _AppState extends State<App> {
           //navigator.push(Uri(path: LoginScreen.webPath));
           // VxNavigator.of(context).push(Uri(path: LoginScreen.webPath));
         } else {
-          print("user is not null");
+          if (kDebugMode) print("user is not null");
         }
 
         // final User? user = snapshot.data;

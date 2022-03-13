@@ -1,4 +1,5 @@
 import 'package:card_settings/card_settings.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -58,7 +59,7 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
         .getDefaultGffft()
         .then((gffft) => {
               setState(() {
-                print("got gffft ${gffft.toJson()}");
+                if (kDebugMode) print("got gffft ${gffft.toJson()}");
                 uid = gffft.uid;
                 gid = gffft.gid;
                 editName = gffft.name;
@@ -75,9 +76,7 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
               })
             })
         .onError((error, stackTrace) => {
-              setState(() {
-                print(error);
-              })
+              if (kDebugMode) print(error);
             });
   }
 
@@ -138,8 +137,8 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
 
       gffftApi.save(gffft).then((value) => Navigator.pop(context)).onError((error, stackTrace) => {
             setState(() {
-              print(error);
-              print(stackTrace);
+              if (kDebugMode) print(error);
+              if (kDebugMode) print(stackTrace);
               errorLoading = error.toString();
               isLoading = false;
             })
@@ -151,9 +150,6 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
   Widget build(BuildContext context) {
     AppLocalizations? l10n = AppLocalizations.of(context);
     final theme = context.appTheme.materialTheme;
-
-    List<StringPickerModel> memberTypes = _getMemberTypes(l10n);
-    List<StringPickerModel> safeMemberTypes = _getSafeMemberTypes(l10n);
 
     return Scaffold(
       appBar: AppBar(

@@ -68,7 +68,7 @@ class LinkSetHomeCard extends StatelessWidget {
                           style: theme.textTheme.headline6?.copyWith(color: kCardColor),
                         )
                       ]),
-                      VerticalDivider(),
+                      const VerticalDivider(),
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -76,7 +76,9 @@ class LinkSetHomeCard extends StatelessWidget {
                           children: <Widget>[
                             Row(children: [
                               SelectableText(l10n.gffftHomeLinkSetLinks),
-                              SelectableText((linkSet == null) ? "0" : linkSet.itemCount.toString() + ((newLinks > 0) ? ", " : "")),
+                              SelectableText((linkSet == null)
+                                  ? "0"
+                                  : linkSet.itemCount.toString() + ((newLinks > 0) ? ", " : "")),
                               if (newLinks > 0)
                                 SelectableText(l10n.gffftHomeLinkSetLinksNew(newLinks),
                                     style: theme.textTheme.bodyText1!.copyWith(fontWeight: FontWeight.bold)),

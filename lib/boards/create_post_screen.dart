@@ -71,7 +71,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                     CardSettingsText(
                       label: l10n.boardCreatePostSubject,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return l10n.validateFieldIsRequired(l10n.editName);
+                        if (value == null || value.isEmpty) {
+                          return l10n.validateFieldIsRequired(l10n.editName);
+                        }
+                        return null;
                       },
                       contentPadding: const EdgeInsets.all(8),
                       contentOnNewLine: true,

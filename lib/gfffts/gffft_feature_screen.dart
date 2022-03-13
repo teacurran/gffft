@@ -100,7 +100,6 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
   }
 
   void onSaveComplete() {
-    print("onsavecomplete!!!");
     setState(() {
       _loadGffft();
     });

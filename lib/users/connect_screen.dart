@@ -216,8 +216,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
   }
 
   Widget _getBookmarkScreen(theme, l10n) {
-    return Container(
-        child: CustomScrollView(
+    return CustomScrollView(
       slivers: <Widget>[
         PagedSliverList<String?, Bookmark>(
           pagingController: _bookmarkController,
@@ -238,7 +237,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
               noItemsFoundIndicatorBuilder: (_) => NoBookmarksFound()),
         ),
       ],
-    ));
+    );
   }
 
   Widget _getFeaturedScreen(theme, l10n) {
@@ -268,8 +267,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
   }
 
   Widget _getSearchScreen(theme, l10n) {
-    return Container(
-        child: CustomScrollView(
+    return CustomScrollView(
       slivers: <Widget>[
         SearchInputSliver(onChanged: (searchTerm) => _updateSearchTerm(searchTerm), label: l10n.gffftListSearchHint),
         PagedSliverList<String?, GffftMinimal>(
@@ -287,7 +285,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
               noItemsFoundIndicatorBuilder: (_) => SearchNotFound()),
         ),
       ],
-    ));
+    );
   }
 }
 

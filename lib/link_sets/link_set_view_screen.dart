@@ -120,16 +120,7 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
     return FutureBuilder(
         future: gffft,
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
-          var title = "connecting";
-          if (snapshot.hasError) {
-            title = "error";
-          }
-
           var gffft = snapshot.data;
-          if (gffft != null) {
-            title = gffft.name ?? "";
-          }
-
           return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -157,7 +148,7 @@ class _LinkSetViewScreenState extends State<LinkSetViewScreen> {
                       animateTransitions: true,
                       itemBuilder: (context, item, index) {
                         return Padding(
-                            padding: EdgeInsets.fromLTRB(15, 0, 10, 10),
+                            padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),
                             child: LinkPreviewCard(url: item.url, linkSetItem: item));
                       },
                     ))

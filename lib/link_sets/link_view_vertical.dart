@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class LinkViewVertical extends StatelessWidget {
@@ -83,11 +84,11 @@ class LinkViewVertical extends StatelessWidget {
                       child: _img == null
                           ? Container(color: bgColor ?? Colors.grey)
                           : Container(
-                              padding: EdgeInsets.only(bottom: 15),
+                              padding: const EdgeInsets.only(bottom: 15),
                               decoration: BoxDecoration(
                                 borderRadius: radius == 0
                                     ? BorderRadius.zero
-                                    : BorderRadius.only(
+                                    : const BorderRadius.only(
                                         topLeft: Radius.circular(12),
                                         topRight: Radius.circular(12),
                                       ),
@@ -98,9 +99,8 @@ class LinkViewVertical extends StatelessWidget {
                               ),
                             ),
                     )
-                  : SizedBox(height: 5),
-              _buildTitleContainer(
-                  _titleTS, computeTitleLines(layoutHeight, layoutWidth)),
+                  : const SizedBox(height: 5),
+              _buildTitleContainer(_titleTS, computeTitleLines(layoutHeight, layoutWidth)),
               _buildBodyContainer(_bodyTS, computeBodyLines(layoutHeight)),
             ],
           ));
@@ -111,7 +111,7 @@ class LinkViewVertical extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 5, 1),
       child: Container(
-        alignment: Alignment(-1.0, -1.0),
+        alignment: const Alignment(-1.0, -1.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -137,10 +137,8 @@ class LinkViewVertical extends StatelessWidget {
           child: Text(
             description,
             style: _bodyTS,
-            overflow: bodyTextOverflow == null
-                ? TextOverflow.ellipsis
-                : bodyTextOverflow,
-            maxLines: bodyMaxLines == null ? _maxLines : bodyMaxLines,
+            overflow: bodyTextOverflow ?? TextOverflow.ellipsis,
+            maxLines: bodyMaxLines ?? _maxLines,
           ),
         ),
       ),

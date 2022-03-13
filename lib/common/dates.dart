@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import "package:intl/intl.dart";
 import 'package:json_annotation/json_annotation.dart';
 
-final DATE_FORMAT_EU = new DateFormat("yyyy-MM-dd");
-final DATE_TIME_FORMAT = new DateFormat("yyyy-MM-dd hh:mm");
+final DATE_FORMAT_EU = DateFormat("yyyy-MM-dd");
+final DATE_TIME_FORMAT = DateFormat("yyyy-MM-dd hh:mm");
 
 String formatDateTime(DateTime value) {
   final DateFormat shortFormat = DateFormat('hh:mm a');
@@ -25,7 +26,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    print("checking json: $json");
+    if (kDebugMode) print("checking json: $json");
     if (json.contains(".")) {
       json = json.substring(0, json.length - 1);
     }

@@ -115,7 +115,7 @@ class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFi
   Widget _buildNewRowContent(BuildContext context) {
     if (contentOnNewLine) {
       return Container(
-        padding: EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.only(top: 10.0),
         child: content,
       );
     } else {

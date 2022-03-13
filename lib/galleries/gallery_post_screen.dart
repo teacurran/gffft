@@ -36,6 +36,10 @@ class _GalleryPostScreenState extends State<GalleryPostScreen> {
   Future<Gffft>? gffft;
 
   void postImage() async {
+    if (isLoading) {
+      return;
+    }
+
     setState(() {
       isLoading = true;
     });

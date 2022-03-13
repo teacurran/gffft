@@ -81,7 +81,6 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
         this.thread = thread;
       });
 
-      print("got threads!${thread.posts.length}");
       final isLastPage = thread.posts.length < _pageSize;
       if (isLastPage) {
         _pagingController.appendLastPage(thread.posts);
@@ -131,15 +130,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
     return FutureBuilder(
         future: gffft,
         builder: (context, AsyncSnapshot<Gffft?> snapshot) {
-          var title = "connecting";
-          if (snapshot.hasError) {
-            title = "error";
-          }
-
           var gffft = snapshot.data;
-          if (gffft != null) {
-            title = gffft.name ?? "";
-          }
 
           var threadTitle = "";
           if (thread != null) {
@@ -170,7 +161,7 @@ class _ThreadViewScreenState extends State<ThreadViewScreen> {
               body: CustomScrollView(slivers: <Widget>[
                 SliverToBoxAdapter(
                     child: Padding(
-                  padding: EdgeInsets.fromLTRB(16, 5, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 0),
                   child: Text(
                     threadTitle,
                     style: theme.textTheme.headline6?.copyWith(fontSize: 30),

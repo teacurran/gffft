@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:gffft/boards/models/thread_result.dart';
 import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/gfffts/models/gffft_patch_save.dart';
@@ -15,7 +16,7 @@ class GffftApi extends ApiBase {
   }
 
   Future<void> savePartial(GffftPatchSave gffft) async {
-    print("sending patch for gffft: ${gffft.toJson()}");
+    if (kDebugMode) print("sending patch for gffft: ${gffft.toJson()}");
     return patch("gfffts", jsonEncode(gffft.toJson()));
   }
 
@@ -51,7 +52,7 @@ class GffftApi extends ApiBase {
   }
 
   Future<ThreadResult> getBoardThreads(String uid, String gid, String bid, String? offset, int? pageSize) async {
-    final response = await getAuthenticated("users/${uid}/gfffts/${gid}/boards/${bid}/threads");
+    final response = await getAuthenticated("users/$uid/gfffts/$gid/boards/$bid/threads");
     return ThreadResult.fromJson(response);
   }
 }
