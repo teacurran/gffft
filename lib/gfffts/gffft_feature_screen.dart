@@ -9,7 +9,6 @@ import 'package:gffft/users/user_api.dart';
 import '../boards/board_edit_card.dart';
 import '../galleries/gallery_edit_card.dart';
 import '../link_sets/link_set_edit_card.dart';
-import '../notebooks/notebook_edit_card.dart';
 import 'gffft_api.dart';
 import 'gffft_search_card.dart';
 import 'models/gffft.dart';
@@ -123,7 +122,6 @@ class _GffftFeatureScreenState extends State<GffftFeatureScreen> {
       ),
       GalleryEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       LinkSetEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
-      if (false) NotebookEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       FruitCodeEditCard(gffft: gffft, onSaveComplete: onSaveComplete),
       GffftSearchCard(
         gffft: gffft,

@@ -80,7 +80,7 @@ class ApiBase {
     return callApi(urlPath, method: "put", payload: jsonPayload, payloadContentType: "application/json");
   }
 
-  Future<dynamic> delete(String urlPath, String jsonPayload) async {
+  Future<dynamic> delete(String urlPath, String? jsonPayload) async {
     return callApi(urlPath, method: "delete", payload: jsonPayload, payloadContentType: "application/json");
   }
 

@@ -1,4 +1,3 @@
-import 'package:gffft/boards/models/participant.dart';
 import 'package:gffft/boards/models/thread.dart';
 import 'package:json_annotation/json_annotation.dart';
 

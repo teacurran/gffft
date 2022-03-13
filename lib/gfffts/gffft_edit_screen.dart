@@ -76,7 +76,7 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
               })
             })
         .onError((error, stackTrace) => {
-              if (kDebugMode) print(error);
+              if (kDebugMode) {print(error)}
             });
   }
 

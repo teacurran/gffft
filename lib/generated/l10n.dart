@@ -330,6 +330,16 @@ class S {
     );
   }
 
+  /// `Description`
+  String get galleryItemDescription {
+    return Intl.message(
+      'Description',
+      name: 'galleryItemDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Introduction`
   String get editIntro {
     return Intl.message(

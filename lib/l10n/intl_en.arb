@@ -66,6 +66,7 @@
   },
   "galleryPostTitle": "post",
   "galleryPostCaption": "Description, if you feel like it...",
+  "galleryItemDescription": "Description",
   "editIntro": "Introduction",
   "@editIntro": {},
   "editIntroHint": "Longer introduction to this gffft",

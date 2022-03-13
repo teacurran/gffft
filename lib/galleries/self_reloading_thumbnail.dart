@@ -5,6 +5,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/galleries/models/gallery_item_like_submit.dart';
@@ -49,8 +50,8 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
   Future<GalleryItem>? galleryItem;
   final String storageHost = dotenv.get("STORAGE_HOST", fallback: "127.0.0.1");
-  Timer? reloadTimer = null;
-  late TextEditingController _titleController;
+  Timer? reloadTimer;
+  final TextEditingController _titleController = TextEditingController();
 
   @override
   void initState() {
@@ -77,6 +78,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
     }
     if (widget.initialGalleryItem != null) {
       if (widget.initialGalleryItem?.thumbnail ?? false) {
+        _titleController.text = widget.initialGalleryItem?.description ?? "";
         var completer = Completer<GalleryItem>();
         completer.complete(widget.initialGalleryItem);
         setState(() {
@@ -87,6 +89,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
 
     if (galleryItem == null) {
       var gi = await userApi.getGalleryItem(widget.uid, widget.gid, widget.mid, widget.iid);
+      _titleController.text = gi.description ?? "";
       if (gi.thumbnail) {
         var completer = Completer<GalleryItem>();
         completer.complete(gi);
@@ -113,11 +116,6 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
     return FutureBuilder(
         future: galleryItem,
         builder: (context, AsyncSnapshot<GalleryItem?> snapshot) {
-          var title = "connecting";
-          if (snapshot.hasError) {
-            title = "error";
-          }
-
           var item = snapshot.data;
           if (item == null) {
             return CommonCircularProgressIndicator();
@@ -222,27 +220,30 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                     showModalBottomSheet<void>(
                         context: context,
                         builder: (BuildContext context) {
-                          const fieldPadding = EdgeInsets.fromLTRB(0, 5, 0, 20);
-
                           return Padding(
                               padding: const EdgeInsets.all(32.0),
                               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                                Row(children: [
-                                  const Padding(
-                                      padding: fieldPadding, child: Icon(Icons.settings, color: Color(0xFFFABB59))),
-                                  Text(
-                                    l10n!.gffftSettingsGeneralHead,
-                                    style: theme.textTheme.headline6?.copyWith(color: const Color(0xFFFABB59)),
-                                  )
-                                ]),
                                 Padding(
-                                    padding: fieldPadding,
+                                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                                     child: TextField(
                                       textAlign: TextAlign.left,
-                                      controller: titleController,
+                                      controller: _titleController,
                                       textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(labelText: l10n.gffftEditCardName),
-                                    ))
+                                      decoration: InputDecoration(labelText: l10n!.galleryItemDescription),
+                                    )),
+                                Row(
+                                  children: [
+                                    OutlinedButton.icon(
+                                      onPressed: () {},
+                                      label: Text("delete"),
+                                      style: theme.outlinedButtonTheme.style,
+                                      icon: const FaIcon(FontAwesomeIcons.trashAlt, size: 14.0),
+                                    ),
+                                    OutlinedButton(
+                                        onPressed: () {}, child: Text("save"), style: theme.outlinedButtonTheme.style),
+                                  ],
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                )
                               ]));
                         });
                   },

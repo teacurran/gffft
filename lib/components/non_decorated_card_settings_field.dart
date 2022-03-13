@@ -87,7 +87,7 @@ class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFi
   Widget build(BuildContext context) {
     EdgeInsetsGeometry _fieldPadding = (fieldPadding ??
         CardSettings.of(context)?.fieldPadding ??
-        EdgeInsets.only(left: 14.0, top: 8.0, right: 14.0, bottom: 8.0));
+        const EdgeInsets.only(left: 14.0, top: 8.0, right: 14.0, bottom: 8.0));
 
     if (visible) {
       return Container(
@@ -232,7 +232,7 @@ class NonDecoratedCardSettingsField extends StatelessWidget implements ICommonFi
   Widget _buildRightDecoration() {
     return (pickerIcon != null || unitLabel != null)
         ? Container(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             alignment: Alignment.centerRight,
             child: (pickerIcon != null)
                 ? Icon(pickerIcon, size: 20)

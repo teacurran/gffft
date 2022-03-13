@@ -100,6 +100,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorYouMustBeSignedInForThat": MessageLookupByLibrary.simpleMessage(
             "You must be signed in for that"),
         "flag": MessageLookupByLibrary.simpleMessage("Flag"),
+        "galleryItemDescription":
+            MessageLookupByLibrary.simpleMessage("Description"),
         "galleryPostCaption": MessageLookupByLibrary.simpleMessage(
             "Description, if you feel like it..."),
         "galleryPostTitle": MessageLookupByLibrary.simpleMessage("post"),

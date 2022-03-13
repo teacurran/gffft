@@ -16,7 +16,7 @@ class LinkSetApi extends ApiBase {
       params['max'] = max.toString();
     }
 
-    final response = await get("users/$uid/gfffts/$gid/links/${lid}", queryParams: params);
+    final response = await get("users/$uid/gfffts/$gid/links/$lid", queryParams: params);
     return LinkSet.fromJson(response);
   }
 
