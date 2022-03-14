@@ -28,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final PagingController<String?, GffftMinimal> _searchController = PagingController(firstPageKey: null);
   static const _pageSize = 100;
   String? _searchTerm;
+  bool disposed = false;
 
   Widget _getTrailingItems(theme, l10n, GffftMinimal gffft) {
     var boardThreads = gffft.membership?.updateCounters?.boardThreads ?? 0;
@@ -58,14 +59,18 @@ class _SearchScreenState extends State<SearchScreen> {
         _searchTerm,
       );
 
-      final isLastPage = newItems.count < _pageSize;
-      if (isLastPage) {
-        _searchController.appendLastPage(newItems.items);
-      } else {
-        _searchController.appendPage(newItems.items, newItems.items.last.gid);
+      if (!disposed) {
+        final isLastPage = newItems.count < _pageSize;
+        if (isLastPage) {
+          _searchController.appendLastPage(newItems.items);
+        } else {
+          _searchController.appendPage(newItems.items, newItems.items.last.gid);
+        }
       }
     } catch (error) {
-      _searchController.error = error;
+      if (!disposed) {
+        _searchController.error = error;
+      }
     }
   }
 
@@ -103,6 +108,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
+    disposed = true;
     _searchController.dispose();
     super.dispose();
   }
