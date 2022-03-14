@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'gallery_item.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class GalleryItem {
   String id;
   Participant author;
@@ -15,6 +15,7 @@ class GalleryItem {
   Map<String, String> urls;
   int? likeCount;
   bool? liked;
+  bool canEdit;
 
   GalleryItem(
       {required this.id,
@@ -24,6 +25,7 @@ class GalleryItem {
       required this.thumbnail,
       required this.createdAt,
       required this.urls,
+      required this.canEdit,
       this.description,
       this.likeCount,
       this.liked});

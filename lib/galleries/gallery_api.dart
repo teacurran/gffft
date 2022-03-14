@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import '../api_base.dart';
 import 'models/gallery_item.dart';
 import 'models/gallery_item_like_submit.dart';
+import 'models/gallery_item_patch_submit.dart';
 
 class GalleryApi extends ApiBase {
   Future<void> uploadGalleryItem(String uid, String gid, String mid, String description, XFile file) async {
@@ -81,5 +82,11 @@ class GalleryApi extends ApiBase {
 
   Future<void> deleteItem(String uid, String gid, String mid, String iid) async {
     await delete("users/$uid/gfffts/$gid/galleries/$mid/i/$iid", null);
+  }
+
+  Future<GalleryItem> updateItem(String uid, String gid, String mid, String iid, String description) async {
+    final payload = GalleryItemPatchSubmit(description);
+    final response = await patch("users/$uid/gfffts/$gid/galleries/$mid/i/$iid", jsonEncode(payload));
+    return GalleryItem.fromJson(response);
   }
 }

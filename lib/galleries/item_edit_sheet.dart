@@ -36,6 +36,7 @@ class _ItemEditSheetState extends State<ItemEditSheet> {
   bool deleting = false;
   final TextEditingController _titleController = TextEditingController();
   final galleryApi = getIt<GalleryApi>();
+  bool saving = false;
 
   @override
   void initState() {
@@ -71,6 +72,24 @@ class _ItemEditSheetState extends State<ItemEditSheet> {
     });
   }
 
+  Future<void> _saveButtonPressed() async {
+    if (saving || widget.galleryItem == null) {
+      return;
+    }
+    setState(() {
+      saving = true;
+    });
+
+    final item = await galleryApi.updateItem(
+        widget.uid, widget.gid, widget.mid, widget.galleryItem?.id ?? "", _titleController.text);
+
+    if (widget.onItemChanged != null) {
+      widget.onItemChanged!(item);
+    }
+
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = context.appTheme.materialTheme;
@@ -84,6 +103,11 @@ class _ItemEditSheetState extends State<ItemEditSheet> {
     }
     if (deleteConfirm) {
       deleteText = "are you sure?";
+    }
+
+    Widget saveIcon = const Icon(Icons.save, size: 14);
+    if (saving) {
+      saveIcon = const SizedBox(height: 14, width: 14, child: CircularProgressIndicator());
     }
 
     return Padding(
@@ -105,7 +129,12 @@ class _ItemEditSheetState extends State<ItemEditSheet> {
                 style: theme.outlinedButtonTheme.style,
                 icon: deleteIcon,
               ),
-              OutlinedButton(onPressed: () {}, child: Text("save"), style: theme.outlinedButtonTheme.style),
+              OutlinedButton.icon(
+                onPressed: () => _saveButtonPressed(),
+                label: const Text("save"),
+                style: theme.outlinedButtonTheme.style,
+                icon: saveIcon,
+              ),
             ],
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           )

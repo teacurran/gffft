@@ -46,8 +46,10 @@ flutter run -d macos
 
 to run the generation:
 ```
-flutter pub run build_runner build
+flutter packages pub run build_runner build --delete-conflicting-outputs
 ```
+
+
 
 with a watcher:
 ```

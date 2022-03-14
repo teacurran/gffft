@@ -193,7 +193,7 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
           var likeIcon = liked ? const FaIcon(FontAwesomeIcons.solidHeart) : const FaIcon(FontAwesomeIcons.heart);
 
           var likeCount = item.likeCount ?? 0;
-          var likeBadge = (likeCount > 1) ? SelectableText(item.likeCount.toString()) : null;
+          var likeBadge = (likeCount > 0) ? SelectableText(item.likeCount.toString()) : null;
 
           return Column(children: [
             Container(
@@ -214,40 +214,41 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                       letterSpacing: letterSpacingOrNone(2.8),
                       color: Colors.lightBlue,
                     )),
-                PopupMenuButton<int>(
-                  offset: Offset.fromDirection(1, 50),
-                  padding: EdgeInsets.zero,
-                  onSelected: (menuIndex) {
-                    showModalBottomSheet<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ItemEditSheet(
-                            uid: widget.uid,
-                            gid: widget.gid,
-                            mid: widget.mid,
-                            galleryItem: item,
-                            onItemChanged: (GalleryItem gi) {
-                              var completer = Completer<GalleryItem>();
-                              completer.complete(gi);
-                              setState(() {
-                                galleryItem = completer.future;
-                              });
-                            },
-                            onItemDeleted: () {
-                              if (widget.onItemDeleted != null) {
-                                widget.onItemDeleted!(widget.iid);
-                              }
-                              setState(() {
-                                deleted = true;
-                              });
-                            },
-                          );
-                        });
-                  },
-                  itemBuilder: (context) => [
-                    const PopupMenuItem<int>(value: 0, child: Text('edit')),
-                  ],
-                )
+                if (item.canEdit)
+                  PopupMenuButton<int>(
+                    offset: Offset.fromDirection(1, 50),
+                    padding: EdgeInsets.zero,
+                    onSelected: (menuIndex) {
+                      showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return ItemEditSheet(
+                              uid: widget.uid,
+                              gid: widget.gid,
+                              mid: widget.mid,
+                              galleryItem: item,
+                              onItemChanged: (GalleryItem gi) {
+                                var completer = Completer<GalleryItem>();
+                                completer.complete(gi);
+                                setState(() {
+                                  galleryItem = completer.future;
+                                });
+                              },
+                              onItemDeleted: () {
+                                if (widget.onItemDeleted != null) {
+                                  widget.onItemDeleted!(widget.iid);
+                                }
+                                setState(() {
+                                  deleted = true;
+                                });
+                              },
+                            );
+                          });
+                    },
+                    itemBuilder: (context) => [
+                      const PopupMenuItem<int>(value: 0, child: Text('edit')),
+                    ],
+                  )
               ]),
             ),
             GestureDetector(onDoubleTap: () => _likeItem(item), child: thumb),
@@ -256,6 +257,8 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                 Badge(
                     badgeContent: likeBadge,
                     badgeColor: Colors.transparent,
+                    position: BadgePosition.topEnd(top: -2, end: -10),
+                    elevation: 0,
                     child: IconButton(
                       onPressed: () => _likeItem(item),
                       icon: likeIcon,

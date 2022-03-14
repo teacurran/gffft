@@ -7,10 +7,9 @@ class GalleryPatchSubmit {
   String uid;
   String gid;
   String mid;
-  String iid;
   String? description;
 
-  GalleryPatchSubmit(this.uid, this.gid, this.mid, this.iid, {this.description});
+  GalleryPatchSubmit(this.uid, this.gid, this.mid, {this.description});
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
