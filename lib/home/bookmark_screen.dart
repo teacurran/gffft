@@ -33,6 +33,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   static const _pageSize = 100;
   String? _searchTerm;
   bool disposed = false;
+  bool isHosting = false;
+  bool bookmarksLoaded = false;
 
   Widget _getTrailingItems(theme, l10n, GffftMinimal gffft) {
     var boardThreads = gffft.membership?.updateCounters?.boardThreads ?? 0;
@@ -62,6 +64,11 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
         _pageSize,
         _searchTerm,
       );
+
+      setState(() {
+        isHosting = newItems.isHosting;
+        bookmarksLoaded = true;
+      });
 
       final isLastPage = newItems.count < _pageSize;
       if (!disposed) {
@@ -134,70 +141,105 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
             //   VxNavigator.of(context).clearAndPush(Uri(path: LoginScreen.webPath));
             // });
           }
-          print("herexxxxx");
 
           if (snapshot.connectionState == ConnectionState.done) {
             var user = snapshot.data;
             if (user != null) {
-              screenBody = CustomScrollView(
-                slivers: <Widget>[
-                  PagedSliverList<String?, Bookmark>(
-                    pagingController: _bookmarkController,
-                    builderDelegate: PagedChildBuilderDelegate<Bookmark>(
-                        animateTransitions: true,
-                        itemBuilder: (context, bookmark, index) {
-                          final gffft = bookmark.gffft;
-                          String? handle = gffft?.membership?.handle;
-                          String? membershipType = gffft?.membership?.type;
-                          String? membershipLine = gffft?.membership?.type;
-                          if (membershipLine != null &&
-                              membershipLine.isNotEmpty &&
-                              handle != null &&
-                              handle.isNotEmpty) {
-                            membershipLine = membershipLine + " / " + handle;
-                          }
-
-                          if (gffft != null) {
-                            List<Widget> children = [
-                              SelectableText(gffft.description ?? gffft.name, textAlign: TextAlign.left)
-                            ];
-                            if (membershipLine != null && membershipLine.isNotEmpty) {
-                              children.add(SelectableText(
-                                membershipLine,
-                                textAlign: TextAlign.left,
-                                style: theme.textTheme.bodyText1!.copyWith(color: Colors.grey),
-                              ));
-                            }
-                            children.add(const Divider(
-                              height: 20,
-                              thickness: 1,
-                              indent: 20,
-                              endIndent: 0,
-                              color: Color(0xFF9970A9),
-                            ));
-                            return ListTile(
-                              title: SelectableText(gffft.name),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: children,
-                              ),
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return GffftHomeScreen(uid: gffft.uid, gid: gffft.gid);
-                                }));
-                              },
-                              leading: membershipType == "owner" ? Icon(Icons.star) : Icon(Icons.bookmark),
-                              minLeadingWidth: 10,
-                              trailing: _getTrailingItems(theme, l10n, gffft),
-                              style: ListTileStyle.list,
-                            );
-                          }
-                          return Container();
-                        },
-                        noItemsFoundIndicatorBuilder: (_) => BookmarkNotFound()),
-                  ),
-                ],
+              final createGffftTitle = ListTile(
+                key: const Key("createItem"),
+                title: const SelectableText("Create your own gffft."),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    SelectableText("click here to get start hosting your own gffft", textAlign: TextAlign.left),
+                    Divider(
+                      height: 20,
+                      thickness: 1,
+                      indent: 20,
+                      endIndent: 0,
+                      color: Color(0xFF9970A9),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const GffftHomeScreen(uid: "me", gid: "default");
+                  }));
+                },
+                leading: const Icon(Icons.star),
+                minLeadingWidth: 10,
+                trailing: Icon(Icons.add, color: theme.primaryColor),
+                style: ListTileStyle.list,
               );
+
+              screenBody = RefreshIndicator(
+                  onRefresh: () async {
+                    _bookmarkController.refresh();
+                  },
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      if (!isHosting && bookmarksLoaded)
+                        SliverToBoxAdapter(
+                          key: const Key("createItemSliver"),
+                          child: createGffftTitle,
+                        ),
+                      PagedSliverList<String?, Bookmark>(
+                        pagingController: _bookmarkController,
+                        builderDelegate: PagedChildBuilderDelegate<Bookmark>(
+                            animateTransitions: true,
+                            itemBuilder: (context, bookmark, index) {
+                              final gffft = bookmark.gffft;
+                              String? handle = gffft?.membership?.handle;
+                              String? membershipType = gffft?.membership?.type;
+                              String? membershipLine = gffft?.membership?.type;
+                              if (membershipLine != null &&
+                                  membershipLine.isNotEmpty &&
+                                  handle != null &&
+                                  handle.isNotEmpty) {
+                                membershipLine = membershipLine + " / " + handle;
+                              }
+
+                              if (gffft != null) {
+                                List<Widget> children = [
+                                  SelectableText(gffft.description ?? gffft.name, textAlign: TextAlign.left)
+                                ];
+                                if (membershipLine != null && membershipLine.isNotEmpty) {
+                                  children.add(SelectableText(
+                                    membershipLine,
+                                    textAlign: TextAlign.left,
+                                    style: theme.textTheme.bodyText1!.copyWith(color: Colors.grey),
+                                  ));
+                                }
+                                children.add(const Divider(
+                                  height: 20,
+                                  thickness: 1,
+                                  indent: 20,
+                                  endIndent: 0,
+                                  color: Color(0xFF9970A9),
+                                ));
+                                return ListTile(
+                                  title: SelectableText(gffft.name),
+                                  subtitle: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: children,
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                      return GffftHomeScreen(uid: gffft.uid, gid: gffft.gid);
+                                    }));
+                                  },
+                                  leading: membershipType == "owner" ? Icon(Icons.star) : Icon(Icons.bookmark),
+                                  minLeadingWidth: 10,
+                                  trailing: _getTrailingItems(theme, l10n, gffft),
+                                  style: ListTileStyle.list,
+                                );
+                              }
+                              return Container();
+                            },
+                            noItemsFoundIndicatorBuilder: (_) => BookmarkNotFound()),
+                      ),
+                    ],
+                  ));
             } else {
               screenBody = LoginScreen(loginStateChanged: () {
                 _loadData();
@@ -213,7 +255,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
 class BookmarkNotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const FirstPageExceptionIndicator(
-        title: 'No Items found',
-        message: 'search above',
+        title: 'No Bookmarks Found',
+        message: 'when you bookmark a gffft it will show up here',
       );
 }

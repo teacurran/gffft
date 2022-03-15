@@ -13,10 +13,12 @@ BookmarkResult _$BookmarkResultFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Bookmark.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Bookmark>[],
+      isHosting: json['isHosting'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$BookmarkResultToJson(BookmarkResult instance) =>
     <String, dynamic>{
       'count': instance.count,
       'items': instance.items.map((e) => e.toJson()).toList(),
+      'isHosting': instance.isHosting,
     };
