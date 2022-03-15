@@ -13,6 +13,7 @@ class Thread {
   Participant? latestPost;
   int postCount;
   String? topReaction;
+  bool canEdit;
 
   Thread(
       {required this.id,
@@ -22,7 +23,8 @@ class Thread {
       required this.firstPost,
       required this.latestPost,
       this.postCount = 0,
-      this.topReaction});
+      this.topReaction,
+      this.canEdit = false});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);
