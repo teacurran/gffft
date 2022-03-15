@@ -45,7 +45,54 @@ class _ThreadTitleState extends State<ThreadTitle> {
       return Container();
     }
     final theme = context.appTheme.materialTheme;
+
+    var deleteText = "delete";
+    IconData deleteIcon = Icons.delete;
+    if (deleting) {
+      deleteText = "deleting";
+      deleteIcon = Icons.hourglass_bottom;
+    }
+    if (deleteConfirm) {
+      deleteText = "confirm?";
+    }
+
+    List<Widget> actions = [];
+
+    if (widget.thread.canEdit) {
+      actions.add(SlidableAction(
+        onPressed: (context) async {
+          if (deleting) {
+            return;
+          }
+          if (deleteConfirm) {
+            setState(() {
+              deleting = true;
+            });
+
+            await boardApi.deleteItem(widget.uid, widget.gid, widget.bid, widget.thread.id);
+
+            if (widget.onItemDeleted != null) {
+              widget.onItemDeleted!();
+            }
+            setState(() {
+              deleted = true;
+            });
+          } else {
+            setState(() {
+              deleteConfirm = true;
+            });
+          }
+        },
+        backgroundColor: const Color(0xFFFE4A49),
+        foregroundColor: Colors.white,
+        icon: deleteIcon,
+        label: deleteText,
+        autoClose: false,
+      ));
+    }
+
     return Slidable(
+        enabled: actions.isNotEmpty,
         // Specify a key if the Slidable is dismissible.
         key: const ValueKey(0),
 
@@ -55,37 +102,7 @@ class _ThreadTitleState extends State<ThreadTitle> {
           motion: const ScrollMotion(),
 
           // All actions are defined in the children parameter.
-          children: [
-            // A SlidableAction can have an icon and/or a label.
-            SlidableAction(
-              onPressed: (context) async {
-                if (deleting) {
-                  return;
-                }
-                if (deleteConfirm) {
-                  setState(() {
-                    deleting = true;
-                  });
-
-                  await boardApi.deleteItem(widget.uid, widget.gid, widget.bid, widget.thread.id ?? "");
-
-                  if (widget.onItemDeleted != null) {
-                    widget.onItemDeleted!();
-                  }
-                  setState(() {
-                    deleted = true;
-                  });
-                  setState(() {
-                    deleteConfirm = true;
-                  });
-                }
-              },
-              backgroundColor: const Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: 'Delete',
-            ),
-          ],
+          children: actions,
         ),
         child: InkWell(
             onTap: () {
