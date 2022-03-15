@@ -7,9 +7,9 @@ import 'package:gffft/home/search_screen.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 
-import '../bookmark_screen.dart';
 import '../users/me_screen.dart';
 import '../users/models/user.dart';
+import 'bookmark_screen.dart';
 
 final getIt = GetIt.instance;
 
