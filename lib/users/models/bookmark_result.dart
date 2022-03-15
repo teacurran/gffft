@@ -8,11 +8,9 @@ part 'bookmark_result.g.dart';
 class BookmarkResult {
   int count;
   List<Bookmark> items;
+  bool isHosting;
 
-  BookmarkResult({
-    this.count = 0,
-    this.items = const <Bookmark>[],
-  });
+  BookmarkResult({this.count = 0, this.items = const <Bookmark>[], this.isHosting = false});
 
   factory BookmarkResult.fromJson(Map<String, dynamic> json) => _$BookmarkResultFromJson(json);
 

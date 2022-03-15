@@ -18,6 +18,7 @@ Thread _$ThreadFromJson(Map<String, dynamic> json) => Thread(
           : Participant.fromJson(json['latestPost'] as Map<String, dynamic>),
       postCount: json['postCount'] as int? ?? 0,
       topReaction: json['topReaction'] as String?,
+      canEdit: json['canEdit'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ThreadToJson(Thread instance) => <String, dynamic>{
@@ -29,4 +30,5 @@ Map<String, dynamic> _$ThreadToJson(Thread instance) => <String, dynamic>{
       'latestPost': instance.latestPost?.toJson(),
       'postCount': instance.postCount,
       'topReaction': instance.topReaction,
+      'canEdit': instance.canEdit,
     };

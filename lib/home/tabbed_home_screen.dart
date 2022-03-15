@@ -3,16 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/components/first_page_exception_indicator.dart';
 import 'package:gffft/gfffts/gffft_api.dart';
-import 'package:gffft/gfffts/gffft_home_screen.dart';
-import 'package:gffft/gfffts/models/gffft_minimal.dart';
 import 'package:gffft/home/search_screen.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../users/me_screen.dart';
-import '../users/models/bookmark.dart';
 import '../users/models/user.dart';
+import 'bookmark_screen.dart';
 
 final getIt = GetIt.instance;
 
@@ -39,9 +36,6 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
   List<BuildContext?> navStack = [null, null, null]; // one buildContext for each tab to store history  of navigation
   late List<Widget> mainTabs;
 
-  final PagingController<String?, Bookmark> _bookmarkController = PagingController(firstPageKey: null);
-  final PagingController<String?, GffftMinimal> _searchController = PagingController(firstPageKey: null);
-
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
@@ -59,7 +53,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
           // use page PageRouteBuilder instead of 'PageRouteBuilder' to avoid material route animation
 
           navStack[1] = context;
-          return const GffftHomeScreen(uid: "me", gid: "default");
+          return const BookmarkScreen();
         });
       }),
       Navigator(onGenerateRoute: (RouteSettings settings) {
