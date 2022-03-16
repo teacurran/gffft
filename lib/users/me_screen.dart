@@ -14,6 +14,9 @@ final getIt = GetIt.instance;
 
 class MeScreen extends StatefulWidget {
   static const String webPath = '/users/me';
+  final VoidCallback? onLogin;
+
+  const MeScreen({Key? key, this.onLogin}) : super(key: key);
 
   @override
   State<MeScreen> createState() => _MeScreenState();
@@ -28,6 +31,12 @@ class _MeScreenState extends State<MeScreen> {
     setState(() {
       user = userApi.me();
     });
+  }
+
+  Future<void> _onLogin() async {
+    if (widget.onLogin != null) {
+      widget.onLogin!();
+    }
   }
 
   @override
@@ -55,7 +64,7 @@ class _MeScreenState extends State<MeScreen> {
             if (user != null) {
               screenBody = getMeScreen(context, user);
             } else {
-              screenBody = LoginScreen(loginStateChanged: _loadData);
+              screenBody = LoginScreen(onLogin: _onLogin);
             }
           }
 
@@ -90,7 +99,7 @@ class _MeScreenState extends State<MeScreen> {
                     width: 1.0,
                   )),
               child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: SizedBox(
                       width: double.infinity,
                       child: Column(children: [

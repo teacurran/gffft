@@ -67,7 +67,7 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
           if (snapshot.connectionState == ConnectionState.done) {
             var gffft = snapshot.data;
             if (gffft == null) {
-              screenBody = LoginScreen(loginStateChanged: _loadGffft);
+              screenBody = LoginScreen(onLogin: _loadGffft);
             } else {
               title = "";
               screenBody = RefreshIndicator(

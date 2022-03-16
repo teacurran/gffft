@@ -207,13 +207,15 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
                 ),
               ),
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                SelectableText(item.author.handle ?? 'unknown',
-                    style: GoogleFonts.sourceSansPro(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 18,
-                      letterSpacing: letterSpacingOrNone(2.8),
-                      color: Colors.lightBlue,
-                    )),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(4, 6, 0, 10),
+                    child: SelectableText(item.author.handle ?? 'unknown',
+                        style: GoogleFonts.sourceSansPro(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          letterSpacing: letterSpacingOrNone(2.8),
+                          color: Colors.lightBlue,
+                        ))),
                 if (item.canEdit)
                   PopupMenuButton<int>(
                     offset: Offset.fromDirection(1, 50),
@@ -270,10 +272,11 @@ class _SelfReloadingThumbnailState extends State<SelfReloadingThumbnail> {
               Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
                   child: Row(children: [
-                    SelectableText(
+                    Text(
                       item.description!,
                       textAlign: TextAlign.left,
                       style: theme.textTheme.bodyText1,
+                      softWrap: true,
                     )
                   ]))
           ]);

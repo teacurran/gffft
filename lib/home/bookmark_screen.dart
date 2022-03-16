@@ -147,15 +147,15 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
             if (user != null) {
               final createGffftTitle = ListTile(
                 key: const Key("createItem"),
-                title: const SelectableText("Create your own gffft."),
+                title: const Text("Create your own gffft."),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
-                    SelectableText("click here to get start hosting your own gffft", textAlign: TextAlign.left),
+                    Text("click here to get start hosting your own gffft", textAlign: TextAlign.left),
                     Divider(
                       height: 20,
                       thickness: 1,
-                      indent: 20,
+                      indent: 10,
                       endIndent: 0,
                       color: Color(0xFF9970A9),
                     )
@@ -167,7 +167,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                   }));
                 },
                 leading: const Icon(Icons.star),
-                minLeadingWidth: 10,
+                minLeadingWidth: 14,
                 trailing: Icon(Icons.add, color: theme.primaryColor),
                 style: ListTileStyle.list,
               );
@@ -213,12 +213,12 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                                 children.add(const Divider(
                                   height: 20,
                                   thickness: 1,
-                                  indent: 20,
+                                  indent: 10,
                                   endIndent: 0,
                                   color: Color(0xFF9970A9),
                                 ));
                                 return ListTile(
-                                  title: SelectableText(gffft.name),
+                                  title: Text(gffft.name),
                                   subtitle: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: children,
@@ -228,8 +228,10 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                                       return GffftHomeScreen(uid: gffft.uid, gid: gffft.gid);
                                     }));
                                   },
-                                  leading: membershipType == "owner" ? Icon(Icons.star) : Icon(Icons.bookmark),
-                                  minLeadingWidth: 10,
+                                  leading: membershipType == "owner"
+                                      ? const Icon(Icons.star, size: 30)
+                                      : const Icon(Icons.bookmark, size: 20),
+                                  minLeadingWidth: 30,
                                   trailing: _getTrailingItems(theme, l10n, gffft),
                                   style: ListTileStyle.list,
                                 );
@@ -241,7 +243,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                     ],
                   ));
             } else {
-              screenBody = LoginScreen(loginStateChanged: () {
+              screenBody = LoginScreen(onLogin: () {
                 _loadData();
                 _bookmarkController.refresh();
               });

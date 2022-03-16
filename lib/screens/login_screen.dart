@@ -5,9 +5,10 @@ import 'package:flutterfire_ui/auth.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String webPath = '/login';
-  final VoidCallback loginStateChanged;
+  final VoidCallback? onLogin;
+  final VoidCallback? onLogout;
 
-  const LoginScreen({Key? key, required this.loginStateChanged}) : super(key: key);
+  const LoginScreen({Key? key, this.onLogin, this.onLogout}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -55,10 +56,14 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
         actions: [
           AuthStateChangeAction<SignedIn>((context, _) {
-            widget.loginStateChanged();
+            if (widget.onLogin != null) {
+              widget.onLogin!();
+            }
           }),
           SignedOutAction((context) {
-            widget.loginStateChanged();
+            if (widget.onLogout != null) {
+              widget.onLogout!();
+            }
           })
         ]);
   }

@@ -36,6 +36,13 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
   List<BuildContext?> navStack = [null, null, null]; // one buildContext for each tab to store history  of navigation
   late List<Widget> mainTabs;
 
+  Future<void> _userSignedIn() async {
+    setState(() {
+      _tabController.animateTo(1);
+      //user = userApi.me();
+    });
+  }
+
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
@@ -61,7 +68,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
           // use page PageRouteBuilder instead of 'PageRouteBuilder' to avoid material route animation
 
           navStack[1] = context;
-          return MeScreen();
+          return MeScreen(onLogin: _userSignedIn);
         });
       }),
     ];
