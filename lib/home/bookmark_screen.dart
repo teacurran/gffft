@@ -204,7 +204,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                                   SelectableText(gffft.description ?? gffft.name, textAlign: TextAlign.left)
                                 ];
                                 if (membershipLine != null && membershipLine.isNotEmpty) {
-                                  children.add(SelectableText(
+                                  children.add(Text(
                                     membershipLine,
                                     textAlign: TextAlign.left,
                                     style: theme.textTheme.bodyText1!.copyWith(color: Colors.grey),
