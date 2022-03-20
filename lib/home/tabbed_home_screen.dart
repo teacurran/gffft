@@ -120,7 +120,7 @@ class _TabbedHomeScreenState extends State<TabbedHomeScreen> with SingleTickerPr
                 },
                 controller: _tabController,
                 tabs: const [
-                  Tab(icon: Icon(Icons.home)),
+                  Tab(icon: Icon(Icons.public)),
                   Tab(icon: Icon(IconData(0x0047, fontFamily: 'Gffft'))),
                   Tab(icon: Icon(Icons.account_box)),
                 ],
