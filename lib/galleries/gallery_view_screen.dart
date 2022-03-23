@@ -77,7 +77,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
 
   Future<void> _fetchPage(pageKey) async {
     try {
-      final pageSize = showGridView ? 100 : 5;
+      final pageSize = showGridView ? 20 : 4;
       final newItems = await userApi.getGallery(
         widget.uid,
         widget.gid,
