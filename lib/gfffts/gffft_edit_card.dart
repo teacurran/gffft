@@ -8,7 +8,7 @@ import '../gfffts/models/gffft.dart';
 final getIt = GetIt.instance;
 
 class GffftEditCard extends StatelessWidget {
-  const GffftEditCard(
+  GffftEditCard(
       {Key? key,
       required this.gffft,
       this.onSaveComplete,
@@ -22,14 +22,47 @@ class GffftEditCard extends StatelessWidget {
   final TextEditingController titleController;
   final TextEditingController introController;
   final TextEditingController descController;
+  var isSaving = false;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = context.appTheme.materialTheme;
-    var l10n = AppLocalizations.of(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          l10n!.gffftSettingsHead,
+          style: theme.textTheme.headline1,
+        ),
+        centerTitle: true,
+      ),
+      backgroundColor: theme.backgroundColor,
+      body:
+          PageView(physics: const PageScrollPhysics(), controller: PageController(viewportFraction: 0.8), children: []),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: getFloatingActionButton(context, gffft),
+    );
+  }
+
+  Widget? getFloatingActionButton(BuildContext context, Gffft? gffft) {
+    if (isSaving) {
+      return FloatingActionButton(
+          child: const CircularProgressIndicator(), backgroundColor: const Color(0xFFFABB59), onPressed: () {});
+    }
+    return FloatingActionButton.extended(
+        icon: const Icon(Icons.arrow_right_alt, color: Colors.black),
+        label: Text("next"),
+        backgroundColor: const Color(0xFFFABB59),
+        onPressed: () {});
+  }
+
+  Widget getEditPage(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = context.appTheme.materialTheme;
 
     const fieldPadding = EdgeInsets.fromLTRB(0, 5, 0, 20);
-
     return SingleChildScrollView(
       child: Card(
           elevation: 0,
