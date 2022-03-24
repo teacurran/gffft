@@ -36,6 +36,11 @@ class GffftApi extends ApiBase {
     return GffftResult.fromJson(response);
   }
 
+  Future<Gffft> create(GffftSave gffft) async {
+    final response = await post("gfffts", jsonEncode(gffft));
+    return Gffft.fromJson(response);
+  }
+
   Future<Gffft> getDefaultGffft() async {
     final response = await getAuthenticated("gfffts/default");
     return Gffft.fromJson(response);
