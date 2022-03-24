@@ -105,6 +105,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "galleryPostCaption": MessageLookupByLibrary.simpleMessage(
             "Description, if you feel like it..."),
         "galleryPostTitle": MessageLookupByLibrary.simpleMessage("post"),
+        "gffftCreateCreateButton":
+            MessageLookupByLibrary.simpleMessage("create"),
+        "gffftCreateHead":
+            MessageLookupByLibrary.simpleMessage("create a gffft"),
+        "gffftCreateIntro": MessageLookupByLibrary.simpleMessage(
+            "To create a gffft, first give it a name:"),
+        "gffftCreateNextButton": MessageLookupByLibrary.simpleMessage("next"),
         "gffftEdit": MessageLookupByLibrary.simpleMessage("edit"),
         "gffftEditCardDescription":
             MessageLookupByLibrary.simpleMessage("description (optional)"),
