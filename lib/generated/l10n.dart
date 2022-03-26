@@ -510,6 +510,46 @@ class S {
     );
   }
 
+  /// `create a gffft`
+  String get gffftCreateHead {
+    return Intl.message(
+      'create a gffft',
+      name: 'gffftCreateHead',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To create a gffft, first give it a name:`
+  String get gffftCreateIntro {
+    return Intl.message(
+      'To create a gffft, first give it a name:',
+      name: 'gffftCreateIntro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `create`
+  String get gffftCreateCreateButton {
+    return Intl.message(
+      'create',
+      name: 'gffftCreateCreateButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `next`
+  String get gffftCreateNextButton {
+    return Intl.message(
+      'next',
+      name: 'gffftCreateNextButton',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `This is your gffft. A space where you can create and share content with others.  You can keep your gffft private, make it public, or invite others to join you. To get started, edit this text or add a feature below.`
   String get gffftIntro {
     return Intl.message(

@@ -25,11 +25,10 @@ class GffftEditCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = context.appTheme.materialTheme;
-    var l10n = AppLocalizations.of(context);
 
     const fieldPadding = EdgeInsets.fromLTRB(0, 5, 0, 20);
-
     return SingleChildScrollView(
       child: Card(
           elevation: 0,

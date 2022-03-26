@@ -83,7 +83,7 @@ class FruitCodeEditCard extends StatelessWidget {
           )),
       child: Container(
           padding: const EdgeInsets.all(10),
-          height: 300,
+          height: 350,
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             Row(children: [
               IconButton(

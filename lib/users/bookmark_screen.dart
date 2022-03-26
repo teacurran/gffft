@@ -65,7 +65,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
       if (isLastPage) {
         _pagingController.appendLastPage(newItems.items);
       } else {
-        _pagingController.appendPage(newItems.items, newItems.items.last.gid);
+        _pagingController.appendPage(newItems.items, newItems.items.last.id);
       }
     } catch (error) {
       _pagingController.error = error;

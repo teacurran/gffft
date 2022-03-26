@@ -14,7 +14,10 @@ import 'models/gffft_save.dart';
 final getIt = GetIt.instance;
 
 class GffftEditScreen extends StatefulWidget {
-  const GffftEditScreen({Key? key}) : super(key: key);
+  const GffftEditScreen({Key? key, required this.uid, required this.gid}) : super(key: key);
+
+  final String uid;
+  final String gid;
 
   static const String id = 'Gffft Edit';
 
@@ -56,7 +59,7 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
 
   void loadData() {
     gffftApi
-        .getDefaultGffft()
+        .getGffft(widget.uid, widget.gid)
         .then((gffft) => {
               setState(() {
                 if (kDebugMode) print("got gffft ${gffft.toJson()}");
@@ -122,6 +125,8 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
       });
 
       GffftSave gffft = GffftSave(
+          uid: widget.uid,
+          gid: widget.gid,
           name: editName,
           requireApproval: editRequireApproval,
           intro: editIntro,

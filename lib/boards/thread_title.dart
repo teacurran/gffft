@@ -58,6 +58,37 @@ class _ThreadTitleState extends State<ThreadTitle> {
 
     List<Widget> actions = [];
 
+    actions.add(SlidableAction(
+      onPressed: (context) async {
+        if (deleting) {
+          return;
+        }
+        if (deleteConfirm) {
+          setState(() {
+            deleting = true;
+          });
+
+          // await boardApi.deleteItem(widget.uid, widget.gid, widget.bid, widget.thread.id);
+          //
+          // if (widget.onItemDeleted != null) {
+          //   widget.onItemDeleted!();
+          // }
+          setState(() {
+            deleted = true;
+          });
+        } else {
+          setState(() {
+            deleteConfirm = true;
+          });
+        }
+      },
+      backgroundColor: const Color(0xFFFE4A49),
+      foregroundColor: Colors.white,
+      icon: Icons.flag_outlined,
+      label: "flag",
+      autoClose: false,
+    ));
+
     if (widget.thread.canEdit) {
       actions.add(SlidableAction(
         onPressed: (context) async {

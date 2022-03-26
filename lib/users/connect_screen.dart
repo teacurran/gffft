@@ -111,7 +111,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
       if (isLastPage) {
         _bookmarkController.appendLastPage(newItems.items);
       } else {
-        _bookmarkController.appendPage(newItems.items, newItems.items.last.gid);
+        _bookmarkController.appendPage(newItems.items, newItems.items.last.id);
       }
     } catch (error) {
       _bookmarkController.error = error;
@@ -130,7 +130,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
       if (isLastPage) {
         _featuredController.appendLastPage(newItems.items);
       } else {
-        _featuredController.appendPage(newItems.items, newItems.items.last.gid);
+        _featuredController.appendPage(newItems.items, newItems.items.last.id);
       }
     } catch (error) {
       _featuredController.error = error;

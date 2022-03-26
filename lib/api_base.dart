@@ -159,6 +159,12 @@ class ApiBase {
         if (kDebugMode) {
           print("Timeout exception: ${e.toString()}");
         }
+      } else if (e is FirebaseException) {
+        //treat TimeoutException
+        if (kDebugMode) {
+          print("Firebase exception: ${e.toString()}");
+        }
+        await fbAuth.signOut();
       } else if (kDebugMode) {
         print("Unhandled exception. signing user out.: ${e.toString()}");
         //await fbAuth.signOut();

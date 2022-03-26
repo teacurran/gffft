@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gffft/gfffts/gffft_create_screen.dart';
 import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/models/bookmark.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -75,7 +76,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
         if (isLastPage) {
           _bookmarkController.appendLastPage(newItems.items);
         } else {
-          _bookmarkController.appendPage(newItems.items, newItems.items.last.gid);
+          _bookmarkController.appendPage(newItems.items, newItems.items.last.id);
         }
       }
     } catch (error) {
@@ -163,7 +164,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                 ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const GffftHomeScreen(uid: "me", gid: "default");
+                    return const GffftCreateScreen();
                   }));
                 },
                 leading: const Icon(Icons.star),
