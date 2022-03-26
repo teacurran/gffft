@@ -72,8 +72,6 @@ class GffftHomeScreenBody extends StatelessWidget {
     gffft.features?.forEach((featureRef) {
       if (featureRef.type == "board" && featureRef.id != null) {
         actions.add(BoardHomeCard(gffft: gffft, featureRef: featureRef));
-      } else if (featureRef.type == "calendar") {
-        actions.add(CalendarHomeCard(gffft: gffft, featureRef: featureRef));
       } else if (featureRef.type == "gallery") {
         actions.add(GalleryHomeCard(gffft: gffft, featureRef: featureRef));
       } else if (featureRef.type == "notebook") {

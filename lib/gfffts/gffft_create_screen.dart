@@ -5,7 +5,7 @@ import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 
 import 'gffft_api.dart';
-import 'models/gffft_save.dart';
+import 'models/gffft_create.dart';
 
 final getIt = GetIt.instance;
 
@@ -106,7 +106,7 @@ class _GffftCreateScreenState extends State<GffftCreateScreen> {
               setState(() {
                 isSaving = true;
               });
-              await gffftApi.create(GffftSave(
+              await gffftApi.create(GffftCreate(
                 name: _titleController.text,
                 description: _descController.text,
                 intro: _descController.text,

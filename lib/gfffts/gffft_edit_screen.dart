@@ -125,6 +125,8 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
       });
 
       GffftSave gffft = GffftSave(
+          uid: widget.uid,
+          gid: widget.gid,
           name: editName,
           requireApproval: editRequireApproval,
           intro: editIntro,

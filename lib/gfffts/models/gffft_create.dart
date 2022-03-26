@@ -9,7 +9,7 @@ class GffftCreate {
   String? intro;
   String initialHandle;
 
-  GffftCreate({this.name, this.description, this.intro, this.initialHandle});
+  GffftCreate({required this.name, required this.description, this.intro, required this.initialHandle});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

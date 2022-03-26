@@ -6,6 +6,7 @@ import 'package:gffft/gfffts/models/gffft.dart';
 import 'package:gffft/gfffts/models/gffft_patch_save.dart';
 
 import '../api_base.dart';
+import 'models/gffft_create.dart';
 import 'models/gffft_membership_post.dart';
 import 'models/gffft_result.dart';
 import 'models/gffft_save.dart';
@@ -36,7 +37,7 @@ class GffftApi extends ApiBase {
     return GffftResult.fromJson(response);
   }
 
-  Future<Gffft> create(GffftSave gffft) async {
+  Future<Gffft> create(GffftCreate gffft) async {
     final response = await post("gfffts", jsonEncode(gffft));
     return Gffft.fromJson(response);
   }
