@@ -7,6 +7,8 @@ part of 'gffft_save.dart';
 // **************************************************************************
 
 GffftSave _$GffftSaveFromJson(Map<String, dynamic> json) => GffftSave(
+      uid: json['uid'] as String,
+      gid: json['gid'] as String,
       name: json['name'] as String?,
       description: json['description'] as String?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -19,13 +21,17 @@ GffftSave _$GffftSaveFromJson(Map<String, dynamic> json) => GffftSave(
       galleryEnabled: json['galleryEnabled'] as bool? ?? false,
       notebookEnabled: json['notebookEnabled'] as bool? ?? false,
       calendarEnabled: json['calendarEnabled'] as bool? ?? false,
+      initialHandle: json['initialHandle'] as String?,
     );
 
 Map<String, dynamic> _$GffftSaveToJson(GffftSave instance) => <String, dynamic>{
+      'uid': instance.uid,
+      'gid': instance.gid,
       'name': instance.name,
       'description': instance.description,
       'tags': instance.tags,
       'intro': instance.intro,
+      'initialHandle': instance.initialHandle,
       'enabled': instance.enabled,
       'allowMembers': instance.allowMembers,
       'requireApproval': instance.requireApproval,

@@ -4,10 +4,13 @@ part 'gffft_save.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class GffftSave {
+  String uid;
+  String gid;
   String? name;
   String? description;
   List<String>? tags;
   String? intro;
+  String? initialHandle;
   bool enabled;
   bool allowMembers;
   bool requireApproval;
@@ -19,7 +22,9 @@ class GffftSave {
   bool notebookEnabled;
 
   GffftSave(
-      {this.name,
+      {required this.uid,
+      required this.gid,
+      this.name,
       this.description,
       this.tags,
       this.intro,
@@ -30,7 +35,8 @@ class GffftSave {
       this.boardEnabled = false,
       this.galleryEnabled = false,
       this.notebookEnabled = false,
-      this.calendarEnabled = false});
+      this.calendarEnabled = false,
+      this.initialHandle});
 
   // factory User.fromJson(Map<String, dynamic> json) {
   //   return User(id: json['id'], username: json['username'], name: json['name']);

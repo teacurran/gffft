@@ -5,6 +5,7 @@ import 'package:gffft/style/app_theme.dart';
 import 'package:gffft/users/user_api.dart';
 
 import 'gffft_api.dart';
+import 'models/gffft_save.dart';
 
 final getIt = GetIt.instance;
 
@@ -70,8 +71,19 @@ class _GffftCreateScreenState extends State<GffftCreateScreen> {
     var l10n = AppLocalizations.of(context);
 
     if (isSaving) {
-      return FloatingActionButton(
-          child: const CircularProgressIndicator(), backgroundColor: const Color(0xFFFABB59), onPressed: () {});
+      return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        const FloatingActionButton.small(
+            child: Icon(Icons.arrow_back), backgroundColor: Color(0xFFFABB59), onPressed: null),
+        const Padding(padding: EdgeInsets.all(3)),
+        FloatingActionButton.extended(
+          label: Row(children: [
+            const SizedBox(width: 12, height: 12, child: CircularProgressIndicator(color: Colors.black)),
+            Padding(padding: const EdgeInsets.fromLTRB(5, 0, 0, 0), child: Text(l10n!.gffftCreateCreateButton))
+          ]),
+          backgroundColor: const Color(0xFFFABB59),
+          onPressed: () {},
+        )
+      ]);
     }
 
     if (onHandlePage) {
@@ -89,12 +101,17 @@ class _GffftCreateScreenState extends State<GffftCreateScreen> {
         FloatingActionButton.extended(
           label: Row(children: [const Icon(Icons.save, color: Colors.black), Text(l10n!.gffftCreateCreateButton)]),
           backgroundColor: const Color(0xFFFABB59),
-          onPressed: () {
+          onPressed: () async {
             if (_handleFormKey.currentState!.validate()) {
               setState(() {
-                onHandlePage = false;
+                isSaving = true;
               });
-              _pageController.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+              await gffftApi.create(GffftSave(
+                name: _titleController.text,
+                description: _descController.text,
+                intro: _descController.text,
+                initialHandle: _handleController.text,
+              ));
             }
           },
         )
@@ -169,23 +186,6 @@ class _GffftCreateScreenState extends State<GffftCreateScreen> {
         child: Form(
             key: _handleFormKey,
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              Row(
-                children: [
-                  SelectableText(
-                    l10n.gffftJoinRules,
-                    style: theme.textTheme.headline3,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Flexible(
-                      child: SelectableText(
-                    "here will be some rules for this gffft.\n  *maybe bullet points\n  *like, no jerks\n  *let users configure this?",
-                    style: theme.textTheme.bodyText1,
-                  ))
-                ],
-              ),
               Row(
                 children: [
                   SelectableText(

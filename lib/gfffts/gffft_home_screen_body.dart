@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gffft/boards/board_home_card.dart';
-import 'package:gffft/calendars/calendar_home_card.dart';
 import 'package:gffft/common/dates.dart';
 import 'package:gffft/galleries/gallery_home_card.dart';
 import 'package:gffft/gfffts/gffft_join_screen.dart';
 import 'package:gffft/gfffts/gffft_membership_screen.dart';
 import 'package:gffft/style/app_theme.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../link_sets/link_set_home_card.dart';
 import '../notebooks/notebook_home_card.dart';

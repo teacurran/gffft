@@ -26,10 +26,10 @@ class CalendarEditCard extends StatelessWidget {
     String calendarWhoCanView = "owner";
     String calendarWhoCanPost = "owner";
 
-    if (gffft.hasFeature("calendar") && gffft.calendars != null && gffft.calendars!.isNotEmpty) {
-      calendarWhoCanView = gffft.calendars!.first.whoCanView;
-      calendarWhoCanPost = gffft.calendars!.first.whoCanPost;
-    }
+    // if (gffft.hasFeature("calendar") && gffft.calendars != null && gffft.calendars!.isNotEmpty) {
+    //   calendarWhoCanView = gffft.calendars!.first.whoCanView;
+    //   calendarWhoCanPost = gffft.calendars!.first.whoCanPost;
+    // }
 
     // hack until drop downs are internationalized
     if (calendarWhoCanPost == "owner") {
