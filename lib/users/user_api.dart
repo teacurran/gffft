@@ -46,7 +46,9 @@ class UserApi extends ApiBase {
     try {
       final response = await get("users/$uid/gfffts/$gid");
       return Gffft.fromJson(response);
-    } catch (e) {
+    } catch (e, s) {
+      print("Exception $e");
+      print("StackTrace $s");
       return null;
     }
   }

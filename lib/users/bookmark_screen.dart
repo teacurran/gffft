@@ -121,8 +121,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
             builderDelegate: PagedChildBuilderDelegate<Bookmark>(
               animateTransitions: true,
               itemBuilder: (context, item, index) => ListTile(
-                  title: Text(item.name),
-                  subtitle: Text(item.name),
+                  title: Text(item.name ?? "unknown"),
+                  subtitle: Text(item.name ?? "unknown"),
                   onTap: () {
                     if (item.gffft != null) {
                       VxNavigator.of(context)

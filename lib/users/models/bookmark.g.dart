@@ -7,7 +7,7 @@ part of 'bookmark.dart';
 // **************************************************************************
 
 Bookmark _$BookmarkFromJson(Map<String, dynamic> json) => Bookmark(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       name: json['name'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
     )..gffft = json['gffft'] == null
