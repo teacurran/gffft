@@ -19,7 +19,6 @@ GffftSave _$GffftSaveFromJson(Map<String, dynamic> json) => GffftSave(
       enableAltHandles: json['enableAltHandles'] as bool? ?? false,
       boardEnabled: json['boardEnabled'] as bool? ?? false,
       galleryEnabled: json['galleryEnabled'] as bool? ?? false,
-      notebookEnabled: json['notebookEnabled'] as bool? ?? false,
       calendarEnabled: json['calendarEnabled'] as bool? ?? false,
       initialHandle: json['initialHandle'] as String?,
     );
@@ -39,5 +38,4 @@ Map<String, dynamic> _$GffftSaveToJson(GffftSave instance) => <String, dynamic>{
       'boardEnabled': instance.boardEnabled,
       'calendarEnabled': instance.calendarEnabled,
       'galleryEnabled': instance.galleryEnabled,
-      'notebookEnabled': instance.notebookEnabled,
     };

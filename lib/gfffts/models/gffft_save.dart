@@ -19,7 +19,6 @@ class GffftSave {
   bool boardEnabled;
   bool calendarEnabled;
   bool galleryEnabled;
-  bool notebookEnabled;
 
   GffftSave(
       {required this.uid,
@@ -34,7 +33,6 @@ class GffftSave {
       this.enableAltHandles = false,
       this.boardEnabled = false,
       this.galleryEnabled = false,
-      this.notebookEnabled = false,
       this.calendarEnabled = false,
       this.initialHandle});
 
