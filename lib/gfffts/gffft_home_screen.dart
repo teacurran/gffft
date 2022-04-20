@@ -76,7 +76,16 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
                       child: GffftHomeScreenBody(gffft: gffft, onGffftChange: _loadGffft)));
             }
           } else {
-            screenBody = const SizedBox(height: 100, width: 100, child: CircularProgressIndicator());
+            screenBody = Center(
+                child: ListView(
+              shrinkWrap: true,
+              children: [
+                Row(
+                  children: const [SizedBox(height: 50, width: 50, child: CircularProgressIndicator())],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                )
+              ],
+            ));
           }
 
           return screenBody;
