@@ -69,13 +69,23 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
             if (gffft == null) {
               screenBody = LoginScreen(onLogin: _loadGffft);
             } else {
-              title = "";
               screenBody = RefreshIndicator(
                   onRefresh: _loadGffft,
                   child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                       child: GffftHomeScreenBody(gffft: gffft, onGffftChange: _loadGffft)));
             }
+          } else {
+            screenBody = Center(
+                child: ListView(
+              shrinkWrap: true,
+              children: [
+                Row(
+                  children: const [SizedBox(height: 50, width: 50, child: CircularProgressIndicator())],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                )
+              ],
+            ));
           }
 
           return screenBody;

@@ -9,7 +9,6 @@ import 'package:gffft/gfffts/gffft_membership_screen.dart';
 import 'package:gffft/style/app_theme.dart';
 
 import '../link_sets/link_set_home_card.dart';
-import '../notebooks/notebook_home_card.dart';
 import '../users/user_api.dart';
 import 'fruit_code_home_card.dart';
 import 'gffft_api.dart';
@@ -74,11 +73,6 @@ class GffftHomeScreenBody extends StatelessWidget {
         actions.add(BoardHomeCard(gffft: gffft, featureRef: featureRef));
       } else if (featureRef.type == "gallery") {
         actions.add(GalleryHomeCard(gffft: gffft, featureRef: featureRef));
-      } else if (featureRef.type == "notebook") {
-        actions.add(NotebookHomeCard(
-          gffft: gffft,
-          featureRef: featureRef,
-        ));
       } else if (featureRef.type == "linkSet") {
         actions.add(LinkSetHomeCard(
           gffft: gffft,

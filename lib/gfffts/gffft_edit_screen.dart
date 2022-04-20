@@ -49,7 +49,6 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
   bool editBoardEnabled = false;
   bool editCalendarEnabled = false;
   bool editGalleryEnabled = false;
-  bool editNotebookEnabled = false;
 
   @override
   void initState() {
@@ -137,7 +136,6 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
           boardEnabled: editBoardEnabled,
           calendarEnabled: editCalendarEnabled,
           galleryEnabled: editGalleryEnabled,
-          notebookEnabled: editNotebookEnabled,
           tags: editTags);
 
       gffftApi.save(gffft).then((value) => Navigator.pop(context)).onError((error, stackTrace) => {
@@ -272,22 +270,6 @@ class _GffftEditScreenState extends State<GffftEditScreen> {
                               falseLabel: l10n.no,
                             ),
                             CardSettingsInstructions(text: l10n.editEnableAltHandlesHint)
-                          ]),
-                      CardSettingsSection(
-                          header: CardSettingsHeader(
-                            label: l10n.editNotebook,
-                            color: theme.primaryColor,
-                          ),
-                          children: <CardSettingsWidget>[
-                            CardSettingsSwitch(
-                              label: l10n.editEnabled,
-                              initialValue: editNotebookEnabled,
-                              onChanged: (value) => setState(() {
-                                editNotebookEnabled = value;
-                              }),
-                              trueLabel: l10n.yes,
-                              falseLabel: l10n.no,
-                            ),
                           ]),
                       CardSettingsSection(
                           header: CardSettingsHeader(

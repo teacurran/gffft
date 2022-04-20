@@ -1,7 +1,6 @@
 import 'package:gffft/boards/models/board.dart';
 import 'package:gffft/galleries/models/gallery.dart';
 import 'package:gffft/gfffts/models/gffft_feature_ref.dart';
-import 'package:gffft/notebooks/models/notebook.dart';
 import 'package:gffft/users/models/bookmark.dart';
 import 'package:gffft/users/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -31,7 +30,6 @@ class Gffft {
   List<GffftFeatureRef>? features;
   List<Board>? boards;
   List<Gallery>? galleries;
-  List<Notebook>? notebooks;
   List<LinkSet>? linkSets;
   GffftMembership? membership;
   Bookmark? bookmark;
@@ -51,7 +49,6 @@ class Gffft {
       this.enableAltHandles = false,
       this.features,
       this.boards,
-      this.notebooks,
       this.linkSets,
       this.membership,
       this.bookmark,

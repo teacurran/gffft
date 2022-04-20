@@ -6,8 +6,7 @@ part of 'gffft_patch_save.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GffftPatchSave _$GffftPatchSaveFromJson(Map<String, dynamic> json) =>
-    GffftPatchSave(
+GffftPatchSave _$GffftPatchSaveFromJson(Map<String, dynamic> json) => GffftPatchSave(
       uid: json['uid'] as String,
       gid: json['gid'] as String,
       name: json['name'] as String?,
@@ -20,8 +19,6 @@ GffftPatchSave _$GffftPatchSaveFromJson(Map<String, dynamic> json) =>
       calendarEnabled: json['calendarEnabled'] as bool?,
       galleryEnabled: json['galleryEnabled'] as bool?,
       linkSetEnabled: json['linkSetEnabled'] as bool?,
-      notebookEnabled: json['notebookEnabled'] as bool?,
-      notebookStyle: json['notebookStyle'] as String?,
       fruitCodeReset: json['fruitCodeReset'] as bool?,
       fruitCodeEnabled: json['fruitCodeEnabled'] as bool?,
     );
@@ -48,8 +45,6 @@ Map<String, dynamic> _$GffftPatchSaveToJson(GffftPatchSave instance) {
   writeNotNull('calendarEnabled', instance.calendarEnabled);
   writeNotNull('galleryEnabled', instance.galleryEnabled);
   writeNotNull('linkSetEnabled', instance.linkSetEnabled);
-  writeNotNull('notebookEnabled', instance.notebookEnabled);
-  writeNotNull('notebookStyle', instance.notebookStyle);
   writeNotNull('fruitCodeReset', instance.fruitCodeReset);
   writeNotNull('fruitCodeEnabled', instance.fruitCodeEnabled);
   return val;
