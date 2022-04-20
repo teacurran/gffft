@@ -69,13 +69,14 @@ class _GffftHomeScreenState extends State<GffftHomeScreen> {
             if (gffft == null) {
               screenBody = LoginScreen(onLogin: _loadGffft);
             } else {
-              title = "";
               screenBody = RefreshIndicator(
                   onRefresh: _loadGffft,
                   child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                       child: GffftHomeScreenBody(gffft: gffft, onGffftChange: _loadGffft)));
             }
+          } else {
+            screenBody = const SizedBox(height: 100, width: 100, child: CircularProgressIndicator());
           }
 
           return screenBody;
