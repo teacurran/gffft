@@ -11,7 +11,6 @@ GffftMembership _$GffftMembershipFromJson(Map<String, dynamic> json) =>
       type: json['type'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       handle: json['handle'] as String?,
-      updateCount: json['updateCount'] as int,
     )..updateCounters = json['updateCounters'] == null
         ? null
         : GffftUpdateCounters.fromJson(
@@ -23,5 +22,4 @@ Map<String, dynamic> _$GffftMembershipToJson(GffftMembership instance) =>
       'createdAt': instance.createdAt.toIso8601String(),
       'handle': instance.handle,
       'updateCounters': instance.updateCounters?.toJson(),
-      'updateCount': instance.updateCount,
     };

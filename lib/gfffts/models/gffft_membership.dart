@@ -10,9 +10,8 @@ class GffftMembership {
   DateTime createdAt;
   String? handle;
   GffftUpdateCounters? updateCounters;
-  int updateCount;
 
-  GffftMembership({required this.type, required this.createdAt, this.handle, required this.updateCount});
+  GffftMembership({required this.type, required this.createdAt, this.handle});
 
   factory GffftMembership.fromJson(Map<String, dynamic> json) => _$GffftMembershipFromJson(json);
   Map<String, dynamic> toJson() => _$GffftMembershipToJson(this);

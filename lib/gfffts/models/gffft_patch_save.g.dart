@@ -6,7 +6,8 @@ part of 'gffft_patch_save.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GffftPatchSave _$GffftPatchSaveFromJson(Map<String, dynamic> json) => GffftPatchSave(
+GffftPatchSave _$GffftPatchSaveFromJson(Map<String, dynamic> json) =>
+    GffftPatchSave(
       uid: json['uid'] as String,
       gid: json['gid'] as String,
       name: json['name'] as String?,

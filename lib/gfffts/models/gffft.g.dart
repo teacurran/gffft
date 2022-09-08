@@ -9,8 +9,11 @@ part of 'gffft.dart';
 Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       uid: json['uid'] as String,
       gid: json['gid'] as String,
-      me: json['me'] == null ? null : User.fromJson(json['me'] as Map<String, dynamic>),
-      fruitCode: (json['fruitCode'] as List<dynamic>).map((e) => e as String).toList(),
+      me: json['me'] == null
+          ? null
+          : User.fromJson(json['me'] as Map<String, dynamic>),
+      fruitCode:
+          (json['fruitCode'] as List<dynamic>).map((e) => e as String).toList(),
       name: json['name'] as String?,
       description: json['description'] as String?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -22,15 +25,24 @@ Gffft _$GffftFromJson(Map<String, dynamic> json) => Gffft(
       features: (json['features'] as List<dynamic>?)
           ?.map((e) => GffftFeatureRef.fromJson(e as Map<String, dynamic>))
           .toList(),
-      boards: (json['boards'] as List<dynamic>?)?.map((e) => Board.fromJson(e as Map<String, dynamic>)).toList(),
-      linkSets: (json['linkSets'] as List<dynamic>?)?.map((e) => LinkSet.fromJson(e as Map<String, dynamic>)).toList(),
-      membership:
-          json['membership'] == null ? null : GffftMembership.fromJson(json['membership'] as Map<String, dynamic>),
-      bookmark: json['bookmark'] == null ? null : Bookmark.fromJson(json['bookmark'] as Map<String, dynamic>),
+      boards: (json['boards'] as List<dynamic>?)
+          ?.map((e) => Board.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      linkSets: (json['linkSets'] as List<dynamic>?)
+          ?.map((e) => LinkSet.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      membership: json['membership'] == null
+          ? null
+          : GffftMembership.fromJson(
+              json['membership'] as Map<String, dynamic>),
+      bookmark: json['bookmark'] == null
+          ? null
+          : Bookmark.fromJson(json['bookmark'] as Map<String, dynamic>),
       rareFruits: json['rareFruits'] as int? ?? 0,
       ultraRareFruits: json['ultraRareFruits'] as int? ?? 0,
-    )..galleries =
-        (json['galleries'] as List<dynamic>?)?.map((e) => Gallery.fromJson(e as Map<String, dynamic>)).toList();
+    )..galleries = (json['galleries'] as List<dynamic>?)
+        ?.map((e) => Gallery.fromJson(e as Map<String, dynamic>))
+        .toList();
 
 Map<String, dynamic> _$GffftToJson(Gffft instance) => <String, dynamic>{
       'uid': instance.uid,
