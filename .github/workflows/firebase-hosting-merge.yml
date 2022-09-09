@@ -41,7 +41,7 @@ jobs:
 
       - name: Create file
         run: |
-          echo "API_BASE_URL=https://us-central1-gffft-auth.cloudfunctions.net/api/" > .env
+          echo "API_BASE_URL=https://gffft-auth.appspot.com/api/" > .env
           echo "EMULATE_AUTH=false" >> .env
           echo "EMULATE_FIRESTORE=false" >> .env
       - uses: subosito/flutter-action@v1

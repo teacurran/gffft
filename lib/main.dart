@@ -67,11 +67,6 @@ Future<void> main() async {
   }
   //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  if (dotenv.get("EMULATE_FIRESTORE", fallback: "false") == "true") {
-    FirebaseFirestore.instance.settings = Settings(
-        host: dotenv.get('FIRESTORE_HOST', fallback: 'localhost:8080'), sslEnabled: false, persistenceEnabled: true);
-  }
-
   if (dotenv.get("EMULATE_AUTH", fallback: "false") == "true") {
     if (kDebugMode) {
       print('using emulated firebase auth at: localhost, port: 9099');

@@ -191,7 +191,9 @@ class ApiBase {
   dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
-        var responseJson = json.decode(response.body.toString());
+        var responseBody = response.body.toString();
+        print("res: $responseBody");
+        var responseJson = json.decode(responseBody);
         if (kDebugMode) {
           print(responseJson);
         }
