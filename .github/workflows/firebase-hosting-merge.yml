@@ -46,7 +46,7 @@ jobs:
           echo "EMULATE_FIRESTORE=false" >> .env
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: '2.10.2'
+          flutter-version: '3.3.0'
       - run: flutter pub get
       - run: flutter build web --source-maps --release
       - name: Installing minifier
