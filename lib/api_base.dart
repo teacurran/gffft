@@ -192,11 +192,10 @@ class ApiBase {
     switch (response.statusCode) {
       case 200:
         var responseBody = response.body.toString();
-        print("res: $responseBody");
-        var responseJson = json.decode(responseBody);
         if (kDebugMode) {
-          print(responseJson);
+          print(responseBody);
         }
+        var responseJson = json.decode(responseBody);
         return responseJson;
       case 204:
         return null;
